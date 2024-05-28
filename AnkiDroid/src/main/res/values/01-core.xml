@@ -69,6 +69,8 @@
     <string name="move_all_to_deck">Move all to deck</string>
     <string name="unbury">Unbury</string>
     <string name="rename_deck">Rename deck</string>
+    <string name="mark_favourite">Mark Favourite</string>
+    <string name="mark_unfavourite">Mark Unfavourite</string>
     <string name="create_shortcut">Create shortcut</string>
     <string name="browse_cards">Browse cards</string>
     <string name="edit_deck_description" comment="edit the deck description">Edit description</string>

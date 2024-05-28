@@ -76,6 +76,11 @@ class DeckPickerContextMenu : AnalyticsDialogFragment() {
             if (!dyn) {
                 add(DeckPickerContextMenuOption.EDIT_DESCRIPTION)
             }
+            if (!dyn) {
+                add(DeckPickerContextMenuOption.MARK_FAVOURITE)
+            } else {
+                add(DeckPickerContextMenuOption.MARK_UNFAVOURITE)
+            }
             add(DeckPickerContextMenuOption.DELETE_DECK)
         }
 
@@ -92,7 +97,9 @@ class DeckPickerContextMenu : AnalyticsDialogFragment() {
         CREATE_SHORTCUT(R.string.create_shortcut),
         BROWSE_CARDS(R.string.browse_cards),
         EDIT_DESCRIPTION(R.string.edit_deck_description),
-        ADD_CARD(R.string.menu_add);
+        ADD_CARD(R.string.menu_add),
+        MARK_FAVOURITE(R.string.mark_favourite),
+        MARK_UNFAVOURITE(R.string.mark_unfavourite);
     }
 
     companion object {
