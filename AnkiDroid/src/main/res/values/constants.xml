@@ -331,6 +331,11 @@
     <string name="deck2Learn_deck_picker_widget">10</string>
     <string name="deck3Learn_deck_picker_widget">5</string>
 
+    <!--  sample properties for Card Analysis Extra Widget layout in widget picker screen -->
+    <string name="deckNew_card_analysis_extra_widget">50</string>
+    <string name="deckDue_card_analysis_extra_widget">1200</string>
+    <string name="deckLearn_card_analysis_extra_widget">57</string>
+
     <!-- Multimedia UI -->
     <string name="new_multimedia_ui">New multimedia UI</string>
 </resources>

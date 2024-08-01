@@ -1,18 +1,17 @@
 /*
- *  Copyright (c) 2024 Anoop <xenonnn4w@gmail.com>
- *
- *  This program is free software; you can redistribute it and/or modify it under
- *  the terms of the GNU General Public License as published by the Free Software
- *  Foundation; either version 3 of the License, or (at your option) any later
- *  version.
- *
- *  This program is distributed in the hope that it will be useful, but WITHOUT ANY
- *  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
- *  PARTICULAR PURPOSE. See the GNU General Public License for more details.
- *
- *  You should have received a copy of the GNU General Public License along with
- *  this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+   Copyright (c) 2024 Anoop <xenonnn4w@gmail.com>
+This program is free software; you can redistribute it and/or modify it under
+*  the terms of the GNU General Public License as published by the Free Software
+*  Foundation; either version 3 of the License, or (at your option) any later
+*  version.
+*
+*  This program is distributed in the hope that it will be useful, but WITHOUT ANY
+*  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A
+*  PARTICULAR PURPOSE. See the GNU General Public License for more details.
+*
+*  You should have received a copy of the GNU General Public License along with
+*  this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
 
 package com.ichi2.widget
 
@@ -24,7 +23,6 @@ import android.content.Intent
 import android.os.SystemClock
 import android.widget.RemoteViews
 import com.ichi2.anki.AnkiDroidApp.Companion.applicationScope
-import com.ichi2.anki.CollectionManager.withCol
 import com.ichi2.anki.R
 import com.ichi2.anki.analytics.UsageAnalytics
 import kotlinx.coroutines.Dispatchers
@@ -33,32 +31,14 @@ import timber.log.Timber
 import kotlin.time.Duration.Companion.seconds
 
 /**
- * Data class representing the data for a deck displayed in the widget.
- *
- * @property deckId The ID of the deck.
- * @property name The name of the deck.
- * @property reviewCount The number of cards due for review.
- * @property learnCount The number of cards in the learning phase.
- * @property newCount The number of new cards.
- */
-data class DeckPickerWidgetData(
-    val deckId: Long,
-    val name: String,
-    val reviewCount: Int,
-    val learnCount: Int,
-    val newCount: Int
-)
-
-/**
- * AnalyticsWidgetProvider class for Deck Picker Widget that integrates
+ * AnalyticsWidgetProvider class for Card Analysis Widget that integrates
  * with UsageAnalytics to send analytics events when the widget is enabled, disabled,
  * or updated..
- * This widget displays a list of decks with their respective new, learning, and review card counts.
+ * This widget displays a decks with respective name, new, learning, and review card counts.
  * It updates every minute .
- * It can be resized vertically & horizontally.
  * No user actions can be performed from this widget as of now; it is for display purposes only.
  */
-class DeckPickerWidget : AnalyticsWidgetProvider() {
+class CardAnalysisExtraWidget : AnalyticsWidgetProvider() {
 
     companion object {
         const val ACTION_APPWIDGET_UPDATE = AppWidgetManager.ACTION_APPWIDGET_UPDATE
@@ -78,22 +58,17 @@ class DeckPickerWidget : AnalyticsWidgetProvider() {
             widgetId: IntArray,
             deckIds: LongArray
         ) {
-            val remoteViews = RemoteViews(context.packageName, R.layout.widget_deck_picker_large)
+            val remoteViews = RemoteViews(context.packageName, R.layout.widget_card_analysis_extra)
 
-            applicationScope.launch(Dispatchers.IO) {
+            applicationScope.launch(Dispatchers.Main) {
                 val deckData = getDeckNameAndStats(deckIds.toList())
 
-                remoteViews.removeAllViews(R.id.deckCollection)
-
-                for (deck in deckData) {
-                    val deckView = RemoteViews(context.packageName, R.layout.widget_item_deck_main)
-
-                    deckView.setTextViewText(R.id.deckName, deck.name)
-                    deckView.setTextViewText(R.id.deckNew, deck.newCount.toString())
-                    deckView.setTextViewText(R.id.deckDue, deck.reviewCount.toString())
-                    deckView.setTextViewText(R.id.deckLearn, deck.learnCount.toString())
-
-                    remoteViews.addView(R.id.deckCollection, deckView)
+                if (deckData.isNotEmpty()) {
+                    val deck = deckData[0]
+                    remoteViews.setTextViewText(R.id.deckNameCardAnalysisExtra, deck.name)
+                    remoteViews.setTextViewText(R.id.deckNew_card_analysis_extra_widget, deck.newCount.toString())
+                    remoteViews.setTextViewText(R.id.deckDue_card_analysis_extra_widget, deck.reviewCount.toString())
+                    remoteViews.setTextViewText(R.id.deckLearn_card_analysis_extra_widget, deck.learnCount.toString())
                 }
                 appWidgetManager.updateAppWidget(widgetId, remoteViews)
             }
@@ -107,7 +82,7 @@ class DeckPickerWidget : AnalyticsWidgetProvider() {
          */
         private fun setRecurringAlarm(context: Context, appWidgetId: Int) {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            val intent = Intent(context, DeckPickerWidget::class.java).apply {
+            val intent = Intent(context, CardAnalysisExtraWidget::class.java).apply {
                 action = ACTION_UPDATE_WIDGET
                 putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             }
@@ -146,7 +121,7 @@ class DeckPickerWidget : AnalyticsWidgetProvider() {
          */
         private fun cancelRecurringAlarm(context: Context, appWidgetId: Int) {
             val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            val intent = Intent(context, DeckPickerWidget::class.java).apply {
+            val intent = Intent(context, CardAnalysisExtraWidget::class.java).apply {
                 action = ACTION_UPDATE_WIDGET
                 putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             }
@@ -165,7 +140,7 @@ class DeckPickerWidget : AnalyticsWidgetProvider() {
         val widgetPreferences = WidgetPreferences(context)
 
         for (widgetId in appWidgetIds) {
-            val selectedDeckIds = widgetPreferences.getSelectedDeckIdsFromPreferencesDeckPickerWidgetData(widgetId)
+            val selectedDeckIds = widgetPreferences.getSelectedDeckIdsFromPreferencesCardAnalysisExtraWidgetData(widgetId)
             if (selectedDeckIds.isNotEmpty()) {
                 updateWidget(context, appWidgetManager, intArrayOf(widgetId), selectedDeckIds)
             }
@@ -186,7 +161,7 @@ class DeckPickerWidget : AnalyticsWidgetProvider() {
             ACTION_APPWIDGET_UPDATE -> {
                 val appWidgetManager = AppWidgetManager.getInstance(context)
                 val appWidgetIds = intent.getIntArrayExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS)
-                val selectedDeckIds = intent.getLongArrayExtra("deck_picker_widget_selected_deck_ids")
+                val selectedDeckIds = intent.getLongArrayExtra("card_analysis_extra_widget_selected_deck_ids")
 
                 if (appWidgetIds != null && selectedDeckIds != null) {
                     updateWidget(context, appWidgetManager, appWidgetIds, selectedDeckIds)
@@ -196,7 +171,7 @@ class DeckPickerWidget : AnalyticsWidgetProvider() {
                 val appWidgetManager = AppWidgetManager.getInstance(context)
                 val appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID)
                 if (appWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
-                    val selectedDeckIds = widgetPreferences.getSelectedDeckIdsFromPreferencesDeckPickerWidgetData(appWidgetId)
+                    val selectedDeckIds = widgetPreferences.getSelectedDeckIdsFromPreferencesCardAnalysisExtraWidgetData(appWidgetId)
                     if (selectedDeckIds.isNotEmpty()) {
                         updateWidget(context, appWidgetManager, intArrayOf(appWidgetId), selectedDeckIds)
                     }
@@ -217,36 +192,4 @@ class DeckPickerWidget : AnalyticsWidgetProvider() {
             cancelRecurringAlarm(context!!, widgetId)
         }
     }
-}
-
-/**
- * This function takes a list of deck IDs and returns a list of data objects containing
- * the deck name and statistics (review, learn, and new counts) for each specified deck.
- * It fetches the entire deck tree, filters it to include only the specified deck IDs,
- * and maps the relevant data to the output list, ensuring the order matches the input list.
- * Currently used in DeckPickerWidget and CardAnalysisExtraWidget.
- *
- * @param deckIds the list of deck IDs to retrieve data for
- * @return a list of DeckPickerWidgetData objects containing deck names and statistics
- */
-suspend fun getDeckNameAndStats(deckIds: List<Long>): List<DeckPickerWidgetData> {
-    val result = mutableListOf<DeckPickerWidgetData>()
-
-    val deckTree = withCol { sched.deckDueTree() }
-
-    deckTree.forEach { node ->
-        if (node.did !in deckIds) return@forEach
-        result.add(
-            DeckPickerWidgetData(
-                deckId = node.did,
-                name = node.lastDeckNameComponent,
-                reviewCount = node.revCount,
-                learnCount = node.lrnCount,
-                newCount = node.newCount
-            )
-        )
-    }
-
-    val deckIdToData = result.associateBy { it.deckId }
-    return deckIds.mapNotNull { deckIdToData[it] }
 }
