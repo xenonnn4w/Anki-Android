@@ -25,6 +25,7 @@ import com.ichi2.anki.noteeditor.NoteEditorLauncher
 class AddNoteWidget : AnalyticsWidgetProvider() {
 
     override fun performUpdate(
+
         context: Context,
         appWidgetManager: AppWidgetManager,
         appWidgetIds: IntArray,
