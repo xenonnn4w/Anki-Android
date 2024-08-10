@@ -48,6 +48,10 @@
     <string name="check_db_warning">Có thể hơi lâu</string>
     <string name="contextmenu_deckpicker_delete_deck">Xoá bộ thẻ</string>
     <string name="delete_deck_title">Xoá bộ thẻ?</string>
+    <plurals name="delete_deck_message">
+        <item quantity="other">Delete all cards in %1$s? It contains %2$d cards</item>
+    </plurals>
+    <string name="delete_cram_deck_message">Delete filtered deck %s and send all cards back to their original decks?</string>
     <string name="no_tts_available_message">Không có ngôn ngữ chuyển-văn-bản-thành-lời</string>
     <string name="tts_no_tts">Đừng phát âm</string>
     <string name="unused_strings">\n\nUnused files:\n</string>
@@ -60,10 +64,6 @@
     <string name="reset_card_dialog_title">Đặt lại tiến trình thẻ</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="other">đặt lại thẻ %d</item>
-    </plurals>
-    <!-- Reschedule Card Dialog -->
-    <plurals name="reschedule_cards_dialog_acknowledge">
-        <item quantity="other">%d thẻ được lên lịch lại</item>
     </plurals>
     <string name="answering_error_title">Lỗi cơ sở dữ liệu</string>
     <string name="answering_error_message">Ghi vào bộ sưu tập không thành công. Cơ sở dữ liệu có thể bị hỏng hoặc có thể không có đủ dung lượng trống.\n\nNếu điều này xảy ra thường xuyên hơn, hãy thử kiểm tra cơ sở dữ liệu, sửa chữa bộ sưu tập hoặc khôi phục nó từ bản sao lưu. Chạm vào “tùy chọn” cho điều đó. \n\Hoặc nó cũng có thể là lỗi AnkiDroid; vui lòng thông báo lỗi để chúng tôi có thể kiểm tra điều này.</string>
@@ -138,7 +138,6 @@
     <string name="multimedia_editor_failed">Không mở được Trình chỉnh sửa Đa phương tiện</string>
     <!-- Multimedia - Audio View -->
     <string name="multimedia_editor_audio_permission_denied">Quyền ghi âm bị từ chối</string>
-    <string name="mutimedia_editor_assertion_failed">Đã xảy ra lỗi không xác định khi hiển thị Trình chỉnh sửa nâng cao</string>
     <!-- Database Integrity Check -->
     <string name="integrity_check_startup_title">AnkiDroid đã cập nhật</string>
     <string name="integrity_check_startup_content">AnkiDroid đã được nâng cấp. Bản nâng cấp này bao gồm các bản sửa lỗi cho các sự cố cơ sở dữ liệu có thể xảy ra và chúng tôi khuyên bạn nên chạy kiểm tra cơ sở dữ liệu ngay bây giờ.</string>
@@ -251,6 +250,8 @@
     <string name="cloze_note_required">Cloze Type Note Required</string>
     <string name="cloze_not_found_message">No Cloze type note found, open the Note Editor or try again after adding a Cloze type note.</string>
     <string name="open">Open</string>
+    <string name="change_cloze_number">Change cloze number</string>
+    <string name="cloze_number">Cloze number:</string>
     <!-- Outdated WebView dialog -->
     <string name="webview_update_message">The system WebView is outdated. Some features won’t work correctly. Please update it.\n\nInstalled version: %1$d\nMinimum required version: %2$d</string>
 </resources>

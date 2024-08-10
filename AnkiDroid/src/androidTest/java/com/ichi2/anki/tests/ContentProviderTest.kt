@@ -23,6 +23,7 @@ import android.content.ContentUris
 import android.content.ContentValues
 import android.database.CursorWindow
 import android.net.Uri
+import anki.notetypes.StockNotetype
 import com.ichi2.anki.AbstractFlashcardViewer
 import com.ichi2.anki.CollectionManager
 import com.ichi2.anki.FlashCardsContract
@@ -30,24 +31,39 @@ import com.ichi2.anki.provider.pureAnswer
 import com.ichi2.anki.testutil.DatabaseUtils.cursorFillWindow
 import com.ichi2.anki.testutil.GrantStoragePermission.storagePermission
 import com.ichi2.anki.testutil.grantPermissions
-import com.ichi2.libanki.*
+import com.ichi2.libanki.Card
+import com.ichi2.libanki.Consts
+import com.ichi2.libanki.Decks
+import com.ichi2.libanki.Note
+import com.ichi2.libanki.NotetypeJson
+import com.ichi2.libanki.Notetypes
+import com.ichi2.libanki.Utils
+import com.ichi2.libanki.addNotetypeLegacy
+import com.ichi2.libanki.backend.BackendUtils
 import com.ichi2.libanki.exception.ConfirmModSchemaException
+import com.ichi2.libanki.getStockNotetypeLegacy
 import com.ichi2.libanki.sched.Scheduler
+import com.ichi2.libanki.utils.set
 import com.ichi2.testutils.common.assertThrows
 import com.ichi2.utils.KotlinCleanup
 import com.ichi2.utils.emptyStringArray
 import net.ankiweb.rsdroid.exceptions.BackendNotFoundException
-import org.hamcrest.MatcherAssert.*
-import org.hamcrest.Matchers.*
+import org.hamcrest.MatcherAssert.assertThat
+import org.hamcrest.Matchers.containsString
+import org.hamcrest.Matchers.equalTo
+import org.hamcrest.Matchers.greaterThan
+import org.hamcrest.Matchers.greaterThanOrEqualTo
 import org.json.JSONObject
-import org.junit.*
+import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNotEquals
 import org.junit.Assert.assertTrue
 import org.junit.Assert.fail
-import org.junit.Assume.*
+import org.junit.Assume.assumeTrue
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 import timber.log.Timber
-import java.util.*
 import kotlin.test.assertNotNull
 import kotlin.test.junit.JUnitAsserter.assertNotNull
 
@@ -83,7 +99,7 @@ class ContentProviderTest : InstrumentedTest() {
         createdNotes = ArrayList()
         tearDown = true
         // Add a new basic model that we use for testing purposes (existing models could potentially be corrupted)
-        val model = StdModels.BASIC_MODEL.add(col, BASIC_MODEL_NAME)
+        val model = createBasicModel()
         modelId = model.getLong("id")
         val fields = model.fieldsNames
         // Use the names of the fields as test values for the notes which will be added
@@ -109,6 +125,14 @@ class ContentProviderTest : InstrumentedTest() {
         }
         // Add a note to the default deck as well so that testQueryNextCard() works
         createdNotes.add(setupNewNote(col, modelId, 1, dummyFields, TEST_TAG))
+    }
+
+    private fun createBasicModel(name: String = BASIC_MODEL_NAME): NotetypeJson {
+        val m = BackendUtils.fromJsonBytes(
+            col.getStockNotetypeLegacy(StockNotetype.Kind.KIND_BASIC)
+        ).apply { set("name", name) }
+        col.addNotetypeLegacy(BackendUtils.toJsonBytes(m))
+        return col.notetypes.byName(name)!!
     }
 
     /**
@@ -246,7 +270,7 @@ class ContentProviderTest : InstrumentedTest() {
         val cr = contentResolver
         var col = col
         // Add a new basic model that we use for testing purposes (existing models could potentially be corrupted)
-        var model: NotetypeJson? = StdModels.BASIC_MODEL.add(col, BASIC_MODEL_NAME)
+        var model: NotetypeJson? = createBasicModel()
         val modelId = model!!.getLong("id")
         // Add the note
         val modelUri = ContentUris.withAppendedId(FlashCardsContract.Model.CONTENT_URI, modelId)
@@ -300,7 +324,7 @@ class ContentProviderTest : InstrumentedTest() {
         // Get required objects for test
         val cr = contentResolver
         var col = col
-        var model: NotetypeJson? = StdModels.BASIC_MODEL.add(col, BASIC_MODEL_NAME)
+        var model: NotetypeJson? = createBasicModel()
         val modelId = model!!.getLong("id")
         val initialFieldsArr = model.getJSONArray("flds")
         val initialFieldCount = initialFieldsArr.length()

@@ -99,7 +99,7 @@
     <string name="gestures_corner_touch_summary">Permitir gestos de toque nos cantos da tela</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Painel de navegação em tela cheia</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Abrir painel de navegação ao ser deslizado de qualquer lugar da tela</string>
-    <string name="gestures_none" maxLength="41">Nenhuma</string>
+    <string name="gestures_none" maxLength="41" comment="No gestures">Nenhuma</string>
     <string name="gestures_swipe_up" maxLength="41">Deslizar para cima</string>
     <string name="gestures_swipe_down" maxLength="41">Deslizar para baixo</string>
     <string name="gestures_swipe_left" maxLength="41">Deslizar à esquerda</string>
@@ -164,14 +164,14 @@
     <string name="vertical_centering_summ">Centralizar o conteúdo dos cards verticalmente</string>
     <string name="pref_double_tap_time_interval" maxLength="41">Intervalo de toque duplo (milissegundos)</string>
     <string name="pref_double_tap_time_interval_summary">Um segundo toque nos botões de resposta será ignorado se esse intervalo não tiver decorrido. Isso evita toques duplos acidentais</string>
-    <string name="pref_show_answer_long_press_time" maxLength="41">Show answer long-press time</string>
-    <string name="pref_show_answer_long_press_time_summary">Minimum pressing time before the show answer button registers a touch.</string>
+    <string name="pref_show_answer_long_press_time" maxLength="41">Duração do toque longo para mostrar a resposta</string>
+    <string name="pref_show_answer_long_press_time_summary">Tempo mínimo de pressionamento para ativar o botão Mostrar resposta</string>
     <string name="show_estimates" maxLength="41">Mostrar o tempo no botão</string>
     <string name="show_estimates_summ">Mostrar a próxima revisão acima dos botões de resposta</string>
     <string name="show_large_answer_buttons" maxLength="41">Mostrar botões de resposta grandes</string>
     <string name="show_large_answer_buttons_summ">Mostrar botão de resposta em 2 linhas</string>
     <string name="show_top_bar" maxLength="41">Mostrar barra superior</string>
-    <string name="show_top_bar_summ">Mostrar contagem de cards, sinalização e marca na barra superior</string>
+    <string name="show_top_bar_summ">Mostrar contagem de cartas, bandeira e marcações na barra superior</string>
     <string name="show_progress" maxLength="41">Mostar restantes</string>
     <string name="show_progress_summ">Mostrar contagem de cards restantes</string>
     <string name="show_eta" maxLength="41">Mostrar tempo restante estimado</string>
@@ -219,7 +219,7 @@
         <a href="%s">Saiba mais</a>
         ]]></string>
     <string name="custom_sync_server_base_url_title" maxLength="41">Url de sincronismo</string>
-    <string name="custom_sync_certificate_title" maxLength="41">Custom root certificate (PEM)</string>
+    <string name="custom_sync_certificate_title" maxLength="41">Certificado personalizado (PEM)</string>
     <!-- Key Bindings -->
     <string name="keyboard">Teclado</string>
     <string name="bluetooth">Bluetooth</string>
@@ -360,4 +360,11 @@
     <string name="pref__etc__snackbar__fetching" comment="Generic snackbar message to be shown when user taps on a preference,         the value of which is being fetched">Buscando&#8230;</string>
     <string name="pref__etc__snackbar__calculating" comment="Generic snackbar message to be shown when user taps on a preference,         the value of which, such as folder size on disk, is being calculated">Calculando&#8230;</string>
     <string name="pref__etc__snackbar__no_collection" comment="Generic snackbar message to be shown when user taps on a preference         that is not usable because the collection does not exist">A coleção não existe</string>
+    <string name="hide_system_bars" maxLength="41" comment="Title of a setting that allows to hide the system bars">Ocultar barras do sistema</string>
+    <string name="hide_system_bars_none" comment="Setting option to not hide any of the system bars">None</string>
+    <string name="hide_system_bars_status_bar" comment="Setting option to hide the system status bar (the top one with clock, battery status, etc)">Barra de status</string>
+    <string name="hide_system_bars_navigation_bar" comment="Setting option to hide the system navigation bar (the bottom one that can go back, to home, etc)">Barra de navegação</string>
+    <string name="hide_system_bars_all_bars" comment="Setting option to hide all the system bars">All</string>
+    <string name="ignore_display_cutout" maxLength="41">Ignore display cutout</string>
+    <string name="hide_answer_buttons" maxLength="41">Ocultar botões de resposta</string>
 </resources>

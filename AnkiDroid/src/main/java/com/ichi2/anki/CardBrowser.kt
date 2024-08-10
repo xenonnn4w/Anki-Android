@@ -18,14 +18,32 @@
 
 package com.ichi2.anki
 
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.DialogInterface
+import android.content.Intent
+import android.content.IntentFilter
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.SystemClock
 import android.text.TextUtils
 import android.util.TypedValue
-import android.view.*
-import android.widget.*
+import android.view.KeyEvent
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.view.SubMenu
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowManager
+import android.widget.AbsListView
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.BaseAdapter
+import android.widget.CheckBox
+import android.widget.ListView
+import android.widget.Spinner
+import android.widget.TextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult
 import androidx.annotation.CheckResult
@@ -47,19 +65,24 @@ import com.ichi2.anki.browser.CardBrowserColumn.Companion.COLUMN1_KEYS
 import com.ichi2.anki.browser.CardBrowserColumn.Companion.COLUMN2_KEYS
 import com.ichi2.anki.browser.CardBrowserLaunchOptions
 import com.ichi2.anki.browser.CardBrowserViewModel
-import com.ichi2.anki.browser.CardBrowserViewModel.*
+import com.ichi2.anki.browser.CardBrowserViewModel.SearchState
 import com.ichi2.anki.browser.PreviewerIdsFile
 import com.ichi2.anki.browser.SaveSearchResult
 import com.ichi2.anki.browser.SharedPreferencesLastDeckIdRepository
 import com.ichi2.anki.browser.getLabel
 import com.ichi2.anki.browser.toCardBrowserLaunchOptions
 import com.ichi2.anki.common.utils.android.isRobolectric
-import com.ichi2.anki.dialogs.*
+import com.ichi2.anki.dialogs.BrowserOptionsDialog
+import com.ichi2.anki.dialogs.CardBrowserMySearchesDialog
 import com.ichi2.anki.dialogs.CardBrowserMySearchesDialog.Companion.newInstance
 import com.ichi2.anki.dialogs.CardBrowserMySearchesDialog.MySearchesDialogListener
+import com.ichi2.anki.dialogs.CardBrowserOrderDialog
+import com.ichi2.anki.dialogs.DeckSelectionDialog
 import com.ichi2.anki.dialogs.DeckSelectionDialog.Companion.newInstance
 import com.ichi2.anki.dialogs.DeckSelectionDialog.DeckSelectionListener
 import com.ichi2.anki.dialogs.DeckSelectionDialog.SelectableDeck
+import com.ichi2.anki.dialogs.IntegerDialog
+import com.ichi2.anki.dialogs.SimpleMessageDialog
 import com.ichi2.anki.dialogs.tags.TagsDialog
 import com.ichi2.anki.dialogs.tags.TagsDialogFactory
 import com.ichi2.anki.dialogs.tags.TagsDialogListener
@@ -69,10 +92,10 @@ import com.ichi2.anki.export.ExportDialogsFactory
 import com.ichi2.anki.export.ExportDialogsFactoryProvider
 import com.ichi2.anki.model.CardStateFilter
 import com.ichi2.anki.model.CardsOrNotes
-import com.ichi2.anki.model.CardsOrNotes.*
+import com.ichi2.anki.model.CardsOrNotes.CARDS
+import com.ichi2.anki.model.CardsOrNotes.NOTES
 import com.ichi2.anki.model.SortType
-import com.ichi2.anki.noteeditor.EditCardDestination
-import com.ichi2.anki.noteeditor.toIntent
+import com.ichi2.anki.noteeditor.NoteEditorLauncher
 import com.ichi2.anki.preferences.sharedPrefs
 import com.ichi2.anki.previewer.PreviewerFragment
 import com.ichi2.anki.receiver.SdCardReceiver
@@ -91,16 +114,32 @@ import com.ichi2.anki.utils.ext.ifNotZero
 import com.ichi2.anki.utils.roundedTimeSpanUnformatted
 import com.ichi2.anki.widgets.DeckDropDownAdapter.SubtitleListener
 import com.ichi2.annotations.NeedsTest
-import com.ichi2.async.*
+import com.ichi2.async.renderBrowserQA
 import com.ichi2.compat.CompatHelper.Companion.registerReceiverCompat
-import com.ichi2.libanki.*
+import com.ichi2.libanki.Card
+import com.ichi2.libanki.CardId
+import com.ichi2.libanki.ChangeManager
 import com.ichi2.libanki.Collection
+import com.ichi2.libanki.Consts
+import com.ichi2.libanki.DeckId
+import com.ichi2.libanki.DeckNameId
+import com.ichi2.libanki.NoteId
+import com.ichi2.libanki.SortOrder
+import com.ichi2.libanki.Sound
+import com.ichi2.libanki.TemplateManager
+import com.ichi2.libanki.Utils
+import com.ichi2.libanki.setTagsFromStr
+import com.ichi2.libanki.stripAvRefs
+import com.ichi2.libanki.undoableOp
 import com.ichi2.libanki.utils.TimeManager
 import com.ichi2.ui.CardBrowserSearchView
 import com.ichi2.ui.FixedTextView
-import com.ichi2.utils.*
+import com.ichi2.utils.HandlerUtils
 import com.ichi2.utils.HandlerUtils.postDelayedOnNewHandler
+import com.ichi2.utils.KotlinCleanup
+import com.ichi2.utils.LanguageUtil
 import com.ichi2.utils.TagsUtil.getUpdatedTags
+import com.ichi2.utils.increaseHorizontalPaddingOfOverflowMenuIcons
 import com.ichi2.widget.WidgetStatus.updateInBackground
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -110,7 +149,6 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import net.ankiweb.rsdroid.RustCleanup
 import timber.log.Timber
-import java.util.*
 import kotlin.math.abs
 import kotlin.math.ceil
 
@@ -612,6 +650,9 @@ open class CardBrowser :
                     Timber.i("Ctrl+E: Add Note")
                     launchCatchingTask { addNoteFromCardBrowser() }
                     return true
+                } else {
+                    Timber.i("E: Edit note")
+                    openNoteEditorForCurrentlySelectedNote()
                 }
             }
             KeyEvent.KEYCODE_D -> {
@@ -674,16 +715,37 @@ open class CardBrowser :
     @NeedsTest("I/O edits are saved")
     private fun openNoteEditorForCard(cardId: CardId) {
         currentCardId = cardId
-        val intent = EditCardDestination(currentCardId).toIntent(this, animation = Direction.DEFAULT)
+        val intent = NoteEditorLauncher.EditCard(currentCardId, Direction.DEFAULT).getIntent(this)
         onEditCardActivityResult.launch(intent)
         // #6432 - FIXME - onCreateOptionsMenu crashes if receiving an activity result from edit card when in multiselect
         viewModel.endMultiSelectMode()
     }
 
+    /**
+     * In case of selection, the first card that was selected, otherwise the first card of the list.
+     */
+    private suspend fun getCardIdForNoteEditor(): CardId {
+        // Just select the first one if there's a multiselect occurring.
+        return if (viewModel.isInMultiSelectMode) {
+            viewModel.querySelectedCardIdAtPosition(0)
+        } else {
+            viewModel.getRowAtPosition(0).id
+        }
+    }
+
     private fun openNoteEditorForCurrentlySelectedNote() = launchCatchingTask {
+        // Check whether the deck is empty
+        if (viewModel.rowCount == 0) {
+            showSnackbar(
+                R.string.no_note_to_edit,
+                Snackbar.LENGTH_LONG
+            )
+            return@launchCatchingTask
+        }
+
         try {
-            // Just select the first one. It doesn't particularly matter if there's a multiselect occurring.
-            openNoteEditorForCard(viewModel.querySelectedCardIdAtPosition(0))
+            val cardId = getCardIdForNoteEditor()
+            openNoteEditorForCard(cardId)
         } catch (e: Exception) {
             Timber.w(e, "Error Opening Note Editor")
             showSnackbar(
@@ -2183,13 +2245,7 @@ open class CardBrowser :
 
         @VisibleForTesting
         fun createAddNoteIntent(context: Context, viewModel: CardBrowserViewModel): Intent {
-            val intent = Intent(context, NoteEditor::class.java)
-            intent.putExtra(NoteEditor.EXTRA_CALLER, NoteEditor.CALLER_CARDBROWSER_ADD)
-            if (viewModel.lastDeckId?.let { id -> id > 0 } == true) {
-                intent.putExtra(NoteEditor.EXTRA_DID, viewModel.lastDeckId)
-            }
-            intent.putExtra(NoteEditor.EXTRA_TEXT_FROM_SEARCH_VIEW, viewModel.searchTerms)
-            return intent
+            return NoteEditorLauncher.AddNoteFromCardBrowser(viewModel).getIntent(context)
         }
 
         @CheckResult

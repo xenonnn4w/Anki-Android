@@ -19,8 +19,8 @@ import android.app.Application
 import android.content.Intent
 import android.view.Menu
 import androidx.annotation.CheckResult
-import androidx.core.content.IntentCompat
 import androidx.core.content.edit
+import androidx.core.os.BundleCompat
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -46,13 +46,17 @@ import com.ichi2.libanki.utils.TimeManager
 import com.ichi2.testutils.MockTime
 import com.ichi2.testutils.common.Flaky
 import com.ichi2.testutils.common.OS
+import com.ichi2.utils.BASIC_MODEL_NAME
 import com.ichi2.utils.KotlinCleanup
 import com.ichi2.utils.deepClone
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.Matchers.*
+import org.hamcrest.Matchers.containsString
+import org.hamcrest.Matchers.empty
+import org.hamcrest.Matchers.equalTo
+import org.hamcrest.Matchers.not
 import org.json.JSONArray
 import org.junit.Ignore
 import org.junit.Test
@@ -128,8 +132,9 @@ class ReviewerTest : RobolectricTest() {
         // Assert
         val shadowApplication = Shadows.shadowOf(ApplicationProvider.getApplicationContext<Application>())
         val intent = shadowApplication.nextStartedActivity
-        val actualAnimation = IntentCompat.getParcelableExtra(
-            intent,
+        val fragmentBundle = intent.getBundleExtra(SingleFragmentActivity.FRAGMENT_ARGS_EXTRA)
+        val actualAnimation = BundleCompat.getParcelable(
+            fragmentBundle!!,
             AnkiActivity.FINISH_ANIMATION_EXTRA,
             ActivityTransitionAnimation.Direction::class.java
         )
@@ -264,7 +269,7 @@ class ReviewerTest : RobolectricTest() {
         val models = col.notetypes
 
         val didAb = addDeck("A::B")
-        val basic = models.byName(AnkiDroidApp.appResources.getString(R.string.basic_model_name))
+        val basic = models.byName(BASIC_MODEL_NAME)
         basic!!.put("did", didAb)
         addNoteUsingBasicModel("foo", "bar")
 
@@ -417,13 +422,13 @@ class ReviewerTest : RobolectricTest() {
     @Throws(ConfirmModSchemaException::class)
     private fun addNoteWithThreeCards() {
         val models = col.notetypes
-        var m: NotetypeJson? = models.copy(models.current())
-        m!!.put("name", "Three")
-        models.add(m)
-        m = models.byName("Three")
+        var notetype: NotetypeJson? = models.copy(models.current())
+        notetype!!.put("name", "Three")
+        models.add(notetype)
+        notetype = models.byName("Three")
 
-        cloneTemplate(models, m, "1")
-        cloneTemplate(models, m, "2")
+        cloneTemplate(models, notetype, "1")
+        cloneTemplate(models, notetype, "2")
 
         val newNote = col.newNote()
         newNote.setField(0, "Hello")
@@ -433,8 +438,8 @@ class ReviewerTest : RobolectricTest() {
     }
 
     @Throws(ConfirmModSchemaException::class)
-    private fun cloneTemplate(notetypes: Notetypes, m: NotetypeJson?, extra: String) {
-        val tmpls = m!!.getJSONArray("tmpls")
+    private fun cloneTemplate(notetypes: Notetypes, notetype: NotetypeJson?, extra: String) {
+        val tmpls = notetype!!.getJSONArray("tmpls")
         val defaultTemplate = tmpls.getJSONObject(0)
 
         val newTemplate = defaultTemplate.deepClone()
@@ -444,7 +449,7 @@ class ReviewerTest : RobolectricTest() {
         newTemplate.put("name", cardName)
         newTemplate.put("qfmt", newTemplate.getString("qfmt") + extra)
 
-        notetypes.addTemplate(m, newTemplate)
+        notetypes.addTemplate(notetype, newTemplate)
     }
 
     @CheckResult

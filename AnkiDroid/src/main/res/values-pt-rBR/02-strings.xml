@@ -94,7 +94,7 @@
     <string name="discard">Descartar</string>
     <string name="note_editor_no_cards_created">Nenhum card criado. Por favor, preencha mais campos</string>
     <string name="note_editor_no_cards_created_all_fields">O tipo de nota atual não produziu nenhum card.\nPor favor, escolha outro tipo de nota, ou clique em \'Cards\' e adicione uma substituição de campo</string>
-    <string name="note_editor_insert_cloze_no_cloze_note_type">Ocultar somente funcionará em notas do tipo Ocultar.</string>
+    <string name="note_editor_insert_cloze_no_cloze_note_type">Omissões podem apenas ser usadas no tipo de nota \"Omissão de palavras\".</string>
     <string name="saving_facts">Salvando nota</string>
     <string name="saving_model">Salvando tipo de nota</string>
     <string name="save">Salvar</string>
@@ -132,6 +132,7 @@
     <string name="delete_deck">Excluindo baralho&#8230;</string>
     <string name="info_rate">Avalie o AnkiDroid</string>
     <string name="import_title">Importando</string>
+    <string name="import_preparing_file">Preparando arquivo para importação&#8230;</string>
     <string name="import_message_add" comment="Adding a new deck to the collection (import)">Adicionar</string>
     <string name="import_message_replace_confirm">Isto irá excluir sua coleção atual e substituí-la pelo conteúdo do arquivo %s</string>
     <string name="import_dialog_message_add">Adicionar “%s” à coleção? Isso pode levar muito tempo</string>
@@ -159,6 +160,7 @@
         ]]></string>
     <string name="export_choice_share">Compartilhar</string>
     <string name="export_choice_save_to">Salvar em</string>
+    <string name="export_saving_exported_collection">Salvando arquivo exportado&#8230;</string>
     <string name="study_options" comment="Name for a preference category in Filtered deck (aka Cram deck, aka Custom study) options">Opções</string>
     <string name="menu__deck_options">Opções de baralho</string>
     <string name="menu__study_options" comment="Menu item that opens options for a Filtered deck (aka Cram deck, aka Custom study)">Opções de estudo</string>
@@ -309,7 +311,7 @@
     <string name="show_cards" comment="Label for toggle cards button in BrowserOptionsDialog">Cards</string>
     <string name="show_notes" comment="Label for toggle notes button in BrowserOptionsDialog">Notas</string>
     <string name="toggle_cards_notes">Alternar Cards/Notas</string>
-    <string name="toggle_browser_mode_help">Mostrando cards ou notas no navegador</string>
+    <string name="toggle_browser_mode_help">Alternar exibição de cartões ou notas no navegador</string>
     <string name="truncate_content_help">Truncar a altura de cada linha do navegador para mostrar apenas as 3 primeiras linhas de conteúdo</string>
     <string name="browser_options_dialog_heading">Opções do Navegador</string>
     <string name="functionality_disabled_during_storage_migration" comment="Displayed when trying to access functionality which cannot be run while storage is being moved to a new location">        Esta funcionalidade não está disponível durante a migração de armazenamento.
@@ -338,11 +340,11 @@
     <string name="failed_to_copy">Falha ao copiar</string>
     <string name="card_browser_unavailable_when_notes_mode">Indisponível no modo \'Notas\'</string>
     <plurals name="unbury_cards_feedback">
-        <item quantity="one">%d card unburied</item>
-        <item quantity="other">%d cards unburied</item>
+        <item quantity="one">%d cartão enterrado</item>
+        <item quantity="other">%d cartões desenterrados</item>
     </plurals>
     <string name="card_template_reposition_template" comment="move a card template to a new position">Reposicionar</string>
-    <string name="start_recording">Record</string>
+    <string name="start_recording">Gravar</string>
     <string name="stop_recording">Parar</string>
     <string name="play_recording">Reproduzir</string>
     <string name="next_recording">Próximo</string>

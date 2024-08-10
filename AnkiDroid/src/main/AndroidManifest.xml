@@ -342,6 +342,10 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             />
         <activity
+            android:name=".multimedia.MultimediaActivity"
+            android:configChanges="orientation|screenSize"
+            android:exported="false" />
+        <activity
             android:name="com.ichi2.anki.preferences.Preferences"
             android:exported="false"
             android:configChanges="screenSize"
@@ -367,7 +371,7 @@
             android:name="com.ichi2.anki.AnkiCardContextMenuAction"
             android:label="@string/context_menu_anki_card_label"
             android:enabled="true"
-            android:targetActivity=".NoteEditor"
+            android:targetActivity=".IntentHandler2"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PROCESS_TEXT" />
@@ -376,7 +380,7 @@
             </intent-filter>
         </activity-alias>
         <activity
-            android:name="com.ichi2.anki.NoteEditor"
+            android:name="com.ichi2.anki.IntentHandler2"
             android:label="@string/fact_adder_intent_title"
             android:theme="@style/Theme_Dark.Launcher"
             android:exported="true"
@@ -429,13 +433,6 @@
             android:exported="false"
             android:configChanges="orientation|screenSize"
             />
-        <activity
-            android:name=".multimediacard.activity.MultimediaEditFieldActivity"
-            android:label="@string/title_activity_edit_text"
-            android:exported="false"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            >
-        </activity>
         <activity
             android:name="com.ichi2.anki.CardTemplateEditor"
             android:label="@string/title_activity_template_editor"
@@ -593,20 +590,19 @@
         Task affinity allows us to separate the activity allowing us to define that an activity belongs to a
         different task, it ensures that the activity does not interfere with other tasks in our application.
          -->
-        <!-- TODO: enable the filter once we are done and set export as true -->
         <activity
             android:name="com.ichi2.anki.instantnoteeditor.InstantNoteEditorActivity"
-            android:exported="false"
+            android:exported="true"
             android:label="@string/instant_card"
             android:launchMode="singleInstance"
             android:excludeFromRecents="true"
             android:taskAffinity=""
             android:theme="@style/Theme.AppCompat.Transparent.NoActionBar" >
-<!--            <intent-filter>-->
-<!--                <action android:name="android.intent.action.SEND" />-->
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <data android:mimeType="text/plain" />-->
-<!--            </intent-filter>-->
+            <intent-filter>
+                <action android:name="android.intent.action.SEND" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <data android:mimeType="text/plain" />
+            </intent-filter>
         </activity>
 
 

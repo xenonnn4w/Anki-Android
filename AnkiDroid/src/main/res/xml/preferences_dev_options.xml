@@ -48,6 +48,11 @@
         android:title="New reviewer"
         android:key="@string/new_reviewer_pref_key"
         android:defaultValue="false"/>
+    <Preference
+        android:title="New reviewer options"
+        android:key="@string/new_reviewer_options_key"
+        android:dependency="@string/new_reviewer_pref_key"
+        android:fragment="com.ichi2.anki.preferences.ReviewerOptionsFragment"/>
     <SwitchPreferenceCompat
         android:title="New congrats screen"
         android:key="@string/new_congrats_screen_pref_key"
@@ -65,9 +70,6 @@
         android:title="@string/reset_onboarding"
         android:summary="@string/reset_onboarding_desc"
         android:key="@string/pref_reset_onboarding_key"/>
-    <Preference
-        android:title="@string/open_instant_editor"
-        android:key="@string/pref_open_instant_editor"/>
     <PreferenceCategory
         android:title="Create fake media"
         >

@@ -25,10 +25,13 @@ import com.ichi2.libanki.Consts
 import com.ichi2.libanki.Note
 import com.ichi2.libanki.NotetypeJson
 import com.ichi2.testutils.createTransientFile
-import org.hamcrest.CoreMatchers.*
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.CoreMatchers.not
 import org.hamcrest.MatcherAssert.assertThat
-import org.hamcrest.io.FileMatchers.*
-import org.junit.Assert.*
+import org.hamcrest.io.FileMatchers.aFileWithAbsolutePath
+import org.hamcrest.io.FileMatchers.anExistingFile
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertThrows
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TemporaryFolder
@@ -92,13 +95,13 @@ class NoteServiceTest : RobolectricTest() {
         FileWriter(fileAudio).use { fileWriter -> fileWriter.write("line1") }
 
         val audioField = MediaClipField()
-        audioField.audioPath = fileAudio.absolutePath
+        audioField.mediaPath = fileAudio.absolutePath
 
         NoteService.importMediaToDirectory(col, audioField)
 
         val outFile = File(col.media.dir, fileAudio.name)
 
-        assertThat("path should be equal to new file made in NoteService.importMediaToDirectory", outFile, aFileWithAbsolutePath(equalTo(audioField.audioPath)))
+        assertThat("path should be equal to new file made in NoteService.importMediaToDirectory", outFile, aFileWithAbsolutePath(equalTo(audioField.mediaPath)))
     }
 
     // Similar test like above, but with an ImageField instead of a MediaClipField
@@ -141,14 +144,14 @@ class NoteServiceTest : RobolectricTest() {
         FileWriter(f2).use { fileWriter -> fileWriter.write("2") }
 
         val fld1 = MediaClipField()
-        fld1.audioPath = f1.absolutePath
+        fld1.mediaPath = f1.absolutePath
 
         val fld2 = MediaClipField()
-        fld2.audioPath = f2.absolutePath
+        fld2.mediaPath = f2.absolutePath
 
         // third field to test if name is kept after reimporting the same file
         val fld3 = MediaClipField()
-        fld3.audioPath = f1.absolutePath
+        fld3.mediaPath = f1.absolutePath
 
         Timber.e("media folder is %s %b", col.media.dir, File(col.media.dir).exists())
         NoteService.importMediaToDirectory(col, fld1)
@@ -160,9 +163,9 @@ class NoteServiceTest : RobolectricTest() {
         NoteService.importMediaToDirectory(col, fld3)
         // creating a third outfile isn't necessary because it should be equal to the first one
 
-        assertThat("path should be equal to new file made in NoteService.importMediaToDirectory", o1, aFileWithAbsolutePath(equalTo(fld1.audioPath)))
-        assertThat("path should be different to new file made in NoteService.importMediaToDirectory", o2, aFileWithAbsolutePath(not(fld2.audioPath)))
-        assertThat("path should be equal to new file made in NoteService.importMediaToDirectory", o1, aFileWithAbsolutePath(equalTo(fld3.audioPath)))
+        assertThat("path should be equal to new file made in NoteService.importMediaToDirectory", o1, aFileWithAbsolutePath(equalTo(fld1.mediaPath)))
+        assertThat("path should be different to new file made in NoteService.importMediaToDirectory", o2, aFileWithAbsolutePath(not(fld2.mediaPath)))
+        assertThat("path should be equal to new file made in NoteService.importMediaToDirectory", o1, aFileWithAbsolutePath(equalTo(fld3.mediaPath)))
     }
 
     // Similar test like above, but with an ImageField instead of a MediaClipField
@@ -211,7 +214,7 @@ class NoteServiceTest : RobolectricTest() {
         val file = createTransientFile("foo")
 
         val field = MediaClipField().apply {
-            audioPath = file.absolutePath
+            mediaPath = file.absolutePath
             hasTemporaryMedia = true
         }
 

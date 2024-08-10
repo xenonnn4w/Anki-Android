@@ -48,6 +48,10 @@
     <string name="check_db_warning">これには長い時間がかかることがあります。</string>
     <string name="contextmenu_deckpicker_delete_deck">デッキを削除</string>
     <string name="delete_deck_title">デッキを削除しますか？</string>
+    <plurals name="delete_deck_message">
+        <item quantity="other">Delete all cards in %1$s? It contains %2$d cards</item>
+    </plurals>
+    <string name="delete_cram_deck_message">Delete filtered deck %s and send all cards back to their original decks?</string>
     <string name="no_tts_available_message">テキスト読み上げ可能な言語がありません</string>
     <string name="tts_no_tts">発声なし</string>
     <string name="unused_strings">\n\n(*) のファイルのリスト:\n</string>
@@ -60,10 +64,6 @@
     <string name="reset_card_dialog_title">カードの学習進度をリセット</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="other">%d枚のカードの学習履歴をリセットしました</item>
-    </plurals>
-    <!-- Reschedule Card Dialog -->
-    <plurals name="reschedule_cards_dialog_acknowledge">
-        <item quantity="other">%d枚のカードのスケジュールを変更しました</item>
     </plurals>
     <string name="answering_error_title">データベース エラー</string>
     <string name="answering_error_message">コレクションへの書き込み中にエラーが発生しました。データベースの破損しているか、ストレージの空き容量が不足している可能性があります。\n\n繰り返しエラーが発生する場合には、「データベースをチェック」、コレクションの修復、「バックアップから復元」を試してみてください。\nまた、AnkiDroidのバグである可能性が考えられる場合は、開発者にご報告ください。</string>
@@ -138,7 +138,6 @@
     <string name="multimedia_editor_failed">マルチメディアエディタを開けませんでした</string>
     <!-- Multimedia - Audio View -->
     <string name="multimedia_editor_audio_permission_denied">音声録音の権限が付与されませんでした</string>
-    <string name="mutimedia_editor_assertion_failed">エディタの表示中に不明なエラーが発生しました</string>
     <!-- Database Integrity Check -->
     <string name="integrity_check_startup_title">AnkiDroidをアップグレードしました</string>
     <string name="integrity_check_startup_content">AnkiDroidをアップグレードしました。このアップグレードには、データベースに関する不具合の修正が含まれています。今すぐ「データベースをチェック」を実行することをおすすめします。</string>
@@ -250,6 +249,8 @@
     <string name="cloze_note_required">「穴埋め問題」用のノートタイプが必要です</string>
     <string name="cloze_not_found_message">「穴埋め問題」に対応したノートタイプが見つかりませんでした。アプリで「穴埋め問題」に対応したノートタイプを追加してからもう一度試すか、それ以外のノートタイプのノートを編集するため、「開く」ボタンを押してください。</string>
     <string name="open">開く</string>
+    <string name="change_cloze_number">穴埋め問題の番号を変更</string>
+    <string name="cloze_number">穴埋め問題番号</string>
     <!-- Outdated WebView dialog -->
     <string name="webview_update_message">「AndroidシステムのWebView 」（または「Android System WebView」）が古くなっています。いくつかの機能が正しく動作しません。更新してください。\n\nインストールされているバージョン: %1$d\n最低限必要なバージョン: %2$d</string>
 </resources>

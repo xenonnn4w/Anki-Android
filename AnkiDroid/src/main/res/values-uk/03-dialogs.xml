@@ -48,6 +48,13 @@
     <string name="check_db_warning">Це може зайняти багато часу</string>
     <string name="contextmenu_deckpicker_delete_deck">Видалити колоду</string>
     <string name="delete_deck_title">Видалити колоду?</string>
+    <plurals name="delete_deck_message">
+        <item quantity="one">Delete all cards in %1$s? It contains %2$d card</item>
+        <item quantity="few">Delete all cards in %1$s? It contains %2$d cards</item>
+        <item quantity="many">Delete all cards in %1$s? It contains %2$d cards</item>
+        <item quantity="other">Delete all cards in %1$s? It contains %2$d cards</item>
+    </plurals>
+    <string name="delete_cram_deck_message">Delete filtered deck %s and send all cards back to their original decks?</string>
     <string name="no_tts_available_message">Відсутня мова для перетворення тексту в мовлення</string>
     <string name="tts_no_tts">Не говорити</string>
     <string name="unused_strings">\n\nНевикористані файли:\n</string>
@@ -66,13 +73,6 @@
         <item quantity="few">%d картки скинуті</item>
         <item quantity="many">%d картки скинуті</item>
         <item quantity="other">%d картки скинуті</item>
-    </plurals>
-    <!-- Reschedule Card Dialog -->
-    <plurals name="reschedule_cards_dialog_acknowledge">
-        <item quantity="one">%d картку переплановано</item>
-        <item quantity="few">%d карток переплановано</item>
-        <item quantity="many">%d карток переплановано</item>
-        <item quantity="other">%d картки переплановано</item>
     </plurals>
     <string name="answering_error_title">Помилка бази даних</string>
     <string name="answering_error_message">Під час запису в колекцію сталася помилка. Причиною може бути пошкоджена база даних або відсутність місця на диску.\n\nЯкщо це трапляється частіше, будь ласка, спробуйте перевірити базу даних, полагодити колекцію, або відновити її з резервної копії. Для цього натисніть на «налаштування».\n\nОднак, це також може бути недолік AnkiDroid; будь ласка, надішліть звіт для перевірки цього.</string>
@@ -114,9 +114,9 @@
     <string name="dialog_positive_repair">Виправити</string>
     <string name="dialog_positive_replace">Замінити</string>
     <string name="dialog_collection_path_not_dir">Вказаний шлях не є дійсним</string>
-    <string name="dialog_invalid_custom_certificate">The provided text does not resolve to a valid PEM-encoded X509 certificate</string>
-    <string name="dialog_invalid_custom_certificate_title">Error parsing certificate</string>
-    <string name="dialog_updated_custom_certificate">Certificate updated</string>
+    <string name="dialog_invalid_custom_certificate">Наданий текст не перетворюється на дійсний сертифікат X509 з PEM-кодуванням</string>
+    <string name="dialog_invalid_custom_certificate_title">Помилка парсингу сертифікату</string>
+    <string name="dialog_updated_custom_certificate">Сертифікат оновлено</string>
     <!-- Media checking -->
     <string name="check_media_title">Перевірити медіафайли?</string>
     <string name="check_media_warning">Процес може зайняти багато часу з великими колекціями медіафайлів</string>
@@ -150,7 +150,6 @@
     <string name="multimedia_editor_failed">Не вдалося відкрити мультимедійний редактор</string>
     <!-- Multimedia - Audio View -->
     <string name="multimedia_editor_audio_permission_denied">Відхилено доступ до запису звуку</string>
-    <string name="mutimedia_editor_assertion_failed">Невідома помилка під час відображення розширеного редактора</string>
     <!-- Database Integrity Check -->
     <string name="integrity_check_startup_title">AnkiDroid оновлено</string>
     <string name="integrity_check_startup_content">AnkiDroid оновлено. Оновлення включає в себе виправлення можливих проблем з базою даних, і ми радимо Вам запустити перевірку бази даних.</string>
@@ -272,9 +271,11 @@
     <string name="set_due_date_range_start" comment="\'Set Due Date\' may change the due date of a card to a random number of days in the future. This labels the \'minimum\' value of this range (inclusive)">Від</string>
     <string name="set_due_date_range_end" comment="\'Set Due Date\' may change the due date of a card to a random number of days in the future. This labels the \'maximum\' value of this range (inclusive)">До</string>
     <!-- Instant Note Editor -->
-    <string name="cloze_note_required">Cloze Type Note Required</string>
-    <string name="cloze_not_found_message">No Cloze type note found, open the Note Editor or try again after adding a Cloze type note.</string>
-    <string name="open">Open</string>
+    <string name="cloze_note_required">Необхідний запис типу Cloze</string>
+    <string name="cloze_not_found_message">Не знайдено жодного запису з пропусками (Cloze), відкрийте Редактор записів або спробуйте знову після додання запису з пропусками.</string>
+    <string name="open">Відкрити</string>
+    <string name="change_cloze_number">Змінити номер Cloze</string>
+    <string name="cloze_number">Номер Cloze:</string>
     <!-- Outdated WebView dialog -->
-    <string name="webview_update_message">The system WebView is outdated. Some features won’t work correctly. Please update it.\n\nInstalled version: %1$d\nMinimum required version: %2$d</string>
+    <string name="webview_update_message">Системний WebView застарілий. Деякі функції не будуть правильно працювати. Оновіть його, будь ласка.\n\nВстановлена версія: %1$d\nЯк мінімум потрібна версія: %2$d</string>
 </resources>

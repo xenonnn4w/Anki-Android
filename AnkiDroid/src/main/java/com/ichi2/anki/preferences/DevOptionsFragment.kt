@@ -16,14 +16,18 @@
 package com.ichi2.anki.preferences
 
 import android.content.Context
-import android.content.Intent
 import androidx.appcompat.app.AlertDialog
 import androidx.preference.Preference
 import androidx.preference.SwitchPreferenceCompat
-import com.ichi2.anki.*
+import com.ichi2.anki.BuildConfig
+import com.ichi2.anki.CollectionManager
+import com.ichi2.anki.OnboardingUtils
+import com.ichi2.anki.R
 import com.ichi2.anki.analytics.UsageAnalytics
-import com.ichi2.anki.instantnoteeditor.InstantNoteEditorActivity
+import com.ichi2.anki.launchCatchingTask
+import com.ichi2.anki.showThemedToast
 import com.ichi2.anki.snackbar.showSnackbar
+import com.ichi2.anki.withProgress
 import com.ichi2.preferences.IncrementerNumberRangePreferenceCompat
 import com.ichi2.utils.show
 import kotlinx.coroutines.Dispatchers
@@ -81,14 +85,6 @@ class DevOptionsFragment : SettingsFragment() {
         // Reset onboarding
         requirePreference<Preference>(R.string.pref_reset_onboarding_key).setOnPreferenceClickListener {
             OnboardingUtils.reset(requireContext())
-            false
-        }
-        // Instant Editor
-        requirePreference<Preference>(R.string.pref_open_instant_editor).setOnPreferenceClickListener {
-            val intent = Intent(activity, InstantNoteEditorActivity::class.java).apply {
-                putExtra("extra_text_key", "Hello developer this is a test sentence. You can test turning text to cloze here")
-            }
-            startActivity(intent)
             false
         }
 

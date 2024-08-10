@@ -48,6 +48,15 @@
     <string name="check_db_warning">قد يستغرق هذا وقتًا طويلًا</string>
     <string name="contextmenu_deckpicker_delete_deck">حذف الرزمة</string>
     <string name="delete_deck_title">هل تريد حذف الرزمة؟</string>
+    <plurals name="delete_deck_message">
+        <item quantity="zero">Delete all cards in %1$s? It contains %2$d cards</item>
+        <item quantity="one">Delete all cards in %1$s? It contains %2$d card</item>
+        <item quantity="two">Delete all cards in %1$s? It contains %2$d cards</item>
+        <item quantity="few">Delete all cards in %1$s? It contains %2$d cards</item>
+        <item quantity="many">Delete all cards in %1$s? It contains %2$d cards</item>
+        <item quantity="other">Delete all cards in %1$s? It contains %2$d cards</item>
+    </plurals>
+    <string name="delete_cram_deck_message">Delete filtered deck %s and send all cards back to their original decks?</string>
     <string name="no_tts_available_message">لا يتوفر دعم تحويل النص إلى كلام لأي لغة</string>
     <string name="tts_no_tts">لا تنطق</string>
     <string name="unused_strings">\n\nملفات عير مستخدمة:\n</string>
@@ -70,15 +79,6 @@
         <item quantity="few">تم تصفير %d بطاقات</item>
         <item quantity="many">تم تصفير %d بطاقة</item>
         <item quantity="other">تم تصفير %d بطاقة</item>
-    </plurals>
-    <!-- Reschedule Card Dialog -->
-    <plurals name="reschedule_cards_dialog_acknowledge">
-        <item quantity="zero">تمت إعادة جدولة %d بطاقة</item>
-        <item quantity="one">تمت إعادة جدولة %d بطاقة</item>
-        <item quantity="two">تمت إعادة جدولة %d بطاقة</item>
-        <item quantity="few">تمت إعادة جدولة %d بطاقات</item>
-        <item quantity="many">تمت إعادة جدولة %d بطاقات</item>
-        <item quantity="other">تمت إعادة جدولة %d بطاقة</item>
     </plurals>
     <string name="answering_error_title">خطأ في قاعدة البيانات</string>
     <string name="answering_error_message">فشلت الكتابة إلى المجموعة. قد تكون قاعدة البيانات تالفة أو قد لا تكون هناك مساحة كافية على القرص.\n\nإذا كان هذا يحدث غالبًا، جرب فحص قاعدة البيانات، أو إصلاح المجموعة، أو استرجاعها من نسخة احتياطية. انقر «خيارات» لفعل ذلك. \nأو قد يكون هذا عطلًا في أنكي درويد ربما؛ الرجاء الإبلاغ عن هذا لنتحقق منه.</string>
@@ -158,7 +158,6 @@
     <string name="multimedia_editor_failed">تعذر فتح محرر الوسائط المتعددة</string>
     <!-- Multimedia - Audio View -->
     <string name="multimedia_editor_audio_permission_denied">رُفِض إذن تسجيل الصوت</string>
-    <string name="mutimedia_editor_assertion_failed">حدث خطأ غير معروف عند عرض المحرر المتقدم</string>
     <!-- Database Integrity Check -->
     <string name="integrity_check_startup_title">تم تحديث أنكيدرويد</string>
     <string name="integrity_check_startup_content">تم تحديث أنكيدرويد. يتضمن هذا التحديث إصلاحًا لأعطال ممكنة في قاعدة البيانات، لذلك ننصح باستخدام ميزة فحص قاعدة البيانات الآن.</string>
@@ -291,6 +290,8 @@
     <string name="cloze_note_required">Cloze Type Note Required</string>
     <string name="cloze_not_found_message">No Cloze type note found, open the Note Editor or try again after adding a Cloze type note.</string>
     <string name="open">Open</string>
+    <string name="change_cloze_number">Change cloze number</string>
+    <string name="cloze_number">Cloze number:</string>
     <!-- Outdated WebView dialog -->
     <string name="webview_update_message">The system WebView is outdated. Some features won’t work correctly. Please update it.\n\nInstalled version: %1$d\nMinimum required version: %2$d</string>
 </resources>

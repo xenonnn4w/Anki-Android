@@ -48,6 +48,11 @@
     <string name="check_db_warning">इसमें बहुत समय लग सकता है</string>
     <string name="contextmenu_deckpicker_delete_deck">डेक मिटाएँ</string>
     <string name="delete_deck_title">डेक मिटाएँ?</string>
+    <plurals name="delete_deck_message">
+        <item quantity="one">Delete all cards in %1$s? It contains %2$d card</item>
+        <item quantity="other">Delete all cards in %1$s? It contains %2$d cards</item>
+    </plurals>
+    <string name="delete_cram_deck_message">Delete filtered deck %s and send all cards back to their original decks?</string>
     <string name="no_tts_available_message">कोई लेख-से-बोली भाषा उपलब्ध नहीं</string>
     <string name="tts_no_tts">बात न करें</string>
     <string name="unused_strings">\n\nअप्रयुक्त फाइलें:\n</string>
@@ -62,11 +67,6 @@
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="one">%d कार्ड रीसेट हुआ</item>
         <item quantity="other">%d कार्ड रीसेट हुआ</item>
-    </plurals>
-    <!-- Reschedule Card Dialog -->
-    <plurals name="reschedule_cards_dialog_acknowledge">
-        <item quantity="one">%d पत्ता पुनर्निर्धारित</item>
-        <item quantity="other">%d पत्ता पुनर्निर्धारित</item>
     </plurals>
     <string name="answering_error_title">डेटाबेस त्रुटि</string>
     <string name="answering_error_message">संग्रह में लेखन विफल रहा। डेटाबेस दूषित हो सकता है या डिस्क पर पर्याप्त खाली स्थान नहीं हो सकता है। \n\n यदि यह अधिक बार होता है, तो डेटाबेस की जाँच करने, संग्रह की मरम्मत करने या इसे बैकअप से पुनर्स्थापित करने का प्रयास करें। इसके लिए \"विकल्प\" स्पर्श करें। \n या यह एक एंकॉइड बग भी हो सकता है; कृपया त्रुटि रिपोर्ट करें ताकि हम इसकी जांच कर सकें।</string>
@@ -108,9 +108,9 @@
     <string name="dialog_positive_repair">सुधारें</string>
     <string name="dialog_positive_replace">की जगह</string>
     <string name="dialog_collection_path_not_dir">निर्दिष्ट पथ कोई मांय निर्देशिका नहीं है</string>
-    <string name="dialog_invalid_custom_certificate">The provided text does not resolve to a valid PEM-encoded X509 certificate</string>
-    <string name="dialog_invalid_custom_certificate_title">Error parsing certificate</string>
-    <string name="dialog_updated_custom_certificate">Certificate updated</string>
+    <string name="dialog_invalid_custom_certificate">प्रदान किया गया पाठ वैध PEM-एन्कोडेड X509 प्रमाणपत्र का समाधान नहीं करता है</string>
+    <string name="dialog_invalid_custom_certificate_title">प्रमाणपत्र पार्स करने में त्रुटि</string>
+    <string name="dialog_updated_custom_certificate">प्रमाणपत्र अद्यतन किया गया</string>
     <!-- Media checking -->
     <string name="check_media_title">मीडिया की जांच करें?</string>
     <string name="check_media_warning">यह बड़े मीडिया संग्रह के साथ एक लंबा समय लग सकता है</string>
@@ -142,7 +142,6 @@
     <string name="multimedia_editor_failed">मल्टीमीडिया संपादक खोलने में विफल</string>
     <!-- Multimedia - Audio View -->
     <string name="multimedia_editor_audio_permission_denied">ऑडियो रिकॉर्डिंग की अनुमति से इनकार किया</string>
-    <string name="mutimedia_editor_assertion_failed">Advanced Editor प्रदर्शित करने में अज्ञात त्रुटि हुई</string>
     <!-- Database Integrity Check -->
     <string name="integrity_check_startup_title">AnkiDroid अपग्रेड किया गया</string>
     <string name="integrity_check_startup_content">AnkiDroid को अपग्रेड किया गया है। इस अपग्रेड में संभावित डेटाबेस समस्याओं के लिए फ़िक्सेस शामिल हैं, और हम आपको चेक डेटाबेस चलाने की सलाह देते हैं।</string>
@@ -256,9 +255,11 @@
     <string name="set_due_date_range_start" comment="\'Set Due Date\' may change the due date of a card to a random number of days in the future. This labels the \'minimum\' value of this range (inclusive)">से</string>
     <string name="set_due_date_range_end" comment="\'Set Due Date\' may change the due date of a card to a random number of days in the future. This labels the \'maximum\' value of this range (inclusive)">को</string>
     <!-- Instant Note Editor -->
-    <string name="cloze_note_required">Cloze Type Note Required</string>
-    <string name="cloze_not_found_message">No Cloze type note found, open the Note Editor or try again after adding a Cloze type note.</string>
-    <string name="open">Open</string>
+    <string name="cloze_note_required">क्लोज़ टाइप नोट आवश्यक</string>
+    <string name="cloze_not_found_message">कोई क्लोज़ प्रकार का नोट नहीं मिला, नोट संपादक खोलें या क्लोज़ प्रकार का नोट जोड़ने के बाद पुनः प्रयास करें।</string>
+    <string name="open">खोलें</string>
+    <string name="change_cloze_number">Change cloze number</string>
+    <string name="cloze_number">Cloze number:</string>
     <!-- Outdated WebView dialog -->
-    <string name="webview_update_message">The system WebView is outdated. Some features won’t work correctly. Please update it.\n\nInstalled version: %1$d\nMinimum required version: %2$d</string>
+    <string name="webview_update_message">सिस्टम WebView पुराना हो चुका है. कुछ सुविधाएं ठीक से काम नहीं करेंगी. कृपया इसे अपडेट करें।\n\nस्थापित संस्करण: %1$d\nन्यूनतम आवश्यक संस्करण: %2$d</string>
 </resources>

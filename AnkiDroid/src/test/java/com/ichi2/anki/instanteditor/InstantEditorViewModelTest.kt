@@ -23,6 +23,7 @@ import com.ichi2.anki.RobolectricTest
 import com.ichi2.anki.instantnoteeditor.InstantEditorViewModel
 import com.ichi2.anki.instantnoteeditor.InstantNoteEditorActivity
 import com.ichi2.anki.instantnoteeditor.SaveNoteResult
+import com.ichi2.testutils.TestClass
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Test
@@ -56,6 +57,37 @@ class InstantEditorViewModelTest : RobolectricTest() {
     }
 
     @Test
+    fun `test cloze number reset to 1`() = runViewModelTest {
+        val sentenceArray = mutableListOf("Hello", "world")
+
+        toggleAllClozeDeletions(sentenceArray)
+
+        assertEquals("all clozes are detected", clozeDeletionCount, 2)
+
+        toggleAllClozeDeletions(sentenceArray)
+
+        assertEquals("all cloze deletions are removed", clozeDeletionCount, 0)
+        assertEquals("cloze number is reset if there are no clozes", currentClozeNumber, 1)
+    }
+
+    @Test
+    fun `test cloze number is reset to max value from cloze list`() = runViewModelTest {
+        val sentenceArray = mutableListOf("Hello", "world", "this", "is", "test", "sentence")
+
+        // cloze on the first 3 words
+        toggleClozeDeletions(sentenceArray, 0, 1, 2)
+
+        // disable cloze on the first 2, leaving "this" as {{c3::
+        toggleClozeDeletions(sentenceArray, 0, 1)
+
+        assertEquals("cloze number is 'Current Cloze Number + 1'", currentClozeNumber, 4)
+
+        // remove the remaining cloze all clozes
+        toggleClozeDeletion(sentenceArray, 2)
+        assertEquals("cloze number is reset if all clozes are removed", currentClozeNumber, 1)
+    }
+
+    @Test
     fun testSavingNoteWithNoCloze() = runViewModelTest {
         editorNote.setField(0, "Hello")
         val result = checkAndSaveNote(targetContext)
@@ -84,22 +116,6 @@ class InstantEditorViewModelTest : RobolectricTest() {
         val result = checkAndSaveNote(targetContext)
 
         assertTrue(result is SaveNoteResult.Warning)
-    }
-
-    @Test
-    fun `buildClozeText handles punctuation at end`() = runViewModelTest {
-        val text = "test,"
-        val result = buildClozeText(text)
-
-        assertEquals("{{c1::test}},", result)
-    }
-
-    @Test
-    fun `buildClozeText handles cloze punctuation at end`() = runViewModelTest {
-        val text = "{{c1::test}},"
-        val result = buildClozeText(text)
-
-        assertEquals("test,", result)
     }
 
     @Test
@@ -142,13 +158,29 @@ class InstantEditorViewModelTest : RobolectricTest() {
             "{{c1::word}}" to "word",
             "{{c2::another}}" to "another",
             "{{c4::help}}!!" to "help!!",
-            "no cloze" to "no cloze"
+            "no cloze" to "no cloze",
+            "[{{c6::word}}]" to "[word]"
         )
 
         testCases.forEach { (input, expected) ->
             val cleanedWord = getCleanClozeWords(input)
             assertEquals(expected, cleanedWord)
         }
+    }
+
+    @Test
+    fun `test words with internal punctuation`() = runViewModelTest {
+        val text = "hello-world"
+        val result = buildClozeText(text)
+
+        assertEquals("{{c1::hello-world}}", result)
+    }
+
+    @Test
+    fun `test words with internal underscore punctuation`() = runViewModelTest {
+        val text = "hello_world"
+        val result = buildClozeText(text)
+        assertEquals("{{c1::hello_world}}", result)
     }
 
     @Test
@@ -168,10 +200,7 @@ class InstantEditorViewModelTest : RobolectricTest() {
     private fun runViewModelTest(
         initViewModel: () -> InstantEditorViewModel = { InstantEditorViewModel() },
         testBody: suspend InstantEditorViewModel.() -> Unit
-    ) = runTest {
-        val viewModel = initViewModel()
-        testBody(viewModel)
-    }
+    ) = runInstantEditorViewModelTest(initViewModel, testBody)
 
     private fun saveNoteResult(result: SaveNoteResult): String? {
         return when (result) {
@@ -185,4 +214,36 @@ class InstantEditorViewModelTest : RobolectricTest() {
             is SaveNoteResult.Warning -> result.message
         }
     }
+
+    companion object {
+        context (TestClass)
+        fun runInstantEditorViewModelTest(
+            initViewModel: () -> InstantEditorViewModel = { InstantEditorViewModel() },
+            testBody: suspend InstantEditorViewModel.() -> Unit
+        ) = runTest {
+            val viewModel = initViewModel()
+            testBody(viewModel)
+        }
+    }
+}
+
+context (InstantEditorViewModel)
+private fun toggleAllClozeDeletions(words: MutableList<String>) {
+    for (index in words.indices) {
+        words[index] = buildClozeText(words[index])
+    }
+}
+
+context (InstantEditorViewModel)
+@Suppress("SameParameterValue")
+private fun toggleClozeDeletions(words: MutableList<String>, vararg indices: Int) {
+    for (index in indices) {
+        words[index] = buildClozeText(words[index])
+    }
+}
+
+context (InstantEditorViewModel)
+@Suppress("SameParameterValue")
+private fun toggleClozeDeletion(words: MutableList<String>, index: Int) {
+    words[index] = buildClozeText(words[index])
 }

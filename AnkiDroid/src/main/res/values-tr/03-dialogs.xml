@@ -48,6 +48,11 @@
     <string name="check_db_warning">Bu uzun sürebilir</string>
     <string name="contextmenu_deckpicker_delete_deck">Desteyi sil</string>
     <string name="delete_deck_title">Deste silinsin mi?</string>
+    <plurals name="delete_deck_message">
+        <item quantity="one">%1$s destesindeki bütün kartlar silinsin mi? İçinde %2$d kart var</item>
+        <item quantity="other">%1$s destesindeki bütün kartlar silinsin mi? İçinde %2$d kart var</item>
+    </plurals>
+    <string name="delete_cram_deck_message">%s filtreli destesi silinip bütün kartlar orjinal destelerine gönderilsin mi?</string>
     <string name="no_tts_available_message">Mevcut metin okuma dili yok</string>
     <string name="tts_no_tts">Konuşma</string>
     <string name="unused_strings">\n\nKullanılmayan dosyalar:\n</string>
@@ -62,11 +67,6 @@
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="one">%d kart sıfırlandı</item>
         <item quantity="other">%d kart sıfırlandı</item>
-    </plurals>
-    <!-- Reschedule Card Dialog -->
-    <plurals name="reschedule_cards_dialog_acknowledge">
-        <item quantity="one">%d kart yeniden planlandı</item>
-        <item quantity="other">%d kartın zamanı değiştirildi</item>
     </plurals>
     <string name="answering_error_title">Veritabanı hatası</string>
     <string name="answering_error_message">Koleksiyona yazılamadı. Veritabanı bozuk olabilir veya diskte yeterli boş alan olmayabilir.\n\nBu daha sık oluyorsa, veritabanını kontrol etmeyi, koleksiyonu onarmayı veya bir yedekten geri yüklemeyi deneyin. Bunun için \"seçenekler\"e dokunun.\n\Veya bu bir AnkiDroid hatası da olabilir; Bunu kontrol edebilmemiz için lütfen hatayı bildirin.</string>
@@ -142,7 +142,6 @@
     <string name="multimedia_editor_failed">Multimedya Düzenleyiciyi açma başarısız oldu</string>
     <!-- Multimedia - Audio View -->
     <string name="multimedia_editor_audio_permission_denied">Ses kayıt izni reddedildi</string>
-    <string name="mutimedia_editor_assertion_failed">Gelişmiş Düzenleyici görüntülenirken bilinmeyen bir hata oluştu</string>
     <!-- Database Integrity Check -->
     <string name="integrity_check_startup_title">AnkiDroid Güncellendi</string>
     <string name="integrity_check_startup_content">AnkiDroid yükseltildi. Bu yükseltme, olası veritabanı sorunları için düzeltmeleri içerir ve veritabanını şimdi kontrol etmenizi öneririz.</string>
@@ -259,6 +258,8 @@
     <string name="cloze_note_required">Boşluklu Türden Not Gerekiyor</string>
     <string name="cloze_not_found_message">Boşluklu türden not bulunmuyor, Not Düzenleyiciyi açın ya da Boşluklu türden bir not ekledikten sonra yeniden deneyin.</string>
     <string name="open">Aç</string>
+    <string name="change_cloze_number">Boşluk numarasını değiştir</string>
+    <string name="cloze_number">Boşluk numarası:</string>
     <!-- Outdated WebView dialog -->
     <string name="webview_update_message">Sistem WebView\'su güncel değil. Bazı özellikler doğru çalışmayacak. Lütfen güncelleyin.\n\nYüklü sürüm: %1$d\nGereken en düşük sürüm: %2$d</string>
 </resources>

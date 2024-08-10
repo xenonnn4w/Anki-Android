@@ -30,11 +30,22 @@ import android.os.Message
 import android.os.Parcelable
 import android.text.SpannableString
 import android.text.style.UnderlineSpan
-import android.view.*
+import android.view.KeyEvent
+import android.view.Menu
+import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.SubMenu
+import android.view.View
 import android.webkit.WebView
-import android.widget.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.annotation.*
+import androidx.annotation.CheckResult
+import androidx.annotation.DrawableRes
+import androidx.annotation.IntDef
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.widget.Toolbar
@@ -51,15 +62,29 @@ import com.ichi2.anki.Whiteboard.Companion.createInstance
 import com.ichi2.anki.Whiteboard.OnPaintColorChangeListener
 import com.ichi2.anki.cardviewer.Gesture
 import com.ichi2.anki.cardviewer.ViewerCommand
+import com.ichi2.anki.multimedia.audio.AudioRecordingController
+import com.ichi2.anki.multimedia.audio.AudioRecordingController.Companion.generateTempAudioFile
+import com.ichi2.anki.multimedia.audio.AudioRecordingController.Companion.isAudioRecordingSaved
+import com.ichi2.anki.multimedia.audio.AudioRecordingController.Companion.isRecording
+import com.ichi2.anki.multimedia.audio.AudioRecordingController.Companion.setEditorStatus
+import com.ichi2.anki.multimedia.audio.AudioRecordingController.Companion.tempAudioPath
+import com.ichi2.anki.multimedia.audio.AudioRecordingController.RecordingState
+import com.ichi2.anki.noteeditor.NoteEditorLauncher
 import com.ichi2.anki.pages.AnkiServer.Companion.ANKIDROID_JS_PREFIX
 import com.ichi2.anki.pages.AnkiServer.Companion.ANKI_PREFIX
 import com.ichi2.anki.pages.CardInfoDestination
 import com.ichi2.anki.preferences.sharedPrefs
-import com.ichi2.anki.reviewer.*
+import com.ichi2.anki.reviewer.ActionButtons
 import com.ichi2.anki.reviewer.AnswerButtons.Companion.getBackgroundColors
 import com.ichi2.anki.reviewer.AnswerButtons.Companion.getTextColors
+import com.ichi2.anki.reviewer.AnswerTimer
+import com.ichi2.anki.reviewer.AutomaticAnswerAction
+import com.ichi2.anki.reviewer.CardMarker
+import com.ichi2.anki.reviewer.FullScreenMode
 import com.ichi2.anki.reviewer.FullScreenMode.Companion.fromPreference
 import com.ichi2.anki.reviewer.FullScreenMode.Companion.isFullScreenReview
+import com.ichi2.anki.reviewer.PeripheralKeymap
+import com.ichi2.anki.reviewer.ReviewerUi
 import com.ichi2.anki.scheduling.ForgetCardsDialog
 import com.ichi2.anki.scheduling.SetDueDateDialog
 import com.ichi2.anki.servicelayer.NoteService.isMarked
@@ -69,25 +94,31 @@ import com.ichi2.anki.ui.internationalization.toSentenceCase
 import com.ichi2.anki.utils.navBarNeedsScrim
 import com.ichi2.anki.utils.remainingTime
 import com.ichi2.annotations.NeedsTest
-import com.ichi2.audio.AudioRecordingController
-import com.ichi2.audio.AudioRecordingController.Companion.generateTempAudioFile
-import com.ichi2.audio.AudioRecordingController.Companion.isAudioRecordingSaved
-import com.ichi2.audio.AudioRecordingController.Companion.isRecording
-import com.ichi2.audio.AudioRecordingController.Companion.setEditorStatus
-import com.ichi2.audio.AudioRecordingController.Companion.tempAudioPath
-import com.ichi2.audio.AudioRecordingController.RecordingState
-import com.ichi2.libanki.*
+import com.ichi2.libanki.Card
+import com.ichi2.libanki.CardId
 import com.ichi2.libanki.Collection
+import com.ichi2.libanki.Consts
+import com.ichi2.libanki.renderOutput
 import com.ichi2.libanki.sched.Counts
 import com.ichi2.libanki.sched.CurrentQueueState
+import com.ichi2.libanki.undoableOp
 import com.ichi2.libanki.utils.TimeManager
 import com.ichi2.themes.Themes
 import com.ichi2.themes.Themes.currentTheme
-import com.ichi2.utils.*
 import com.ichi2.utils.HandlerUtils.executeFunctionWithDelay
 import com.ichi2.utils.HandlerUtils.getDefaultLooper
+import com.ichi2.utils.KotlinCleanup
 import com.ichi2.utils.Permissions.canRecordAudio
 import com.ichi2.utils.ViewGroupUtils.setRenderWorkaround
+import com.ichi2.utils.cancelable
+import com.ichi2.utils.iconAlpha
+import com.ichi2.utils.increaseHorizontalPaddingOfOverflowMenuIcons
+import com.ichi2.utils.message
+import com.ichi2.utils.negativeButton
+import com.ichi2.utils.positiveButton
+import com.ichi2.utils.show
+import com.ichi2.utils.tintOverflowMenuIcons
+import com.ichi2.utils.title
 import com.ichi2.widget.WidgetStatus.updateInBackground
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -606,7 +637,7 @@ open class Reviewer :
             setEditorStatus(false)
             if (!isAudioUIInitialized) {
                 try {
-                    audioRecordingController = AudioRecordingController()
+                    audioRecordingController = AudioRecordingController(context = this)
                     audioRecordingController?.createUI(
                         this,
                         micToolBarLayer,
@@ -655,10 +686,9 @@ open class Reviewer :
     }
 
     fun addNote(fromGesture: Gesture? = null) {
-        val intent = Intent(this, NoteEditor::class.java)
         val animation = getAnimationTransitionFromGesture(fromGesture)
-        intent.putExtra(NoteEditor.EXTRA_CALLER, NoteEditor.CALLER_REVIEWER_ADD)
-        intent.putExtra(FINISH_ANIMATION_EXTRA, getInverseTransition(animation) as Parcelable)
+        val inverseAnimation = getInverseTransition(animation)
+        val intent = NoteEditorLauncher.AddNoteFromReviewer(inverseAnimation).getIntent(this)
         addNoteLauncher.launch(intent)
     }
 

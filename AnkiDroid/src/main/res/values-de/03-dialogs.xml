@@ -48,6 +48,11 @@
     <string name="check_db_warning">Dies kann lange dauern</string>
     <string name="contextmenu_deckpicker_delete_deck">Stapel löschen</string>
     <string name="delete_deck_title">Stapel löschen?</string>
+    <plurals name="delete_deck_message">
+        <item quantity="one">Delete all cards in %1$s? It contains %2$d card</item>
+        <item quantity="other">Delete all cards in %1$s? It contains %2$d cards</item>
+    </plurals>
+    <string name="delete_cram_deck_message">Delete filtered deck %s and send all cards back to their original decks?</string>
     <string name="no_tts_available_message">Keine Vorlesesprache verfügbar</string>
     <string name="tts_no_tts">Nicht vorlesen</string>
     <string name="unused_strings">\n\nUnbenutzte Dateien:\n</string>
@@ -62,11 +67,6 @@
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="one">%d Karte zurücksetzen</item>
         <item quantity="other">%d Karten zurücksetzen</item>
-    </plurals>
-    <!-- Reschedule Card Dialog -->
-    <plurals name="reschedule_cards_dialog_acknowledge">
-        <item quantity="one">%d Karte umgeplant</item>
-        <item quantity="other">%d Karten umgeplant</item>
     </plurals>
     <string name="answering_error_title">Datenbankfehler</string>
     <string name="answering_error_message">Es konnte nicht in die Sammlung geschrieben werden. Dies kann an einer beschädigten Datenbank oder an unzureichendem Speicherplatz liegen.\n\nFalls dies häufiger vorkommt, versuchen Sie bitte, die Datenbank zu überprüfen, die Sammlung zu reparieren oder sie von einer Sicherung wiederherzustellen. Tippen Sie hierfür auf »Optionen«.\n\nEs könnte aber auch ein Fehler in AnkiDroid vorliegen. Damit wird dies überprüfen können, bitten wir Sie, den Fehler zu melden.</string>
@@ -142,7 +142,6 @@
     <string name="multimedia_editor_failed">Multimedia-Editor konnte nicht geöffnet werden</string>
     <!-- Multimedia - Audio View -->
     <string name="multimedia_editor_audio_permission_denied">Berechtigung für Audioaufnahme verweigert</string>
-    <string name="mutimedia_editor_assertion_failed">Unbekannter Fehler beim Anzeigen des Erweiterten Editors</string>
     <!-- Database Integrity Check -->
     <string name="integrity_check_startup_title">AnkiDroid aktualisiert</string>
     <string name="integrity_check_startup_content">AnkiDroid wurde aktualisiert. Dieses Upgrade enthält Korrekturen für mögliche Datenbankprobleme und wir empfehlen Ihnen, die Datenbank jetzt zu überprüfen.</string>
@@ -257,6 +256,8 @@
     <string name="cloze_note_required">Cloze-Notiztyp erforderlich</string>
     <string name="cloze_not_found_message">Kein Cloze-Notiztyp gefunden. Öffnen Sie den Notiz-Editor oder versuchen Sie es erneut, nachdem Sie einen Cloze-Notiztyp hinzugefügt haben.</string>
     <string name="open">Offen</string>
+    <string name="change_cloze_number">Change cloze number</string>
+    <string name="cloze_number">Cloze number:</string>
     <!-- Outdated WebView dialog -->
     <string name="webview_update_message">Das System-WebView ist veraltet. Einige Funktionen werden nicht korrekt funktionieren. Bitte aktualisieren Sie es.\n\nInstallierte Version: %1$d\nMindestanforderung: %2$d</string>
 </resources>

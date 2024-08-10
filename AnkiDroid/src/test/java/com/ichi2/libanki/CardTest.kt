@@ -25,7 +25,6 @@ import org.json.JSONObject
 import org.junit.Assert.assertEquals
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.*
 import kotlin.test.assertNotNull
 
 @RunWith(AndroidJUnit4::class)
@@ -120,11 +119,11 @@ class CardTest : JvmTest() {
         val models = col.notetypes
         val model = models.byName("Basic")
         assertNotNull(model)
-        models.renameField(model, model.getJSONArray("flds").getJSONObject(0), "A")
-        models.renameField(model, model.getJSONArray("flds").getJSONObject(1), "B")
+        models.renameFieldLegacy(model, model.getJSONArray("flds").getJSONObject(0), "A")
+        models.renameFieldLegacy(model, model.getJSONArray("flds").getJSONObject(1), "B")
         val fld2 = models.newField("C")
         fld2.put("ord", JSONObject.NULL)
-        models.addField(model, fld2)
+        models.addFieldLegacy(model, fld2)
         val tmpls = model.getJSONArray("tmpls")
         tmpls.getJSONObject(0).put("qfmt", "{{A}}{{B}}{{C}}")
         // ensure first card is always generated,
@@ -170,11 +169,11 @@ class CardTest : JvmTest() {
         val model = models.byName("Basic")
         assertNotNull(model)
         val tmpls = model.getJSONArray("tmpls")
-        models.renameField(model, model.getJSONArray("flds").getJSONObject(0), "First")
-        models.renameField(model, model.getJSONArray("flds").getJSONObject(1), "Front")
+        models.renameFieldLegacy(model, model.getJSONArray("flds").getJSONObject(0), "First")
+        models.renameFieldLegacy(model, model.getJSONArray("flds").getJSONObject(1), "Front")
         val fld2 = models.newField("AddIfEmpty")
         fld2.put("name", "AddIfEmpty")
-        models.addField(model, fld2)
+        models.addFieldLegacy(model, fld2)
 
         // ensure first card is always generated,
         // because at last one card is generated

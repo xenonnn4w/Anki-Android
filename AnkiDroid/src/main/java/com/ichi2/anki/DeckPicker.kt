@@ -26,16 +26,30 @@
 package com.ichi2.anki
 
 import android.app.Activity
-import android.content.*
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
+import android.content.SharedPreferences
 import android.database.SQLException
 import android.graphics.PixelFormat
 import android.graphics.drawable.Drawable
 import android.net.Uri
-import android.os.*
+import android.os.Build
+import android.os.Bundle
+import android.os.Message
 import android.util.TypedValue
-import android.view.*
-import android.view.View.OnLongClickListener
-import android.widget.*
+import android.view.KeyEvent
+import android.view.Menu
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewPropertyAnimator
+import android.widget.Filterable
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.RelativeLayout
+import android.widget.TextView
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -73,25 +87,45 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
-import com.ichi2.anim.ActivityTransitionAnimation.Direction.*
 import com.ichi2.anki.CollectionManager.TR
 import com.ichi2.anki.CollectionManager.withCol
 import com.ichi2.anki.CollectionManager.withOpenColOrNull
 import com.ichi2.anki.InitialActivity.StartupFailure
-import com.ichi2.anki.InitialActivity.StartupFailure.*
+import com.ichi2.anki.InitialActivity.StartupFailure.DATABASE_LOCKED
+import com.ichi2.anki.InitialActivity.StartupFailure.DB_ERROR
+import com.ichi2.anki.InitialActivity.StartupFailure.DIRECTORY_NOT_ACCESSIBLE
+import com.ichi2.anki.InitialActivity.StartupFailure.DISK_FULL
+import com.ichi2.anki.InitialActivity.StartupFailure.FUTURE_ANKIDROID_VERSION
+import com.ichi2.anki.InitialActivity.StartupFailure.SD_CARD_NOT_MOUNTED
+import com.ichi2.anki.InitialActivity.StartupFailure.WEBVIEW_FAILED
 import com.ichi2.anki.StudyOptionsFragment.StudyOptionsListener
 import com.ichi2.anki.analytics.UsageAnalytics
 import com.ichi2.anki.deckpicker.BITMAP_BYTES_PER_PIXEL
 import com.ichi2.anki.deckpicker.BackgroundImage
-import com.ichi2.anki.dialogs.*
+import com.ichi2.anki.dialogs.AsyncDialogFragment
+import com.ichi2.anki.dialogs.BackupPromptDialog
+import com.ichi2.anki.dialogs.ConfirmationDialog
+import com.ichi2.anki.dialogs.CreateDeckDialog
+import com.ichi2.anki.dialogs.DatabaseErrorDialog
 import com.ichi2.anki.dialogs.DatabaseErrorDialog.DatabaseErrorDialogType
+import com.ichi2.anki.dialogs.DeckPickerAnalyticsOptInDialog
+import com.ichi2.anki.dialogs.DeckPickerBackupNoSpaceLeftDialog
+import com.ichi2.anki.dialogs.DeckPickerConfirmDeleteDeckDialog
+import com.ichi2.anki.dialogs.DeckPickerContextMenu
 import com.ichi2.anki.dialogs.DeckPickerContextMenu.DeckPickerContextMenuOption
+import com.ichi2.anki.dialogs.DeckPickerNoSpaceLeftDialog
+import com.ichi2.anki.dialogs.DialogHandlerMessage
+import com.ichi2.anki.dialogs.EditDeckDescriptionDialog
 import com.ichi2.anki.dialogs.ImportDialog.ImportDialogListener
 import com.ichi2.anki.dialogs.ImportFileSelectionFragment.ApkgImportResultLauncherProvider
 import com.ichi2.anki.dialogs.ImportFileSelectionFragment.CsvImportResultLauncherProvider
+import com.ichi2.anki.dialogs.MediaCheckDialog
 import com.ichi2.anki.dialogs.MediaCheckDialog.MediaCheckDialogListener
+import com.ichi2.anki.dialogs.MigrationProgressDialogFragment
+import com.ichi2.anki.dialogs.SyncErrorDialog
 import com.ichi2.anki.dialogs.SyncErrorDialog.Companion.newInstance
 import com.ichi2.anki.dialogs.SyncErrorDialog.SyncErrorDialogListener
+import com.ichi2.anki.dialogs.addScopedStorageLearnMoreLinkAndShow
 import com.ichi2.anki.dialogs.customstudy.CustomStudyDialog
 import com.ichi2.anki.dialogs.customstudy.CustomStudyDialog.CustomStudyListener
 import com.ichi2.anki.dialogs.customstudy.CustomStudyDialogFactory
@@ -101,6 +135,7 @@ import com.ichi2.anki.export.ExportDialogsFactory
 import com.ichi2.anki.export.ExportDialogsFactoryProvider
 import com.ichi2.anki.introduction.CollectionPermissionScreenLauncher
 import com.ichi2.anki.introduction.hasCollectionStoragePermissions
+import com.ichi2.anki.noteeditor.NoteEditorLauncher
 import com.ichi2.anki.notetype.ManageNotetypes
 import com.ichi2.anki.pages.AnkiPackageImporterFragment
 import com.ichi2.anki.pages.CongratsPage
@@ -108,9 +143,10 @@ import com.ichi2.anki.pages.CongratsPage.Companion.onDeckCompleted
 import com.ichi2.anki.preferences.AdvancedSettingsFragment
 import com.ichi2.anki.preferences.sharedPrefs
 import com.ichi2.anki.receiver.SdCardReceiver
-import com.ichi2.anki.servicelayer.*
+import com.ichi2.anki.servicelayer.ScopedStorageService
 import com.ichi2.anki.servicelayer.ScopedStorageService.isLegacyStorage
 import com.ichi2.anki.servicelayer.ScopedStorageService.mediaMigrationIsInProgress
+import com.ichi2.anki.servicelayer.checkMedia
 import com.ichi2.anki.services.MediaMigrationState
 import com.ichi2.anki.services.MigrationService
 import com.ichi2.anki.services.getMediaMigrationState
@@ -125,28 +161,50 @@ import com.ichi2.anki.worker.SyncMediaWorker
 import com.ichi2.anki.worker.SyncWorker
 import com.ichi2.anki.worker.UniqueWorkNames
 import com.ichi2.annotations.NeedsTest
-import com.ichi2.async.*
+import com.ichi2.async.deleteMedia
+import com.ichi2.async.sendNotificationForAsyncOperation
 import com.ichi2.compat.CompatHelper.Companion.getSerializableCompat
 import com.ichi2.compat.CompatHelper.Companion.registerReceiverCompat
 import com.ichi2.compat.CompatHelper.Companion.sdkVersion
-import com.ichi2.libanki.*
+import com.ichi2.libanki.ChangeManager
+import com.ichi2.libanki.Consts
+import com.ichi2.libanki.DeckId
+import com.ichi2.libanki.Decks
+import com.ichi2.libanki.MediaCheckResult
 import com.ichi2.libanki.exception.ConfirmModSchemaException
 import com.ichi2.libanki.sched.DeckNode
+import com.ichi2.libanki.undoableOp
 import com.ichi2.libanki.utils.TimeManager
 import com.ichi2.ui.BadgeDrawableBuilder
-import com.ichi2.utils.*
+import com.ichi2.utils.AdaptionUtil
+import com.ichi2.utils.FragmentFactoryUtils
+import com.ichi2.utils.HandlerUtils
+import com.ichi2.utils.KotlinCleanup
+import com.ichi2.utils.NetworkUtils
 import com.ichi2.utils.NetworkUtils.isActiveNetworkMetered
+import com.ichi2.utils.SyncStatus
+import com.ichi2.utils.VersionUtils
+import com.ichi2.utils.cancelable
+import com.ichi2.utils.checkBoxPrompt
+import com.ichi2.utils.message
+import com.ichi2.utils.negativeButton
+import com.ichi2.utils.neutralButton
+import com.ichi2.utils.positiveButton
+import com.ichi2.utils.show
+import com.ichi2.utils.title
 import com.ichi2.widget.WidgetStatus
-import kotlinx.coroutines.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import makeLinksClickable
 import net.ankiweb.rsdroid.RustCleanup
 import org.json.JSONException
 import timber.log.Timber
 import java.io.File
-import java.lang.Runnable
 import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.measureTimedValue
 
@@ -204,8 +262,10 @@ open class DeckPicker :
     private var backButtonPressedToExit = false
     private lateinit var deckPickerContent: RelativeLayout
 
-    @Suppress("Deprecation") // TODO: Encapsulate ProgressDialog within a class to limit the use of deprecated functionality
-    var progressDialog: android.app.ProgressDialog? = null
+    // TODO: Encapsulate ProgressDialog within a class to limit the use of deprecated functionality
+    @Suppress("Deprecation")
+    private var progressDialog: android.app.ProgressDialog? = null
+
     private var studyoptionsFrame: View? = null // not lateInit - can be null
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     lateinit var recyclerView: RecyclerView
@@ -213,8 +273,7 @@ open class DeckPicker :
     private lateinit var deckListAdapter: DeckAdapter
     lateinit var exportingDelegate: ActivityExportingDelegate
     private lateinit var noDecksPlaceholder: LinearLayout
-    lateinit var pullToSyncWrapper: SwipeRefreshLayout
-        private set
+    private lateinit var pullToSyncWrapper: SwipeRefreshLayout
 
     private lateinit var reviewSummaryTextView: TextView
 
@@ -278,7 +337,7 @@ open class DeckPicker :
 
     private var toolbarSearchItem: MenuItem? = null
     private var toolbarSearchView: SearchView? = null
-    internal lateinit var customStudyDialogFactory: CustomStudyDialogFactory
+    private lateinit var customStudyDialogFactory: CustomStudyDialogFactory
 
     override val permissionScreenLauncher = recreateActivityResultLauncher()
 
@@ -317,8 +376,12 @@ open class DeckPicker :
         ActivityResultContracts.StartActivityForResult(),
         DeckPickerActivityResultCallback {
             if (it.resultCode == RESULT_OK) {
-                lifecycleScope.launch(Dispatchers.IO) {
-                    onSelectedPackageToImport(it.data!!)
+                lifecycleScope.launch {
+                    withProgress(message = getString(R.string.import_preparing_file)) {
+                        withContext(Dispatchers.IO) {
+                            onSelectedPackageToImport(it.data!!)
+                        }
+                    }
                 }
             }
         }
@@ -379,9 +442,13 @@ open class DeckPicker :
         }
     }
 
-    private val deckLongClickListener = OnLongClickListener { v ->
+    private val deckContextAndLongClickListener = OnContextAndLongClickListener { v ->
         val deckId = v.tag as DeckId
-        Timber.i("DeckPicker:: Long tapped on deck with id %d", deckId)
+        showDeckPickerContextMenu(deckId)
+        true
+    }
+
+    private fun showDeckPickerContextMenu(deckId: DeckId) {
         launchCatchingTask {
             val (deckName, isDynamic, hasBuriedInDeck) = withCol {
                 decks.select(deckId)
@@ -401,7 +468,6 @@ open class DeckPicker :
                 )
             )
         }
-        true
     }
 
     private val notificationPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
@@ -495,7 +561,7 @@ open class DeckPicker :
             setDeckClickListener(deckClickListener)
             setCountsClickListener(countsClickListener)
             setDeckExpanderClickListener(deckExpanderClickListener)
-            setDeckLongClickListener(deckLongClickListener)
+            setDeckContextAndLongClickListener(deckContextAndLongClickListener)
             enablePartialTransparencyForBackground(hasDeckPickerBackground)
         }
         recyclerView.adapter = deckListAdapter
@@ -975,6 +1041,15 @@ open class DeckPicker :
         }
     }
 
+    private suspend fun updateUndoMenuState() {
+        withOpenColOrNull {
+            optionsMenuState = optionsMenuState?.copy(
+                undoLabel = undoLabel(),
+                undoAvailable = undoAvailable()
+            )
+        }
+    }
+
     private fun updateSearchVisibilityFromState(menu: Menu) {
         optionsMenuState?.run {
             menu.findItem(R.id.deck_picker_action_filter).isVisible = searchIcon
@@ -1128,10 +1203,7 @@ open class DeckPicker :
             }
             R.id.action_model_browser_open -> {
                 Timber.i("DeckPicker:: Model browser button pressed")
-                val manageNoteTypesTarget =
-                    ManageNotetypes::class.java
-                val noteTypeBrowser = Intent(this, manageNoteTypesTarget)
-                startActivity(noteTypeBrowser)
+                openManageNoteTypes()
                 return true
             }
             R.id.action_restore_backup -> {
@@ -1152,7 +1224,7 @@ open class DeckPicker :
         }
     }
 
-    fun createFilteredDialog() {
+    fun showCreateFilteredDeckDialog() {
         val createFilteredDeckDialog = CreateDeckDialog(this@DeckPicker, R.string.new_deck, CreateDeckDialog.DeckDialogType.FILTERED_DECK, null)
         createFilteredDeckDialog.onNewDeckCreated = {
             // a filtered deck was created
@@ -1173,6 +1245,15 @@ open class DeckPicker :
             return
         }
         ExportDialogFragment.newInstance().show(supportFragmentManager, "exportDialog")
+    }
+
+    /**
+     * Opens the Manage Note Types screen.
+     */
+    private fun openManageNoteTypes() {
+        val manageNoteTypesTarget = ManageNotetypes::class.java
+        val noteTypeBrowser = Intent(this, manageNoteTypesTarget)
+        startActivity(noteTypeBrowser)
     }
 
     private fun processReviewResults(resultCode: Int) {
@@ -1354,7 +1435,7 @@ open class DeckPicker :
     }
 
     override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
-        if (toolbarSearchView != null && toolbarSearchView!!.hasFocus()) {
+        if (toolbarSearchView?.hasFocus() == true) {
             Timber.d("Skipping keypress: search action bar is focused")
             return true
         }
@@ -1362,30 +1443,144 @@ open class DeckPicker :
             KeyEvent.KEYCODE_A -> {
                 Timber.i("Adding Note from keypress")
                 addNote()
+                return true
             }
             KeyEvent.KEYCODE_B -> {
-                Timber.i("Open Browser from keypress")
-                openCardBrowser()
+                if (event.isCtrlPressed) {
+                    // Shortcut: CTRL + B
+                    Timber.i("show restore backup dialog from keypress")
+                    showDatabaseErrorDialog(DatabaseErrorDialogType.DIALOG_CONFIRM_RESTORE_BACKUP)
+                } else {
+                    // Shortcut: B
+                    Timber.i("Open Browser from keypress")
+                    openCardBrowser()
+                }
+                return true
             }
             KeyEvent.KEYCODE_Y -> {
                 Timber.i("Sync from keypress")
                 sync()
+                return true
             }
             KeyEvent.KEYCODE_SLASH -> {
                 Timber.d("Search from keypress")
                 if (toolbarSearchItem?.isVisible == true) {
                     toolbarSearchItem?.expandActionView()
                 }
+                return true
             }
             KeyEvent.KEYCODE_S -> {
                 Timber.i("Study from keypress")
                 launchCatchingTask {
                     handleDeckSelection(getColUnsafe.decks.selected(), DeckSelectionType.SKIP_STUDY_OPTIONS)
                 }
+                return true
+            }
+            KeyEvent.KEYCODE_T -> {
+                Timber.i("Open Statistics from keypress")
+                openStatistics()
+                return true
+            }
+            KeyEvent.KEYCODE_C -> {
+                // Shortcut: C
+                Timber.i("Check database from keypress")
+                showDatabaseErrorDialog(DatabaseErrorDialogType.DIALOG_CONFIRM_DATABASE_CHECK)
+                return true
+            }
+            KeyEvent.KEYCODE_D -> {
+                // Shortcut: D
+                Timber.i("Create Deck from keypress")
+                showCreateDeckDialog()
+                return true
+            }
+            KeyEvent.KEYCODE_F -> {
+                Timber.i("Create Filtered Deck from keypress")
+                showCreateFilteredDeckDialog()
+                return true
+            }
+            KeyEvent.KEYCODE_DEL -> {
+                // This action on a deck should only occur when the user see the deck name very clearly,
+                // that is, when it appears in the trailing study option fragment
+                if (fragmented) {
+                    if (event.isShiftPressed) {
+                        // Shortcut: Shift + DEL - Delete deck without confirmation dialog
+                        Timber.i("Shift+DEL: Deck deck without confirmation")
+                        deleteDeck(focusedDeck)
+                    } else {
+                        // Shortcut: DEL
+                        Timber.i("Delete Deck from keypress")
+                        showDeleteDeckConfirmationDialog()
+                    }
+                    return true
+                }
+            }
+            KeyEvent.KEYCODE_R -> {
+                // Shortcut: R
+                // This action on a deck should only occur when the user see the deck name very clearly,
+                // that is, when it appears in the trailing study option fragment
+                if (fragmented) {
+                    Timber.i("Rename Deck from keypress")
+                    renameDeckDialog(focusedDeck)
+                    return true
+                }
+            }
+            KeyEvent.KEYCODE_P -> {
+                Timber.i("Open Settings from keypress")
+                openSettings()
+                return true
+            }
+            KeyEvent.KEYCODE_M -> {
+                Timber.i("Check media from keypress")
+                showMediaCheckDialog(MediaCheckDialog.DIALOG_CONFIRM_MEDIA_CHECK)
+                return true
+            }
+            KeyEvent.KEYCODE_E -> {
+                if (event.isCtrlPressed) {
+                    // Shortcut: CTRL + E
+                    Timber.i("Show export dialog from keypress")
+                    exportCollection()
+                    return true
+                }
+            }
+            KeyEvent.KEYCODE_I -> {
+                if (event.isCtrlPressed && event.isShiftPressed) {
+                    // Shortcut: CTRL + Shift + I
+                    Timber.i("Show import dialog from keypress")
+                    showImportDialog()
+                    return true
+                }
+            }
+            KeyEvent.KEYCODE_N -> {
+                if (event.isCtrlPressed && event.isShiftPressed) {
+                    // Shortcut: CTRL + Shift + N
+                    Timber.i("Open ManageNoteTypes from keypress")
+                    openManageNoteTypes()
+                    return true
+                }
             }
             else -> {}
         }
         return super.onKeyUp(keyCode, event)
+    }
+
+    /**
+     * Displays a confirmation dialog for deleting deck.
+     */
+    private fun showDeleteDeckConfirmationDialog() = launchCatchingTask {
+        val (deckName, totalCards, isFilteredDeck) = withCol {
+            Triple(
+                decks.name(focusedDeck),
+                sched.cardCount(),
+                decks.isFiltered(focusedDeck)
+            )
+        }
+        val confirmDeleteDeckDialog = DeckPickerConfirmDeleteDeckDialog.newInstance(
+            deckName = deckName,
+            deckId = focusedDeck,
+            totalCards = totalCards,
+            isFilteredDeck = isFilteredDeck
+        )
+        showDialogFragment(confirmDeleteDeckDialog)
     }
 
     /**
@@ -1449,8 +1644,7 @@ open class DeckPicker :
     }
 
     fun addNote() {
-        val intent = Intent(this@DeckPicker, NoteEditor::class.java)
-        intent.putExtra(NoteEditor.EXTRA_CALLER, NoteEditor.CALLER_DECKPICKER)
+        val intent = NoteEditorLauncher.AddNote().getIntent(this)
         startActivity(intent)
     }
 
@@ -1879,7 +2073,7 @@ open class DeckPicker :
      * modify the filter settings before being shown the fragment. The fragment itself will handle
      * rebuilding the deck if the settings change.
      */
-    fun loadStudyOptionsFragment(withDeckOptions: Boolean) {
+    private fun loadStudyOptionsFragment(withDeckOptions: Boolean) {
         val details = StudyOptionsFragment.newInstance(withDeckOptions)
         supportFragmentManager.commit {
             replace(R.id.studyoptions_fragment, details)
@@ -1928,7 +2122,7 @@ open class DeckPicker :
         startActivity(intent)
     }
 
-    internal fun openStudyOptions(@Suppress("SameParameterValue") withDeckOptions: Boolean) {
+    private fun openStudyOptions(@Suppress("SameParameterValue") withDeckOptions: Boolean) {
         if (fragmented) {
             // The fragment will show the study options screen instead of launching a new activity.
             loadStudyOptionsFragment(withDeckOptions)
@@ -2065,26 +2259,26 @@ open class DeckPicker :
         loadDeckCounts = launchCatchingTask {
             withProgress {
                 Timber.d("Refreshing deck list")
-                val deckData = withCol {
-                    Pair(sched.deckDueTree(), this.isEmpty)
+                val (deckDueTree, collectionHasNoCards) = withCol {
+                    Pair(sched.deckDueTree(), isEmpty)
                 }
-                onDecksLoaded(deckData.first, deckData.second)
+                onDecksLoaded(deckDueTree, collectionHasNoCards)
 
-                updateMenuState()
+                updateUndoMenuState()
             }
         }
     }
 
-    private fun onDecksLoaded(result: DeckNode, collectionIsEmpty: Boolean) {
+    private fun onDecksLoaded(result: DeckNode, collectionHasNoCards: Boolean) {
         Timber.i("Updating deck list UI")
         hideProgressBar()
         // Make sure the fragment is visible
         if (fragmented) {
             invalidateOptionsMenu()
-            studyoptionsFrame!!.visibility = if (collectionIsEmpty) View.GONE else View.VISIBLE
+            studyoptionsFrame!!.visibility = if (collectionHasNoCards) View.GONE else View.VISIBLE
         }
         dueTree = result
-        launchCatchingTask { renderPage(collectionIsEmpty) }
+        launchCatchingTask { renderPage(collectionHasNoCards) }
         // Update the mini statistics bar as well
         reviewSummaryTextView.setSingleLine()
         launchCatchingTask {
@@ -2192,7 +2386,7 @@ open class DeckPicker :
         ExportDialogFragment.newInstance(did).show(supportFragmentManager, "exportOptions")
     }
 
-    fun createIcon(context: Context, did: DeckId) {
+    private fun createIcon(context: Context, did: DeckId) {
         // This code should not be reachable with lower versions
         val shortcut = ShortcutInfoCompat.Builder(this, did.toString())
             .setIntent(
@@ -2221,7 +2415,7 @@ open class DeckPicker :
     }
 
     /** Disables the shortcut of the deck and the children belonging to it.*/
-    fun disableDeckAndChildrenShortcuts(did: DeckId) {
+    private fun disableDeckAndChildrenShortcuts(did: DeckId) {
         val childDids = dueTree?.find(did)?.filterAndFlatten(null)?.map { it.did.toString() } ?: listOf()
         val deckTreeDids = listOf(did.toString(), *childDids.toTypedArray())
         val errorMessage: CharSequence = getString(R.string.deck_shortcut_doesnt_exist)
@@ -2243,6 +2437,20 @@ open class DeckPicker :
         createDeckDialog.showDialog()
     }
 
+    /**
+     * Displays a dialog for creating a new deck.
+     *
+     * @see CreateDeckDialog
+     */
+    fun showCreateDeckDialog() {
+        val createDeckDialog = CreateDeckDialog(this@DeckPicker, R.string.new_deck, CreateDeckDialog.DeckDialogType.DECK, null)
+        createDeckDialog.onNewDeckCreated = {
+            updateDeckList()
+            invalidateOptionsMenu()
+        }
+        createDeckDialog.showDialog()
+    }
+
     fun confirmDeckDeletion(did: DeckId): Job {
         // No confirmation required, as undoable
         dismissAllDialogFragments()
@@ -2256,6 +2464,7 @@ open class DeckPicker :
      */
     fun deleteDeck(did: DeckId): Job {
         return launchCatchingTask {
+            val deckName = withCol { decks.get(did)!!.name }
             val changes = withProgress(resources.getString(R.string.delete_deck)) {
                 undoableOp {
                     decks.remove(listOf(did))
@@ -2264,7 +2473,7 @@ open class DeckPicker :
             // After deletion: decks.current() reverts to Default, necessitating `focusedDeck`
             // to match and avoid unnecessary scrolls in `renderPage()`.
             focusedDeck = Consts.DEFAULT_DECK_ID
-            showSnackbar(TR.browsingCardsDeleted(changes.count), Snackbar.LENGTH_SHORT) {
+            showSnackbar(TR.browsingCardsDeletedWithDeckname(changes.count, deckName), Snackbar.LENGTH_SHORT) {
                 setAction(R.string.undo) { undo() }
             }
         }
@@ -2278,7 +2487,6 @@ open class DeckPicker :
                     Timber.d("rebuildFiltered: doInBackground - RebuildCram")
                     decks.select(did)
                     sched.rebuildDyn(decks.selected())
-                    updateValuesFromDeck()
                 }
             }
             updateDeckList()
@@ -2286,14 +2494,13 @@ open class DeckPicker :
         }
     }
 
-    fun emptyFiltered(did: DeckId) {
+    private fun emptyFiltered(did: DeckId) {
         getColUnsafe.decks.select(did)
         launchCatchingTask {
             withProgress {
                 withCol {
                     Timber.d("doInBackgroundEmptyCram")
                     sched.emptyDyn(decks.selected())
-                    updateValuesFromDeck()
                 }
             }
             updateDeckList()
@@ -2361,7 +2568,7 @@ open class DeckPicker :
         }
     }
 
-    fun createSubDeckDialog(did: DeckId) {
+    private fun createSubDeckDialog(did: DeckId) {
         val createDeckDialog = CreateDeckDialog(this@DeckPicker, R.string.create_subdeck, CreateDeckDialog.DeckDialogType.SUB_DECK, did)
         createDeckDialog.onNewDeckCreated = {
             // a deck was created
@@ -2684,15 +2891,14 @@ open class DeckPicker :
      */
     private suspend fun queryCompletedDeckCustomStudyAction(
         did: DeckId
-    ): CompletedDeckStatus = withCol {
+    ): CompletedDeckStatus =
         when {
-            sched.hasCardsTodayAfterStudyAheadLimit() -> CompletedDeckStatus.LEARN_AHEAD_LIMIT_REACHED
-            sched.newDue() || sched.revDue() -> CompletedDeckStatus.LEARN_AHEAD_LIMIT_REACHED
-            decks.isFiltered(did) -> CompletedDeckStatus.DYNAMIC_DECK_NO_LIMITS_REACHED
-            deckListAdapter.getNodeByDid(did).children.isEmpty() && isEmptyDeck(did) -> CompletedDeckStatus.EMPTY_REGULAR_DECK
+            withCol { sched.hasCardsTodayAfterStudyAheadLimit() } -> CompletedDeckStatus.LEARN_AHEAD_LIMIT_REACHED
+            withCol { sched.newDue() || sched.revDue() } -> CompletedDeckStatus.LEARN_AHEAD_LIMIT_REACHED
+            withCol { decks.isFiltered(did) } -> CompletedDeckStatus.DYNAMIC_DECK_NO_LIMITS_REACHED
+            deckListAdapter.getNodeByDid(did).children.isEmpty() && withCol { decks.isEmpty(did) } -> CompletedDeckStatus.EMPTY_REGULAR_DECK
             else -> CompletedDeckStatus.REGULAR_DECK_NO_MORE_CARDS_TODAY
         }
-    }
 
     /** Status for a deck with no current cards to review */
     enum class CompletedDeckStatus {

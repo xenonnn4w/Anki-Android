@@ -31,8 +31,9 @@ import com.ichi2.anki.dialogs.DeckSelectionDialog.DeckCreationListener
 import com.ichi2.anki.dialogs.DeckSelectionDialog.SelectableDeck
 import com.ichi2.anki.dialogs.DeckSelectionDialog.SelectableDeck.Companion.fromCollection
 import com.ichi2.anki.widgets.DeckDropDownAdapter
-import com.ichi2.libanki.*
 import com.ichi2.libanki.Collection
+import com.ichi2.libanki.DeckId
+import com.ichi2.libanki.DeckNameId
 import com.ichi2.utils.FragmentManagerSupplier
 import com.ichi2.utils.KotlinCleanup
 import com.ichi2.utils.asFragmentManagerSupplier
@@ -62,10 +63,9 @@ class DeckSpinnerSelection(
     private val spinner: Spinner,
     private val showAllDecks: Boolean,
     private val alwaysShowDefault: Boolean,
-    private val showFilteredDecks: Boolean
-) {
-
+    private val showFilteredDecks: Boolean,
     private val fragmentManagerSupplier: FragmentManagerSupplier = context.asFragmentManagerSupplier()
+) {
 
     private var deckDropDownAdapter: DeckDropDownAdapter? = null
 

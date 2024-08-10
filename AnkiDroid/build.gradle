@@ -2,7 +2,6 @@ plugins {
     // Gradle plugin portal
     alias(libs.plugins.tripletPlay)
     alias(libs.plugins.android.application)
-    alias(libs.plugins.amazonappstorepublisher)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.parcelize)
     alias(libs.plugins.kotlin.serialization)
@@ -87,8 +86,8 @@ android {
         //
         // This ensures the correct ordering between the various types of releases (dev < alpha < beta < release) which is
         // needed for upgrades to be offered correctly.
-        versionCode=21900108
-        versionName="2.19alpha8"
+        versionCode=21900110
+        versionName="2.19alpha10"
         minSdk libs.versions.minSdk.get().toInteger()
 
         // Stays until this is in a release: https://github.com/google/desugar_jdk_libs/commit/c01a5446ca13586b801dbba4d83c6821337b3cc2
@@ -267,13 +266,6 @@ android {
 play {
     serviceAccountCredentials.set(file("${homePath}/src/AnkiDroid-GCP-Publish-Credentials.json"))
     track.set('alpha')
-}
-
-amazon {
-    securityProfile = file("${homePath}/src/AnkiDroid-Amazon-Publish-Security-Profile.json")
-    applicationId = "amzn1.devportal.mobileapp.524a424d314931494c55383833305539"
-    pathToApks = [ file("./build/outputs/apk/amazon/release/AnkiDroid-amazon-universal-release.apk") ]
-    replaceEdit = true
 }
 
 // Install Git pre-commit hook for Ktlint
@@ -455,4 +447,8 @@ dependencies {
     androidTestImplementation libs.kotlin.test
     androidTestImplementation libs.kotlin.test.junit
     androidTestImplementation libs.androidx.fragment.testing
+
+    implementation libs.androidx.media3.exoplayer
+    implementation libs.androidx.media3.exoplayer.dash
+    implementation libs.androidx.media3.ui
 }
