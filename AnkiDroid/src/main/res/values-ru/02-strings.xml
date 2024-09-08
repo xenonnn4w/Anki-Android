@@ -219,7 +219,6 @@
     <string name="card_viewer_could_not_find_image">Не удалось загрузить «%s»</string>
     <!-- Deck Picker -->
     <string name="search_decks">Найти колоду</string>
-    <string name="show_migration_progress" comment="Title for a button in deck picker\'s toolbar that shows ongoing migration progress.         Usually shown as a tooltip. The button opens a dialog with a more detailed progress information.">Показать прогресс переноса файлов</string>
     <string name="ankidroid_init_failed_webview_title">Критическая ошибка</string>
     <string name="ankidroid_init_failed_webview">AnkiDroid использует системный WebView, который сейчас не доступен. Это может произойти, если система устанавливает обновления. Повторите попытку через несколько минут.\n\n%s</string>
     <!-- A Menu item to change the Font Size (currently in the Note Editor) -->
@@ -239,7 +238,9 @@
     <string name="edit_toolbar_item">Изменить элемент панели</string>
     <string name="toolbar_item_explain_edit_or_remove">Введите HTML, который будет вставлен до и после выделенного текста.\n\nНажмите и удерживайте элемент панели инструментов, чтобы изменить или удалить его.</string>
     <string name="remove_toolbar_item">Удалить элемент панели инструментов?</string>
-    <string name="note_editor_paste_too_large">Изображение слишком велико для вставки, пожалуйста, вставьте изображение вручную</string>
+    <string name="note_editor_image_too_large">The image is too large, please insert the image manually</string>
+    <string name="note_editor_video_too_large">The video file is too large, please insert the video manually</string>
+    <string name="note_editor_audio_too_large">The audio file is too large, please insert the audio manually</string>
     <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">        Выполняется резервное копирование Android. Попробуйте еще раз</string>
     <string name="create_shortcut_error_vivo" comment="iManager is an app on Vivo phones">Возможно, вам потребуется iManager, чтобы AnkiDroid мог добавлять ярлыки</string>
     <string name="create_shortcut_failed" comment="home screen == launcher">Ваш домашний экран не позволяет AnkiDroid добавлять ярлыки</string>
@@ -280,16 +281,8 @@
     </plurals>
     <!--  Note Editor Toggle Sticky  -->
     <string name="note_editor_toggle_sticky">Закрепить поле %s</string>
-    <!-- Scoped Storage Migration -->
-    <string name="scoped_storage_title">Перенос хранилища</string>
     <string name="scoped_storage_learn_more">Подробнее</string>
-    <string name="scoped_storage_postpone">Отложить</string>
-    <string name="scoped_storage_migrate">Перенести</string>
     <string name="search_card_js_api_no_results">Ничего не найдено</string>
-    <string name="migration_update_request_requires_media_sync" commnet="use HTML linebreaks in this string">AnkiDroid должен перенести свое файловое хранилище в соответствии с политикой безопасности Android 10.\n\nБлагодаря этому повысится производительность синхронизации медиафайлов.&lt;br&gt;&lt;br&gt;Во время процесса вы не сможете синхронизироваться и некоторые настройки будут недоступны. Чтобы ваши данные не потерялись, перед переносом хранилища произойдёт синхронизация медиафайлов.&lt;br&gt;&lt;br&gt;Во время переноса вы можете безопасно использовать или закрывать AnkiDroid.</string>
-    <string name="start_migration_progress_message">Начался перенос хранилища. Скоро вы сможете продолжить учёбу с AnkiDroid.</string>
-    <string name="migration_part_1_done_resume">Вы можете продолжать использовать AnkiDroid.
-\nПеренос хранилища будет идти в фоновом режиме.</string>
     <!--  JS Addons  -->
     <string name="not_valid_js_addon_package">%s не является допустимым пакетом JavaScript-дополнения</string>
     <string name="could_not_create_dir">Не удалось создать каталог «%s»</string>
@@ -322,11 +315,6 @@
     <string name="toggle_browser_mode_help">Показывать карточки или записи в списке</string>
     <string name="truncate_content_help">Показывать в списке только первые 3 строки</string>
     <string name="browser_options_dialog_heading">Параметры списка карточек</string>
-    <string name="functionality_disabled_during_storage_migration" comment="Displayed when trying to access functionality which cannot be run while storage is being moved to a new location">        Эта функция недоступна во время переноса хранилища
-    </string>
-    <string name="storage_migration_sync_notification" comment="Appears on a notification after the user has opted into a storage migration and provided consent to sync         and AnkiDroid was minimised when the sync completed">Нажмите, чтобы начать перенос хранилища</string>
-    <string name="media_sync_required_title">Требуется синхронизация медиафайлов</string>
-    <string name="media_sync_unavailable_message">Синхронизация медиафайлов отключена в настройках. Пожалуйста, перед продолжением синхронизируйте и сделайте резервную копию всех медиафайлов, которые не были синхронизированы</string>
     <string name="audio_saved">Запись сохранена </string>
     <string name="deleting_selected_notes">Выбранные записи удаляются</string>
     <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">        Нажмите на голосе, чтобы послушать
@@ -353,4 +341,7 @@
     <string name="stop_recording">Стоп</string>
     <string name="play_recording">Играть</string>
     <string name="next_recording">След.</string>
+    <!--  AlertDialog in the deleteCardTemplate  -->
+    <string name="orphan_note_title">Cannot Delete Card Type</string>
+    <string name="orphan_note_message">Deleting this card type will leave some notes without any cards.</string>
 </resources>

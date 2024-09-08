@@ -138,7 +138,6 @@
     <string name="empty_cards_deleted">Silinen kartlar: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Mikrofon izni alınamadı.</string>
-    <string name="multimedia_editor_camera_permission_refused">Kamera izni alınamadı. İşlevsellik devre dışı bırakıldı.</string>
     <string name="multimedia_editor_failed">Multimedya Düzenleyiciyi açma başarısız oldu</string>
     <!-- Multimedia - Audio View -->
     <string name="multimedia_editor_audio_permission_denied">Ses kayıt izni reddedildi</string>
@@ -260,6 +259,9 @@
     <string name="open">Aç</string>
     <string name="change_cloze_number">Boşluk numarasını değiştir</string>
     <string name="cloze_number">Boşluk numarası:</string>
+    <string name="change_editor_mode">Düzenleyici modunu değiştir</string>
+    <string name="open_note_editor">Not düzenleyiciyi aç</string>
+    <string name="change_cloze_mode">Boşluk modunu değiştir</string>
     <!-- Outdated WebView dialog -->
     <string name="webview_update_message">Sistem WebView\'su güncel değil. Bazı özellikler doğru çalışmayacak. Lütfen güncelleyin.\n\nYüklü sürüm: %1$d\nGereken en düşük sürüm: %2$d</string>
 </resources>

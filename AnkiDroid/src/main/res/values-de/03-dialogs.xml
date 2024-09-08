@@ -138,7 +138,6 @@
     <string name="empty_cards_deleted">%d Karten gelöscht</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Zugriffsberechtigung für das Mikrofon konnte nicht erlangt werden.</string>
-    <string name="multimedia_editor_camera_permission_refused">Zugriffsberechtigung für die Kamera konnte nicht erlangt werden. Funktion wurde deaktiviert.</string>
     <string name="multimedia_editor_failed">Multimedia-Editor konnte nicht geöffnet werden</string>
     <!-- Multimedia - Audio View -->
     <string name="multimedia_editor_audio_permission_denied">Berechtigung für Audioaufnahme verweigert</string>
@@ -258,6 +257,9 @@
     <string name="open">Offen</string>
     <string name="change_cloze_number">Change cloze number</string>
     <string name="cloze_number">Cloze number:</string>
+    <string name="change_editor_mode">Change editor mode</string>
+    <string name="open_note_editor">Open note editor</string>
+    <string name="change_cloze_mode">Change cloze mode</string>
     <!-- Outdated WebView dialog -->
     <string name="webview_update_message">Das System-WebView ist veraltet. Einige Funktionen werden nicht korrekt funktionieren. Bitte aktualisieren Sie es.\n\nInstallierte Version: %1$d\nMindestanforderung: %2$d</string>
 </resources>

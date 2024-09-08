@@ -52,7 +52,6 @@ import com.ichi2.libanki.Consts.QUEUE_TYPE_MANUALLY_BURIED
 import com.ichi2.libanki.Consts.QUEUE_TYPE_SIBLING_BURIED
 import com.ichi2.libanki.DeckId
 import com.ichi2.libanki.NoteId
-import com.ichi2.libanki.hasTag
 import com.ichi2.libanki.undoableOp
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Job
@@ -311,7 +310,7 @@ class CardBrowserViewModel(
             val initialDeckId = if (selectAllDecks) ALL_DECKS_ID else getInitialDeck()
             // PERF: slightly inefficient if the source was lastDeckId
             setDeckId(initialDeckId)
-            val cardsOrNotes = withCol { CardsOrNotes.fromCollection() }
+            val cardsOrNotes = withCol { CardsOrNotes.fromCollection(this@withCol) }
             flowOfCardsOrNotes.update { cardsOrNotes }
 
             val allColumns = withCol { allBrowserColumns() }.associateBy { it.key }
@@ -368,7 +367,7 @@ class CardBrowserViewModel(
             // if all notes are marked, remove the mark
             // if no notes are marked, add the mark
             // if there is a mix, enable the mark on all
-            val wantMark = !noteIds.all { getNote(it).hasTag("marked") }
+            val wantMark = !noteIds.all { getNote(it).hasTag(this@undoableOp, "marked") }
             Timber.i("setting mark = %b for %d notes", wantMark, noteIds.size)
             if (wantMark) {
                 tags.bulkAdd(noteIds, "marked")
@@ -399,7 +398,7 @@ class CardBrowserViewModel(
         Timber.i("setting mode to %s", newValue)
         withCol {
             // Change this to only change the preference on a state change
-            newValue.saveToCollection()
+            newValue.saveToCollection(this@withCol)
         }
         flowOfCardsOrNotes.update { newValue }
         setupColumns(newValue)
@@ -650,12 +649,18 @@ class CardBrowserViewModel(
         launchSearchForCards(filterQuery)
     }
 
+    /**
+     * Searches for all marked notes and replaces the current search results with these marked notes.
+     */
     suspend fun searchForMarkedNotes() {
         // only intended to be used if the user has no selection
         if (hasSelectedAnyRows()) return
         setFilterQuery("tag:marked")
     }
 
+    /**
+     * Searches for all suspended cards and replaces the current search results with these suspended cards.
+     */
     suspend fun searchForSuspendedCards() {
         // only intended to be used if the user has no selection
         if (hasSelectedAnyRows()) return

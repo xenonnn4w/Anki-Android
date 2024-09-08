@@ -114,7 +114,7 @@
     </plurals>
     <string name="fact_adder_intent_title" comment="Label of the \'Add Note\' window. This title can\'t be seen in AnkiDroid directly.">AnkiDroid カード</string>
     <string name="note_editor_copy_note">ノートを複製</string>
-    <string name="card_editor_reposition_card" comment="reposition a card in the new queue">導入順序を変更</string>
+    <string name="card_editor_reposition_card" comment="reposition a card in the new queue">位置（新規カード番号）を変更</string>
     <string name="card_editor_reset_card">新規カードにリセット</string>
     <string name="card_editor_reschedule_card" comment="Action to reschedule a card">スケジュールを変更</string>
     <string name="card_editor_preview_card" comment="Button offering to preview some card(s)">プレビュー</string>
@@ -210,7 +210,6 @@
     <string name="card_viewer_could_not_find_image">カードコンテンツエラー: ’%s’ の読み込みに失敗しました</string>
     <!-- Deck Picker -->
     <string name="search_decks">デッキ名を検索</string>
-    <string name="show_migration_progress" comment="Title for a button in deck picker\'s toolbar that shows ongoing migration progress.         Usually shown as a tooltip. The button opens a dialog with a more detailed progress information.">移行の進行状況を表示</string>
     <string name="ankidroid_init_failed_webview_title">重大なエラー</string>
     <string name="ankidroid_init_failed_webview">AnkiDroidはAndroidシステムのWebViewに依存していますが、このWebViewが現在使用できません。この状況は、システムがアップデートプログラムをインストールしている場合に発生する可能性があります。数分後に再試行してください。\n\n%s</string>
     <!-- A Menu item to change the Font Size (currently in the Note Editor) -->
@@ -230,7 +229,9 @@
     <string name="edit_toolbar_item">アイテムを編集</string>
     <string name="toolbar_item_explain_edit_or_remove">選択した文字列の前後に挿入するHTMLをそれぞれ入力してください\n\n作成したツールバーアイテムを編集または削除したい場合は、そのアイテムのボタンを長押ししてください</string>
     <string name="remove_toolbar_item">このツールバーアイテムを削除しますか？</string>
-    <string name="note_editor_paste_too_large">画像が大きすぎるため貼り付けできません。手動で画像を挿入してください</string>
+    <string name="note_editor_image_too_large">画像が大きすぎます。手動で画像を挿入してください</string>
+    <string name="note_editor_video_too_large">動画ファイルが大きすぎます。手動で動画を挿入してください</string>
+    <string name="note_editor_audio_too_large">音声ファイルが大きすぎます。手動で音声を挿入してください</string>
     <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">        Androidのバックアップが進行中です。もう一度やり直してください</string>
     <string name="create_shortcut_error_vivo" comment="iManager is an app on Vivo phones">AnkiDroidのショートカットを追加するには、iManagerでの許可が必要な場合があります。</string>
     <string name="create_shortcut_failed" comment="home screen == launcher">ホーム画面へのショートカットの追加が許可されませんでした</string>
@@ -268,16 +269,8 @@
     </plurals>
     <!--  Note Editor Toggle Sticky  -->
     <string name="note_editor_toggle_sticky">フィールド「%s」の内容を固定する</string>
-    <!-- Scoped Storage Migration -->
-    <string name="scoped_storage_title">ストレージ移行</string>
     <string name="scoped_storage_learn_more">詳細</string>
-    <string name="scoped_storage_postpone">後で</string>
-    <string name="scoped_storage_migrate">移行</string>
     <string name="search_card_js_api_no_results">検索対象が見つかりませんでした</string>
-    <string name="migration_update_request_requires_media_sync" commnet="use HTML linebreaks in this string">Android10のセキュリティポリシーに準拠するためには、AnkiDroidのストレージを移行（AnkiDroidのデータをアプリ専用の新しい保存場所へ移動）する必要があります。\n\n移行を行うと、メディアの同期が従来より短時間で行えるようになります。&lt;br&gt;&lt;br&gt;移行処理中は、同期機能の使用や、一部の設定の変更ができなくなります。移行処理を開始する前に、万一のデータ損失に備え、メディアを含めての同期を実行します。&lt;br&gt;&lt;br&gt;移行処理中もAnkiDroidを使用可能です。また、移行処理中にAnkiDroidの画面を閉じても問題ありません。</string>
-    <string name="start_migration_progress_message">ストレージの移行を開始します。AnkiDroidの使用はまもなく再開できます。</string>
-    <string name="migration_part_1_done_resume">AnkiDroidの使用を再開できます。
-\nストレージの移行はバックグラウンドで続行されます。</string>
     <!--  JS Addons  -->
     <string name="not_valid_js_addon_package">%s は有効なJavaScriptアドオンパッケージではありません</string>
     <string name="could_not_create_dir">%s というディレクトリを作成できませんでした</string>
@@ -310,11 +303,6 @@
     <string name="toggle_browser_mode_help">カードブラウザのリスト画面で、カードとノート、どちらのリストを表示するかを切り替えます</string>
     <string name="truncate_content_help">リスト画面において、カードまたはノートの内容の表示を１件につき３行までに制限します</string>
     <string name="browser_options_dialog_heading">ブラウザ オプション</string>
-    <string name="functionality_disabled_during_storage_migration" comment="Displayed when trying to access functionality which cannot be run while storage is being moved to a new location">        ストレージ移行中はこの機能は利用できません
-    </string>
-    <string name="storage_migration_sync_notification" comment="Appears on a notification after the user has opted into a storage migration and provided consent to sync         and AnkiDroid was minimised when the sync completed">タップしてストレージ移行を開始</string>
-    <string name="media_sync_required_title">メディアの同期が必要です</string>
-    <string name="media_sync_unavailable_message">メディアの同期が設定で無効になっています。続行する前に、まだ同期していないメディアを同期することによってバックアップをとってください</string>
     <string name="audio_saved">録音を保存しました</string>
     <string name="deleting_selected_notes">選択したノートを削除しています</string>
     <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">        読み上げる音声をタップ 
@@ -343,4 +331,7 @@
     <string name="stop_recording">停止</string>
     <string name="play_recording">再生</string>
     <string name="next_recording">次へ</string>
+    <!--  AlertDialog in the deleteCardTemplate  -->
+    <string name="orphan_note_title">カードタイプを削除できません</string>
+    <string name="orphan_note_message">このカードタイプを削除すると、カードが無いノートが生じます。</string>
 </resources>

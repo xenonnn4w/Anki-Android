@@ -49,10 +49,10 @@
     <string name="contextmenu_deckpicker_delete_deck">Eliminar baralho</string>
     <string name="delete_deck_title">Eliminar baralho?</string>
     <plurals name="delete_deck_message">
-        <item quantity="one">Delete all cards in %1$s? It contains %2$d card</item>
-        <item quantity="other">Delete all cards in %1$s? It contains %2$d cards</item>
+        <item quantity="one">Apagar todas as fichas em %1$s? Este tem %2$d ficha</item>
+        <item quantity="other">Apagar todas as fichas em %1$s? Este tem %2$d fichas</item>
     </plurals>
-    <string name="delete_cram_deck_message">Delete filtered deck %s and send all cards back to their original decks?</string>
+    <string name="delete_cram_deck_message">Apagar baralho filtrado %s e devolver fichas aos seus baralhos originais?</string>
     <string name="no_tts_available_message">Nenhuma língua disponível para o sistema de conversão de texto para fala</string>
     <string name="tts_no_tts">Não falar</string>
     <string name="unused_strings">\n\nFicheiros não utilizados:\n</string>
@@ -138,7 +138,6 @@
     <string name="empty_cards_deleted">Fichas apagas: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Não foi possível obter permissão para utilizar o microfone.</string>
-    <string name="multimedia_editor_camera_permission_refused">Não foi possível obter permissão para utilizar a câmara. A funcionalidade foi desactivada.</string>
     <string name="multimedia_editor_failed">Falha ao abrir o Editor de Multimédia</string>
     <!-- Multimedia - Audio View -->
     <string name="multimedia_editor_audio_permission_denied">Permissão para gravar áudio recusada</string>
@@ -260,6 +259,9 @@
     <string name="open">Abrir</string>
     <string name="change_cloze_number">Alterar Número da Omissão</string>
     <string name="cloze_number">Número de Omissão;</string>
+    <string name="change_editor_mode">Alterar modo editor</string>
+    <string name="open_note_editor">Abrir editor de notas</string>
+    <string name="change_cloze_mode">Alterar modo de omissão</string>
     <!-- Outdated WebView dialog -->
     <string name="webview_update_message">O sistema WebView está desatualizado. Alguns recursos não funcionarão corretamente. Atualize-o.\n\nVersão instalada: %1$d\nVersão mínima necessária: %2$d</string>
 </resources>

@@ -34,6 +34,7 @@ import anki.deck_config.UpdateDeckConfigsRequest
 import anki.decks.DeckTreeNode
 import anki.decks.FilteredDeckForUpdate
 import anki.decks.SetDeckCollapsedRequest
+import anki.decks.deck
 import com.google.protobuf.kotlin.toByteStringUtf8
 import com.ichi2.annotations.NeedsTest
 import com.ichi2.libanki.backend.BackendUtils
@@ -198,6 +199,16 @@ class Decks(private val col: Collection) {
         TODO()
     }
 
+    @LibAnkiAlias("find_deck_in_tree")
+    fun findDeckInTree(node: DeckTreeNode, deckId: DeckId): DeckTreeNode? {
+        if (node.deckId == deckId) return node
+        for (child in node.childrenList) {
+            val foundNode = findDeckInTree(child, deckId)
+            if (foundNode != null) return foundNode
+        }
+        return null
+    }
+
     @RustCleanup("implement and make public")
     @Suppress("unused")
     /** "All decks. Expensive; prefer [allNamesAndIds] */
@@ -229,11 +240,15 @@ class Decks(private val col: Collection) {
         return len(this.allNamesAndIds())
     }
 
-    @RustCleanup("implement and make public")
     @LibAnkiAlias("card_count")
-    @Suppress("unused", "unused_parameter")
-    private fun cardCount(vararg decks: DeckId, includeSubdecks: Boolean): Int {
-        TODO()
+    fun cardCount(vararg decks: DeckId, includeSubdecks: Boolean): Int {
+        val dids = decks.toMutableSet()
+        if (includeSubdecks) {
+            // dids.update([child[1] for did in dids for child in self.children(did)])
+            dids.addAll(dids.flatMap { did -> children(did) }.map { nameAndId -> nameAndId.second })
+        }
+        val strIds = Utils.ids2str(dids)
+        return col.db.queryScalar("select count() from cards where did in $strIds or odid in $strIds")
     }
 
     @RustCleanup("implement and make public")

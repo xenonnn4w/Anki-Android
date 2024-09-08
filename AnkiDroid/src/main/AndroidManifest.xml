@@ -21,8 +21,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:installLocation="auto">
-    <uses-feature android:name="android.hardware.camera" android:required="false" />
-    <uses-feature android:name="android.hardware.camera.any" android:required="false" />
+
+<!--    At the time of writing, ankidroid minSdk is 23. This library requires API 24.-->
+<!--    In order to use it, we use <uses-sdk tools:overrideLibrary instead of-->
+<!--    <uses-feature android:name. We must ensure this is never called when running on API 23.-->
+    <uses-sdk tools:overrideLibrary="androidx.draganddrop"/>
+
     <uses-feature android:name="android.hardware.audio.output" android:required="false" />
     <uses-feature android:name="android.software.app_widgets" android:required="false" />
     <uses-feature android:name="android.hardware.microphone" android:required="false" />
@@ -411,11 +415,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.canhub.cropper.CropImageActivity"
-            android:exported="true"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:theme="@style/Base.Theme.AppCompat" />
-        <activity
             android:name="com.ichi2.anki.analytics.AnkiDroidCrashReportDialog"
             android:theme="@android:style/Theme.DeviceDefault.Dialog"
             android:process=":acra"
@@ -479,10 +478,6 @@
         <!-- Service to perform web API queries -->
         <service android:name="com.ichi2.widget.AnkiDroidWidgetSmall$UpdateService" />
 
-        <service
-            android:name="com.ichi2.anki.services.MigrationService"
-            android:foregroundServiceType="dataSync"
-            />
 
         <!-- Don't disable/enable the widgets here until min API>=31, see issue #15747 & https://issuetracker.google.com/issues/36914010 -->
         <!-- small widget -->
@@ -515,6 +510,60 @@
                 android:resource="@xml/widget_provider_add_note"
                 />
         </receiver>
+
+        <!-- A widget that displays a few decks's name and number of cards to review on the Android home screen.
+             The way to add it depends on the phone. It usually consists in a long press on the screen, followed by finding a "widget" button"-->
+        <receiver
+            android:name="com.ichi2.widget.deckpicker.DeckPickerWidget"
+            android:label="@string/deck_picker_widget_description"
+            android:exported="false"
+            >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider_deck_picker" />
+        </receiver>
+
+        <!-- Configuration view for the DeckPickerWidget above.
+             It is opened when adding a new deck picker widget and
+             by configuration button which appears when the widget is hold or resized.-->
+        <activity
+            android:name="com.ichi2.widget.deckpicker.DeckPickerWidgetConfig"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
+
+        <!-- A widget that displays a deck name and number of cards to review on the Android home screen.
+             The way to add it depends on the phone. It usually consists in a long press on the screen, followed by finding a "widget" button"-->
+        <receiver
+            android:name="com.ichi2.widget.cardanalysis.CardAnalysisWidget"
+            android:label="@string/card_analysis_extra_widget_description"
+            android:exported="false"
+            >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/widget_provider_card_analysis" />
+        </receiver>
+
+        <!-- Configuration view for the CardAnalysisWidget above.
+             It is opened when adding a new widget and
+             by configuration button which appears when the widget is hold or resized.-->
+        <activity
+            android:name="com.ichi2.widget.cardanalysis.CardAnalysisWidgetConfig"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+            </intent-filter>
+        </activity>
 
         <receiver android:name="com.ichi2.widget.WidgetPermissionReceiver"
             android:exported="true">

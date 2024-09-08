@@ -138,7 +138,6 @@
     <string name="empty_cards_deleted">कार्ड हटविली:%d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">मायक्रोफोन परवानगी प्राप्त करू शकलो नाही.</string>
-    <string name="multimedia_editor_camera_permission_refused">कॅमेर्‍याची परवानगी मिळू शकली नाही. कार्यक्षमता अक्षम केली गेली आहे.</string>
     <string name="multimedia_editor_failed">मल्टीमीडिया संपादक उघडण्यात अयशस्वी</string>
     <!-- Multimedia - Audio View -->
     <string name="multimedia_editor_audio_permission_denied">ऑडिओ रेकॉर्डिंग परवानगी नाकारली</string>
@@ -258,6 +257,9 @@
     <string name="open">उघड</string>
     <string name="change_cloze_number">बंद क्रमांक बदला</string>
     <string name="cloze_number">Cloze number:</string>
+    <string name="change_editor_mode">Change editor mode</string>
+    <string name="open_note_editor">Open note editor</string>
+    <string name="change_cloze_mode">Change cloze mode</string>
     <!-- Outdated WebView dialog -->
     <string name="webview_update_message">WebView प्रणाली जुनी आहे. काही वैशिष्ट्ये योग्यरित्या कार्य करू शकत नाहीत. कृपया ते अपडेट करा.\n\nस्थापित आवृत्ती: %1$d\nकिमान आवश्यक आवृत्ती: %2$d</string>
 </resources>

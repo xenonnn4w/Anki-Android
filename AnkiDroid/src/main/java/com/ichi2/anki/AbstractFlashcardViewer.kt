@@ -123,7 +123,6 @@ import com.ichi2.anki.reviewer.MotionEventHandler
 import com.ichi2.anki.reviewer.PreviousAnswerIndicator
 import com.ichi2.anki.servicelayer.LanguageHintService.applyLanguageHint
 import com.ichi2.anki.servicelayer.NoteService.isMarked
-import com.ichi2.anki.services.migrationServiceWhileStartedOrNull
 import com.ichi2.anki.snackbar.BaseSnackbarBuilderProvider
 import com.ichi2.anki.snackbar.SnackbarBuilder
 import com.ichi2.anki.snackbar.showSnackbar
@@ -145,9 +144,6 @@ import com.ichi2.libanki.Sound.getAvTag
 import com.ichi2.libanki.SoundOrVideoTag
 import com.ichi2.libanki.TTSTag
 import com.ichi2.libanki.Utils
-import com.ichi2.libanki.note
-import com.ichi2.libanki.renderOutput
-import com.ichi2.libanki.setTagsFromStr
 import com.ichi2.libanki.undoableOp
 import com.ichi2.themes.Themes
 import com.ichi2.themes.Themes.getResFromAttr
@@ -337,8 +333,6 @@ abstract class AbstractFlashcardViewer :
         displayCardAnswer()
     }
 
-    internal val migrationService by migrationServiceWhileStartedOrNull()
-
     /**
      * Changes which were received when the viewer was in the background
      * which should be executed once the viewer is visible again
@@ -519,7 +513,7 @@ abstract class AbstractFlashcardViewer :
         // despite that making no sense outside of Reviewer.kt
         currentCard = withCol {
             sched.card?.apply {
-                renderOutput()
+                renderOutput(this@withCol, reload = false, browser = false)
             }
         }
     }
@@ -2337,10 +2331,6 @@ abstract class AbstractFlashcardViewer :
             view: WebView,
             request: WebResourceRequest
         ): WebResourceResponse? {
-            val url = request.url
-            if (url.toString().startsWith("file://")) {
-                url.path?.let { path -> migrationService?.migrateFileImmediately(File(path)) }
-            }
             resourceHandler.shouldInterceptRequest(request)?.let { return it }
             return null
         }
@@ -2612,7 +2602,7 @@ abstract class AbstractFlashcardViewer :
         val tags = ArrayList(getColUnsafe.tags.all())
         val selTags = ArrayList(currentCard!!.note(getColUnsafe).tags)
         val dialog = tagsDialogFactory!!.newTagsDialog()
-            .withArguments(TagsDialog.DialogType.EDIT_TAGS, selTags, tags)
+            .withArguments(this, TagsDialog.DialogType.EDIT_TAGS, selTags, tags)
         showDialogFragment(dialog)
     }
 
@@ -2622,10 +2612,10 @@ abstract class AbstractFlashcardViewer :
         stateFilter: CardStateFilter
     ) {
         launchCatchingTask {
-            val note = withCol { currentCard!!.note() }
+            val note = withCol { currentCard!!.note(this@withCol) }
             if (note.tags == selectedTags) return@launchCatchingTask
 
-            withCol { note.setTagsFromStr(selectedTags.joinToString(" ")) }
+            withCol { note.setTagsFromStr(this@withCol, selectedTags.joinToString(" ")) }
             undoableOp { updateNote(note) }
             // Reload current card to reflect tag changes
             reloadWebViewContent()

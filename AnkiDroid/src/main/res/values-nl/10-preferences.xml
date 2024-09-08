@@ -171,7 +171,7 @@
     <string name="show_large_answer_buttons" maxLength="41">Laat grote antwoordknoppen zien</string>
     <string name="show_large_answer_buttons_summ">Laat antwoordknop in 2 rijen zien</string>
     <string name="show_top_bar" maxLength="41">Toon bovenste balk</string>
-    <string name="show_top_bar_summ">Toon aantal kaarten, vlag en markering in de bovenste balk</string>
+    <string name="show_top_bar_summary">Show card counts, answer timer, flag and mark in top bar</string>
     <string name="show_progress" maxLength="41">Resterende weergeven</string>
     <string name="show_progress_summ">Toon resterend aantal kaarten</string>
     <string name="show_eta" maxLength="41">ETA weergeven</string>
@@ -279,6 +279,7 @@
     <string name="user_action_7" maxLength="41">Gebruikersactie 7</string>
     <string name="user_action_8" maxLength="41">Gebruikersactie 8</string>
     <string name="user_action_9" maxLength="41">Gebruikersactie 9</string>
+    <string name="toggle_auto_advance" maxLength="41">Toggle auto advance</string>
     <!-- Select card side -->
     <string name="card_side_selection_title">Selecteer kaart zijde</string>
     <string name="card_side_question">Vraag</string>
@@ -367,4 +368,5 @@
     <string name="hide_system_bars_all_bars" comment="Setting option to hide all the system bars">Alle</string>
     <string name="ignore_display_cutout" maxLength="41">Schermuitsparing negeren</string>
     <string name="hide_answer_buttons" maxLength="41">Antwoordknoppen verbergen</string>
+    <string name="hide_hard_and_easy" maxLength="41">Koppen \'Moeilijk\' &amp; \'Makkelijk\' verbergen</string>
 </resources>

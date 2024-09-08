@@ -28,7 +28,6 @@ import android.widget.FrameLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.appcompat.view.menu.MenuBuilder
-import androidx.appcompat.widget.ThemeUtils
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.ViewCompat
@@ -48,6 +47,7 @@ import com.ichi2.anki.Flag
 import com.ichi2.anki.NoteEditor
 import com.ichi2.anki.R
 import com.ichi2.anki.cardviewer.CardMediaPlayer
+import com.ichi2.anki.noteeditor.NoteEditorLauncher
 import com.ichi2.anki.previewer.CardViewerActivity
 import com.ichi2.anki.previewer.CardViewerFragment
 import com.ichi2.anki.snackbar.BaseSnackbarBuilderProvider
@@ -56,7 +56,6 @@ import com.ichi2.anki.snackbar.showSnackbar
 import com.ichi2.anki.utils.ext.collectIn
 import com.ichi2.anki.utils.ext.collectLatestIn
 import com.ichi2.anki.utils.ext.sharedPrefs
-import com.ichi2.anki.utils.navBarNeedsScrim
 import com.ichi2.libanki.sched.Counts
 import com.ichi2.utils.increaseHorizontalPaddingOfOverflowMenuIcons
 import kotlinx.coroutines.launch
@@ -98,13 +97,6 @@ class ReviewerFragment :
                 setupMenuItems(it)
                 it.setOptionalIconsVisible(true)
                 requireContext().increaseHorizontalPaddingOfOverflowMenuIcons(it)
-            }
-        }
-
-        with(requireActivity()) {
-            if (!navBarNeedsScrim) {
-                window.navigationBarColor =
-                    ThemeUtils.getThemeAttrColor(this, R.attr.alternativeBackgroundColor)
             }
         }
 
@@ -214,6 +206,11 @@ class ReviewerFragment :
                 showAnswerButton.isVisible = true
                 answerButtonsLayout.isVisible = false
             }
+        }
+
+        if (sharedPrefs().getBoolean(getString(R.string.hide_hard_and_easy_key), false)) {
+            hardButton.isVisible = false
+            easyButton.isVisible = false
         }
     }
 
@@ -361,9 +358,7 @@ class ReviewerFragment :
     }
 
     private fun launchAddNote() {
-        val intent = Intent(context, NoteEditor::class.java).apply {
-            putExtra(NoteEditor.EXTRA_CALLER, NoteEditor.CALLER_REVIEWER_ADD)
-        }
+        val intent = NoteEditorLauncher.AddNoteFromReviewer().getIntent(requireContext())
         noteEditorLauncher.launch(intent)
     }
 

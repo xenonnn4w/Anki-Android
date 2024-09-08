@@ -49,12 +49,12 @@
     <string name="contextmenu_deckpicker_delete_deck">Odstranit balíček</string>
     <string name="delete_deck_title">Odstranit balíček?</string>
     <plurals name="delete_deck_message">
-        <item quantity="one">Delete all cards in %1$s? It contains %2$d card</item>
-        <item quantity="few">Delete all cards in %1$s? It contains %2$d cards</item>
-        <item quantity="many">Delete all cards in %1$s? It contains %2$d cards</item>
-        <item quantity="other">Delete all cards in %1$s? It contains %2$d cards</item>
+        <item quantity="one">Vymazat všechny karty v %1$s? Obsahuje %2$d kartu</item>
+        <item quantity="few">Vymazat všechny karty v %1$s? Obsahuje %2$d karty</item>
+        <item quantity="many">Vymazat všechny karty v %1$s? Obsahuje %2$d karet</item>
+        <item quantity="other">Vymazat všechny karty v %1$s? Obsahuje %2$d karet</item>
     </plurals>
-    <string name="delete_cram_deck_message">Delete filtered deck %s and send all cards back to their original decks?</string>
+    <string name="delete_cram_deck_message">Vymazat filtrovaný balíček %s a poslat všechny karty zpět do jejich původních balíčků?</string>
     <string name="no_tts_available_message">Není dostupný žádný jazyk převodu textu na řeč</string>
     <string name="tts_no_tts">Nemluv</string>
     <string name="unused_strings">\n\nNepoužité soubory:\n</string>
@@ -146,7 +146,6 @@
     <string name="empty_cards_deleted">Odstraněno karet: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Nelze získat oprávnění k mikrofonu.</string>
-    <string name="multimedia_editor_camera_permission_refused">Nelze získat oprávnění k fotoaparátu. Funkcionalita byla zakázána.</string>
     <string name="multimedia_editor_failed">Nepodařilo se otevřít multimediální editor</string>
     <!-- Multimedia - Audio View -->
     <string name="multimedia_editor_audio_permission_denied">Oprávnění k nahrávání zvuku bylo odepřeno</string>
@@ -276,6 +275,9 @@
     <string name="open">Open</string>
     <string name="change_cloze_number">Change cloze number</string>
     <string name="cloze_number">Cloze number:</string>
+    <string name="change_editor_mode">Change editor mode</string>
+    <string name="open_note_editor">Open note editor</string>
+    <string name="change_cloze_mode">Change cloze mode</string>
     <!-- Outdated WebView dialog -->
     <string name="webview_update_message">Systémový WebView je zastaralý. Některé funkce nebudou fungovat správně. Aktualizujte jej prosím.\n\nNainstalovaná verze: %1$d\nMinimální požadovaná verze: %2$d</string>
 </resources>

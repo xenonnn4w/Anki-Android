@@ -334,10 +334,15 @@ class CardContentProvider : ContentProvider() {
                 }
 
                 // retrieve the number of cards provided by the selection parameter "limit"
+                val cards = col.backend.getQueuedCards(
+                    fetchLimit = limit,
+                    intradayLearningOnly = false
+                ).cardsList.map { Card(it.card) }
+
+                val buttonCount = 4
                 var k = 0
                 while (k < limit) {
-                    val currentCard = col.sched.card ?: break
-                    val buttonCount = 4
+                    val currentCard = cards.getOrNull(k) ?: break
                     val buttonTexts = JSONArray()
                     var i = 0
                     while (i < buttonCount) {
@@ -723,7 +728,7 @@ class CardContentProvider : ContentProvider() {
             }
             val fldsArray = Utils.splitFields(flds)
             // Create empty note
-            val newNote = col.run { Note.fromNotetypeId(thisModelId) }
+            val newNote = Note.fromNotetypeId(col, thisModelId)
             // Set fields
             // Check that correct number of flds specified
             if (fldsArray.size != newNote.fields.size) {
@@ -766,7 +771,7 @@ class CardContentProvider : ContentProvider() {
                 val tags = values.getAsString(FlashCardsContract.Note.TAGS)
 //                val allowEmpty = AllowEmpty.fromBoolean(values.getAsBoolean(FlashCardsContract.Note.ALLOW_EMPTY))
                 // Create empty note
-                val newNote = col.run { Note.fromNotetypeId(modelId) }
+                val newNote = Note.fromNotetypeId(col, modelId)
                 // Set fields
                 val fldsArray = Utils.splitFields(flds)
                 // Check that correct number of flds specified

@@ -132,7 +132,7 @@
     <string name="delete_deck">Suppression du paquet&#8230;</string>
     <string name="info_rate">Noter AnkiDroid</string>
     <string name="import_title">Importation en cours</string>
-    <string name="import_preparing_file">Preparing file for import&#8230;</string>
+    <string name="import_preparing_file">Préparation du fichier pour l\'import&#8230;</string>
     <string name="import_message_add" comment="Adding a new deck to the collection (import)">Ajouter</string>
     <string name="import_message_replace_confirm">Ceci va supprimer votre collection existante et la remplacer par les données du fichier %s. Êtes-vous d\'accord ?</string>
     <string name="import_dialog_message_add">Ajouter \"%s\" à la collection ? Cela peut prendre beaucoup de temps</string>
@@ -160,7 +160,7 @@
         ]]></string>
     <string name="export_choice_share">Partager</string>
     <string name="export_choice_save_to">Enregistrer sous</string>
-    <string name="export_saving_exported_collection">Saving exported file&#8230;</string>
+    <string name="export_saving_exported_collection">Enregistrement du fichier exporté&#8230;</string>
     <string name="study_options" comment="Name for a preference category in Filtered deck (aka Cram deck, aka Custom study) options">Options</string>
     <string name="menu__deck_options">Options du deck</string>
     <string name="menu__study_options" comment="Menu item that opens options for a Filtered deck (aka Cram deck, aka Custom study)">Options de révision</string>
@@ -213,7 +213,6 @@
     <string name="card_viewer_could_not_find_image">Impossible de charger « %s »</string>
     <!-- Deck Picker -->
     <string name="search_decks">Rechercher dans les paquets</string>
-    <string name="show_migration_progress" comment="Title for a button in deck picker\'s toolbar that shows ongoing migration progress.         Usually shown as a tooltip. The button opens a dialog with a more detailed progress information.">Afficher la progression de la migration</string>
     <string name="ankidroid_init_failed_webview_title">Erreur fatale</string>
     <string name="ankidroid_init_failed_webview">AnkiDroid s\'appuie sur la WebView du système qui n\'est pas disponible. Ceci peut se produire si le système installe des mises à jour. Veuillez réessayer dans quelques minutes.\n\n%s</string>
     <!-- A Menu item to change the Font Size (currently in the Note Editor) -->
@@ -233,7 +232,9 @@
     <string name="edit_toolbar_item">Modifier la barre d’outils</string>
     <string name="toolbar_item_explain_edit_or_remove">Entrez le code HTML à insérer avant et après le texte sélectionné\n\nAppuyez longuement sur un élément de la barre d\'outils pour le modifier ou le supprimer</string>
     <string name="remove_toolbar_item">Supprimer l\'élément de la barre d\'outils ?</string>
-    <string name="note_editor_paste_too_large">L\'image est trop large pour être collée, veuillez insérer l\'image manuellement</string>
+    <string name="note_editor_image_too_large">The image is too large, please insert the image manually</string>
+    <string name="note_editor_video_too_large">The video file is too large, please insert the video manually</string>
+    <string name="note_editor_audio_too_large">The audio file is too large, please insert the audio manually</string>
     <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">        Sauvergarde Android en cours. Veuillez réessayer</string>
     <string name="create_shortcut_error_vivo" comment="iManager is an app on Vivo phones">Veuillez utiliser iManager pour autoriser AnkiDroid à ajouter des raccourcis</string>
     <string name="create_shortcut_failed" comment="home screen == launcher">Votre écran d\'accueil ne permet pas à AnkiDroid d\'ajouter des raccourcis</string>
@@ -272,16 +273,8 @@
     </plurals>
     <!--  Note Editor Toggle Sticky  -->
     <string name="note_editor_toggle_sticky">Rendre le champ %s collant</string>
-    <!-- Scoped Storage Migration -->
-    <string name="scoped_storage_title">Transfert du stockage</string>
     <string name="scoped_storage_learn_more">En savoir plus</string>
-    <string name="scoped_storage_postpone">Reporter</string>
-    <string name="scoped_storage_migrate">Transférer</string>
     <string name="search_card_js_api_no_results">La recherche n\'a pas donné de résultats</string>
-    <string name="migration_update_request_requires_media_sync" commnet="use HTML linebreaks in this string">AnkiDroid a besoin de migrer son stockage pour se conformer à la politique de sécurité d\'Android 10.\n\nCeci améliorera les performances de la synchronisation des médias.&lt;br&gt;&lt;br&gt;Durant la migration, vous ne pourrez pas faire de synchronisation et certains paramètres seront désactivés. Une synchronisation des médias se produira avant que la migration ne commence à sécuriser vos données.&lt;br&gt;&lt;br&gt;Il est sécurisé d\'utiliser ou de fermer AnkiDroid pendant ce processus.</string>
-    <string name="start_migration_progress_message">Démarrage de la migration du stockage. Vous pouvez reprendre votre utilisation d\'AnkiDroid sous peu.</string>
-    <string name="migration_part_1_done_resume">Vous pouvez continuer à utiliser AnkiDroid.
-\nLa migration du stockage continuera en arrière-plan.</string>
     <!--  JS Addons  -->
     <string name="not_valid_js_addon_package">%s n\'est pas un package d\'extension JavaScript valide</string>
     <string name="could_not_create_dir">Impossible de créer le répertoire %s</string>
@@ -292,7 +285,7 @@
     <string name="expand_tag">Développer l\'étiquette « %s »</string>
     <!-- Manage note types -->
     <string name="field_editor_model_not_available">Impossible d\'accéder à la collection. Veuillez réessayer !</string>
-    <string name="cd_manage_notetypes_add">Add a new note type</string>
+    <string name="cd_manage_notetypes_add">Ajouter un nouveau type de note</string>
     <!-- App Intro -->
     <string name="intro_ankidroid_tagline_one">Réviser moins</string>
     <string name="intro_ankidroid_tagline_two">Souvenez-vous de plus</string>
@@ -314,10 +307,6 @@
     <string name="toggle_browser_mode_help">Activer/désactiver l\'affichage des cartes ou des notes dans le navigateur</string>
     <string name="truncate_content_help">Tronquer la hauteur de chaque ligne du navigateur pour ne montrer que les 3 premières lignes de contenu</string>
     <string name="browser_options_dialog_heading">Options du navigateur</string>
-    <string name="functionality_disabled_during_storage_migration" comment="Displayed when trying to access functionality which cannot be run while storage is being moved to a new location">Cette fonctionnalité n\'est pas disponible durant la migration de stockage</string>
-    <string name="storage_migration_sync_notification" comment="Appears on a notification after the user has opted into a storage migration and provided consent to sync         and AnkiDroid was minimised when the sync completed">Appuyez pour démarrer la migration de stockage</string>
-    <string name="media_sync_required_title">Synchronisation des médias requise</string>
-    <string name="media_sync_unavailable_message">La synchronisation des médias est désactivée dans les paramètres. Veuillez synchroniser et sauvegarder tout média qui n\'a pas encore été synchronisé avant de continuer.</string>
     <string name="audio_saved">Enregistrement sauvegardé</string>
     <string name="deleting_selected_notes">Suppression des notes sélectionnées</string>
     <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">        Touchez une voix pour l\'écouter
@@ -339,12 +328,15 @@
     <string name="failed_to_copy">Échec de la copie</string>
     <string name="card_browser_unavailable_when_notes_mode">Non disponible en mode \"Notes\"</string>
     <plurals name="unbury_cards_feedback">
-        <item quantity="one">%d card unburied</item>
-        <item quantity="other">%d cards unburied</item>
+        <item quantity="one">Carte %d déterrée</item>
+        <item quantity="other">%d cartes  déterrées</item>
     </plurals>
     <string name="card_template_reposition_template" comment="move a card template to a new position">Repositionner</string>
-    <string name="start_recording">Record</string>
-    <string name="stop_recording">Stop</string>
-    <string name="play_recording">Play</string>
-    <string name="next_recording">Next</string>
+    <string name="start_recording">Enregistrer</string>
+    <string name="stop_recording">Arrêter</string>
+    <string name="play_recording">Lecture</string>
+    <string name="next_recording">Suivant</string>
+    <!--  AlertDialog in the deleteCardTemplate  -->
+    <string name="orphan_note_title">Cannot Delete Card Type</string>
+    <string name="orphan_note_message">Deleting this card type will leave some notes without any cards.</string>
 </resources>

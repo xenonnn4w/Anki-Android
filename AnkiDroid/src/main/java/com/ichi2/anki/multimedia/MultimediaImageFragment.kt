@@ -17,7 +17,6 @@
 
 package com.ichi2.anki.multimedia
 
-import android.Manifest
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
@@ -32,6 +31,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.core.content.IntentCompat
 import androidx.core.os.BundleCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -51,11 +51,11 @@ import com.ichi2.anki.multimedia.MultimediaUtils.createNewCacheImageFile
 import com.ichi2.anki.snackbar.showSnackbar
 import com.ichi2.annotations.NeedsTest
 import com.ichi2.compat.CompatHelper.Companion.getSerializableCompat
+import com.ichi2.imagecropper.ImageCropper
+import com.ichi2.imagecropper.ImageCropper.Companion.CROP_IMAGE_RESULT
 import com.ichi2.utils.BitmapUtil
 import com.ichi2.utils.ExifUtil
 import com.ichi2.utils.FileUtil
-import com.ichi2.utils.ImageUtils
-import com.ichi2.utils.Permissions
 import com.ichi2.utils.message
 import com.ichi2.utils.negativeButton
 import com.ichi2.utils.positiveButton
@@ -143,6 +143,7 @@ class MultimediaImageFragment : MultimediaFragment(R.layout.fragment_multimedia_
      * Launches the device's camera to take a picture.
      * This launcher is registered using `ActivityResultContracts.TakePicture()`.
      */
+    @NeedsTest("Works fine without permission as we use Camera as feature")
     private val cameraLauncher =
         registerForActivityResult(ActivityResultContracts.TakePicture()) { isPictureTaken ->
             when {
@@ -163,6 +164,36 @@ class MultimediaImageFragment : MultimediaFragment(R.layout.fragment_multimedia_
                 else -> {
                     Timber.d("Camera aborted or some interruption, restoring multimedia data")
                     viewModel.restoreMultimedia()
+                }
+            }
+        }
+
+    /** Launches an activity to crop the image, using the [ImageCropper] */
+    private val imageCropperLauncher =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            when (result.resultCode) {
+                Activity.RESULT_OK -> {
+                    result.data?.let {
+                        val cropResultData = IntentCompat.getParcelableExtra(
+                            it,
+                            CROP_IMAGE_RESULT,
+                            ImageCropper.CropResultData::class.java
+                        )
+                        Timber.d("Cropped image data: $cropResultData")
+
+                        if (cropResultData?.error != null) {
+                            handleCropResultError(error = cropResultData.error)
+                        }
+
+                        if (cropResultData?.uriPath == null || cropResultData.uriContent == null) return@registerForActivityResult
+                        updateAndDisplayImageSize(cropResultData.uriPath)
+                        viewModel.updateCurrentMultimediaPath(cropResultData.uriPath)
+                        viewModel.updateCurrentMultimediaUri(cropResultData.uriContent)
+                        imagePreview.setImageURI(cropResultData.uriContent)
+                    }
+                }
+                else -> {
+                    Timber.v("Unable to crop the image")
                 }
             }
         }
@@ -240,35 +271,8 @@ class MultimediaImageFragment : MultimediaFragment(R.layout.fragment_multimedia_
         imagePreview = view.findViewById(R.id.image_preview)
         imageFileSize = view.findViewById(R.id.image_size_textview)
 
-        if (selectedImageOptions == ImageOptions.CAMERA) {
-            if (!hasCameraPermission()) {
-                return
-            }
-        }
-
         handleImageUri()
         setupDoneButton()
-    }
-
-    private val requestPermissionLauncher = registerForActivityResult(
-        ActivityResultContracts.RequestPermission()
-    ) { isGranted ->
-        if (isGranted) {
-            Timber.d("Camera permission granted")
-            handleSelectedImageOptions()
-        } else {
-            Timber.d("Camera permission denied")
-            showErrorDialog(resources.getString(R.string.multimedia_editor_camera_permission_refused))
-        }
-    }
-
-    private fun hasCameraPermission(): Boolean {
-        if (!Permissions.canRecordAudio(requireContext())) {
-            Timber.i("Requesting Audio Permissions")
-            requestPermissionLauncher.launch(Manifest.permission.CAMERA)
-            return false
-        }
-        return true
     }
 
     private fun handleImageUri() {
@@ -472,35 +476,22 @@ class MultimediaImageFragment : MultimediaFragment(R.layout.fragment_multimedia_
 
     private fun requestCrop() {
         val imageUri = viewModel.currentMultimediaUri.value ?: return
-        ImageUtils.cropImage(requireActivity().activityResultRegistry, imageUri) { cropResult ->
-            if (cropResult == null) {
-                Timber.d("Image crop result was null")
-                return@cropImage
-            }
+        val intent = com.ichi2.imagecropper.ImageCropperLauncher.ImageUri(imageUri).getIntent(requireContext())
+        imageCropperLauncher.launch(intent)
+    }
 
-            if (cropResult.isSuccessful) {
-                cropResult.getUriFilePath(requireActivity(), true)
-                    ?.let { path ->
-                        updateAndDisplayImageSize(path)
-                        viewModel.updateCurrentMultimediaPath(path)
-                    }
-                viewModel.updateCurrentMultimediaUri(cropResult.uriContent)
-                imagePreview.setImageURI(cropResult.uriContent)
-            } else {
-                // cropImage can give us more information. Not sure it is actionable so for now just log it.
-                val error: String =
-                    cropResult.error?.toString() ?: resources.getString(R.string.activity_result_unexpected)
-                Timber.w(error, "cropImage threw an error")
-                // condition can be removed if #12768 get fixed by Canhub
-                if (cropResult.error is CropException.Cancellation) {
-                    Timber.i("CropException caught, seemingly nothing to do ", error)
-                } else {
-                    CrashReportService.sendExceptionReport(
-                        error,
-                        "cropImage threw an error"
-                    )
-                }
-            }
+    private fun handleCropResultError(error: Exception) {
+        // cropImage can give us more information. Not sure it is actionable so for now just log it.
+        Timber.w(error, "cropImage threw an error")
+        // condition can be removed if #12768 get fixed by Canhub
+        if (error is CropException.Cancellation) {
+            Timber.i("CropException caught, seemingly nothing to do ", error)
+        } else {
+            showErrorDialog(resources.getString(R.string.activity_result_unexpected))
+            CrashReportService.sendExceptionReport(
+                error,
+                "cropImage threw an error"
+            )
         }
     }
 

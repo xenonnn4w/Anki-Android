@@ -98,7 +98,6 @@ import com.ichi2.libanki.Card
 import com.ichi2.libanki.CardId
 import com.ichi2.libanki.Collection
 import com.ichi2.libanki.Consts
-import com.ichi2.libanki.renderOutput
 import com.ichi2.libanki.sched.Counts
 import com.ichi2.libanki.sched.CurrentQueueState
 import com.ichi2.libanki.undoableOp
@@ -121,8 +120,10 @@ import com.ichi2.utils.tintOverflowMenuIcons
 import com.ichi2.utils.title
 import com.ichi2.widget.WidgetStatus.updateInBackground
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
 import java.io.File
+import kotlin.coroutines.resume
 
 @Suppress("LeakingThis")
 @KotlinCleanup("too many to count")
@@ -194,7 +195,6 @@ open class Reviewer :
 
     @VisibleForTesting
     protected val processor = PeripheralKeymap(this, this)
-    private val onboarding = Onboarding.Reviewer(this)
 
     private val addNoteLauncher = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult(),
@@ -741,7 +741,7 @@ open class Reviewer :
 
         // Anki Desktop Translations
         menu.findItem(R.id.action_reschedule_card).title =
-            CollectionManager.TR.actionsSetDueDate().toSentenceCase(R.string.sentence_set_due_date)
+            CollectionManager.TR.actionsSetDueDate().toSentenceCase(this, R.string.sentence_set_due_date)
 
         // Undo button
         @DrawableRes val undoIconId: Int
@@ -783,9 +783,6 @@ open class Reviewer :
                     isEnabled = false
                 }
             }
-        }
-        if (undoEnabled) {
-            onboarding.onUndoButtonEnabled()
         }
         val toggleWhiteboardIcon = menu.findItem(R.id.action_toggle_whiteboard)
         val toggleStylusIcon = menu.findItem(R.id.action_toggle_stylus)
@@ -866,8 +863,6 @@ open class Reviewer :
             voicePlaybackIcon.setTitle(R.string.menu_enable_voice_playback)
         }
 
-        onboarding.onCreate()
-
         increaseHorizontalPaddingOfOverflowMenuIcons(menu)
         tintOverflowMenuIcons(menu, skipIf = { isFlagItem(it) })
 
@@ -936,7 +931,6 @@ open class Reviewer :
 
     override fun displayAnswerBottomBar() {
         super.displayAnswerBottomBar()
-        onboarding.onAnswerShown()
         // Set correct label and background resource for each button
         // Note that it's necessary to set the resource dynamically as the ease2 / ease3 buttons
         // (which libanki expects ease to be 2 and 3) can either be hard, good, or easy - depending on num buttons shown
@@ -1061,7 +1055,7 @@ open class Reviewer :
     override suspend fun updateCurrentCard() {
         val state = withCol {
             sched.currentQueueState()?.apply {
-                topCard.renderOutput(true)
+                topCard.renderOutput(this@withCol, reload = true)
             }
         }
         state?.timeboxReached?.let { dealWithTimeBox(it) }
@@ -1090,20 +1084,27 @@ open class Reviewer :
         }
     }
 
-    private fun dealWithTimeBox(timebox: Collection.TimeboxReached) {
+    private suspend fun dealWithTimeBox(timebox: Collection.TimeboxReached) {
         val nCards = timebox.reps
         val nMins = timebox.secs / 60
         val mins = resources.getQuantityString(R.plurals.in_minutes, nMins, nMins)
         val timeboxMessage = resources.getQuantityString(R.plurals.timebox_reached, nCards, nCards, mins)
-        AlertDialog.Builder(this).show {
-            title(R.string.timebox_reached_title)
-            message(text = timeboxMessage)
-            positiveButton(R.string.dialog_continue) {}
-            negativeButton(text = CollectionManager.TR.studyingFinish()) {
-                finish()
+        suspendCancellableCoroutine { coroutines ->
+            AlertDialog.Builder(this).show {
+                title(R.string.timebox_reached_title)
+                message(text = timeboxMessage)
+                positiveButton(R.string.dialog_continue) {
+                    coroutines.resume(Unit)
+                }
+                negativeButton(text = CollectionManager.TR.studyingFinish()) {
+                    coroutines.resume(Unit)
+                    finish()
+                }
+                cancelable(true)
+                setOnCancelListener {
+                    coroutines.resume(Unit)
+                }
             }
-            cancelable(true)
-            setOnCancelListener { }
         }
     }
 
@@ -1254,6 +1255,10 @@ open class Reviewer :
             }
             ViewerCommand.RESCHEDULE_NOTE -> {
                 showDueDateDialog()
+                return true
+            }
+            ViewerCommand.TOGGLE_AUTO_ADVANCE -> {
+                toggleAutoAdvance()
                 return true
             }
             ViewerCommand.USER_ACTION_1 -> {
@@ -1532,6 +1537,21 @@ open class Reviewer :
         if (gestureProcessor.isBound(Gesture.SWIPE_UP, Gesture.SWIPE_DOWN, Gesture.SWIPE_RIGHT)) {
             hasDrawerSwipeConflicts = true
             super.disableDrawerSwipe()
+        }
+    }
+
+    private fun toggleAutoAdvance() {
+        if (automaticAnswer.isDisabled) {
+            Timber.i("Enabling auto advance")
+            automaticAnswer.enable()
+            if (isDisplayingAnswer) {
+                automaticAnswer.delayedShowQuestion(0)
+            } else {
+                automaticAnswer.delayedShowAnswer(0)
+            }
+        } else {
+            Timber.i("Disabling auto advance")
+            automaticAnswer.disable()
         }
     }
 

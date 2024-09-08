@@ -38,6 +38,8 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.CheckResult
 import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
+import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.widget.ThemeUtils
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
@@ -45,7 +47,7 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentContainerView
-import androidx.fragment.app.commit
+import androidx.fragment.app.commitNow
 import androidx.lifecycle.Lifecycle
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
@@ -65,6 +67,7 @@ import com.ichi2.anki.notetype.RenameCardTemplateDialog
 import com.ichi2.anki.notetype.RepositionCardTemplateDialog
 import com.ichi2.anki.previewer.TemplatePreviewerArguments
 import com.ichi2.anki.previewer.TemplatePreviewerFragment
+import com.ichi2.anki.previewer.TemplatePreviewerPage
 import com.ichi2.anki.snackbar.showSnackbar
 import com.ichi2.anki.utils.ext.isImageOcclusion
 import com.ichi2.anki.utils.postDelayed
@@ -160,7 +163,7 @@ open class CardTemplateEditor : AnkiActivity(), DeckSelectionListener {
             tempModel = CardTemplateNotetype.fromBundle(savedInstanceState)
         }
 
-        templatePreviewerFrame = findViewById(R.id.template_previewer_fragment)
+        templatePreviewerFrame = findViewById(R.id.fragment_container)
         /**
          * Check if templatePreviewerFrame is not null and if its visibility is set to VISIBLE.
          * If both conditions are true, assign true to the variable [fragmented], otherwise assign false.
@@ -191,20 +194,21 @@ open class CardTemplateEditor : AnkiActivity(), DeckSelectionListener {
             val notetype = tempModel!!.notetype
             val notetypeFile = NotetypeFile(this@CardTemplateEditor, notetype)
             val ord = viewPager.currentItem
-            val note = withCol { currentFragment?.getNote(this) ?: Note.fromNotetypeId(notetype.id) }
+            val note = withCol { currentFragment?.getNote(this) ?: Note.fromNotetypeId(this@withCol, notetype.id) }
             val args = TemplatePreviewerArguments(
                 notetypeFile = notetypeFile,
                 id = note.id,
                 ord = ord,
                 fields = note.fields,
                 tags = note.tags,
-                fillEmpty = true,
-                inFragmentedActivity = fragmented
+                fillEmpty = true
             )
-            val details = TemplatePreviewerFragment.newInstance(args)
-            supportFragmentManager.commit {
-                replace(R.id.template_previewer_fragment, details)
+            val fragment = TemplatePreviewerFragment.newInstance(args)
+            supportFragmentManager.commitNow {
+                replace(R.id.fragment_container, fragment)
             }
+            val backgroundColor = ThemeUtils.getThemeAttrColor(this@CardTemplateEditor, R.attr.alternativeBackgroundColor)
+            fragment.requireView().setBackgroundColor(backgroundColor)
         }
     }
 
@@ -371,8 +375,9 @@ open class CardTemplateEditor : AnkiActivity(), DeckSelectionListener {
                 }
                 else -> return super.onKeyUp(keyCode, event)
             }
+            return true
         }
-        return true
+        return super.onKeyUp(keyCode, event)
     }
 
     @get:VisibleForTesting
@@ -634,9 +639,7 @@ open class CardTemplateEditor : AnkiActivity(), DeckSelectionListener {
                     insertField(bundle.getString(InsertFieldDialog.KEY_INSERTED_FIELD)!!)
                 }
             }
-            if (!templateEditor.fragmented) {
-                setupMenu()
-            }
+            setupMenu()
         }
 
         private fun initTabLayoutMediator() {
@@ -665,7 +668,6 @@ open class CardTemplateEditor : AnkiActivity(), DeckSelectionListener {
             (requireActivity() as MenuHost).addMenuProvider(
                 object : MenuProvider {
                     override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
-                        menu.clear()
                         menuInflater.inflate(R.menu.card_template_editor, menu)
                         setupCommonMenu(menu)
                     }
@@ -692,6 +694,7 @@ open class CardTemplateEditor : AnkiActivity(), DeckSelectionListener {
             }
 
             if (deletionWouldOrphanNote(col, tempModel, ordinal)) {
+                showOrphanNoteDialog()
                 return
             }
 
@@ -703,6 +706,18 @@ open class CardTemplateEditor : AnkiActivity(), DeckSelectionListener {
                 0
             }
             confirmDeleteCards(template, tempModel.notetype, numAffectedCards)
+        }
+
+        /* showOrphanNoteDialog shows a AlertDialog if the deletionWouldOrphanNote returns true
+        * it displays a warning for the user when they attempt to delete a card type that
+            would leave some notes without any cards (orphan notes) */
+        private fun showOrphanNoteDialog() {
+            val builder = AlertDialog.Builder(requireContext())
+                .setTitle(R.string.orphan_note_title)
+                .setMessage(R.string.orphan_note_message)
+                .setPositiveButton(android.R.string.ok, null)
+
+            builder.show()
         }
 
         fun openBrowserAppearance(): Boolean {
@@ -736,7 +751,7 @@ open class CardTemplateEditor : AnkiActivity(), DeckSelectionListener {
                 }
                 launchCatchingTask(resources.getString(R.string.card_template_editor_save_error)) {
                     requireActivity().withProgress(resources.getString(R.string.saving_model)) {
-                        withCol { templateEditor.tempModel!!.saveToDatabase() }
+                        withCol { templateEditor.tempModel!!.saveToDatabase(this@withCol) }
                     }
                     onModelSaved()
                 }
@@ -889,7 +904,7 @@ open class CardTemplateEditor : AnkiActivity(), DeckSelectionListener {
                 val notetype = templateEditor.tempModel!!.notetype
                 val notetypeFile = NotetypeFile(requireContext(), notetype)
                 val ord = templateEditor.viewPager.currentItem
-                val note = withCol { getNote(this) ?: Note.fromNotetypeId(notetype.id) }
+                val note = withCol { getNote(this) ?: Note.fromNotetypeId(this@withCol, notetype.id) }
                 val args = TemplatePreviewerArguments(
                     notetypeFile = notetypeFile,
                     id = note.id,
@@ -898,7 +913,7 @@ open class CardTemplateEditor : AnkiActivity(), DeckSelectionListener {
                     tags = note.tags,
                     fillEmpty = true
                 )
-                val intent = TemplatePreviewerFragment.getIntent(requireContext(), args)
+                val intent = TemplatePreviewerPage.getIntent(requireContext(), args)
                 startActivity(intent)
             }
         }
@@ -970,7 +985,6 @@ open class CardTemplateEditor : AnkiActivity(), DeckSelectionListener {
                     // It is possible but unlikely that a user has an in-memory template addition that would
                     // generate cards making the deletion safe, but we don't handle that. All users who do
                     // not already have cards generated making it safe will see this error message:
-                    templateEditor.showSimpleMessageDialog(resources.getString(R.string.card_template_editor_would_delete_note))
                     return true
                 }
             }

@@ -172,7 +172,7 @@
     <string name="show_large_answer_buttons" maxLength="41">Mostrar botões de resposta grandes</string>
     <string name="show_large_answer_buttons_summ">Mostrar o botão de resposta em duas linhas</string>
     <string name="show_top_bar" maxLength="41">Mostrar barra superior</string>
-    <string name="show_top_bar_summ">Mostrar contagem de fichas, bandeiras e marcas na barra superior</string>
+    <string name="show_top_bar_summary">Mostrar contagem de fichas, tempo de resposta, bandeiras e marcas na barra superior</string>
     <string name="show_progress" maxLength="41">Mostrar restantes</string>
     <string name="show_progress_summ">Mostrar o contador de fichas restantes</string>
     <string name="show_eta" maxLength="41">Mostrar estimativa de tempo restante</string>
@@ -280,6 +280,7 @@
     <string name="user_action_7" maxLength="41">Acção de Utilizador 7</string>
     <string name="user_action_8" maxLength="41">Acção de Utilizador 8</string>
     <string name="user_action_9" maxLength="41">Acção de Utilizador 9</string>
+    <string name="toggle_auto_advance" maxLength="41">Ativar/desativar o avanço automático</string>
     <!-- Select card side -->
     <string name="card_side_selection_title">Selecione o lado da ficha</string>
     <string name="card_side_question">Questão</string>
@@ -368,4 +369,5 @@
     <string name="hide_system_bars_all_bars" comment="Setting option to hide all the system bars">Todas</string>
     <string name="ignore_display_cutout" maxLength="41">Ignorar o corte no ecrã</string>
     <string name="hide_answer_buttons" maxLength="41">Ocultar os botões de resposta</string>
+    <string name="hide_hard_and_easy" maxLength="41">Esconder os botões \'Fácil\' e \'Difícil\'.</string>
 </resources>

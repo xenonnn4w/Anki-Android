@@ -77,6 +77,7 @@ import com.ichi2.anki.dialogs.CardBrowserMySearchesDialog
 import com.ichi2.anki.dialogs.CardBrowserMySearchesDialog.Companion.newInstance
 import com.ichi2.anki.dialogs.CardBrowserMySearchesDialog.MySearchesDialogListener
 import com.ichi2.anki.dialogs.CardBrowserOrderDialog
+import com.ichi2.anki.dialogs.CreateDeckDialog
 import com.ichi2.anki.dialogs.DeckSelectionDialog
 import com.ichi2.anki.dialogs.DeckSelectionDialog.Companion.newInstance
 import com.ichi2.anki.dialogs.DeckSelectionDialog.DeckSelectionListener
@@ -128,7 +129,6 @@ import com.ichi2.libanki.SortOrder
 import com.ichi2.libanki.Sound
 import com.ichi2.libanki.TemplateManager
 import com.ichi2.libanki.Utils
-import com.ichi2.libanki.setTagsFromStr
 import com.ichi2.libanki.stripAvRefs
 import com.ichi2.libanki.undoableOp
 import com.ichi2.libanki.utils.TimeManager
@@ -269,7 +269,6 @@ open class CardBrowser :
     private var oldCardTopOffset = 0
     private var shouldRestoreScroll = false
     private var postAutoScroll = false
-    private val onboarding = Onboarding.CardBrowser(this)
 
     /**
      * Broadcast that informs us when the sd card is about to be unmounted
@@ -428,7 +427,6 @@ open class CardBrowser :
                 dialogFragment.dismiss()
             }
         }
-        onboarding.onCreate()
 
         setupFlows()
     }
@@ -634,25 +632,40 @@ open class CardBrowser :
         viewModel.setDeckId(deckId)
     }
 
-    override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
-        // NOTE: These are all active when typing in the search - doesn't matter as all need CTRL
+    override fun onKeyUp(keyCode: Int, event: KeyEvent): Boolean {
+        // This method is called even when the user is typing in the search text field.
+        // So we must ensure that all shortcuts uses a modifier.
+        // A shortcut without modifier would be triggered while the user types, which is not what we want.
         when (keyCode) {
             KeyEvent.KEYCODE_A -> {
-                if (event.isCtrlPressed) {
+                if (event.isCtrlPressed && event.isShiftPressed) {
+                    Timber.i("Ctrl+Shift+A - Show edit tags dialog")
+                    showEditTagsDialog()
+                    return true
+                } else if (event.isCtrlPressed) {
                     Timber.i("Ctrl+A - Select All")
                     viewModel.selectAll()
                     return true
                 }
             }
             KeyEvent.KEYCODE_E -> {
-                // Ctrl+Shift+E: Export (TODO)
-                if (event.isCtrlPressed) {
+                if (event.isCtrlPressed && event.isShiftPressed) {
+                    Timber.i("Ctrl+Shift+E: Export selected cards")
+                    exportSelected()
+                    return true
+                } else if (event.isCtrlPressed) {
                     Timber.i("Ctrl+E: Add Note")
                     launchCatchingTask { addNoteFromCardBrowser() }
                     return true
-                } else {
+                } else if (searchView?.isIconified == true) {
                     Timber.i("E: Edit note")
+                    // search box is not available so treat the event as a shortcut
                     openNoteEditorForCurrentlySelectedNote()
+                    return true
+                } else {
+                    Timber.i("E: Character added")
+                    // search box might be available and receiving input so treat this as usual text
+                    return false
                 }
             }
             KeyEvent.KEYCODE_D -> {
@@ -676,10 +689,17 @@ open class CardBrowser :
                     return true
                 }
             }
-            KeyEvent.KEYCODE_FORWARD_DEL -> {
-                Timber.i("Delete pressed - Delete Selected Note")
-                deleteSelectedNotes()
-                return true
+            KeyEvent.KEYCODE_FORWARD_DEL, KeyEvent.KEYCODE_DEL -> {
+                if (searchView?.isIconified == false) {
+                    Timber.i("Delete pressed - Search active, deleting character")
+                    // the search box is available and could potentially receive input so handle the
+                    // DEL as a simple text deletion and not as a keyboard shortcut
+                    return false
+                } else {
+                    Timber.i("Delete pressed - Delete Selected Note")
+                    deleteSelectedNotes()
+                    return true
+                }
             }
             KeyEvent.KEYCODE_F -> {
                 if (event.isCtrlPressed) {
@@ -695,8 +715,110 @@ open class CardBrowser :
                     return true
                 }
             }
+            KeyEvent.KEYCODE_N -> {
+                if (event.isCtrlPressed && event.isAltPressed) {
+                    Timber.i("Ctrl+Alt+N: Reset card progress")
+                    onResetProgress()
+                    return true
+                }
+            }
+            KeyEvent.KEYCODE_T -> {
+                if (event.isCtrlPressed && event.isAltPressed) {
+                    Timber.i("Ctrl+Alt+T: Toggle cards/notes")
+                    showOptionsDialog()
+                    return true
+                } else if (event.isCtrlPressed) {
+                    Timber.i("Ctrl+T: Show filter by tags dialog")
+                    showFilterByTagsDialog()
+                    return true
+                }
+            }
+            KeyEvent.KEYCODE_S -> {
+                if (event.isCtrlPressed && event.isShiftPressed) {
+                    Timber.i("Ctrl+Shift+S: Reposition selected cards")
+                    repositionSelectedCards()
+                    return true
+                } else if (event.isCtrlPressed && event.isAltPressed) {
+                    Timber.i("Ctrl+Alt+S: Show saved searches")
+                    showSavedSearches()
+                    return true
+                } else if (event.isCtrlPressed) {
+                    Timber.i("Ctrl+S: Save search")
+                    openSaveSearchView()
+                    return true
+                } else if (event.isAltPressed) {
+                    Timber.i("Alt+S: Show suspended cards")
+                    searchForSuspendedCards()
+                    return true
+                }
+            }
+            KeyEvent.KEYCODE_J -> {
+                if (event.isCtrlPressed && event.isShiftPressed) {
+                    Timber.i("Ctrl+Shift+J: Toggle bury cards")
+                    toggleBury()
+                    return true
+                } else if (event.isCtrlPressed) {
+                    Timber.i("Ctrl+J: Toggle suspended cards")
+                    toggleSuspendCards()
+                    return true
+                }
+            }
+            KeyEvent.KEYCODE_I -> {
+                if (event.isCtrlPressed && event.isShiftPressed) {
+                    Timber.i("Ctrl+Shift+I: Card info")
+                    displayCardInfo()
+                    return true
+                }
+            }
+            KeyEvent.KEYCODE_O -> {
+                if (event.isCtrlPressed) {
+                    Timber.i("Ctrl+O: Show order dialog")
+                    changeDisplayOrder()
+                    return true
+                }
+            }
+            KeyEvent.KEYCODE_M -> {
+                if (event.isCtrlPressed) {
+                    Timber.i("Ctrl+M: Search marked notes")
+                    searchForMarkedNotes()
+                    return true
+                }
+            }
+            KeyEvent.KEYCODE_Z -> {
+                if (event.isCtrlPressed) {
+                    Timber.i("Ctrl+Z: Undo")
+                    onUndo()
+                    return true
+                }
+            }
+            KeyEvent.KEYCODE_ESCAPE -> {
+                Timber.i("ESC: Select none")
+                viewModel.selectNone()
+                return true
+            }
+            in KeyEvent.KEYCODE_1..KeyEvent.KEYCODE_7 -> {
+                if (event.isCtrlPressed) {
+                    Timber.i("Update flag")
+                    updateFlag(keyCode)
+                    return true
+                }
+            }
         }
-        return super.onKeyDown(keyCode, event)
+        return super.onKeyUp(keyCode, event)
+    }
+
+    private fun updateFlag(keyCode: Int) {
+        val flag = when (keyCode) {
+            KeyEvent.KEYCODE_1 -> Flag.RED
+            KeyEvent.KEYCODE_2 -> Flag.ORANGE
+            KeyEvent.KEYCODE_3 -> Flag.GREEN
+            KeyEvent.KEYCODE_4 -> Flag.BLUE
+            KeyEvent.KEYCODE_5 -> Flag.PINK
+            KeyEvent.KEYCODE_6 -> Flag.TURQUOISE
+            KeyEvent.KEYCODE_7 -> Flag.PURPLE
+            else -> return
+        }
+        updateFlagForSelectedRows(flag)
     }
 
     /** All the notes of the selected cards will be marked
@@ -820,6 +942,7 @@ open class CardBrowser :
                     subMenu ->
                 setupFlags(subMenu, Mode.SINGLE_SELECT)
             }
+            menu.findItem(R.id.action_create_filtered_deck).title = TR.qtMiscCreateFilteredDeck()
             saveSearchItem = menu.findItem(R.id.action_save_search)
             saveSearchItem?.isVisible = false // the searchview's query always starts empty.
             mySearchesItem = menu.findItem(R.id.action_list_my_searches)
@@ -886,7 +1009,7 @@ open class CardBrowser :
         }
 
         actionBarMenu?.findItem(R.id.action_reschedule_cards)?.title =
-            TR.actionsSetDueDate().toSentenceCase(R.string.sentence_set_due_date)
+            TR.actionsSetDueDate().toSentenceCase(this, R.string.sentence_set_due_date)
 
         previewItem = menu.findItem(R.id.action_preview)
         onSelectionChanged()
@@ -936,12 +1059,12 @@ open class CardBrowser :
         }
         if (viewModel.hasSelectedAnyRows()) {
             actionBarMenu.findItem(R.id.action_suspend_card).apply {
-                title = TR.browsingToggleSuspend().toSentenceCase(R.string.sentence_toggle_suspend)
+                title = TR.browsingToggleSuspend().toSentenceCase(this@CardBrowser, R.string.sentence_toggle_suspend)
                 // TODO: I don't think this icon is necessary
                 setIcon(R.drawable.ic_suspend)
             }
             actionBarMenu.findItem(R.id.action_toggle_bury).apply {
-                title = TR.browsingToggleBury().toSentenceCase(R.string.sentence_toggle_bury)
+                title = TR.browsingToggleBury().toSentenceCase(this@CardBrowser, R.string.sentence_toggle_bury)
             }
             actionBarMenu.findItem(R.id.action_mark_card).apply {
                 title = TR.browsingToggleMark()
@@ -1049,52 +1172,27 @@ open class CardBrowser :
                 return true
             }
             R.id.action_save_search -> {
-                val searchTerms = searchView!!.query.toString()
-                showDialogFragment(
-                    newInstance(
-                        null,
-                        mySearchesDialogListener,
-                        searchTerms,
-                        CardBrowserMySearchesDialog.CARD_BROWSER_MY_SEARCHES_TYPE_SAVE
-                    )
-                )
+                openSaveSearchView()
                 return true
             }
             R.id.action_list_my_searches -> {
-                launchCatchingTask {
-                    val savedFilters = viewModel.savedSearches()
-                    showDialogFragment(
-                        newInstance(
-                            savedFilters,
-                            mySearchesDialogListener,
-                            "",
-                            CardBrowserMySearchesDialog.CARD_BROWSER_MY_SEARCHES_TYPE_LIST
-                        )
-                    )
-                }
-
+                showSavedSearches()
                 return true
             }
             R.id.action_sort_by_size -> {
-                showDialogFragment(
-                    // TODO: move this into the ViewModel
-                    CardBrowserOrderDialog.newInstance { dialog: DialogInterface, which: Int ->
-                        dialog.dismiss()
-                        changeCardOrder(SortType.fromCardBrowserLabelIndex(which))
-                    }
-                )
+                changeDisplayOrder()
                 return true
             }
 
             @NeedsTest("filter-marked query needs testing")
             R.id.action_show_marked -> {
-                launchCatchingTask { viewModel.searchForMarkedNotes() }
+                searchForMarkedNotes()
                 return true
             }
 
             @NeedsTest("filter-suspended query needs testing")
             R.id.action_show_suspended -> {
-                launchCatchingTask { viewModel.searchForSuspendedCards() }
+                searchForSuspendedCards()
                 return true
             }
             R.id.action_search_by_tag -> {
@@ -1149,31 +1247,7 @@ open class CardBrowser :
                 return true
             }
             R.id.action_reposition_cards -> {
-                Timber.i("CardBrowser:: Reposition button pressed")
-                if (warnUserIfInNotesOnlyMode()) return true
-                launchCatchingTask {
-                    val selectedCardIds = viewModel.queryAllSelectedCardIds()
-                    // Only new cards may be repositioned (If any non-new found show error dialog and return false)
-                    if (selectedCardIds.any { getColUnsafe.getCard(it).queue != Consts.QUEUE_TYPE_NEW }) {
-                        showDialogFragment(
-                            SimpleMessageDialog.newInstance(
-                                title = getString(R.string.vague_error),
-                                message = getString(R.string.reposition_card_not_new_error),
-                                reload = false
-                            )
-                        )
-                        return@launchCatchingTask
-                    }
-                    val repositionDialog = IntegerDialog().apply {
-                        setArgs(
-                            title = this@CardBrowser.getString(R.string.reposition_card_dialog_title),
-                            prompt = this@CardBrowser.getString(R.string.reposition_card_dialog_message),
-                            digits = 5
-                        )
-                        setCallbackRunnable(::repositionCardsNoValidation)
-                    }
-                    showDialogFragment(repositionDialog)
-                }
+                repositionSelectedCards()
                 return true
             }
             R.id.action_edit_note -> {
@@ -1181,12 +1255,7 @@ open class CardBrowser :
                 return super.onOptionsItemSelected(item)
             }
             R.id.action_view_card_info -> {
-                launchCatchingTask {
-                    viewModel.queryCardInfoDestination()?.let { destination ->
-                        val intent: Intent = destination.toIntent(this@CardBrowser)
-                        startActivity(intent)
-                    }
-                }
+                displayCardInfo()
                 return true
             }
             R.id.action_edit_tags -> {
@@ -1198,8 +1267,113 @@ open class CardBrowser :
             R.id.action_export_selected -> {
                 exportSelected()
             }
+            R.id.action_create_filtered_deck -> {
+                showCreateFilteredDeckDialog()
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun showCreateFilteredDeckDialog() {
+        val dialog = CreateDeckDialog(this, R.string.new_deck, CreateDeckDialog.DeckDialogType.FILTERED_DECK, null)
+        dialog.onNewDeckCreated = {
+            val intent = Intent(this, FilteredDeckOptions::class.java)
+            intent.putExtra("search", viewModel.searchTerms)
+            startActivity(intent)
+        }
+        launchCatchingTask {
+            withProgress {
+                dialog.showFilteredDeckDialog()
+            }
+        }
+    }
+
+    /**
+     * @see CardBrowserViewModel.searchForSuspendedCards
+     */
+    private fun searchForSuspendedCards() {
+        launchCatchingTask { viewModel.searchForSuspendedCards() }
+    }
+
+    /**
+     * @see CardBrowserViewModel.searchForMarkedNotes
+     */
+    private fun searchForMarkedNotes() {
+        launchCatchingTask { viewModel.searchForMarkedNotes() }
+    }
+
+    private fun changeDisplayOrder() {
+        showDialogFragment(
+            // TODO: move this into the ViewModel
+            CardBrowserOrderDialog.newInstance { dialog: DialogInterface, which: Int ->
+                dialog.dismiss()
+                changeCardOrder(SortType.fromCardBrowserLabelIndex(which))
+            }
+        )
+    }
+
+    private fun showSavedSearches() {
+        launchCatchingTask {
+            val savedFilters = viewModel.savedSearches()
+            showDialogFragment(
+                newInstance(
+                    savedFilters,
+                    mySearchesDialogListener,
+                    "",
+                    CardBrowserMySearchesDialog.CARD_BROWSER_MY_SEARCHES_TYPE_LIST
+                )
+            )
+        }
+    }
+
+    private fun openSaveSearchView() {
+        val searchTerms = searchView!!.query.toString()
+        showDialogFragment(
+            newInstance(
+                null,
+                mySearchesDialogListener,
+                searchTerms,
+                CardBrowserMySearchesDialog.CARD_BROWSER_MY_SEARCHES_TYPE_SAVE
+            )
+        )
+    }
+
+    private fun repositionSelectedCards(): Boolean {
+        Timber.i("CardBrowser:: Reposition button pressed")
+        if (warnUserIfInNotesOnlyMode()) return false
+        launchCatchingTask {
+            val selectedCardIds = viewModel.queryAllSelectedCardIds()
+            // Only new cards may be repositioned (If any non-new found show error dialog and return false)
+            if (selectedCardIds.any { getColUnsafe.getCard(it).queue != Consts.QUEUE_TYPE_NEW }) {
+                showDialogFragment(
+                    SimpleMessageDialog.newInstance(
+                        title = getString(R.string.vague_error),
+                        message = getString(R.string.reposition_card_not_new_error),
+                        reload = false
+                    )
+                )
+                return@launchCatchingTask
+            }
+            val repositionDialog = IntegerDialog().apply {
+                setArgs(
+                    title = this@CardBrowser.getString(R.string.reposition_card_dialog_title),
+                    prompt = this@CardBrowser.getString(R.string.reposition_card_dialog_message),
+                    digits = 5
+                )
+                setCallbackRunnable(::repositionCardsNoValidation)
+            }
+            showDialogFragment(repositionDialog)
+        }
+        return true
+    }
+
+    private fun displayCardInfo() {
+        launchCatchingTask {
+            viewModel.queryCardInfoDestination()?.let { destination ->
+                val intent: Intent = destination.toIntent(this@CardBrowser)
+                startActivity(intent)
+            }
+        }
     }
 
     override fun exportDialogsFactory(): ExportDialogsFactory = exportingDelegate.dialogsFactory
@@ -1347,6 +1521,7 @@ open class CardBrowser :
                     Timber.d("showEditTagsDialog: edit tags for one note")
                     tagsDialogListenerAction = TagsDialogListenerAction.EDIT_TAGS
                     val dialog = tagsDialogFactory.newTagsDialog().withArguments(
+                        this@CardBrowser,
                         type = TagsDialog.DialogType.EDIT_TAGS,
                         checkedTags = checkedTags,
                         allTags = allTags
@@ -1378,6 +1553,7 @@ open class CardBrowser :
                 // withArguments performs IO, can be 18 seconds
                 val dialog = withContext(Dispatchers.IO) {
                     tagsDialogFactory.newTagsDialog().withArguments(
+                        context = this@CardBrowser,
                         type = TagsDialog.DialogType.EDIT_TAGS,
                         checkedTags = checkedTags,
                         uncheckedTags = uncheckedTags,
@@ -1392,9 +1568,10 @@ open class CardBrowser :
     private fun showFilterByTagsDialog() {
         tagsDialogListenerAction = TagsDialogListenerAction.FILTER
         val dialog = tagsDialogFactory.newTagsDialog().withArguments(
-            TagsDialog.DialogType.FILTER_BY_TAG,
-            ArrayList(0),
-            getColUnsafe.tags.all()
+            context = this@CardBrowser,
+            type = TagsDialog.DialogType.FILTER_BY_TAG,
+            checkedTags = ArrayList(0),
+            allTags = getColUnsafe.tags.all()
         )
         showDialogFragment(dialog)
     }
@@ -1552,7 +1729,7 @@ open class CardBrowser :
                 .onEach { note ->
                     val previousTags: List<String> = note.tags
                     val updatedTags = getUpdatedTags(previousTags, selectedTags, indeterminateTags)
-                    note.setTagsFromStr(tags.join(updatedTags))
+                    note.setTagsFromStr(this@undoableOp, tags.join(updatedTags))
                 }
             updateNotes(selectedNotes)
         }
@@ -2339,14 +2516,13 @@ suspend fun searchForCards(
 ): MutableList<CardBrowser.CardCache> {
     return withCol {
         (if (cardsOrNotes == CARDS) findCards(query, order) else findOneCardByNote(query, order)).asSequence()
-            .toCardCache(cardsOrNotes)
+            .toCardCache(this@withCol, cardsOrNotes)
             .toMutableList()
     }
 }
 
-context (Collection)
-private fun Sequence<CardId>.toCardCache(isInCardMode: CardsOrNotes): Sequence<CardBrowser.CardCache> {
-    return this.mapIndexed { idx, cid -> CardBrowser.CardCache(cid, this@Collection, idx, isInCardMode) }
+private fun Sequence<CardId>.toCardCache(col: Collection, isInCardMode: CardsOrNotes): Sequence<CardBrowser.CardCache> {
+    return this.mapIndexed { idx, cid -> CardBrowser.CardCache(cid, col, idx, isInCardMode) }
 }
 
 class PreviewerDestination(val currentIndex: Int, val previewerIdsFile: PreviewerIdsFile)

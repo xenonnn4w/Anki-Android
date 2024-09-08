@@ -68,7 +68,7 @@ class TemplatePreviewerViewModel(
                 if (arguments.id != 0L) {
                     Note(this, arguments.id)
                 } else {
-                    Note.fromNotetypeId(arguments.notetype.id)
+                    Note.fromNotetypeId(this@withCol, arguments.notetype.id)
                 }
             }.apply {
                 fields = arguments.fields
@@ -237,8 +237,7 @@ data class TemplatePreviewerArguments(
     val tags: MutableList<String>,
     val id: Long = 0,
     val ord: Int = 0,
-    val fillEmpty: Boolean = false,
-    val inFragmentedActivity: Boolean = false
+    val fillEmpty: Boolean = false
 ) : Parcelable {
     val notetype: NotetypeJson get() = notetypeFile.getNotetype()
 }
