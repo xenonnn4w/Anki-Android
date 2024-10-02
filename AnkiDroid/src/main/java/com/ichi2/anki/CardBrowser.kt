@@ -18,11 +18,9 @@
 
 package com.ichi2.anki
 
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.content.IntentFilter
 import android.content.res.Configuration
 import android.os.Bundle
 import android.os.SystemClock
@@ -52,7 +50,6 @@ import androidx.annotation.MainThread
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.ThemeUtils
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import anki.collection.OpChanges
@@ -99,7 +96,6 @@ import com.ichi2.anki.model.SortType
 import com.ichi2.anki.noteeditor.NoteEditorLauncher
 import com.ichi2.anki.preferences.sharedPrefs
 import com.ichi2.anki.previewer.PreviewerFragment
-import com.ichi2.anki.receiver.SdCardReceiver
 import com.ichi2.anki.scheduling.ForgetCardsDialog
 import com.ichi2.anki.scheduling.SetDueDateDialog
 import com.ichi2.anki.servicelayer.NoteService
@@ -116,7 +112,6 @@ import com.ichi2.anki.utils.roundedTimeSpanUnformatted
 import com.ichi2.anki.widgets.DeckDropDownAdapter.SubtitleListener
 import com.ichi2.annotations.NeedsTest
 import com.ichi2.async.renderBrowserQA
-import com.ichi2.compat.CompatHelper.Companion.registerReceiverCompat
 import com.ichi2.libanki.Card
 import com.ichi2.libanki.CardId
 import com.ichi2.libanki.ChangeManager
@@ -269,11 +264,6 @@ open class CardBrowser :
     private var oldCardTopOffset = 0
     private var shouldRestoreScroll = false
     private var postAutoScroll = false
-
-    /**
-     * Broadcast that informs us when the sd card is about to be unmounted
-     */
-    private var unmountReceiver: BroadcastReceiver? = null
 
     init {
         ChangeManager.subscribe(this)
@@ -584,7 +574,7 @@ open class CardBrowser :
     override fun onCollectionLoaded(col: Collection) {
         super.onCollectionLoaded(col)
         Timber.d("onCollectionLoaded()")
-        registerExternalStorageListener()
+        registerReceiver()
         cards.reset()
 
         cardsListView.setOnItemClickListener { _: AdapterView<*>?, view: View?, position: Int, _: Long ->
@@ -888,9 +878,6 @@ open class CardBrowser :
     override fun onDestroy() {
         invalidate()
         super.onDestroy()
-        if (unmountReceiver != null) {
-            unregisterReceiver(unmountReceiver)
-        }
     }
 
     @Deprecated("Deprecated in Java")
@@ -964,11 +951,11 @@ open class CardBrowser :
                 }
             })
             searchView = (searchItem!!.actionView as CardBrowserSearchView).apply {
-                queryHint = resources.getString(R.string.deck_conf_cram_search)
+                queryHint = resources.getString(R.string.card_browser_search_hint)
                 setMaxWidth(Integer.MAX_VALUE)
                 setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                     override fun onQueryTextChange(newText: String): Boolean {
-                        if (this@apply.shouldIgnoreValueChange()) {
+                        if (this@apply.ignoreValueChange) {
                             return true
                         }
                         viewModel.updateQueryText(newText)
@@ -1085,17 +1072,10 @@ open class CardBrowser :
             }
         }
         actionBarMenu.findItem(R.id.action_delete_card).apply {
-            this.title = if (viewModel.cardsOrNotes == CARDS) {
-                resources.getQuantityString(
-                    R.plurals.card_browser_delete_cards,
-                    viewModel.selectedRowCount()
-                )
-            } else {
-                resources.getQuantityString(
-                    R.plurals.card_browser_delete_notes,
-                    viewModel.selectedRowCount()
-                )
-            }
+            this.title = resources.getQuantityString(
+                R.plurals.card_browser_delete_notes,
+                viewModel.selectedNoteCount()
+            )
         }
         actionBarMenu.findItem(R.id.action_select_all).isVisible = !hasSelectedAllCards()
         // Note: Theoretically should not happen, as this should kick us back to the menu
@@ -2320,24 +2300,6 @@ open class CardBrowser :
 
         override fun hashCode(): Int {
             return java.lang.Long.valueOf(id).hashCode()
-        }
-    }
-
-    /**
-     * Show/dismiss dialog when sd card is ejected/remounted (collection is saved by SdCardReceiver)
-     */
-    private fun registerExternalStorageListener() {
-        if (unmountReceiver == null) {
-            unmountReceiver = object : BroadcastReceiver() {
-                override fun onReceive(context: Context, intent: Intent) {
-                    if (intent.action == SdCardReceiver.MEDIA_EJECT) {
-                        finish()
-                    }
-                }
-            }
-            val iFilter = IntentFilter()
-            iFilter.addAction(SdCardReceiver.MEDIA_EJECT)
-            registerReceiverCompat(unmountReceiver, iFilter, ContextCompat.RECEIVER_EXPORTED)
         }
     }
 

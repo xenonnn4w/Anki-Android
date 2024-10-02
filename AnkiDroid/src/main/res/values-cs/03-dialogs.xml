@@ -51,7 +51,7 @@
     <plurals name="delete_deck_message">
         <item quantity="one">Vymazat všechny karty v %1$s? Obsahuje %2$d kartu</item>
         <item quantity="few">Vymazat všechny karty v %1$s? Obsahuje %2$d karty</item>
-        <item quantity="many">Vymazat všechny karty v %1$s? Obsahuje %2$d karet</item>
+        <item quantity="many">Vymazat všechny karty v %1$s? Obsahuje %2$d karty</item>
         <item quantity="other">Vymazat všechny karty v %1$s? Obsahuje %2$d karet</item>
     </plurals>
     <string name="delete_cram_deck_message">Vymazat filtrovaný balíček %s a poslat všechny karty zpět do jejich původních balíčků?</string>
@@ -245,6 +245,7 @@
     <string name="dismiss_backup_warning_upgrade">        V důsledku změn ochrany osobních údajů systému Android budou vaše data a automatické zálohy nedostupné, pokud bude aplikace odinstalována
     </string>
     <string name="deck_already_exists">Balíček již existuje</string>
+    <string name="empty_deck_name">Deck name cannot be empty</string>
     <string name="create_deck_numeric_hint">Pokud máte problémy s pořadím balíčků (např. „10“ je před „2“), nahraďte „2“ číslem „02“</string>
     <!-- Set Due Date -->
     <string name="set_due_date_match_interval" comment="when setting a card\'s due date, this checkbox also changes the interval of the card">Nastavit interval na stejnou hodnotu</string>
@@ -280,4 +281,10 @@
     <string name="change_cloze_mode">Change cloze mode</string>
     <!-- Outdated WebView dialog -->
     <string name="webview_update_message">Systémový WebView je zastaralý. Některé funkce nebudou fungovat správně. Aktualizujte jej prosím.\n\nNainstalovaná verze: %1$d\nMinimální požadovaná verze: %2$d</string>
+    <string name="compress">Compress</string>
+    <!-- Tts playback error dialog -->
+    <string name="tts_error_dialog_title">Jazyk není podporován</string>
+    <string name="tts_error_dialog_reason_text">The text to speech engine <b>%1$s</b> does not support the following language: <b>%2$s</b></string>
+    <string name="tts_error_dialog_change_button_text">Change engine</string>
+    <string name="tts_error_dialog_supported_voices_button_text">Voice options</string>
 </resources>

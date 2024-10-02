@@ -53,7 +53,6 @@
     <string name="drawing">Disegno</string>
     <string name="send_feedback">Invia commenti</string>
     <string name="studyoptions_start">Studia ora</string>
-    <string name="studyoptions_buried_count">+%d buried</string>
     <!-- DeckPicker.kt -->
     <string name="expand">Espandi</string>
     <string name="collapse">Nascondi</string>
@@ -66,8 +65,8 @@
         <item quantity="other">%1$d ora e %2$d rimanenti</item>
     </plurals>
     <plurals name="reviewer_window_title_days_new">
-        <item quantity="one">%1$d giorno e %2$d rimanenti</item>
-        <item quantity="other">%1$d giorno e %2$d rimanenti</item>
+        <item quantity="one">%1$d day %2$dh left</item>
+        <item quantity="other">%1$d days %2$dh left</item>
     </plurals>
     <string name="no_cards_placeholder_title">La collezione è vuota</string>
     <string name="no_cards_placeholder_description">Inizia ad aggiungere carte\nusando l\'icona +.</string>
@@ -81,7 +80,7 @@
     <string name="ease_button_good">Normale</string>
     <string name="ease_button_easy">Facile</string>
     <string name="menu_import">Importa</string>
-    <string name="undo">Annulla</string>
+    <string name="undo" maxLength="29" comment="When tapping on this text, the last action is undone.">Annulla</string>
     <string name="redo">Ripristina</string>
     <string name="undo_action_whiteboard_last_stroke" comment="One of the display patterns of \'Undo\' item on the action menu in Reviewer. It is shown as the title of the item when the whiteboard (handwriting) feature is enabled and visible and has any strokes (handwritten lines)">Indietro</string>
     <string name="move_all_to_deck">Sposta tutto nel mazzo</string>
@@ -90,7 +89,7 @@
     <string name="create_shortcut">Crea scorciatoia</string>
     <string name="browse_cards">Sfoglia le carte</string>
     <string name="edit_deck_description" comment="edit the deck description">Modifica descrizione</string>
-    <string name="menu_add" comment="A generic add button. Please inform us if you need more specific strings">Aggiungi</string>
+    <string name="menu_add" comment="A generic add button. Please inform us if you need more specific strings" maxLength="29">Aggiungi</string>
     <string name="menu_add_note">Aggiungi nota</string>
     <string name="menu_my_account" comment="Label of the window in which the user should enter their account. This text can\'t be found in AnkiDroid directly.">Sincronizza account</string>
     <string name="menu_dismiss_note">Nascondi / Cancella</string>
@@ -102,15 +101,15 @@
     <string name="menu_suspend">Sospendi</string>
     <string name="menu_delete_note">Elimina nota</string>
     <string name="menu_flag">Bandiera</string>
-    <string name="rename_flag">Rename flags</string>
+    <string name="rename_flag">Rinomina bandiera</string>
     <string name="menu_flag_card">Assegna bandiera</string>
     <string name="menu_edit_tags">Modifica etichette</string>
     <string name="delete_note_message">Vuoi veramente eliminare questa nota e tutte le sue carte?\n%s</string>
     <string name="menu_search">Ricerca in %1$s</string>
     <string name="menu_mark_note">Contrassegna nota</string>
     <string name="menu_unmark_note">Rimuovi contrassegno nota</string>
-    <string name="menu_enable_voice_playback">Enable voice playback</string>
-    <string name="menu_disable_voice_playback">Disable voice playback</string>
+    <string name="menu_enable_voice_playback">Abilita riproduzione vocale</string>
+    <string name="menu_disable_voice_playback">Disabilita riproduzione vocale</string>
     <string name="new_deck">Crea mazzo</string>
     <string name="new_dynamic_deck">Crea mazzo filtrato</string>
     <string name="directory_inaccessible">La directory AnkiDroid è inaccessibile</string>
@@ -131,7 +130,7 @@
     <string name="search_for_download_deck" comment="Deck search value for downloading deck">Ricerca mazzo</string>
     <string name="invalid_deck_name">Nome mazzo non valido</string>
     <string name="studyoptions_congrats_finished">Congratulazioni! Hai finito per ora.</string>
-    <string name="studyoptions_congrats_next_due_in" comment="The param will be replaced with \'The next card will be ready in X time\'">Deck finished for now! %s</string>
+    <string name="studyoptions_congrats_next_due_in" comment="The param will be replaced with \'The next card will be ready in X time\'">Mazzo completato per ora! %s</string>
     <string name="studyoptions_no_cards_due">Nessuna carta da ripetere ora.</string>
     <string name="sd_card_not_mounted">Dispositivo archiviazione non montato</string>
     <string name="button_sync" comment="Text of the sync button">Sincronizza</string>
@@ -141,7 +140,7 @@
     <string name="sync_cancel_message" tools:ignore="UnusedResources">Annullo&#8230;\nPotrebbe richiedere del tempo.</string>
     <string name="syncing_media">Sincronizzazione media in corso</string>
     <string name="export_deck">Esporta il mazzo</string>
-    <string name="export_collection">Export collection</string>
+    <string name="export_collection">Esporta collezione</string>
     <string name="nothing">Niente</string>
     <!-- Card template editor -->
     <string name="title_activity_template_editor">Tipi di carte</string>
@@ -181,10 +180,6 @@
     <string name="sync_conflict_local_confirm_new">Vuoi sostituire la tua collezione AnkiWeb con quella presente su AnkiDroid?</string>
     <string name="sync_conflict_title_new">Scegliere la collezione da mantenere</string>
     <string name="sync_conflict_replace_title">Sostituire collezione</string>
-    <plurals name="deckpicker_title_zero_due">
-        <item quantity="one">%1$d carta (0 da studiare)</item>
-        <item quantity="other">%1$d carta (0 dovute)</item>
-    </plurals>
     <!-- Generic errors -->
     <string name="error__etc__cannot_write_to_or_create_file">Impossibile scrivere su o creare il file %s</string>
     <string name="directory_inaccessible_after_uninstall" comment="Dialog title if AnkiDroid can\'t access the collection once the app is installed">Collezione inaccessibile</string>
@@ -202,7 +197,7 @@
     <string name="storage_access_summary">Salva la tua collezione in un posto sicuro che non verrà cancellato se si disinstalla l\'app</string>
     <string name="all_files_access_title" comment="Name of the “All files access” permission from Android 10 and after">Accesso a tutti i file</string>
     <string name="image_occlusion">Occludi immagine</string>
-    <string name="remove_account" comment="open a website to start the deletion of an AnkiWeb account">Remove account</string>
+    <string name="remove_account" comment="open a website to start the deletion of an AnkiWeb account">Rimuovi account</string>
     <!-- Instant Note Editor -->
-    <string name="instant_card" comment="This does not need to be translated literally, translate the concept of quickly adding a Cloze note with a popup. Used in the Android system context menu/share dialog.">Instant card</string>
+    <string name="instant_card" comment="This does not need to be translated literally, translate the concept of quickly adding a Cloze note with a popup. Used in the Android system context menu/share dialog.">Carta istantanea</string>
 </resources>

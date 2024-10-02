@@ -195,7 +195,7 @@ class CardAnalysisWidget : AnalyticsWidgetProvider() {
             val appWidgetManager = AppWidgetManager.getInstance(context)
 
             val provider = ComponentName(context, CardAnalysisWidget::class.java)
-            Timber.d("Fetching appWidgetIds for provider: $provider")
+            Timber.d("Fetching appWidgetIds for provider: ${provider.shortClassName}")
 
             val appWidgetIds = appWidgetManager.getAppWidgetIds(provider)
             Timber.d("AppWidgetIds to update: ${appWidgetIds.joinToString(", ")}")
@@ -277,6 +277,9 @@ class CardAnalysisWidget : AnalyticsWidgetProvider() {
                     // Update the widget using the internally fetched deck ID
                     updateWidget(context, AppWidgetManager.getInstance(context), appWidgetId)
                 }
+            }
+            AppWidgetManager.ACTION_APPWIDGET_OPTIONS_CHANGED -> {
+                // TODO: #17151 not yet handled. Exists to stop ACRA errors
             }
             AppWidgetManager.ACTION_APPWIDGET_DELETED -> {
                 Timber.d("ACTION_APPWIDGET_DELETED received")

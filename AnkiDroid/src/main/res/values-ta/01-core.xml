@@ -53,7 +53,6 @@
     <string name="drawing">வரைபொருள்</string>
     <string name="send_feedback">கருத்தினை அனுப்பவும்</string>
     <string name="studyoptions_start">படி</string>
-    <string name="studyoptions_buried_count">+%d புதைக்கப்பட்டது</string>
     <!-- DeckPicker.kt -->
     <string name="expand">விரிவாக்கு</string>
     <string name="collapse">சரிவு</string>
@@ -66,8 +65,8 @@
         <item quantity="other">%1$d மணிநேரம் %2$d மீதமுள்ளது</item>
     </plurals>
     <plurals name="reviewer_window_title_days_new">
-        <item quantity="one">%1$d நாள் %2$d மீதமுள்ளது</item>
-        <item quantity="other">%1$d நாட்கள் %2$d மீதமுள்ளது</item>
+        <item quantity="one">%1$d நாள் %2$dh மீதமுள்ளது</item>
+        <item quantity="other">%1$d நாட்கள் %2$dh மீதமுள்ளது</item>
     </plurals>
     <string name="no_cards_placeholder_title">தொகுப்பு காலியாக  உள்ளது</string>
     <string name="no_cards_placeholder_description">+ பொத்தானை அழுத்தி /n சேர்க்கவும்</string>
@@ -81,7 +80,7 @@
     <string name="ease_button_good">நல்ல</string>
     <string name="ease_button_easy">எளிதாக</string>
     <string name="menu_import">இறக்குமதி</string>
-    <string name="undo">செயல்தவிர்ப்பது </string>
+    <string name="undo" maxLength="29" comment="When tapping on this text, the last action is undone.">செயல்தவிர்ப்பது </string>
     <string name="redo">மீண்டும் செய்</string>
     <string name="undo_action_whiteboard_last_stroke" comment="One of the display patterns of \'Undo\' item on the action menu in Reviewer. It is shown as the title of the item when the whiteboard (handwriting) feature is enabled and visible and has any strokes (handwritten lines)">பக்கவாதத்தை செயல்தவிர்க்கவும்</string>
     <string name="move_all_to_deck">அனைத்தையும் தளத்திற்கு நகர்த்து</string>
@@ -90,7 +89,7 @@
     <string name="create_shortcut">குறுக்குவழி சேர்</string>
     <string name="browse_cards">அட்டைகளை உலாவவும்</string>
     <string name="edit_deck_description" comment="edit the deck description">விளக்கத்தைத் திருத்தவும்</string>
-    <string name="menu_add" comment="A generic add button. Please inform us if you need more specific strings">கூட்டு</string>
+    <string name="menu_add" comment="A generic add button. Please inform us if you need more specific strings" maxLength="29">கூட்டு</string>
     <string name="menu_add_note">குறிப்பு சேர்க்க</string>
     <string name="menu_my_account" comment="Label of the window in which the user should enter their account. This text can\'t be found in AnkiDroid directly.">ஒத்திசைக்க</string>
     <string name="menu_dismiss_note">மறைக்க/அழி</string>
@@ -181,10 +180,6 @@
     <string name="sync_conflict_local_confirm_new">AnkiWeb இல் உள்ள உங்கள் சேகரிப்பை AnkiDroid இலிருந்து உங்கள் சேகரிப்புடன் மாற்றவா?</string>
     <string name="sync_conflict_title_new">வைத்திருக்கச் சேகரிப்பைத் தேர்ந்தெடுக்கவும்</string>
     <string name="sync_conflict_replace_title">சேகரிப்பை மாற்றவும்</string>
-    <plurals name="deckpicker_title_zero_due">
-        <item quantity="one">%1$d கார்டு (0 நிலுவைத் தொகை)</item>
-        <item quantity="other">%1$d கார்டுகள் (0 நிலுவைத் தொகை)</item>
-    </plurals>
     <!-- Generic errors -->
     <string name="error__etc__cannot_write_to_or_create_file">%s கோப்பை எழுதவோ உருவாக்கவோ முடியாது</string>
     <string name="directory_inaccessible_after_uninstall" comment="Dialog title if AnkiDroid can\'t access the collection once the app is installed">அணுக முடியாத சேகரிப்பு</string>

@@ -172,7 +172,7 @@
     <string name="show_large_answer_buttons" maxLength="41">دکمه های بزرگ جواب نشان بده</string>
     <string name="show_large_answer_buttons_summ">دکمه ی جواب را در 2 ردیف نشان بده</string>
     <string name="show_top_bar" maxLength="41">نمایش نوار بالا</string>
-    <string name="show_top_bar_summary">Show card counts, answer timer, flag and mark in top bar</string>
+    <string name="show_top_bar_summary">نمایش تعداد کارت ها، ساعت شمار پاسخ، پرچم و علامت در نوار بالا</string>
     <string name="show_progress" maxLength="41">نمایش باقیمانده</string>
     <string name="show_progress_summ">نمایش تعداد کارت‌های باقیمانده</string>
     <string name="show_eta" maxLength="41">نمایش زمان تخمینی</string>
@@ -236,9 +236,9 @@
     <string name="deck_conf_general" maxLength="41" comment="Label of the submenu for the general options of new deck">عمومی</string>
     <string name="deck_conf_reminders" maxLength="41">یادآورها</string>
     <string name="deck_conf_cram_filter" maxLength="41">فیلتر</string>
-    <string name="deck_conf_cram_search" maxLength="41">جستجو</string>
+    <string name="deck_conf_cram_search" maxLength="41" comment="Label of a text field that contains a search query.">جستجو</string>
     <string name="deck_conf_cram_limit" maxLength="41">محدود به</string>
-    <string name="deck_conf_cram_order" maxLength="41">کارتهای انتخاب شده بر اساس</string>
+    <string name="deck_conf_cram_order" maxLength="41">کارت های انتخاب شده بر اساس</string>
     <string name="deck_conf_cram_reschedule" maxLength="41" comment="Title of the box labelled by deck_conf_cram_reschedule_summ">برنا مه ریزی مجدد</string>
     <string name="deck_conf_cram_reschedule_summ">برنامه ریزی مجدد کارتها براساس جوابهای من در این دسته</string>
     <string name="deck_conf_cram_filter_2_check">فیلتر دوم را فعال کن</string>
@@ -280,7 +280,7 @@
     <string name="user_action_7" maxLength="41">اقدام کاربر 7</string>
     <string name="user_action_8" maxLength="41">اقدام کاربر 8</string>
     <string name="user_action_9" maxLength="41">اقدام کاربر 9</string>
-    <string name="toggle_auto_advance" maxLength="41">Toggle auto advance</string>
+    <string name="toggle_auto_advance" maxLength="41">تغییر وضعیت پیشروی خودکار</string>
     <!-- Select card side -->
     <string name="card_side_selection_title">طرف کارت را انتخاب کنید</string>
     <string name="card_side_question">سوال</string>
@@ -368,5 +368,5 @@
     <string name="hide_system_bars_all_bars" comment="Setting option to hide all the system bars">همه</string>
     <string name="ignore_display_cutout" maxLength="41">نادیده گرفتن بریدگی صفحه نمایش</string>
     <string name="hide_answer_buttons" maxLength="41">مخفی کردن دکمه‌های پاسخ</string>
-    <string name="hide_hard_and_easy" maxLength="41">Hide ‘Hard’ and ‘Easy’ buttons</string>
+    <string name="hide_hard_and_easy" maxLength="41">دکمه \"دشوار\" و \"آسان\" را پنهان کن</string>
 </resources>

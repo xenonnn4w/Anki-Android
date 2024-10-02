@@ -24,15 +24,16 @@ import androidx.lifecycle.lifecycleScope
 import com.ichi2.anki.AbstractFlashcardViewer
 import com.ichi2.anki.AbstractFlashcardViewer.Companion.getMediaBaseUrl
 import com.ichi2.anki.AndroidTtsError
-import com.ichi2.anki.AndroidTtsError.TtsErrorCode
 import com.ichi2.anki.AndroidTtsPlayer
 import com.ichi2.anki.AnkiDroidApp
 import com.ichi2.anki.CollectionHelper.getMediaDirectory
 import com.ichi2.anki.CollectionManager.withCol
+import com.ichi2.anki.R
 import com.ichi2.anki.ReadText
 import com.ichi2.anki.cardviewer.SoundErrorBehavior.CONTINUE_AUDIO
 import com.ichi2.anki.cardviewer.SoundErrorBehavior.RETRY_AUDIO
 import com.ichi2.anki.cardviewer.SoundErrorBehavior.STOP_AUDIO
+import com.ichi2.anki.dialogs.TtsPlaybackErrorDialog
 import com.ichi2.anki.localizedErrorMessage
 import com.ichi2.anki.reviewer.CardSide
 import com.ichi2.anki.snackbar.showSnackbar
@@ -340,7 +341,7 @@ class CardMediaPlayer : Closeable {
         }
         if (player == null) {
             Timber.v("timeout waiting for TTS Player")
-            val error = AndroidTtsError(TtsErrorCode.APP_TTS_INIT_TIMEOUT)
+            val error = AndroidTtsError.InitTimeout
             soundErrorListener?.onTtsError(error, isAutomaticPlayback)
         }
         return player
@@ -430,7 +431,13 @@ fun AbstractFlashcardViewer.createSoundErrorListener(): SoundErrorListener {
 
         override fun onTtsError(error: TtsPlayer.TtsError, isAutomaticPlayback: Boolean) {
             AbstractFlashcardViewer.mediaErrorHandler.processTtsFailure(error, isAutomaticPlayback) {
-                activity.showSnackbar(error.localizedErrorMessage(activity))
+                when (error) {
+                    is AndroidTtsError.MissingVoiceError ->
+                        TtsPlaybackErrorDialog.ttsPlaybackErrorDialog(activity, supportFragmentManager, error.tag)
+                    is AndroidTtsError.InvalidVoiceError ->
+                        activity.showSnackbar(getString(R.string.voice_not_supported))
+                    else -> activity.showSnackbar(error.localizedErrorMessage(activity))
+                }
             }
         }
 

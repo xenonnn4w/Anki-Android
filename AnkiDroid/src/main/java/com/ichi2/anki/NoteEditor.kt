@@ -21,13 +21,11 @@ package com.ichi2.anki
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.Activity.RESULT_CANCELED
-import android.content.BroadcastReceiver
 import android.content.ClipData
 import android.content.ClipDescription
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.content.res.Configuration
 import android.net.Uri
 import android.os.Build
@@ -62,8 +60,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatButton
 import androidx.appcompat.widget.PopupMenu
-import androidx.appcompat.widget.TooltipCompat
-import androidx.core.content.ContextCompat
+import androidx.core.content.ContextCompat.registerReceiver
 import androidx.core.content.FileProvider
 import androidx.core.content.IntentCompat
 import androidx.core.content.edit
@@ -123,7 +120,6 @@ import com.ichi2.anki.pages.ImageOcclusion
 import com.ichi2.anki.preferences.sharedPrefs
 import com.ichi2.anki.previewer.TemplatePreviewerArguments
 import com.ichi2.anki.previewer.TemplatePreviewerPage
-import com.ichi2.anki.receiver.SdCardReceiver
 import com.ichi2.anki.servicelayer.LanguageHintService
 import com.ichi2.anki.servicelayer.NoteService
 import com.ichi2.anki.snackbar.BaseSnackbarBuilderProvider
@@ -136,7 +132,7 @@ import com.ichi2.anki.widgets.DeckDropDownAdapter.SubtitleListener
 import com.ichi2.annotations.NeedsTest
 import com.ichi2.compat.CompatHelper
 import com.ichi2.compat.CompatHelper.Companion.getSerializableCompat
-import com.ichi2.compat.CompatHelper.Companion.registerReceiverCompat
+import com.ichi2.compat.setTooltipTextCompat
 import com.ichi2.imagecropper.ImageCropper
 import com.ichi2.imagecropper.ImageCropper.Companion.CROP_IMAGE_RESULT
 import com.ichi2.imagecropper.ImageCropperLauncher
@@ -209,10 +205,6 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
      */
     private var reloadRequired = false
 
-    /**
-     * Broadcast that informs us when the sd card is about to be unmounted
-     */
-    private var unmountReceiver: BroadcastReceiver? = null
     private var fieldsLayoutContainer: LinearLayout? = null
     private var mediaRegistration: MediaRegistration? = null
     private var tagsDialogFactory: TagsDialogFactory? = null
@@ -254,7 +246,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
 
     /* indicates which activity called Note Editor */
     private var caller = 0
-    private var editFields: LinkedList<FieldEditText?>? = null
+    private var editFields: LinkedList<FieldEditText>? = null
     private var sourceText: Array<String?>? = null
     private val fieldState = FieldState.fromEditor(this)
     private lateinit var toolbar: Toolbar
@@ -282,6 +274,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
             if (result.resultCode == RESULT_CANCELED) {
                 Timber.d("Multimedia result canceled")
                 val index = result.data?.extras?.getInt(MULTIMEDIA_RESULT_FIELD_INDEX) ?: return@NoteEditorActivityResultCallback
+                showMultimediaBottomSheet()
                 handleMultimediaActions(index)
                 return@NoteEditorActivityResultCallback
             }
@@ -539,7 +532,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         // ImageIntentManager.saveImageUri(imageUri)
         // the field won't exist so it will always be a new card
         val note = getCurrentMultimediaEditableNote()
-        if (note == null) {
+        if (note.isEmpty) {
             Timber.w("Note is null, returning")
             return
         }
@@ -580,7 +573,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         super.onCollectionLoaded(col)
         val intent = requireActivity().intent
         Timber.d("NoteEditor() onCollectionLoaded: caller: %d", caller)
-        registerExternalStorageListener()
+        ankiActivity.registerReceiver()
         fieldsLayoutContainer = findViewById(R.id.CardEditorEditFieldsLayout)
         tagsButton = findViewById(R.id.CardEditorTagButton)
         cardsButton = findViewById(R.id.CardEditorCardsButton)
@@ -740,9 +733,9 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
                         .replaceFirst("\\[".toRegex(), "\u001f" + sourceText!![0] + "\u001f")
                     contents = contents.substring(0, contents.length - 1)
                 } else if (!editFields!!.isEmpty()) {
-                    editFields!![0]!!.setText(sourceText!![0])
+                    editFields!![0].setText(sourceText!![0])
                     if (editFields!!.size > 1) {
-                        editFields!![1]!!.setText(sourceText!![1])
+                        editFields!![1].setText(sourceText!![1])
                     }
                 }
             } else {
@@ -782,9 +775,9 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         if (editFields != null && !editFields!!.isEmpty()) {
             // EXTRA_TEXT_FROM_SEARCH_VIEW takes priority over other intent inputs
             if (!getTextFromSearchView.isNullOrEmpty()) {
-                editFields!!.first()!!.setText(getTextFromSearchView)
+                editFields!!.first().setText(getTextFromSearchView)
             }
-            editFields!!.first()!!.requestFocus()
+            editFields!!.first().requestFocus()
         }
 
         if (caller == CALLER_IMG_OCCLUSION) {
@@ -1069,7 +1062,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         // changed fields?
         if (isFieldEdited) {
             for (value in editFields!!) {
-                if (value?.text.toString() != "") {
+                if (value.text.toString() != "") {
                     return true
                 }
             }
@@ -1103,7 +1096,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
             closeEditorAfterSave = true
             closeIntent = Intent().apply { putExtra(EXTRA_ID, requireArguments().getString(EXTRA_ID)) }
         } else if (!editFields!!.isEmpty()) {
-            editFields!!.first()!!.focusWithKeyboard()
+            editFields!!.first().focusWithKeyboard()
         }
 
         if (closeEditorAfterSave) {
@@ -1258,13 +1251,6 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         closeNoteEditor()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        if (unmountReceiver != null) {
-            unregisterReceiver(unmountReceiver)
-        }
-    }
-
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
         updateToolbar()
@@ -1289,7 +1275,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         }
         if (editFields != null) {
             for (i in editFields!!.indices) {
-                val fieldText = editFields!![i]!!.text
+                val fieldText = editFields!![i].text
                 if (!fieldText.isNullOrEmpty()) {
                     menu.findItem(R.id.action_copy_note).isEnabled = true
                     break
@@ -1379,7 +1365,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
             putBoolean(PREF_NOTE_EDITOR_CAPITALIZE, value)
         }
         for (f in editFields!!) {
-            f!!.setCapitalize(value)
+            f.setCapitalize(value)
         }
     }
 
@@ -1390,7 +1376,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         Timber.i("Setting font size to %d", fontSizeSp)
         this.sharedPrefs().edit { putInt(PREF_NOTE_EDITOR_FONT_SIZE, fontSizeSp) }
         for (f in editFields!!) {
-            f!!.textSize = fontSizeSp.toFloat()
+            f.textSize = fontSizeSp.toFloat()
         }
     }
 
@@ -1402,7 +1388,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
             // Note: We're not being accurate here - the initial value isn't actually what's supplied in the layout.xml
             // So a value of 18sp in the XML won't be 18sp on the TextView, but it's close enough.
             // Values are setFontSize are whole when returned.
-            val sp = TextViewUtil.getTextSizeSp(editFields!!.first()!!)
+            val sp = TextViewUtil.getTextSizeSp(editFields!!.first())
             return sp.roundToInt().toString()
         }
 
@@ -1432,7 +1418,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
     suspend fun performPreview() {
         val convertNewlines = shouldReplaceNewlines()
         fun String?.toFieldText(): String = NoteService.convertToHtmlNewline(this.toString(), convertNewlines)
-        val fields = editFields?.mapTo(mutableListOf()) { it!!.fieldText.toFieldText() } ?: mutableListOf()
+        val fields = editFields?.mapTo(mutableListOf()) { it.fieldText.toFieldText() } ?: mutableListOf()
         val tags = selectedTags ?: mutableListOf()
 
         val ord = if (editorNote!!.notetype.isCloze) {
@@ -1458,24 +1444,6 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         )
         val intent = TemplatePreviewerPage.getIntent(requireContext(), args)
         startActivity(intent)
-    }
-
-    /**
-     * finish when sd card is ejected
-     */
-    private fun registerExternalStorageListener() {
-        if (unmountReceiver == null) {
-            unmountReceiver = object : BroadcastReceiver() {
-                override fun onReceive(context: Context, intent: Intent) {
-                    if (intent.action != null && intent.action == SdCardReceiver.MEDIA_EJECT) {
-                        requireActivity().finish()
-                    }
-                }
-            }
-            val iFilter = IntentFilter()
-            iFilter.addAction(SdCardReceiver.MEDIA_EJECT)
-            requireContext().registerReceiverCompat(unmountReceiver, iFilter, ContextCompat.RECEIVER_EXPORTED)
-        }
     }
 
     private fun setTags(tags: Array<String>) {
@@ -1604,11 +1572,10 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         insertStringInField(getFieldForTest(fieldIndex), newString)
     }
 
-    @KotlinCleanup("fix the requireNoNulls")
-    private suspend fun getCurrentMultimediaEditableNote(): MultimediaEditableNote? {
+    private suspend fun getCurrentMultimediaEditableNote(): MultimediaEditableNote {
         val note = NoteService.createEmptyNote(editorNote!!.notetype)
         val fields = currentFieldStrings.requireNoNulls()
-        withCol { NoteService.updateMultimediaNoteFromFields(this@withCol, fields, editorNote!!.mid, note!!) }
+        withCol { NoteService.updateMultimediaNoteFromFields(this@withCol, fields, editorNote!!.mid, note) }
 
         return note
     }
@@ -1711,6 +1678,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
                 mediaButton.setBackgroundResource(R.drawable.ic_attachment)
 
                 mediaButton.setOnClickListener {
+                    showMultimediaBottomSheet()
                     handleMultimediaActions(i)
                 }
 
@@ -1752,6 +1720,13 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         )
     }
 
+    @VisibleForTesting
+    fun showMultimediaBottomSheet() {
+        Timber.d("Showing MultimediaBottomSheet fragment")
+        val multimediaBottomSheet = MultimediaBottomSheet()
+        multimediaBottomSheet.show(parentFragmentManager, "MultimediaBottomSheet")
+    }
+
     /**
      * Handles user interactions with the multimedia options for a specific field in a note.
      *
@@ -1761,14 +1736,11 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
      *
      * @param fieldIndex the index of the field in the note where the multimedia content should be added
      */
-    fun handleMultimediaActions(fieldIndex: Int) {
-        Timber.d("Showing MultimediaBottomSheet fragment")
-        val multimediaBottomSheet = MultimediaBottomSheet()
-        multimediaBottomSheet.show(parentFragmentManager, "MultimediaBottomSheet")
-
+    private fun handleMultimediaActions(fieldIndex: Int) {
         // Based on the type of multimedia action received, perform the corresponding operation
         lifecycleScope.launch {
-            val note: MultimediaEditableNote = getCurrentMultimediaEditableNote() ?: return@launch
+            val note: MultimediaEditableNote = getCurrentMultimediaEditableNote()
+            if (note.isEmpty) return@launch
 
             multimediaViewModel.multimediaAction.first { action ->
                 when (action) {
@@ -1889,7 +1861,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
     private fun addMediaFileToField(index: Int, field: IField) {
         lifecycleScope.launch {
             val note = getCurrentMultimediaEditableNote()
-            note?.setField(index, field)
+            note.setField(index, field)
             val fieldEditText = editFields!![index]
 
             // Import field media
@@ -1902,8 +1874,8 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
             // Completely replace text for text fields (because current text was passed in)
             val formattedValue = field.formattedValue
             if (field.type === EFieldType.TEXT) {
-                fieldEditText!!.setText(formattedValue)
-            } else if (fieldEditText!!.text != null) {
+                fieldEditText.setText(formattedValue)
+            } else if (fieldEditText.text != null) {
                 insertStringInField(fieldEditText, formattedValue)
             }
             changed = true
@@ -1917,14 +1889,14 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
     }
 
     @NeedsTest("If a field is sticky after synchronization, the toggleStickyButton should be activated.")
-    private fun setToggleStickyButtonListener(toggleStickyButton: ImageButton?, index: Int) {
+    private fun setToggleStickyButtonListener(toggleStickyButton: ImageButton, index: Int) {
         if (currentFields.getJSONObject(index).getBoolean("sticky")) {
             toggleStickyText.getOrPut(index) { "" }
         }
         if (toggleStickyText[index] == null) {
-            toggleStickyButton!!.background.alpha = 64
+            toggleStickyButton.background.alpha = 64
         } else {
-            toggleStickyButton!!.background.alpha = 255
+            toggleStickyButton.background.alpha = 255
         }
         toggleStickyButton.setOnClickListener {
             onToggleStickyText(
@@ -1934,15 +1906,15 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         }
     }
 
-    private fun onToggleStickyText(toggleStickyButton: ImageButton?, index: Int) {
-        val text = editFields!![index]!!.fieldText
+    private fun onToggleStickyText(toggleStickyButton: ImageButton, index: Int) {
+        val text = editFields!![index].fieldText
         if (toggleStickyText[index] == null) {
             toggleStickyText[index] = text
-            toggleStickyButton!!.background.alpha = 255
+            toggleStickyButton.background.alpha = 255
             Timber.d("Saved Text:: %s", toggleStickyText[index])
         } else {
             toggleStickyText.remove(index)
-            toggleStickyButton!!.background.alpha = 64
+            toggleStickyButton.background.alpha = 64
         }
     }
 
@@ -1951,7 +1923,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         for ((key) in toggleStickyText.toMap()) {
             // handle fields for different note type with different size
             if (key < editFields!!.size) {
-                toggleStickyText[key] = editFields!![key]?.fieldText
+                toggleStickyText[key] = editFields!![key].fieldText
             } else {
                 toggleStickyText.remove(key)
             }
@@ -1959,12 +1931,14 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
     }
 
     private fun updateFieldsFromStickyText() {
+        loadingStickyFields = true
         for ((key, value) in toggleStickyText) {
             // handle fields for different note type with different size
             if (key < editFields!!.size) {
-                editFields!![key]!!.setText(value)
+                editFields!![key].setText(value)
             }
         }
+        loadingStickyFields = false
     }
 
     @VisibleForTesting
@@ -2082,9 +2056,9 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         }
         for (i in editFields!!.indices) {
             if (i < len) {
-                editFields!![i]!!.setText(fields!![i])
+                editFields!![i].setText(fields!![i])
             } else {
-                editFields!![i]!!.setText("")
+                editFields!![i].setText("")
             }
         }
     }
@@ -2101,9 +2075,9 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         val dupeCode = editorNote!!.fieldsCheck(getColUnsafe)
         // Change bottom line color of text field
         if (dupeCode == NoteFieldsCheckResponse.State.DUPLICATE) {
-            field!!.setDupeStyle()
+            field.setDupeStyle()
         } else {
-            field!!.setDefaultStyle()
+            field.setDefaultStyle()
         }
         // Put back the old value so we don't interfere with modification detection
         editorNote!!.values()[0] = oldValue
@@ -2121,7 +2095,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
 
     /** Returns the value of the field at the given index  */
     private fun getCurrentFieldText(index: Int): String {
-        val fieldText = editFields!![index]!!.text ?: return ""
+        val fieldText = editFields!![index].text ?: return ""
         return fieldText.toString()
     }
 
@@ -2191,7 +2165,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         val button = toolbar.insertItem(0, drawable) { insertCloze(type) }.apply {
             contentDescription = description
         }
-        TooltipCompat.setTooltipText(button, description)
+        button.setTooltipTextCompat(description)
     }
 
     private fun updateToolbar() {
@@ -2251,7 +2225,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         drawable!!.setTint(MaterialColors.getColor(requireContext(), R.attr.toolbarIconColor, 0))
         val addButton = toolbar.insertItem(0, drawable) { displayAddToolbarDialog() }
         addButton.contentDescription = resources.getString(R.string.add_toolbar_item)
-        TooltipCompat.setTooltipText(addButton, resources.getString(R.string.add_toolbar_item))
+        addButton.setTooltipTextCompat(resources.getString(R.string.add_toolbar_item))
     }
 
     private val toolbarButtons: ArrayList<CustomToolbarButton>
@@ -2601,7 +2575,7 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
                 editFields!!.size
             )
             for (e in editFields!!) {
-                val editable = e!!.text
+                val editable = e.text
                 val fieldValue = editable?.toString() ?: ""
                 fieldValues.add(fieldValue)
             }
@@ -2613,13 +2587,13 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
     @VisibleForTesting
     fun setFieldValueFromUi(i: Int, newText: String?) {
         val editText = editFields!![i]
-        editText!!.setText(newText)
+        editText.setText(newText)
         EditFieldTextWatcher(i).afterTextChanged(editText.text!!)
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.NONE)
     fun getFieldForTest(index: Int): FieldEditText {
-        return editFields!![index]!!
+        return editFields!![index]
     }
 
     @VisibleForTesting(otherwise = VisibleForTesting.NONE)
@@ -2629,9 +2603,16 @@ class NoteEditor : AnkiFragment(R.layout.note_editor), DeckSelectionListener, Su
         noteTypeSpinner!!.setSelection(position)
     }
 
+    /**
+     * Whether sticky fields are currently being loaded. In this card, don't consider the text chagned.
+     */
+    private var loadingStickyFields = false
     private inner class EditFieldTextWatcher(private val index: Int) : TextWatcher {
+
         override fun afterTextChanged(arg0: Editable) {
-            isFieldEdited = true
+            if (!loadingStickyFields) {
+                isFieldEdited = true
+            }
             if (index == 0) {
                 setDuplicateFieldStyles()
             }

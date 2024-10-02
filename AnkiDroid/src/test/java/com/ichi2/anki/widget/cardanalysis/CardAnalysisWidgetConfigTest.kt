@@ -26,13 +26,12 @@ import com.ichi2.anki.RobolectricTest
 import com.ichi2.anki.dialogs.DeckSelectionDialog
 import com.ichi2.widget.cardanalysis.CardAnalysisWidgetConfig
 import com.ichi2.widget.cardanalysis.CardAnalysisWidgetPreferences
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.equalTo
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.Robolectric
 
 @RunWith(AndroidJUnit4::class)
 class CardAnalysisWidgetConfigTest : RobolectricTest() {
@@ -49,24 +48,16 @@ class CardAnalysisWidgetConfigTest : RobolectricTest() {
     @Before
     override fun setUp() {
         super.setUp()
+        ensureNonEmptyCollection()
+
         val intent = Intent(targetContext, CardAnalysisWidgetConfig::class.java).apply {
             putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 1)
         }
 
-        activity = Robolectric.buildActivity(CardAnalysisWidgetConfig::class.java, intent)
-            .create()
-            .start()
-            .resume()
-            .get()
+        activity = startActivityNormallyOpenCollectionWithIntent(CardAnalysisWidgetConfig::class.java, intent)
 
         // Ensure deckAdapter is initialized
-        activity.initializeUIComponents()
-    }
-
-    @After
-    override fun tearDown() {
-        super.tearDown()
-        activity.finish()
+        runBlocking { activity.initTask.join() }
     }
 
     /**
@@ -96,16 +87,13 @@ class CardAnalysisWidgetConfigTest : RobolectricTest() {
      * `RecyclerView` displays the correct number of items based on the saved preferences.
      */
     @Test
-    fun testLoadSavedPreferences() {
+    fun testLoadSavedPreferences() = runTest {
         // Save decks to preferences
         val deckId = 1L
         widgetPreferences.saveSelectedDeck(1, deckId)
 
         // Load preferences
         activity.updateViewWithSavedPreferences()
-
-        // Ensure all tasks on the UI thread are completed
-        Robolectric.flushForegroundThreadScheduler()
 
         // Get the RecyclerView and its adapter
         val recyclerView = activity.findViewById<RecyclerView>(R.id.recyclerViewSelectedDecks)

@@ -233,6 +233,7 @@
     <string name="dismiss_backup_warning_new_user">Aufgrund von Änderungen in den Privatsphäreeinstellungen von Android, werden deine Daten und automatische Backups gelöscht, sobald du die App deinstallierst.</string>
     <string name="dismiss_backup_warning_upgrade">Aufgrund von Änderungen in den Privatsphäreeinstellungen von Android, werden deine Daten und automatische Backups nicht mehr zugreifbar sein, falls du die App deinstallierst.</string>
     <string name="deck_already_exists">Stapel bereits vorhanden</string>
+    <string name="empty_deck_name">Deck name cannot be empty</string>
     <string name="create_deck_numeric_hint">Wenn Sie Probleme mit der Reihenfolge des Decks haben (z.B. \'10\' erscheint vor \'2\'), ersetzen Sie \'2\' durch \'02\'</string>
     <!-- Set Due Date -->
     <string name="set_due_date_match_interval" comment="when setting a card\'s due date, this checkbox also changes the interval of the card">Intervall auf denselben Wert setzen</string>
@@ -262,4 +263,10 @@
     <string name="change_cloze_mode">Change cloze mode</string>
     <!-- Outdated WebView dialog -->
     <string name="webview_update_message">Das System-WebView ist veraltet. Einige Funktionen werden nicht korrekt funktionieren. Bitte aktualisieren Sie es.\n\nInstallierte Version: %1$d\nMindestanforderung: %2$d</string>
+    <string name="compress">Compress</string>
+    <!-- Tts playback error dialog -->
+    <string name="tts_error_dialog_title">Language not supported</string>
+    <string name="tts_error_dialog_reason_text">The text to speech engine <b>%1$s</b> does not support the following language: <b>%2$s</b></string>
+    <string name="tts_error_dialog_change_button_text">Change engine</string>
+    <string name="tts_error_dialog_supported_voices_button_text">Voice options</string>
 </resources>

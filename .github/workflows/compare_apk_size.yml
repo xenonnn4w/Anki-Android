@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     inputs:
       prNumber:
-        description: "Number of PR to calculate sizes for"
+        description: "You want to measure the impact of PR number:"
         required: true
         type: number
 
@@ -104,8 +104,8 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: prNumber,
-                body: `Old APK size: ${oldSize}
-                      New APK size: ${newSize}`
+                body: `${oldSize.toLocaleString()}: Old APK size
+                      ${newSize.toLocaleString()}: New APK size`
               })
             }
             await addComment(prNumber, process.env.OLDSIZE, process.env.NEWSIZE);

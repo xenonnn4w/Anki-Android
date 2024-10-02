@@ -89,6 +89,12 @@
     <string name="custom_study_random_selection">Studovat náhodný výběr karet</string>
     <string name="custom_study_preview_new">Náhled nových karet</string>
     <string name="custom_study_limit_tags">Omezit podle štítků</string>
+    <plurals name="studyoptions_buried_count">
+        <item quantity="one">+%d přeskočená</item>
+        <item quantity="few">+%d přeskočené</item>
+        <item quantity="many">+%d přeskočené</item>
+        <item quantity="other">+%d přeskočených</item>
+    </plurals>
     <!-- Card editor -->
     <string name="cardeditor_title_edit_card">Upravit poznámku</string>
     <string name="discard">Zahodit</string>
@@ -123,7 +129,7 @@
     <string name="card_editor_reposition_card" comment="reposition a card in the new queue">Změnit pořadí</string>
     <string name="card_editor_reset_card">Obnovit proces učení</string>
     <string name="card_editor_reschedule_card" comment="Action to reschedule a card">Přeplánovat</string>
-    <string name="card_editor_preview_card" comment="Button offering to preview some card(s)">Náhled</string>
+    <string name="card_editor_preview_card" comment="Button offering to preview some card(s)" maxLength="29">Náhled</string>
     <string name="copy_as_markdown" comment="Copies text to the clipboard as Markdown">Kopírovat jako Markdown</string>
     <string name="preview_progress_bar_text" comment="What card we are on out of how many in card previewer progress bar">%1$d z %2$d</string>
     <string name="rename" comment="Confirm that the renaming action should be processed.">Přejmenovat</string>
@@ -165,7 +171,7 @@
     <string name="export_choice_share">Sdílet</string>
     <string name="export_choice_save_to">Uložit do</string>
     <string name="export_saving_exported_collection">Ukládá se exportovaný soubor&#8230;</string>
-    <string name="study_options" comment="Name for a preference category in Filtered deck (aka Cram deck, aka Custom study) options">Možnosti</string>
+    <string name="study_options" comment="Name for a preference category in Filtered deck (aka Cram deck, aka Custom study) options" maxLength="29">Možnosti</string>
     <string name="menu__deck_options">Nastavení balíčku</string>
     <string name="menu__study_options" comment="Menu item that opens options for a Filtered deck (aka Cram deck, aka Custom study)">Možnosti studia</string>
     <string name="select_tts">Nastavit jazyk TTS</string>
@@ -238,9 +244,9 @@
     <string name="edit_toolbar_item">Upravit položku nástrojové lišty</string>
     <string name="toolbar_item_explain_edit_or_remove">Zadejte HTML, které se vloží před a za vybraný text\n\nDlouze stiskněte položku nástrojové lišty, abyste ji upravili nebo odstranili</string>
     <string name="remove_toolbar_item">Odstranit položku nástrojové lišty?</string>
-    <string name="note_editor_image_too_large">Obrázek je příliš velký; vložte prosím obrázek ručně</string>
-    <string name="note_editor_video_too_large">Video je příliš velké; vložte ho prosím ručně</string>
-    <string name="note_editor_audio_too_large">Zvukový soubor je příliš velký; vložte ho prosím ručně</string>
+    <string name="note_editor_image_too_large">Obrázek je příliš velký, vložte ho prosím ručně</string>
+    <string name="note_editor_video_too_large">Video je příliš velké, vložte ho prosím ručně</string>
+    <string name="note_editor_audio_too_large">Zvukový soubor je příliš velký, vložte ho prosím ručně</string>
     <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">        Probíhá zálohování Androidu. Zkuste to prosím znovu</string>
     <string name="create_shortcut_error_vivo" comment="iManager is an app on Vivo phones">Prosím použijte iManager, abyste povolili přidávání zástupců AnkiDroid</string>
     <string name="create_shortcut_failed" comment="home screen == launcher">Vaše domovská obrazovka neumožňuje AnkiDroidu přidávat zástupce</string>
@@ -347,6 +353,7 @@
     <string name="play_recording">Přehrát</string>
     <string name="next_recording">Další</string>
     <!--  AlertDialog in the deleteCardTemplate  -->
-    <string name="orphan_note_title">Cannot Delete Card Type</string>
-    <string name="orphan_note_message">Deleting this card type will leave some notes without any cards.</string>
+    <string name="orphan_note_title">Typ karty nelze odstranit</string>
+    <string name="orphan_note_message">Smazání tohoto typu karty zanechá některé poznámky bez jakýchkoliv karet.</string>
+    <string name="voice_not_supported">Hlas není podporován. Zkuste jiný nebo nainstalujte hlasový modul.</string>
 </resources>

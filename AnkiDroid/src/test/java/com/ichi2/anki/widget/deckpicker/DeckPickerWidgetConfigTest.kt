@@ -26,12 +26,12 @@ import com.ichi2.anki.RobolectricTest
 import com.ichi2.anki.dialogs.DeckSelectionDialog
 import com.ichi2.widget.deckpicker.DeckPickerWidgetConfig
 import com.ichi2.widget.deckpicker.DeckPickerWidgetPreferences
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers.equalTo
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.Robolectric
 
 @RunWith(AndroidJUnit4::class)
 class DeckPickerWidgetConfigTest : RobolectricTest() {
@@ -48,18 +48,16 @@ class DeckPickerWidgetConfigTest : RobolectricTest() {
     @Before
     override fun setUp() {
         super.setUp()
+        ensureNonEmptyCollection()
+
         val intent = Intent(targetContext, DeckPickerWidgetConfig::class.java).apply {
             putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, 1)
         }
 
-        activity = Robolectric.buildActivity(DeckPickerWidgetConfig::class.java, intent)
-            .create()
-            .start()
-            .resume()
-            .get()
+        activity = startActivityNormallyOpenCollectionWithIntent(DeckPickerWidgetConfig::class.java, intent)
 
         // Ensure deckAdapter is initialized
-        activity.initializeUIComponents()
+        runBlocking { activity.initTask.join() }
     }
 
     /**
@@ -89,16 +87,13 @@ class DeckPickerWidgetConfigTest : RobolectricTest() {
      * `RecyclerView` displays the correct number of items based on the saved preferences.
      */
     @Test
-    fun testLoadSavedPreferences() {
+    fun testLoadSavedPreferences() = runTest {
         // Save decks to preferences
         val deckIds = listOf(1L)
         widgetPreferences.saveSelectedDecks(1, deckIds.map { it.toString() })
 
         // Load preferences
         activity.updateViewWithSavedPreferences()
-
-        // Ensure all tasks on the UI thread are completed
-        Robolectric.flushForegroundThreadScheduler()
 
         // Get the RecyclerView and its adapter
         val recyclerView = activity.findViewById<RecyclerView>(R.id.recyclerViewSelectedDecks)

@@ -115,6 +115,7 @@ class DeckPickerWidget : AnalyticsWidgetProvider() {
                         val intent = Intent(context, Reviewer::class.java).apply {
                             action = Intent.ACTION_VIEW
                             putExtra("deckId", deck.deckId)
+                            addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
                         }
                         val pendingIntent = PendingIntent.getActivity(
                             context,
@@ -148,7 +149,7 @@ class DeckPickerWidget : AnalyticsWidgetProvider() {
             val appWidgetManager = AppWidgetManager.getInstance(context)
 
             val provider = ComponentName(context, DeckPickerWidget::class.java)
-            Timber.d("Fetching appWidgetIds for provider: $provider")
+            Timber.d("Fetching appWidgetIds for provider: ${provider.shortClassName}")
 
             val appWidgetIds = appWidgetManager.getAppWidgetIds(provider)
             Timber.d("AppWidgetIds to update: ${appWidgetIds.joinToString(", ")}")
@@ -235,6 +236,9 @@ class DeckPickerWidget : AnalyticsWidgetProvider() {
                 } else {
                     Timber.e("Invalid widget ID received in ACTION_APPWIDGET_DELETED")
                 }
+            }
+            AppWidgetManager.ACTION_APPWIDGET_OPTIONS_CHANGED -> {
+                // TODO: #17151: not yet handled. Exists to stop ACRA errors
             }
             AppWidgetManager.ACTION_APPWIDGET_ENABLED -> {
                 Timber.d("Widget enabled")

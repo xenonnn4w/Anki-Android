@@ -18,20 +18,15 @@ package com.ichi2.ui
 
 import android.content.Context
 import android.util.AttributeSet
-import androidx.appcompat.widget.SearchView
 
-class CardBrowserSearchView : SearchView {
+class CardBrowserSearchView : AccessibleSearchView {
     constructor(context: Context) : super(context)
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     /** Whether an action to set text should be ignored  */
-    private var ignoreValueChange = false
-
-    /** Whether an action to set text should be ignored  */
-    fun shouldIgnoreValueChange(): Boolean {
-        return ignoreValueChange
-    }
+    var ignoreValueChange = false
+        private set
 
     override fun onActionViewCollapsed() {
         try {

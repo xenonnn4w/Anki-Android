@@ -53,7 +53,6 @@
     <string name="drawing">Guhit</string>
     <string name="send_feedback">Magpadala ng tugun</string>
     <string name="studyoptions_start">Pag-aaral</string>
-    <string name="studyoptions_buried_count">+%d buried</string>
     <!-- DeckPicker.kt -->
     <string name="expand">Palawakin</string>
     <string name="collapse">Itiklop</string>
@@ -66,8 +65,8 @@
         <item quantity="other">%1$d oras %2$d ang natititra</item>
     </plurals>
     <plurals name="reviewer_window_title_days_new">
-        <item quantity="one">%1$d araw %2$d ang natititra</item>
-        <item quantity="other">%1$d araw %2$d ang natititra</item>
+        <item quantity="one">%1$d day %2$dh left</item>
+        <item quantity="other">%1$d days %2$dh left</item>
     </plurals>
     <string name="no_cards_placeholder_title">Walang laman ang koleksyon</string>
     <string name="no_cards_placeholder_description">Magsimulang magdadag ng mga cards\n gamit ang + na aykon.</string>
@@ -81,7 +80,7 @@
     <string name="ease_button_good">Mabuti</string>
     <string name="ease_button_easy">Madali</string>
     <string name="menu_import">Mag-angkat</string>
-    <string name="undo">Ibalik sa dati</string>
+    <string name="undo" maxLength="29" comment="When tapping on this text, the last action is undone.">Ibalik sa dati</string>
     <string name="redo">Ulitin</string>
     <string name="undo_action_whiteboard_last_stroke" comment="One of the display patterns of \'Undo\' item on the action menu in Reviewer. It is shown as the title of the item when the whiteboard (handwriting) feature is enabled and visible and has any strokes (handwritten lines)">Magtanggal ng guhit</string>
     <string name="move_all_to_deck">Iusong lahat sa deck</string>
@@ -90,7 +89,7 @@
     <string name="create_shortcut">Lumikha ng gitis</string>
     <string name="browse_cards">Magbasa-basa ng mga card</string>
     <string name="edit_deck_description" comment="edit the deck description">Baguhin ang paglalarawan</string>
-    <string name="menu_add" comment="A generic add button. Please inform us if you need more specific strings">Magdagdag</string>
+    <string name="menu_add" comment="A generic add button. Please inform us if you need more specific strings" maxLength="29">Magdagdag</string>
     <string name="menu_add_note">Magdagdag ng tala</string>
     <string name="menu_my_account" comment="Label of the window in which the user should enter their account. This text can\'t be found in AnkiDroid directly.">I-sync ang account</string>
     <string name="menu_dismiss_note">Itago / burahin</string>
@@ -181,10 +180,6 @@
     <string name="sync_conflict_local_confirm_new">Palitan ang koleksyon mo sa AnkiWeb ng koleksyon mo mula sa AnkiDroid?</string>
     <string name="sync_conflict_title_new">Piliin ang koleksyon na panatilihin</string>
     <string name="sync_conflict_replace_title">Pinapalitan ang koleksyon</string>
-    <plurals name="deckpicker_title_zero_due">
-        <item quantity="one">%1$d na card (0 takda)</item>
-        <item quantity="other">%1$d na mga card (0 takda)</item>
-    </plurals>
     <!-- Generic errors -->
     <string name="error__etc__cannot_write_to_or_create_file">Hindi maisulat o magawa ang file na %s</string>
     <string name="directory_inaccessible_after_uninstall" comment="Dialog title if AnkiDroid can\'t access the collection once the app is installed">Hindi ma-access ang koleksyon</string>

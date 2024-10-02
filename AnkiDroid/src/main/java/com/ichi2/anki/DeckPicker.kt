@@ -26,10 +26,8 @@
 package com.ichi2.anki
 
 import android.app.Activity
-import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import android.content.IntentFilter
 import android.content.SharedPreferences
 import android.database.SQLException
 import android.graphics.PixelFormat
@@ -59,7 +57,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
-import androidx.core.content.ContextCompat
 import androidx.core.content.edit
 import androidx.core.content.pm.ShortcutInfoCompat
 import androidx.core.content.pm.ShortcutManagerCompat
@@ -154,7 +151,6 @@ import com.ichi2.annotations.NeedsTest
 import com.ichi2.async.deleteMedia
 import com.ichi2.compat.CompatHelper
 import com.ichi2.compat.CompatHelper.Companion.getSerializableCompat
-import com.ichi2.compat.CompatHelper.Companion.registerReceiverCompat
 import com.ichi2.compat.CompatHelper.Companion.sdkVersion
 import com.ichi2.libanki.ChangeManager
 import com.ichi2.libanki.Consts
@@ -165,6 +161,7 @@ import com.ichi2.libanki.exception.ConfirmModSchemaException
 import com.ichi2.libanki.sched.DeckNode
 import com.ichi2.libanki.undoableOp
 import com.ichi2.libanki.utils.TimeManager
+import com.ichi2.ui.AccessibleSearchView
 import com.ichi2.ui.BadgeDrawableBuilder
 import com.ichi2.utils.AdaptionUtil
 import com.ichi2.utils.ClipboardUtil.IMPORT_MIME_TYPES
@@ -263,8 +260,6 @@ open class DeckPicker :
 
     private lateinit var reviewSummaryTextView: TextView
 
-    @KotlinCleanup("make lateinit, but needs more changes")
-    private var unmountReceiver: BroadcastReceiver? = null
     private lateinit var floatingActionMenu: DeckPickerFloatingActionMenu
 
     // flag asking user to do a full sync which is used in upgrade path
@@ -322,7 +317,7 @@ open class DeckPicker :
     var importColpkgListener: ImportColpkgListener? = null
 
     private var toolbarSearchItem: MenuItem? = null
-    private var toolbarSearchView: SearchView? = null
+    private var toolbarSearchView: AccessibleSearchView? = null
     private lateinit var customStudyDialogFactory: CustomStudyDialogFactory
 
     override val permissionScreenLauncher = recreateActivityResultLauncher()
@@ -502,7 +497,7 @@ open class DeckPicker :
         if (fragmented && !startupError) {
             loadStudyOptionsFragment(false)
         }
-        registerExternalStorageListener()
+        registerReceiver()
 
         // create inherited navigation drawer layout here so that it can be used by parent class
         initNavigationDrawer(mainView)
@@ -823,7 +818,7 @@ open class DeckPicker :
         menu.findItem(R.id.deck_picker_action_filter)?.let {
             toolbarSearchItem = it
             setupSearchIcon(it)
-            toolbarSearchView = it.actionView as SearchView
+            toolbarSearchView = it.actionView as AccessibleSearchView
         }
         toolbarSearchView?.maxWidth = Integer.MAX_VALUE
 
@@ -894,7 +889,7 @@ open class DeckPicker :
             }
         })
 
-        (menuItem.actionView as SearchView).run {
+        (menuItem.actionView as AccessibleSearchView).run {
             queryHint = getString(R.string.search_decks)
             setOnQueryTextListener(object : SearchView.OnQueryTextListener {
                 override fun onQueryTextSubmit(query: String): Boolean {
@@ -957,9 +952,7 @@ open class DeckPicker :
             SyncIconState.OneWay -> R.string.sync_menu_title_one_way_sync
             SyncIconState.NotLoggedIn -> R.string.sync_menu_title_no_account
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            provider.setTooltipText(getString(tooltipText))
-        }
+        provider.setTooltipText(getString(tooltipText))
         when (state.syncIcon) {
             SyncIconState.Normal -> {
                 BadgeDrawableBuilder.removeBadge(provider)
@@ -1055,6 +1048,11 @@ open class DeckPicker :
             R.id.action_restore_backup -> {
                 Timber.i("DeckPicker:: Restore from backup button pressed")
                 showDatabaseErrorDialog(DatabaseErrorDialogType.DIALOG_CONFIRM_RESTORE_BACKUP)
+                return true
+            }
+            R.id.action_export_collection -> {
+                Timber.i("DeckPicker:: Export menu item selected")
+                ExportDialogFragment.newInstance().show(supportFragmentManager, "exportDialog")
                 return true
             }
             else -> return super.onOptionsItemSelected(item)
@@ -1163,9 +1161,6 @@ open class DeckPicker :
 
     override fun onDestroy() {
         super.onDestroy()
-        if (unmountReceiver != null) {
-            unregisterReceiver(unmountReceiver)
-        }
         if (progressDialog != null && progressDialog!!.isShowing) {
             progressDialog!!.dismiss()
         }
@@ -1698,11 +1693,6 @@ open class DeckPicker :
         showAsyncDialogFragment(newFragment, Channel.SYNC)
     }
 
-    fun onSdCardNotMounted() {
-        showThemedToast(this, resources.getString(R.string.sd_card_not_mounted), false)
-        finish()
-    }
-
     // Callback method to submit error report
     fun sendErrorReport() {
         CrashReportService.sendExceptionReport(RuntimeException(), "DeckPicker.sendErrorReport")
@@ -1894,25 +1884,12 @@ open class DeckPicker :
         }
 
     /**
-     * Show a message when the SD card is ejected
+     * Refresh the deck picker when the SD card is inserted.
      */
-    private fun registerExternalStorageListener() {
-        if (unmountReceiver == null) {
-            unmountReceiver = object : BroadcastReceiver() {
-                override fun onReceive(context: Context, intent: Intent) {
-                    if (intent.action == SdCardReceiver.MEDIA_EJECT) {
-                        onSdCardNotMounted()
-                    } else if (intent.action == SdCardReceiver.MEDIA_MOUNT) {
-                        ActivityCompat.recreate(this@DeckPicker)
-                    }
-                }
-            }
-            val iFilter = IntentFilter()
-            iFilter.addAction(SdCardReceiver.MEDIA_EJECT)
-            iFilter.addAction(SdCardReceiver.MEDIA_MOUNT)
-            registerReceiverCompat(unmountReceiver, iFilter, ContextCompat.RECEIVER_EXPORTED)
-        }
-    }
+    override val broadcastsActions = super.broadcastsActions + mapOf(
+        SdCardReceiver.MEDIA_MOUNT
+            to { ActivityCompat.recreate(this) }
+    )
 
     fun openAnkiWebSharedDecks() {
         val intent = Intent(this, SharedDecksActivity::class.java)
@@ -2152,9 +2129,8 @@ open class DeckPicker :
             val res = resources
 
             if (due != null && supportActionBar != null) {
-                val cardCount = withCol { cardCount() }
-                val subTitle: String = if (due == 0) {
-                    res.getQuantityString(R.plurals.deckpicker_title_zero_due, cardCount, cardCount)
+                val subTitle = if (due == 0) {
+                    null
                 } else {
                     res.getQuantityString(R.plurals.widget_cards_due, due, due)
                 }
@@ -2196,6 +2172,7 @@ open class DeckPicker :
                 Intent(context, Reviewer::class.java)
                     .setAction(Intent.ACTION_VIEW)
                     .putExtra("deckId", did)
+                    .addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             )
             .setIcon(IconCompat.createWithResource(context, R.mipmap.ic_launcher))
             .setShortLabel(Decks.basename(getColUnsafe.decks.name(did)))

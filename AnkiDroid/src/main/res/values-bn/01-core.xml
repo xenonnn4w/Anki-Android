@@ -53,7 +53,6 @@
     <string name="drawing">অঙ্কন</string>
     <string name="send_feedback">মতামত পাঠান</string>
     <string name="studyoptions_start">অধ্যয়ন</string>
-    <string name="studyoptions_buried_count">+%d buried</string>
     <!-- DeckPicker.kt -->
     <string name="expand">প্রসারণ করুন</string>
     <string name="collapse">সঙ্কোচন</string>
@@ -66,8 +65,8 @@
         <item quantity="other">%1$d ঘণ্টা %2$d মিনিট বাকি</item>
     </plurals>
     <plurals name="reviewer_window_title_days_new">
-        <item quantity="one">%1$d দিন %2$d ঘন্টা বাকি</item>
-        <item quantity="other">%1$d দিন %2$d ঘন্টা বাকি</item>
+        <item quantity="one">%1$d day %2$dh left</item>
+        <item quantity="other">%1$d days %2$dh left</item>
     </plurals>
     <string name="no_cards_placeholder_title">সংগ্রহটি খালি</string>
     <string name="no_cards_placeholder_description">কার্ড অ্যাড করা শুরু করুন\n+ আইকন চেপে</string>
@@ -81,7 +80,7 @@
     <string name="ease_button_good">ভালো</string>
     <string name="ease_button_easy">সহজ</string>
     <string name="menu_import">আমদানি করুন</string>
-    <string name="undo">বাতিল করুন</string>
+    <string name="undo" maxLength="29" comment="When tapping on this text, the last action is undone.">বাতিল করুন</string>
     <string name="redo">পুনরায় করুন</string>
     <string name="undo_action_whiteboard_last_stroke" comment="One of the display patterns of \'Undo\' item on the action menu in Reviewer. It is shown as the title of the item when the whiteboard (handwriting) feature is enabled and visible and has any strokes (handwritten lines)">স্ট্রোক ফিরত নাও</string>
     <string name="move_all_to_deck">সবগুলো ডেক এ সড়াও</string>
@@ -90,7 +89,7 @@
     <string name="create_shortcut">শর্টকাট তৈরী করুন</string>
     <string name="browse_cards">কার্ড খুঁজুন</string>
     <string name="edit_deck_description" comment="edit the deck description">বিবরণ সম্পাদনা করুন</string>
-    <string name="menu_add" comment="A generic add button. Please inform us if you need more specific strings">যোগ করুন</string>
+    <string name="menu_add" comment="A generic add button. Please inform us if you need more specific strings" maxLength="29">যোগ করুন</string>
     <string name="menu_add_note">নোট যোগ করুন</string>
     <string name="menu_my_account" comment="Label of the window in which the user should enter their account. This text can\'t be found in AnkiDroid directly.">হিসাব সিঙ্ক করুন</string>
     <string name="menu_dismiss_note">গোপন / মুছে ফেলুন</string>
@@ -181,10 +180,6 @@
     <string name="sync_conflict_local_confirm_new">আনকি-ওয়েব এর সংকলন টি কে কি আনকি-ড্রয়েড এর সংকলন দ্বারা প্রতিস্থাপন করতে চাইছেন?</string>
     <string name="sync_conflict_title_new">কোন সংকলন টি রাখতে চান?</string>
     <string name="sync_conflict_replace_title">সংকলন প্রতিস্থাপন করুন</string>
-    <plurals name="deckpicker_title_zero_due">
-        <item quantity="one">%1$d টি কার্ড (বাকি 0)</item>
-        <item quantity="other">%1$d টি কার্ড (বাকি 0)</item>
-    </plurals>
     <!-- Generic errors -->
     <string name="error__etc__cannot_write_to_or_create_file">%s এ লিখা বা তৈরি করা যাচ্ছে না</string>
     <string name="directory_inaccessible_after_uninstall" comment="Dialog title if AnkiDroid can\'t access the collection once the app is installed">দুর্গম সংগ্রহ</string>

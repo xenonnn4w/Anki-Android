@@ -27,6 +27,7 @@ import android.view.View
 import android.widget.Button
 import androidx.activity.OnBackPressedCallback
 import androidx.annotation.StringRes
+import androidx.annotation.VisibleForTesting
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,6 +47,7 @@ import com.ichi2.anki.snackbar.SnackbarBuilder
 import com.ichi2.anki.snackbar.showSnackbar
 import com.ichi2.widget.WidgetConfigScreenAdapter
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
@@ -66,6 +68,10 @@ class CardAnalysisWidgetConfig : AnkiActivity(), DeckSelectionListener, BaseSnac
     private var isAdapterObserverRegistered = false
     private lateinit var onBackPressedCallback: OnBackPressedCallback
     private val EXTRA_SELECTED_DECK_IDS = "card_analysis_widget_selected_deck_ids"
+
+    /** Tracks coroutine running [initializeUIComponents]: must be run on a non-empty collection */
+    @VisibleForTesting(otherwise = VisibleForTesting.NONE)
+    internal lateinit var initTask: Job
 
     override fun onCreate(savedInstanceState: Bundle?) {
         if (showedActivityFailedScreen(savedInstanceState)) {
@@ -94,8 +100,9 @@ class CardAnalysisWidgetConfig : AnkiActivity(), DeckSelectionListener, BaseSnac
         }
 
         // Check if the collection is empty before proceeding and if the collection is empty, show a toast instead of the configuration view.
-        lifecycleScope.launch {
+        this.initTask = lifecycleScope.launch {
             if (isCollectionEmpty()) {
+                Timber.w("Closing: Collection is empty")
                 showThemedToast(
                     this@CardAnalysisWidgetConfig,
                     R.string.app_not_initialized_new,
@@ -125,7 +132,7 @@ class CardAnalysisWidgetConfig : AnkiActivity(), DeckSelectionListener, BaseSnac
         showSnackbar(getString(messageResId))
     }
 
-    fun initializeUIComponents() {
+    private fun initializeUIComponents() {
         deckAdapter = WidgetConfigScreenAdapter { deck, _ ->
             deckAdapter.removeDeck(deck.deckId)
             showSnackbar(R.string.deck_removed_from_widget)
@@ -152,7 +159,7 @@ class CardAnalysisWidgetConfig : AnkiActivity(), DeckSelectionListener, BaseSnac
             showDeckSelectionDialog()
         }
 
-        updateViewWithSavedPreferences()
+        lifecycleScope.launch { updateViewWithSavedPreferences() }
 
         // Update the visibility of the "no decks" placeholder and the widget configuration container
         updateViewVisibility()
@@ -222,29 +229,26 @@ class CardAnalysisWidgetConfig : AnkiActivity(), DeckSelectionListener, BaseSnac
 
     /** Updates the visibility of the FloatingActionButton based on the number of selected decks */
     private fun updateFabVisibility() {
-        lifecycleScope.launch {
-            // Directly check if there's exactly one deck selected
-            val selectedDeckCount = deckAdapter.itemCount
+        // Directly check if there's exactly one deck selected
+        val selectedDeckCount = deckAdapter.itemCount
 
-            // Find the FloatingActionButton by its ID
-            val fab = findViewById<FloatingActionButton>(R.id.fabWidgetDeckPicker)
+        // Find the FloatingActionButton by its ID
+        val fab = findViewById<FloatingActionButton>(R.id.fabWidgetDeckPicker)
 
-            // Make the FAB visible only if no deck is selected (allow adding one deck)
-            fab.isVisible = selectedDeckCount == 0
-        }
+        // Make the FAB visible only if no deck is selected (allow adding one deck)
+        fab.isVisible = selectedDeckCount == 0
     }
 
     /** Updates the view according to the saved preference for appWidgetId.*/
-    fun updateViewWithSavedPreferences() {
+    suspend fun updateViewWithSavedPreferences() {
         val selectedDeckId = cardAnalysisWidgetPreferences.getSelectedDeckIdFromPreferences(appWidgetId) ?: return
-        lifecycleScope.launch {
-            val decks = fetchDecks()
-            val selectedDecks = decks.filter { it.deckId == selectedDeckId }
-            selectedDecks.forEach { deckAdapter.addDeck(it) }
-            updateViewVisibility()
-            updateFabVisibility()
-            updateSubmitButtonText()
-        }
+
+        val decks = fetchDecks()
+        val selectedDecks = decks.filter { it.deckId == selectedDeckId }
+        selectedDecks.forEach { deckAdapter.addDeck(it) }
+        updateViewVisibility()
+        updateFabVisibility()
+        updateSubmitButtonText()
     }
 
     /** Asynchronously displays the list of deck in the selection dialog. */
@@ -307,9 +311,6 @@ class CardAnalysisWidgetConfig : AnkiActivity(), DeckSelectionListener, BaseSnac
 
             val resultValue = Intent().putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId)
             setResult(RESULT_OK, resultValue)
-
-            sendBroadcast(Intent(this, CardAnalysisWidget::class.java))
-
             finish()
         }
     }

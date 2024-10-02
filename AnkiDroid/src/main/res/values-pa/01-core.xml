@@ -53,7 +53,6 @@
     <string name="drawing">ਡਰਾਇੰਗ</string>
     <string name="send_feedback">ਫ਼ੀਡਬੈਕ ਭੇਜੋ</string>
     <string name="studyoptions_start">ਪੜ੍ਹਾਈ</string>
-    <string name="studyoptions_buried_count">+%d ਦਫ਼ਨਾਇਆ ਗਿਆ</string>
     <!-- DeckPicker.kt -->
     <string name="expand">ਫੈਲਾਓ</string>
     <string name="collapse">لُکاؤ</string>
@@ -66,8 +65,8 @@
         <item quantity="other">%1$d ਘੰਟੇ %2$d ਬਾਕੀ</item>
     </plurals>
     <plurals name="reviewer_window_title_days_new">
-        <item quantity="one">%1$d ਦਿਨ %2$d ਬਾਕੀ</item>
-        <item quantity="other">%1$d ਦਿਨ %2$d ਬਾਕੀ</item>
+        <item quantity="one">%1$d day %2$dh left</item>
+        <item quantity="other">%1$d days %2$dh left</item>
     </plurals>
     <string name="no_cards_placeholder_title">ਸੰਗ੍ਰਹਿ ਖਾਲੀ ਹੈ</string>
     <string name="no_cards_placeholder_description">ਕਾਰਡ ਸ਼ਾਮਲ ਕਰਨਾ ਸ਼ੁਰੂ ਕਰੋ\N ਆਈਕਨ ਦੀ ਵਰਤੋਂ ਕਰਕੇ.</string>
@@ -81,7 +80,7 @@
     <string name="ease_button_good">ਚੰਗਾ</string>
     <string name="ease_button_easy">ਆਸਾਨ</string>
     <string name="menu_import">ਆਯਾਤ ਕਰੋ</string>
-    <string name="undo">ਅਣਡੂ</string>
+    <string name="undo" maxLength="29" comment="When tapping on this text, the last action is undone.">ਅਣਡੂ</string>
     <string name="redo">ਦੁਬਾਰਾ ਕਰੋ</string>
     <string name="undo_action_whiteboard_last_stroke" comment="One of the display patterns of \'Undo\' item on the action menu in Reviewer. It is shown as the title of the item when the whiteboard (handwriting) feature is enabled and visible and has any strokes (handwritten lines)">ਸਟ੍ਰੋਕ ਨੂੰ ਅਣਡੂ ਕਰੋ</string>
     <string name="move_all_to_deck">ਸਾਰੇ ਡੇਕ \'ਤੇ ਲੈ ਜਾਓ</string>
@@ -90,7 +89,7 @@
     <string name="create_shortcut">ਸ਼ਾਰਟਕੱਟ ਬਣਾਓ</string>
     <string name="browse_cards">ਕਾਰਡ ਬ੍ਰਾਊਜ਼ ਕਰੋ</string>
     <string name="edit_deck_description" comment="edit the deck description">ਵਰਣਨ ਦਾ ਸੰਪਾਦਨ ਕਰੋ</string>
-    <string name="menu_add" comment="A generic add button. Please inform us if you need more specific strings">پایو</string>
+    <string name="menu_add" comment="A generic add button. Please inform us if you need more specific strings" maxLength="29">پایو</string>
     <string name="menu_add_note">ਨੋਟਸ ਸ਼ਾਮਲ ਕਰੋ</string>
     <string name="menu_my_account" comment="Label of the window in which the user should enter their account. This text can\'t be found in AnkiDroid directly.">ਖਾਤਾ ਸਿੰਕ ਕਰੋ</string>
     <string name="menu_dismiss_note">ਓਹਲੇ/ਮਿਟਾਓ</string>
@@ -148,31 +147,31 @@
     <string name="card_template_editor_front">ਫਰੰਟ ਟੈਂਪਲੇਟ</string>
     <string name="card_template_editor_back">Back template</string>
     <string name="card_template_editor_styling">ਸਟਾਈਲਿੰਗ</string>
-    <string name="card_template_editor_menu_card_browser_appearance">Card Browser Appearance</string>
-    <string name="card_template_editor_deck_override">Deck override</string>
-    <string name="card_template_editor_insert_field">Insert field</string>
+    <string name="card_template_editor_menu_card_browser_appearance">ਕਾਰਡ ਬ੍ਰਾਊਜ਼ਰ ਦੀ ਦਿੱਖ</string>
+    <string name="card_template_editor_deck_override">ਡੈੱਕ ਓਵਰਰਾਈਡ</string>
+    <string name="card_template_editor_insert_field">ਖੇਤਰ ਸ਼ਾਮਲ ਕਰੋ</string>
     <string name="card_template_editor_select_field">Select field</string>
-    <string name="card_template_editor_cant_delete">At least one card type is required</string>
+    <string name="card_template_editor_cant_delete">ਘੱਟੋ-ਘੱਟ ਇੱਕ ਕਾਰਡ ਕਿਸਮ ਦੀ ਲੋੜ ਹੈ</string>
     <plurals name="card_template_editor_confirm_add">
-        <item quantity="one">This will create %1$d card. Proceed?</item>
-        <item quantity="other">This will create %1$d cards. Proceed?</item>
+        <item quantity="one">ਇਹ %1$d ਕਾਰਡ ਬਣਾਏਗਾ। ਅੱਗੇ ਵਧਣਾ?</item>
+        <item quantity="other">ਇਹ %1$d ਕਾਰਡ ਬਣਾਏਗਾ। ਅੱਗੇ ਵਧਣਾ?</item>
     </plurals>
     <plurals name="card_template_editor_confirm_delete">
         <item quantity="one">Delete the “%2$s” card type, and its %1$d card?</item>
         <item quantity="other">Delete the “%2$s” card type, and its %1$d cards?</item>
     </plurals>
-    <string name="card_template_editor_save_error">Unable to save card template changes: %s</string>
+    <string name="card_template_editor_save_error">ਕਾਰਡ ਟੈਮਪਲੇਟ ਤਬਦੀਲੀਆਂ ਨੂੰ ਸੁਰੱਖਿਅਤ ਕਰਨ ਵਿੱਚ ਅਸਮਰੱਥ: %s</string>
     <string name="template_for_current_card_deleted">The card type for the current card was deleted.</string>
     <!-- Card Browser Appearance -->
-    <string name="card_template_browser_appearance_title">Browser appearance</string>
+    <string name="card_template_browser_appearance_title">ਬਰਾਊਜ਼ਰ ਦੀ ਦਿੱਖ</string>
     <!-- card Info -->
-    <string name="card_info_title">Card info</string>
+    <string name="card_info_title">ਕਾਰਡ ਦੀ ਜਾਣਕਾਰੀ</string>
     <!-- Permissions -->
-    <string name="read_write_permission_label">Read and write to the AnkiDroid database</string>
+    <string name="read_write_permission_label">AnkiDroid ਡੇਟਾਬੇਸ ਨੂੰ ਪੜ੍ਹੋ ਅਤੇ ਲਿਖੋ</string>
     <string name="read_write_permission_description">access existing notes, cards, note types, and decks, as well as create new ones</string>
     <!-- Context Menu -->
-    <string name="card_browser_context_menu" comment="The value which appears in the system context menu. Note the casing difference">Card Browser</string>
-    <string name="context_menu_anki_card_label">Anki Card</string>
+    <string name="card_browser_context_menu" comment="The value which appears in the system context menu. Note the casing difference">ਕਾਰਡ ਬ੍ਰਾਊਜ਼ਰ</string>
+    <string name="context_menu_anki_card_label">ਅੰਕੀ ਕਾਰਡ</string>
     <!-- Sync conflict -->
     <string name="sync_conflict_message_new">The collections can’t be combined.\nWhich collection do you want to keep?</string>
     <string name="sync_conflict_keep_local_new" comment="Select AnkiDroid files to keep while syncing">AnkiDroid</string>
@@ -181,10 +180,6 @@
     <string name="sync_conflict_local_confirm_new">Replace your collection on AnkiWeb with your collection from AnkiDroid?</string>
     <string name="sync_conflict_title_new">ਰੱਖਣ ਲਈ ਸੰਗ੍ਰਹਿ ਚੁਣੋ</string>
     <string name="sync_conflict_replace_title">ਸੰਗ੍ਰਹਿ ਨੂੰ ਬਦਲੋ</string>
-    <plurals name="deckpicker_title_zero_due">
-        <item quantity="one">%1$d ਕਾਰਡ (0 ਬਕਾਇਆ)</item>
-        <item quantity="other">%1$d ਕਾਰਡ (0 ਬਕਾਇਆ)</item>
-    </plurals>
     <!-- Generic errors -->
     <string name="error__etc__cannot_write_to_or_create_file">ਫਾਈਲ %s ਨੂੰ ਨਹੀਂ ਲਿਖ ਸਕਦਾ ਜਾਂ ਨਹੀਂ ਬਣਾ ਸਕਦਾ</string>
     <string name="directory_inaccessible_after_uninstall" comment="Dialog title if AnkiDroid can\'t access the collection once the app is installed">ਸੰਗ੍ਰਹਿ ਪਹੁੰਚ ਤੋਂ ਬਾਹਰ</string>

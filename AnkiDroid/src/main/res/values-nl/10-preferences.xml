@@ -235,9 +235,9 @@
     <string name="deck_conf_general" maxLength="41" comment="Label of the submenu for the general options of new deck">Algemeen</string>
     <string name="deck_conf_reminders" maxLength="41">Herinneringen</string>
     <string name="deck_conf_cram_filter" maxLength="41">Filter</string>
-    <string name="deck_conf_cram_search" maxLength="41">Zoeken</string>
+    <string name="deck_conf_cram_search" maxLength="41" comment="Label of a text field that contains a search query.">Zoeken</string>
     <string name="deck_conf_cram_limit" maxLength="41">Beperken tot</string>
-    <string name="deck_conf_cram_order" maxLength="41">kaarten geselecteerd door</string>
+    <string name="deck_conf_cram_order" maxLength="41">Cards selected by</string>
     <string name="deck_conf_cram_reschedule" maxLength="41" comment="Title of the box labelled by deck_conf_cram_reschedule_summ">Opnieuw inplannen</string>
     <string name="deck_conf_cram_reschedule_summ">Karaten opnieuw inplannen op basis van mijn antwoorden in deze set</string>
     <string name="deck_conf_cram_filter_2_check">Tweede filter inschakelen</string>
@@ -279,7 +279,7 @@
     <string name="user_action_7" maxLength="41">Gebruikersactie 7</string>
     <string name="user_action_8" maxLength="41">Gebruikersactie 8</string>
     <string name="user_action_9" maxLength="41">Gebruikersactie 9</string>
-    <string name="toggle_auto_advance" maxLength="41">Toggle auto advance</string>
+    <string name="toggle_auto_advance" maxLength="41">Automatische vooruitgang in-/uitschakelen</string>
     <!-- Select card side -->
     <string name="card_side_selection_title">Selecteer kaart zijde</string>
     <string name="card_side_question">Vraag</string>

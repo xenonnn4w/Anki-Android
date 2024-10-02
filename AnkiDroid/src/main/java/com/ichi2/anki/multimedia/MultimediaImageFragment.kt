@@ -33,7 +33,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
 import androidx.core.content.IntentCompat
 import androidx.core.os.BundleCompat
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.canhub.cropper.CropException
 import com.google.android.material.button.MaterialButton
@@ -76,8 +75,6 @@ class MultimediaImageFragment : MultimediaFragment(R.layout.fragment_multimedia_
 
     private lateinit var imagePreview: ImageView
     private lateinit var imageFileSize: TextView
-
-    private val viewModel: MultimediaViewModel by viewModels()
 
     private lateinit var selectedImageOptions: ImageOptions
 
@@ -396,12 +393,6 @@ class MultimediaImageFragment : MultimediaFragment(R.layout.fragment_multimedia_
 
         updateAndDisplayImageSize(imagePath)
 
-        if (!rotateAndCompress(imagePath)) {
-            Timber.d("Unable to compress the clicked image")
-            showErrorDialog(errorMessage = resources.getString(R.string.multimedia_editor_image_compression_failed))
-            return
-        }
-
         showCropDialog(getString(R.string.crop_image))
     }
 
@@ -415,7 +406,24 @@ class MultimediaImageFragment : MultimediaFragment(R.layout.fragment_multimedia_
         val decimalFormat = DecimalFormat(".00")
         val size = decimalFormat.format(length.toDouble())
         val message = getString(R.string.save_dialog_content, size)
-        showCropDialog(message)
+        showCompressImageDialog(message)
+    }
+
+    private fun showCompressImageDialog(message: String) {
+        AlertDialog.Builder(requireActivity()).show {
+            message(text = message)
+            positiveButton(R.string.compress) {
+                viewModel.currentMultimediaPath.value.let {
+                    if (it == null) return@positiveButton
+                    if (!rotateAndCompress(it)) {
+                        Timber.d("Unable to compress the clicked image")
+                        showErrorDialog(errorMessage = resources.getString(R.string.multimedia_editor_image_compression_failed))
+                        return@positiveButton
+                    }
+                }
+            }
+            negativeButton(R.string.dialog_no)
+        }
     }
 
     private fun showCropDialog(message: String) {
@@ -467,11 +475,11 @@ class MultimediaImageFragment : MultimediaFragment(R.layout.fragment_multimedia_
 
         val imagePath = internalizedPick.absolutePath
 
-        if (!rotateAndCompress(imagePath)) {
-            Timber.d("Unable to compress the clicked image")
-            showErrorDialog(errorMessage = resources.getString(R.string.multimedia_editor_image_compression_failed))
-            return
-        }
+        viewModel.updateCurrentMultimediaUri(imageUri)
+        viewModel.updateCurrentMultimediaPath(imagePath)
+        imagePreview.setImageURI(imageUri)
+        viewModel.selectedMediaFileSize = internalizedPick.length()
+        updateAndDisplayImageSize(imagePath)
     }
 
     private fun requestCrop() {

@@ -89,6 +89,10 @@
     <string name="custom_study_random_selection">ಕಾರ್ಡ್‌ಗಳ ಯಾದೃಚ್ selection ಿಕ ಆಯ್ಕೆಯನ್ನು ಅಧ್ಯಯನ ಮಾಡಿ</string>
     <string name="custom_study_preview_new">ಹೊಸ ಕಾರ್ಡ್‌ಗಳನ್ನು ಪೂರ್ವವೀಕ್ಷಣೆ ಮಾಡಿ</string>
     <string name="custom_study_limit_tags">ನಿರ್ದಿಷ್ಟ ಟ್ಯಾಗ್‌ಗಳಿಗೆ ಮಿತಿಗೊಳಿಸಿ</string>
+    <plurals name="studyoptions_buried_count">
+        <item quantity="one">+%d buried</item>
+        <item quantity="other">+%d buried</item>
+    </plurals>
     <!-- Card editor -->
     <string name="cardeditor_title_edit_card">ಟಿಪ್ಪಣಿಯನ್ನು ಮಾರ್ಪಡಿಸಿ</string>
     <string name="discard">ಧ್ವಜಗಳು</string>
@@ -119,7 +123,7 @@
     <string name="card_editor_reposition_card" comment="reposition a card in the new queue">ಮರುಸ್ಥಾಪನೆ</string>
     <string name="card_editor_reset_card">ಪ್ರಗತಿಯನ್ನು ಮರುಹೊಂದಿಸಿ</string>
     <string name="card_editor_reschedule_card" comment="Action to reschedule a card">ಮರುಹೊಂದಿಸಿ</string>
-    <string name="card_editor_preview_card" comment="Button offering to preview some card(s)">ಮುನ್ನೋಟ</string>
+    <string name="card_editor_preview_card" comment="Button offering to preview some card(s)" maxLength="29">ಮುನ್ನೋಟ</string>
     <string name="copy_as_markdown" comment="Copies text to the clipboard as Markdown">ಮಾರ್ಕ್‌ಡೌನ್‌ನಂತೆ ನಕಲಿಸಿ</string>
     <string name="preview_progress_bar_text" comment="What card we are on out of how many in card previewer progress bar">%2$d ರಲ್ಲಿ %1$d</string>
     <string name="rename" comment="Confirm that the renaming action should be processed.">ಮರುಹೆಸರಿಸಿ</string>
@@ -161,7 +165,7 @@
     <string name="export_choice_share">ಹಂಚಿರಿ</string>
     <string name="export_choice_save_to">ಗೆ ಉಳಿಸಿ</string>
     <string name="export_saving_exported_collection">Saving exported file&#8230;</string>
-    <string name="study_options" comment="Name for a preference category in Filtered deck (aka Cram deck, aka Custom study) options">ಆಯ್ಕೆಗಳು</string>
+    <string name="study_options" comment="Name for a preference category in Filtered deck (aka Cram deck, aka Custom study) options" maxLength="29">ಆಯ್ಕೆಗಳು</string>
     <string name="menu__deck_options">ಡೆಕ್ ಆಯ್ಕೆಗಳು</string>
     <string name="menu__study_options" comment="Menu item that opens options for a Filtered deck (aka Cram deck, aka Custom study)">ಅಧ್ಯಯನ ಆಯ್ಕೆಗಳು</string>
     <string name="select_tts">TTS ಭಾಷೆಯನ್ನು ಹೊಂದಿಸಿ</string>
@@ -333,4 +337,5 @@
     <!--  AlertDialog in the deleteCardTemplate  -->
     <string name="orphan_note_title">Cannot Delete Card Type</string>
     <string name="orphan_note_message">Deleting this card type will leave some notes without any cards.</string>
+    <string name="voice_not_supported">Voice not supported. Try another or install a voice engine.</string>
 </resources>

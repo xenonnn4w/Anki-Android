@@ -89,6 +89,10 @@
     <string name="custom_study_random_selection">కార్డులు యాదృచ్ఛిక ఎంపిక అధ్యయనం</string>
     <string name="custom_study_preview_new">క్రొత్త కార్డులను పరిదృశ్యం చేయండి</string>
     <string name="custom_study_limit_tags">నిర్దిష్ట ట్యాగ్లకు పరిమితం చేయండి</string>
+    <plurals name="studyoptions_buried_count">
+        <item quantity="one">+%d ఖననం చేయబడింది</item>
+        <item quantity="other">+%d ఖననం చేయబడింది</item>
+    </plurals>
     <!-- Card editor -->
     <string name="cardeditor_title_edit_card">గమనికను సవరించండి</string>
     <string name="discard">విస్మరించండి</string>
@@ -119,7 +123,7 @@
     <string name="card_editor_reposition_card" comment="reposition a card in the new queue">ప్రత్యామ్నాయం</string>
     <string name="card_editor_reset_card">పురోగతిని రీసెట్ చేయండి</string>
     <string name="card_editor_reschedule_card" comment="Action to reschedule a card">రీషెడ్యూల్ చేయండి</string>
-    <string name="card_editor_preview_card" comment="Button offering to preview some card(s)">ప్రత్యేక ప్రదర్శన</string>
+    <string name="card_editor_preview_card" comment="Button offering to preview some card(s)" maxLength="29">ప్రత్యేక ప్రదర్శన</string>
     <string name="copy_as_markdown" comment="Copies text to the clipboard as Markdown">మార్క్‌డౌన్‌గా కాపీ చేయండి</string>
     <string name="preview_progress_bar_text" comment="What card we are on out of how many in card previewer progress bar">%2$dలో %1$d</string>
     <string name="rename" comment="Confirm that the renaming action should be processed.">పేరుమార్చు</string>
@@ -161,7 +165,7 @@
     <string name="export_choice_share">దానిని పంచు</string>
     <string name="export_choice_save_to">కు సేవ్ చేయండి</string>
     <string name="export_saving_exported_collection">ఎగుమతి చేసిన ఫైల్‌ను సేవ్ చేస్తోంది&#8230;</string>
-    <string name="study_options" comment="Name for a preference category in Filtered deck (aka Cram deck, aka Custom study) options">ఎంపికలు</string>
+    <string name="study_options" comment="Name for a preference category in Filtered deck (aka Cram deck, aka Custom study) options" maxLength="29">ఎంపికలు</string>
     <string name="menu__deck_options">డెక్ ఎంపికలు</string>
     <string name="menu__study_options" comment="Menu item that opens options for a Filtered deck (aka Cram deck, aka Custom study)">అధ్యయన ఎంపికలు</string>
     <string name="select_tts">TTS భాషను సెట్ చేయండి</string>
@@ -333,4 +337,5 @@
     <!--  AlertDialog in the deleteCardTemplate  -->
     <string name="orphan_note_title">కార్డ్ రకాన్ని తొలగించడం సాధ్యం కాదు</string>
     <string name="orphan_note_message">ఈ కార్డ్ రకాన్ని తొలగించడం వలన కొన్ని గమనికలు కార్డ్‌లు లేకుండా ఉంటాయి.</string>
+    <string name="voice_not_supported">వాయిస్ మద్దతు లేదు. మరొకటి ప్రయత్నించండి లేదా వాయిస్ ఇంజిన్‌ని ఇన్‌స్టాల్ చేయండి.</string>
 </resources>

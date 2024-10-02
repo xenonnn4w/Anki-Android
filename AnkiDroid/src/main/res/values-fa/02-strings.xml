@@ -89,6 +89,10 @@
     <string name="custom_study_random_selection">مطالعه کارت ها به صورت تصادفی</string>
     <string name="custom_study_preview_new">پیش نمایش کارت های جدید</string>
     <string name="custom_study_limit_tags">محدود کردن به برچسب هايی خاص</string>
+    <plurals name="studyoptions_buried_count">
+        <item quantity="one">+%d buried</item>
+        <item quantity="other">+%d buried</item>
+    </plurals>
     <!-- Card editor -->
     <string name="cardeditor_title_edit_card">ویرایش یادداشت</string>
     <string name="discard">صرف‌نظر کردن</string>
@@ -119,7 +123,7 @@
     <string name="card_editor_reposition_card" comment="reposition a card in the new queue">تغییر مکان</string>
     <string name="card_editor_reset_card">تنظیم مجدد پیشرفت</string>
     <string name="card_editor_reschedule_card" comment="Action to reschedule a card">برنامه ریزی مجدد</string>
-    <string name="card_editor_preview_card" comment="Button offering to preview some card(s)">پیش نمایش</string>
+    <string name="card_editor_preview_card" comment="Button offering to preview some card(s)" maxLength="29">پیش نمایش</string>
     <string name="copy_as_markdown" comment="Copies text to the clipboard as Markdown">کپی markdown</string>
     <string name="preview_progress_bar_text" comment="What card we are on out of how many in card previewer progress bar">%1$d از %2$d</string>
     <string name="rename" comment="Confirm that the renaming action should be processed.">تغییر نام</string>
@@ -161,7 +165,7 @@
     <string name="export_choice_share">اشتراک گزاری</string>
     <string name="export_choice_save_to">ذخیره به</string>
     <string name="export_saving_exported_collection">در حال ذخیره فایل صادر شده&#8230;</string>
-    <string name="study_options" comment="Name for a preference category in Filtered deck (aka Cram deck, aka Custom study) options">گزینه ها</string>
+    <string name="study_options" comment="Name for a preference category in Filtered deck (aka Cram deck, aka Custom study) options" maxLength="29">گزینه ها</string>
     <string name="menu__deck_options">گزینه های دسته</string>
     <string name="menu__study_options" comment="Menu item that opens options for a Filtered deck (aka Cram deck, aka Custom study)">گزینه‌های مطالعه</string>
     <string name="select_tts">تنظیم زبان تبدیل متن به صدا TTS</string>
@@ -329,7 +333,7 @@
     <string name="card_browser_unavailable_when_notes_mode">در حالت \'یادداشت‌ها\' در دسترس نیست</string>
     <plurals name="unbury_cards_feedback">
         <item quantity="one">%d کارت از حالت مخفی خارج شد</item>
-        <item quantity="other">%d کارت دفن نشده است</item>
+        <item quantity="other">%d کارت از حالت مخفی خارج شد</item>
     </plurals>
     <string name="card_template_reposition_template" comment="move a card template to a new position">جابجا کردن</string>
     <string name="start_recording">ضبط</string>
@@ -339,4 +343,5 @@
     <!--  AlertDialog in the deleteCardTemplate  -->
     <string name="orphan_note_title">نمیتوان نوع کارت را حذف کرد</string>
     <string name="orphan_note_message">حذف این نوع کارت باعث بی کارت شدن بعضی یادداشت ها می شود</string>
+    <string name="voice_not_supported">صدای انتخاب شده همایت شده نیست. یکی دیگر را انتخاب کنید یا یک موتور صدا نصب کنید.</string>
 </resources>
