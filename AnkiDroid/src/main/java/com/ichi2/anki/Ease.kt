@@ -15,6 +15,9 @@
  */
 package com.ichi2.anki
 
+/**
+ * [value] should be kept in sync with the [com.ichi2.anki.api.Ease] enum.
+ */
 enum class Ease(val value: Int) {
     AGAIN(1),
     HARD(2),

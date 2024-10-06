@@ -60,7 +60,7 @@
         <item quantity="other">%d minutoj restas</item>
     </plurals>
     <string name="widget_add_note_button">Aldoni novan AnkiDroid-noton</string>
-    <string name="deck_picker_widget_description">Kartar-elektilo</string>
+    <string name="deck_picker_widget_description" comment="Title of the Deck Picker Widget. Displayed to the user in Android\'s Widget Selection menu">Kartar-elektilo</string>
     <string name="card_analysis_extra_widget_description">Analizo de kartoj</string>
     <!-- Strings to explain usage in Deck Picker and Card Analysis Widget Configuration screen -->
     <string name="select_decks_title" comment="Title for Deck Selection Dialog">Elekti kartarojn</string>
@@ -72,5 +72,6 @@
         <item quantity="one">Vi povas elekti maksimume %d kartaron.</item>
         <item quantity="other">Vi povas elekti maksimume %d kartarojn.</item>
     </plurals>
-    <string name="empty_widget" comment="To denote the widget is empty">Manka kartaro. Reagordu fenestraĵon</string>
+    <string name="empty_widget_state" comment="To denote the widget is empty">Kartaro mankas. Frapetu por reagordi.</string>
+    <string name="empty_collection_state_in_widget" comment="To denote the collection is empty">Kolekto estas malplena, uzu aplikaĵon por aldoni kartaron kaj sekve reagordu fenestraĵon</string>
 </resources>

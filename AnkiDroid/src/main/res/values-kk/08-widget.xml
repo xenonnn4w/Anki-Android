@@ -60,7 +60,7 @@
         <item quantity="other">%d минут қалды</item>
     </plurals>
     <string name="widget_add_note_button">Жаңа AnkiDroid жазбасын қосу</string>
-    <string name="deck_picker_widget_description">Deck Picker</string>
+    <string name="deck_picker_widget_description" comment="Title of the Deck Picker Widget. Displayed to the user in Android\'s Widget Selection menu">Deck Picker</string>
     <string name="card_analysis_extra_widget_description">Card Analysis</string>
     <!-- Strings to explain usage in Deck Picker and Card Analysis Widget Configuration screen -->
     <string name="select_decks_title" comment="Title for Deck Selection Dialog">Select decks</string>
@@ -72,5 +72,6 @@
         <item quantity="one">You can select up to %d deck.</item>
         <item quantity="other">You can select up to %d decks.</item>
     </plurals>
-    <string name="empty_widget" comment="To denote the widget is empty">Missing deck. Please reconfigure</string>
+    <string name="empty_widget_state" comment="To denote the widget is empty">Missing deck. Tap to reconfigure.</string>
+    <string name="empty_collection_state_in_widget" comment="To denote the collection is empty">Collection is empty, use app to add decks then reconfigure</string>
 </resources>

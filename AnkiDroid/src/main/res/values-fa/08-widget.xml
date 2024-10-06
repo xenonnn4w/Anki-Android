@@ -60,7 +60,7 @@
         <item quantity="other">%d دقیقه باقیمانده</item>
     </plurals>
     <string name="widget_add_note_button">افزودن یادداشت جدید</string>
-    <string name="deck_picker_widget_description">انتخاب کننده دسته</string>
+    <string name="deck_picker_widget_description" comment="Title of the Deck Picker Widget. Displayed to the user in Android\'s Widget Selection menu">انتخاب کننده دسته</string>
     <string name="card_analysis_extra_widget_description">تحلیل کارت</string>
     <!-- Strings to explain usage in Deck Picker and Card Analysis Widget Configuration screen -->
     <string name="select_decks_title" comment="Title for Deck Selection Dialog">انتخاب دسته ها</string>
@@ -72,5 +72,6 @@
         <item quantity="one">میتوانید تا %d دسته انتخاب کنید</item>
         <item quantity="other">میتوانید تا %d عدد دسته انتخاب کنید</item>
     </plurals>
-    <string name="empty_widget" comment="To denote the widget is empty">دسته گم شده. لطفا دوباره پیکربندی کنید</string>
+    <string name="empty_widget_state" comment="To denote the widget is empty">Missing deck. Tap to reconfigure.</string>
+    <string name="empty_collection_state_in_widget" comment="To denote the collection is empty">Collection is empty, use app to add decks then reconfigure</string>
 </resources>
