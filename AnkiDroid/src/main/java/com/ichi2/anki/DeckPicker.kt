@@ -36,6 +36,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Message
+import android.text.util.Linkify
 import android.util.TypedValue
 import android.view.KeyEvent
 import android.view.Menu
@@ -55,6 +56,8 @@ import androidx.annotation.StringRes
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
+import androidx.appcompat.widget.Toolbar
+import androidx.appcompat.widget.TooltipCompat
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
 import androidx.core.content.edit
@@ -178,6 +181,7 @@ import com.ichi2.utils.SyncStatus
 import com.ichi2.utils.VersionUtils
 import com.ichi2.utils.cancelable
 import com.ichi2.utils.checkBoxPrompt
+import com.ichi2.utils.customView
 import com.ichi2.utils.message
 import com.ichi2.utils.negativeButton
 import com.ichi2.utils.neutralButton
@@ -734,9 +738,7 @@ open class DeckPicker :
                 if (ScopedStorageService.collectionWasMadeInaccessibleAfterUninstall(this)) {
                     showDatabaseErrorDialog(DatabaseErrorDialogType.DIALOG_STORAGE_UNAVAILABLE_AFTER_UNINSTALL)
                 } else {
-                    val i = AdvancedSettingsFragment.getSubscreenIntent(this)
-                    requestPathUpdateLauncher.launch(i)
-                    showThemedToast(this, R.string.directory_inaccessible, false)
+                    showDirectoryNotAccessibleDialog()
                 }
             }
             FUTURE_ANKIDROID_VERSION -> {
@@ -763,6 +765,31 @@ open class DeckPicker :
             DISK_FULL -> displayNoStorageError()
             DB_ERROR -> displayDatabaseFailure()
             else -> displayDatabaseFailure()
+        }
+    }
+
+    private fun showDirectoryNotAccessibleDialog() {
+        val contentView = TextView(this).apply {
+            autoLinkMask = Linkify.WEB_URLS
+            linksClickable = true
+            text = getString(
+                R.string.directory_inaccessible_info,
+                getString(R.string.link_full_storage_access)
+            )
+        }
+        AlertDialog.Builder(this).show {
+            title(R.string.directory_inaccessible)
+            customView(
+                contentView,
+                convertDpToPixel(16F, this@DeckPicker).toInt(),
+                0,
+                convertDpToPixel(32F, this@DeckPicker).toInt(),
+                convertDpToPixel(32F, this@DeckPicker).toInt()
+            )
+            positiveButton(R.string.open_settings) {
+                val settingsIntent = AdvancedSettingsFragment.getSubscreenIntent(this@DeckPicker)
+                requestPathUpdateLauncher.launch(settingsIntent)
+            }
         }
     }
 
@@ -2138,6 +2165,9 @@ open class DeckPicker :
                     res.getQuantityString(R.plurals.widget_cards_due, due, due)
                 }
                 supportActionBar!!.subtitle = subTitle
+
+                val toolbar = findViewById<Toolbar>(R.id.toolbar)
+                TooltipCompat.setTooltipText(toolbar, toolbar.subtitle)
             }
         } catch (e: RuntimeException) {
             Timber.e(e, "RuntimeException setting time remaining")

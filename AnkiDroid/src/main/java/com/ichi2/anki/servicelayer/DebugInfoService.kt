@@ -60,7 +60,7 @@ object DebugInfoService {
                
                ACRA UUID = ${Installation.id(info)}
                
-               FSRS Enabled = $isFSRSEnabled
+               FSRS = ${BackendBuildConfig.FSRS_VERSION} (Enabled: $isFSRSEnabled)
                
                Crash Reports Enabled = ${isSendingCrashReports(info)}
         """.trimIndent()
@@ -82,7 +82,7 @@ object DebugInfoService {
 
     private suspend fun getFSRSStatus(): Boolean? = try {
         CollectionManager.withOpenColOrNull { config.get<Boolean>("fsrs", false) }
-    } catch (e: Error) {
+    } catch (e: Throwable) { // Error and Exception paths are the same, so catch Throwable
         Timber.w(e)
         null
     }

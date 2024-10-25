@@ -187,7 +187,7 @@ open class CardTemplateEditor : AnkiActivity(), DeckSelectionListener {
     }
 
     /**
-     *  Loads or reloads [tempModel] in [R.id.template_previewer_fragment] if the view is fragmented. Do nothing otherwise.
+     *  Loads or reloads [tempModel] in [R.id.fragment_container] if the view is fragmented. Do nothing otherwise.
      */
     private fun loadTemplatePreviewerFragmentIfFragmented() {
         if (!fragmented) {
@@ -494,7 +494,8 @@ open class CardTemplateEditor : AnkiActivity(), DeckSelectionListener {
                 true
             }
             // set saved or default view
-            bottomNavigation.selectedItemId = requireArguments().getInt(EDITOR_VIEW_ID_KEY)
+            bottomNavigation.selectedItemId =
+                templateEditor.tabToViewId[cardIndex] ?: requireArguments().getInt(EDITOR_VIEW_ID_KEY)
 
             // Set text change listeners
             val templateEditorWatcher: TextWatcher = object : TextWatcher {

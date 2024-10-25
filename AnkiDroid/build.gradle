@@ -85,8 +85,8 @@ android {
         //
         // This ensures the correct ordering between the various types of releases (dev < alpha < beta < release) which is
         // needed for upgrades to be offered correctly.
-        versionCode=21900204
-        versionName="2.19beta4"
+        versionCode=21900206
+        versionName="2.19beta6"
         minSdk libs.versions.minSdk.get().toInteger()
 
         // Stays until this is in a release: https://github.com/google/desugar_jdk_libs/commit/c01a5446ca13586b801dbba4d83c6821337b3cc2
@@ -143,7 +143,7 @@ android {
         }
         named('release') {
             testCoverageEnabled = testReleaseBuild
-            minifyEnabled true
+            minifyEnabled System.getenv("MINIFY_ENABLED") ? System.getenv("MINIFY_ENABLED") != "false" : true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             testProguardFile 'proguard-test-rules.pro'
             splits.abi.universalApk = universalApkEnabled // Build universal APK for release with `-Duniversal-apk=true`

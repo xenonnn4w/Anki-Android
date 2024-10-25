@@ -16,7 +16,6 @@
 
 package com.ichi2.libanki.sched
 
-import android.app.Activity
 import androidx.annotation.CheckResult
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.WorkerThread
@@ -41,9 +40,6 @@ import anki.scheduler.SchedulingStates
 import anki.scheduler.UnburyDeckRequest
 import anki.scheduler.cardAnswer
 import anki.scheduler.scheduleCardsAsNewRequest
-import com.google.android.material.snackbar.Snackbar
-import com.ichi2.anki.R
-import com.ichi2.anki.snackbar.showSnackbar
 import com.ichi2.anki.utils.SECONDS_PER_DAY
 import com.ichi2.libanki.Card
 import com.ichi2.libanki.CardId
@@ -152,8 +148,10 @@ open class Scheduler(val col: Collection) {
         card.load(col)
     }
 
-    fun againIsLeech(info: CurrentQueueState): Boolean {
-        return col.backend.stateIsLeech(info.states.again)
+    /** True if new state marks the card as a leech. */
+    @LibAnkiAlias("state_is_leech")
+    fun stateIsLeech(state: SchedulingState): Boolean {
+        return col.backend.stateIsLeech(state)
     }
 
     fun buildAnswer(card: Card, states: SchedulingStates, ease: Int): CardAnswer {
@@ -295,7 +293,7 @@ open class Scheduler(val col: Collection) {
 
     /**
      * Bury all cards for note until next session.
-     * @param nid The id of the targeted note.
+     * @param nids The id of the targeted note.
      */
     open fun buryNotes(nids: List<NoteId>): OpChangesWithCount {
         return col.backend.buryOrSuspendCards(
@@ -686,7 +684,7 @@ open class Scheduler(val col: Collection) {
      * @param ease The button number (easy, good etc.)
      * @return A string like “1 min” or “1.7 mo”
      */
-    open fun nextIvlStr(card: Card, @Consts.BUTTON_TYPE ease: Int): String {
+    open fun nextIvlStr(card: Card, @Consts.ButtonType ease: Int): String {
         val secs = nextIvl(card, ease)
         return col.backend.formatTimespan(secs.toFloat(), FormatTimespanRequest.Context.ANSWER_BUTTONS)
     }
@@ -697,25 +695,6 @@ open class Scheduler(val col: Collection) {
 
     fun timeboxSecs(): Int {
         return col.config.get("timeLim") ?: 0
-    }
-}
-
-/**
- * Tell the user the current card has leeched and whether it was suspended. Timber if no activity.
- * @param card A card that just became a leech
- * @param activity An activity on which a message can be shown
- */
-fun leech(card: Card, activity: Activity?) {
-    if (activity != null) {
-        val res = activity.resources
-        val leechMessage: String = if (card.queue < 0) {
-            res.getString(R.string.leech_suspend_notification)
-        } else {
-            res.getString(R.string.leech_notification)
-        }
-        activity.showSnackbar(leechMessage, Snackbar.LENGTH_SHORT)
-    } else {
-        Timber.w("LeechHook :: could not show leech snackbar as activity was null")
     }
 }
 
