@@ -1,10 +1,10 @@
+
 import com.android.build.api.dsl.CommonExtension
 import com.android.build.api.extension.impl.AndroidComponentsExtensionImpl
 import com.slack.keeper.optInToKeeper
 import org.gradle.api.tasks.testing.logging.TestExceptionFormat
 import org.gradle.internal.jvm.Jvm
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.io.ByteArrayOutputStream
 import kotlin.math.max
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
@@ -15,7 +15,7 @@ plugins {
     alias(libs.plugins.kotlin.parcelize) apply false
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.serialization) apply false
-    alias(libs.plugins.ktlint) apply false
+    alias(libs.plugins.ktlint.gradle.plugin) apply false
     alias(libs.plugins.dokka) apply false
     alias(libs.plugins.keeper) apply false
 }
@@ -28,7 +28,11 @@ val fatalWarnings = !(localProperties["fatal_warnings"] == "false")
 
 // Here we extract per-module "best practices" settings to a single top-level evaluation
 subprojects {
+    // TODO: should be able to use libs.versions.toml here
     apply(plugin = "org.jlleitschuh.gradle.ktlint")
+    configure<org.jlleitschuh.gradle.ktlint.KtlintExtension> {
+        version.set("1.5.0")
+    }
 
     afterEvaluate {
         if (hasProperty("android")) {
@@ -40,6 +44,9 @@ subprojects {
             androidExtension.testOptions.unitTests.all {
                 // tell backend to avoid rollover time, and disable interval fuzzing
                 it.environment("ANKI_TEST_MODE", "1")
+
+                it.maxHeapSize = "2g"
+                it.minHeapSize = "1g"
 
                 it.useJUnitPlatform()
                 it.testLogging {
@@ -124,12 +131,9 @@ var androidTestName by extra(
 val gradleTestMaxParallelForks by extra(
     if (System.getProperty("os.name") == "Mac OS X") {
         // macOS reports hardware cores. This is accurate for CI, Intel (halved due to SMT) and Apple Silicon
-        val outputStream = ByteArrayOutputStream()
-        project.exec {
+        providers.exec {
             commandLine("sysctl", "-n", "hw.physicalcpu")
-            standardOutput = outputStream
-        }
-        outputStream.toString().trim().toInt()
+        }.standardOutput.asText.get().trim().toInt()
     } else if (ciBuild) {
         // GitHub Actions run on Standard_D4ads_v5 Azure Compute Units with 4 vCPUs
         // They appear to be 2:1 vCPU to CPU on Linux/Windows with two vCPU cores but with performance 1:1-similar
