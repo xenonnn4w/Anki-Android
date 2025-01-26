@@ -19,25 +19,24 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.webkit.JavascriptInterface
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.FragmentActivity
+import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import anki.collection.OpChanges
 import com.google.android.material.appbar.MaterialToolbar
-import com.ichi2.anki.CollectionManager
 import com.ichi2.anki.CollectionManager.TR
 import com.ichi2.anki.CollectionManager.withCol
 import com.ichi2.anki.DeckPicker
 import com.ichi2.anki.FilteredDeckOptions
 import com.ichi2.anki.OnErrorListener
-import com.ichi2.anki.OnPageFinishedCallback
 import com.ichi2.anki.R
 import com.ichi2.anki.StudyOptionsActivity
 import com.ichi2.anki.dialogs.customstudy.CustomStudyDialog
+import com.ichi2.anki.dialogs.customstudy.CustomStudyDialog.CustomStudyAction
 import com.ichi2.anki.launchCatchingIO
 import com.ichi2.anki.launchCatchingTask
 import com.ichi2.anki.preferences.sharedPrefs
@@ -57,7 +56,6 @@ import kotlin.math.round
 
 class CongratsPage :
     PageFragment(),
-    CustomStudyDialog.CustomStudyListener,
     ChangeManager.Subscriber {
     private val viewModel by viewModels<CongratsViewModel>()
 
@@ -75,16 +73,6 @@ class CongratsPage :
             webView.reload()
         }
     }
-
-    override fun onCreateWebViewClient(savedInstanceState: Bundle?): PageWebViewClient =
-        super.onCreateWebViewClient(savedInstanceState).also { client ->
-            client.onPageFinishedCallback =
-                OnPageFinishedCallback { webView ->
-                    webView.evaluateJavascript(
-                        "bridgeCommand = function(request){ ankidroid.bridgeCommand(request); };",
-                    ) {}
-                }
-        }
 
     override fun onViewCreated(
         view: View,
@@ -113,8 +101,6 @@ class CongratsPage :
                 startActivity(intent, null)
             }.launchIn(lifecycleScope)
 
-        webView.addJavascriptInterface(BridgeCommand(), "ankidroid")
-
         with(view.findViewById<MaterialToolbar>(R.id.toolbar)) {
             inflateMenu(R.menu.congrats)
             setOnMenuItemClickListener { item ->
@@ -124,17 +110,21 @@ class CongratsPage :
                 true
             }
         }
-    }
 
-    inner class BridgeCommand {
-        @JavascriptInterface
-        fun bridgeCommand(request: String) {
-            when (request) {
-                "unbury" -> viewModel.onUnbury()
-                "customStudy" -> onStudyMore()
+        setFragmentResultListener(CustomStudyAction.REQUEST_KEY) { requestKey, bundle ->
+            when (CustomStudyAction.fromBundle(bundle)) {
+                CustomStudyAction.CUSTOM_STUDY_SESSION,
+                CustomStudyAction.EXTEND_STUDY_LIMITS,
+                -> openStudyOptionsAndFinish()
             }
         }
     }
+
+    override val bridgeCommands =
+        mapOf(
+            "unbury" to { viewModel.onUnbury() },
+            "customStudy" to { onStudyMore() },
+        )
 
     private fun openStudyOptionsAndFinish() {
         val intent =
@@ -146,23 +136,10 @@ class CongratsPage :
     }
 
     private fun onStudyMore() {
-        val col = CollectionManager.getColUnsafe()
-        val dialogFragment =
-            CustomStudyDialog(CollectionManager.getColUnsafe(), this).withArguments(
-                col.decks.selected(),
-            )
-        dialogFragment.show(childFragmentManager, null)
-    }
-
-    /******************************** CustomStudyListener methods ********************************/
-    override fun onExtendStudyLimits() {
-        Timber.v("CustomStudyListener::onExtendStudyLimits()")
-        openStudyOptionsAndFinish()
-    }
-
-    override fun onCreateCustomStudySession() {
-        Timber.v("CustomStudyListener::onCreateCustomStudySession()")
-        openStudyOptionsAndFinish()
+        launchCatchingTask {
+            val customStudy = CustomStudyDialog.createInstance(deckId = withCol { decks.selected() })
+            customStudy.show(childFragmentManager, null)
+        }
     }
 
     companion object {

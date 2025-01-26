@@ -35,14 +35,13 @@ import com.ichi2.anki.multimediacard.fields.TextField
 import com.ichi2.anki.multimediacard.impl.MultimediaEditableNote
 import com.ichi2.libanki.Card
 import com.ichi2.libanki.Collection
-import com.ichi2.libanki.Consts
 import com.ichi2.libanki.Note
 import com.ichi2.libanki.NoteTypeId
+import com.ichi2.libanki.NotetypeJson
+import com.ichi2.libanki.QueueType
 import com.ichi2.libanki.exception.EmptyMediaException
 import com.ichi2.libanki.undoableOp
-import com.ichi2.utils.CollectionUtils.average
 import org.json.JSONException
-import org.json.JSONObject
 import timber.log.Timber
 import java.io.File
 import java.io.IOException
@@ -54,19 +53,16 @@ object NoteService {
      * @param model the model in JSONObject format
      * @return a new MultimediaEditableNote instance
      */
-    fun createEmptyNote(model: JSONObject): MultimediaEditableNote {
+    fun createEmptyNote(model: NotetypeJson): MultimediaEditableNote {
         val note = MultimediaEditableNote()
         try {
-            val fieldsArray = model.getJSONArray("flds")
-            val numOfFields = fieldsArray.length()
-            note.setNumFields(numOfFields)
-
-            for (i in 0 until numOfFields) {
-                val fieldObject = fieldsArray.getJSONObject(i)
+            val fieldsArray = model.flds
+            note.setNumFields(fieldsArray.length())
+            for ((i, field) in fieldsArray.withIndex()) {
                 val uiTextField =
                     TextField().apply {
-                        name = fieldObject.getString("name")
-                        text = fieldObject.getString("name")
+                        name = field.name
+                        text = field.name
                     }
                 note.setField(i, uiTextField)
             }
@@ -116,7 +112,7 @@ object NoteService {
         editorNoteDst: Note,
     ) {
         if (noteSrc is MultimediaEditableNote) {
-            if (noteSrc.modelId != editorNoteDst.mid) {
+            if (noteSrc.modelId != editorNoteDst.noteTypeId) {
                 throw RuntimeException("Source and Destination Note ID do not match.")
             }
             val totalFields: Int = noteSrc.numberOfFields
@@ -154,7 +150,8 @@ object NoteService {
                     }
                     when (field.type) {
                         EFieldType.AUDIO_RECORDING, EFieldType.MEDIA_CLIP, EFieldType.IMAGE -> field.mediaPath = outFile.absolutePath
-                        EFieldType.TEXT -> {}
+                        else -> {
+                        }
                     }
                 }
             } catch (e: IOException) {
@@ -224,45 +221,6 @@ object NoteService {
         note: Note,
     ): Boolean = note.hasTag(col, tag = "marked")
 
-    //  TODO: should make a direct SQL query to do this
-
-    /**
-     * returns the average ease of all the non-new cards in the note,
-     * or if all the cards in the note are new, returns null
-     */
-    fun avgEase(
-        col: Collection,
-        note: Note,
-    ): Int? {
-        val nonNewCards = note.cards(col).filter { it.type != Consts.CARD_TYPE_NEW }
-
-        return nonNewCards.average { it.factor }?.let { it / 10 }?.toInt()
-    }
-
-    //  TODO: should make a direct SQL query to do this
-    fun totalLapses(
-        col: Collection,
-        note: Note,
-    ) = note.cards(col).sumOf { it.lapses }
-
-    fun totalReviews(
-        col: Collection,
-        note: Note,
-    ) = note.cards(col).sumOf { it.reps }
-
-    /**
-     * Returns the average interval of all the non-new and non-learning cards in the note,
-     * or if all the cards in the note are new or learning, returns null
-     */
-    fun avgInterval(
-        col: Collection,
-        note: Note,
-    ): Int? {
-        val nonNewOrLearningCards = note.cards(col).filter { it.type != Consts.CARD_TYPE_NEW && it.type != Consts.CARD_TYPE_LRN }
-
-        return nonNewOrLearningCards.average { it.ivl }?.toInt()
-    }
-
     interface NoteField {
         val ord: Int
 
@@ -273,16 +231,10 @@ object NoteService {
 
 const val MARKED_TAG = "marked"
 
-fun Card.totalLapsesOfNote(col: Collection) = NoteService.totalLapses(col, note(col))
-
-fun Card.totalReviewsForNote(col: Collection) = NoteService.totalReviews(col, note(col))
-
-fun Card.avgIntervalOfNote(col: Collection) = NoteService.avgInterval(col, note(col))
-
 suspend fun isBuryNoteAvailable(card: Card): Boolean =
     withCol {
         db.queryScalar(
-            "select 1 from cards where nid = ? and id != ? and queue >=  " + Consts.QUEUE_TYPE_NEW + " limit 1",
+            "select 1 from cards where nid = ? and id != ? and queue >=  " + QueueType.New.code + " limit 1",
             card.nid,
             card.id,
         ) == 1
@@ -291,7 +243,7 @@ suspend fun isBuryNoteAvailable(card: Card): Boolean =
 suspend fun isSuspendNoteAvailable(card: Card): Boolean =
     withCol {
         db.queryScalar(
-            "select 1 from cards where nid = ? and id != ? and queue != " + Consts.QUEUE_TYPE_SUSPENDED + " limit 1",
+            "select 1 from cards where nid = ? and id != ? and queue != " + QueueType.Suspended.code + " limit 1",
             card.nid,
             card.id,
         ) == 1

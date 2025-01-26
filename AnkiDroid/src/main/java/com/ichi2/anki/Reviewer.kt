@@ -21,6 +21,7 @@ import android.Manifest
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -48,11 +49,11 @@ import androidx.annotation.IntDef
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.view.menu.MenuBuilder
+import androidx.appcompat.widget.ThemeUtils
 import androidx.appcompat.widget.Toolbar
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.vectordrawable.graphics.drawable.VectorDrawableCompat
 import anki.frontend.SetSchedulingStatesRequest
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
@@ -92,6 +93,7 @@ import com.ichi2.anki.servicelayer.NoteService.isMarked
 import com.ichi2.anki.servicelayer.NoteService.toggleMark
 import com.ichi2.anki.snackbar.showSnackbar
 import com.ichi2.anki.ui.internationalization.toSentenceCase
+import com.ichi2.anki.ui.windows.reviewer.ReviewerFragment
 import com.ichi2.anki.utils.ext.showDialogFragment
 import com.ichi2.anki.utils.navBarNeedsScrim
 import com.ichi2.anki.utils.remainingTime
@@ -99,8 +101,7 @@ import com.ichi2.annotations.NeedsTest
 import com.ichi2.libanki.Card
 import com.ichi2.libanki.CardId
 import com.ichi2.libanki.Collection
-import com.ichi2.libanki.Consts.QUEUE_TYPE_NEW
-import com.ichi2.libanki.Consts.QUEUE_TYPE_SUSPENDED
+import com.ichi2.libanki.QueueType
 import com.ichi2.libanki.sched.Counts
 import com.ichi2.libanki.sched.CurrentQueueState
 import com.ichi2.libanki.undoableOp
@@ -109,7 +110,6 @@ import com.ichi2.themes.Themes
 import com.ichi2.themes.Themes.currentTheme
 import com.ichi2.utils.HandlerUtils.executeFunctionWithDelay
 import com.ichi2.utils.HandlerUtils.getDefaultLooper
-import com.ichi2.utils.KotlinCleanup
 import com.ichi2.utils.Permissions.canRecordAudio
 import com.ichi2.utils.ViewGroupUtils.setRenderWorkaround
 import com.ichi2.utils.cancelable
@@ -129,7 +129,6 @@ import java.io.File
 import kotlin.coroutines.resume
 
 @Suppress("LeakingThis")
-@KotlinCleanup("too many to count")
 @NeedsTest("#14709: Timebox shouldn't appear instantly when the Reviewer is opened")
 open class Reviewer :
     AbstractFlashcardViewer(),
@@ -399,7 +398,7 @@ open class Reviewer :
             return true
         }
 
-        Flag.entries.find { it.ordinal == item.itemId }?.let { flag ->
+        Flag.entries.find { it.id == item.itemId }?.let { flag ->
             Timber.i("Reviewer:: onOptionItemSelected Flag - ${flag.name} clicked")
             onFlag(currentCard, flag)
             return true
@@ -686,10 +685,11 @@ open class Reviewer :
         }
     }
 
-    private fun showDueDateDialog() {
-        val dialog = SetDueDateDialog.newInstance(listOf(currentCardId!!))
-        showDialogFragment(dialog)
-    }
+    private fun showDueDateDialog() =
+        launchCatchingTask {
+            val dialog = SetDueDateDialog.newInstance(listOf(currentCardId!!))
+            showDialogFragment(dialog)
+        }
 
     private fun showResetCardDialog() {
         Timber.i("showResetCardDialog() Reset progress button pressed")
@@ -736,9 +736,13 @@ open class Reviewer :
         val flagIcon = menu.findItem(R.id.action_flag)
         if (flagIcon != null) {
             if (currentCard != null) {
-                flagIcon.setIcon(currentCard!!.userFlag().drawableReviewerRes())
+                val flag = currentCard!!.userFlag()
+                flagIcon.setIcon(flag.drawableRes)
+                if (flag == Flag.NONE && actionButtons.status.flagsIsOverflown()) {
+                    val flagColor = ThemeUtils.getThemeAttrColor(this, android.R.attr.colorControlNormal)
+                    flagIcon.icon?.mutate()?.setTint(flagColor)
+                }
             }
-            flagIcon.iconAlpha = alpha
         }
 
         // Anki Desktop Translations
@@ -813,14 +817,7 @@ open class Reviewer :
             }
             val whiteboardIcon = ContextCompat.getDrawable(applicationContext, R.drawable.ic_gesture_white)!!.mutate()
             val stylusIcon = ContextCompat.getDrawable(this, R.drawable.ic_gesture_stylus)!!.mutate()
-            val whiteboardColorPaletteIcon =
-                VectorDrawableCompat
-                    .create(
-                        resources,
-                        R.drawable.ic_color_lens_white_24dp,
-                        this.theme,
-                    )!!
-                    .mutate()
+            val whiteboardColorPaletteIcon = ContextCompat.getDrawable(applicationContext, R.drawable.ic_color_lens_white_24dp)!!.mutate()
             if (showWhiteboard) {
                 whiteboardIcon.alpha = Themes.ALPHA_ICON_ENABLED_LIGHT
                 hideWhiteboardIcon.icon = whiteboardIcon
@@ -881,11 +878,8 @@ open class Reviewer :
     private fun setupFlags(subMenu: SubMenu) {
         lifecycleScope.launch {
             for ((flag, displayName) in Flag.queryDisplayNames()) {
-                val menuItem =
-                    subMenu
-                        .add(Menu.NONE, flag.code, Menu.NONE, displayName)
-                        .setIcon(flag.drawableRes)
-                flagItemIds.add(menuItem.itemId)
+                subMenu.findItem(flag.id).setTitle(displayName)
+                flagItemIds.add(flag.id)
             }
         }
     }
@@ -1090,7 +1084,7 @@ open class Reviewer :
             if (ease == Ease.AGAIN && wasLeech) {
                 state.topCard.load(getColUnsafe)
                 val leechMessage: String =
-                    if (state.topCard.queue < 0) {
+                    if (state.topCard.queue.buriedOrSuspended()) {
                         resources.getString(R.string.leech_suspend_notification)
                     } else {
                         resources.getString(R.string.leech_notification)
@@ -1344,7 +1338,7 @@ open class Reviewer :
     override fun restoreCollectionPreferences(col: Collection) {
         super.restoreCollectionPreferences(col)
         showRemainingCardCount = col.config.get("dueCounts") ?: true
-        stopTimerOnAnswer = col.decks.configDictForDeckId(col.decks.current().id).getBoolean("stopTimerOnAnswer")
+        stopTimerOnAnswer = col.decks.configDictForDeckId(col.decks.current().id).stopTimerOnAnswer
     }
 
     override fun onSingleTap(): Boolean {
@@ -1523,25 +1517,25 @@ open class Reviewer :
     }
 
     private fun createWhiteboard() {
-        whiteboard = createInstance(this, true, this)
+        val whiteboard =
+            createInstance(this, true, this).also { whiteboard ->
+                this.whiteboard = whiteboard
+            }
 
         // We use the pen color of the selected deck at the time the whiteboard is enabled.
         // This is how all other whiteboard settings are
         val whiteboardPenColor = MetaDB.getWhiteboardPenColor(this, parentDid).fromPreferences()
         if (whiteboardPenColor != null) {
-            whiteboard!!.penColor = whiteboardPenColor
+            whiteboard.penColor = whiteboardPenColor
         }
-        whiteboard!!.setOnPaintColorChangeListener(
-            object : OnPaintColorChangeListener {
-                override fun onPaintColorChange(color: Int?) {
-                    MetaDB.storeWhiteboardPenColor(this@Reviewer, parentDid, !currentTheme.isNightMode, color)
-                }
-            },
-        )
-        whiteboard!!.setOnTouchListener { v: View, event: MotionEvent? ->
+        whiteboard.onPaintColorChangeListener =
+            OnPaintColorChangeListener { color ->
+                MetaDB.storeWhiteboardPenColor(this@Reviewer, parentDid, !currentTheme.isNightMode, color)
+            }
+        whiteboard.setOnTouchListener { v: View, event: MotionEvent? ->
             if (event == null) return@setOnTouchListener false
             // If the whiteboard is currently drawing, and triggers the system UI to show, we want to continue drawing.
-            if (!whiteboard!!.isCurrentlyDrawing &&
+            if (!whiteboard.isCurrentlyDrawing &&
                 (
                     !showWhiteboard ||
                         (
@@ -1554,7 +1548,7 @@ open class Reviewer :
                 v.performClick()
                 return@setOnTouchListener gestureDetector!!.onTouchEvent(event)
             }
-            whiteboard!!.handleTouchEvent(event)
+            whiteboard.handleTouchEvent(event)
         }
     }
 
@@ -1612,13 +1606,12 @@ open class Reviewer :
      * Whether or not dismiss note is available for current card and specified DismissType
      * @return true if there is another card of same note that could be dismissed
      */
-    @KotlinCleanup("mCurrentCard handling")
     private fun suspendNoteAvailable(): Boolean {
         return if (currentCard == null) {
             false
         } else {
             getColUnsafe.db.queryScalar(
-                "select 1 from cards where nid = ? and id != ? and queue != $QUEUE_TYPE_SUSPENDED limit 1",
+                "select 1 from cards where nid = ? and id != ? and queue != ${QueueType.Suspended.code} limit 1",
                 currentCard!!.nid,
                 currentCard!!.id,
             ) == 1
@@ -1626,13 +1619,12 @@ open class Reviewer :
         // whether there exists a sibling not buried.
     }
 
-    @KotlinCleanup("mCurrentCard handling")
     private fun buryNoteAvailable(): Boolean {
         return if (currentCard == null) {
             false
         } else {
             getColUnsafe.db.queryScalar(
-                "select 1 from cards where nid = ? and id != ? and queue >=  $QUEUE_TYPE_NEW limit 1",
+                "select 1 from cards where nid = ? and id != ? and queue >=  ${QueueType.New.code} limit 1",
                 currentCard!!.nid,
                 currentCard!!.id,
             ) == 1
@@ -1670,5 +1662,12 @@ open class Reviewer :
 
         /** Default (500ms) time for action snackbars, such as undo, bury and suspend */
         const val ACTION_SNACKBAR_TIME = 500
+
+        fun getIntent(context: Context): Intent =
+            if (context.sharedPrefs().getBoolean("newReviewer", false)) {
+                ReviewerFragment.getIntent(context)
+            } else {
+                Intent(context, Reviewer::class.java)
+            }
     }
 }

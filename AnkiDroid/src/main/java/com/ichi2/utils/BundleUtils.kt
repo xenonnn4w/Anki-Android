@@ -16,6 +16,7 @@
 package com.ichi2.utils
 
 import android.os.Bundle
+import androidx.core.os.bundleOf
 
 /**
  * Collection of useful methods to be used with [android.os.Bundle]
@@ -63,3 +64,30 @@ object BundleUtils {
             getInt(key)
         }
 }
+
+/**
+ * Retrieves a [Boolean] value from a [Bundle] using a key, throws if not found
+ *
+ * @param key A string key
+ * @return the value associated with [key]
+ * @throws IllegalStateException If [key] does not exist in the bundle
+ */
+fun Bundle.requireBoolean(key: String): Boolean {
+    check(containsKey(key)) { "key: '$key' not found" }
+    return getBoolean(key)
+}
+
+/**
+ * Returns a new [Bundle] with the given key/value pairs as elements.
+ *
+ * Convenience method, allowing a `null` pair to mean 'exclude from the bundle'
+ *
+ * ```kotlin
+ * bundleOf(
+ *     optional?.let { KEY to it }
+ * )
+ * ```
+ *
+ * @throws IllegalArgumentException When a value is not a supported type of [Bundle].
+ */
+fun bundleOfNotNull(vararg pairs: Pair<String, Any>?): Bundle = bundleOf(*pairs.mapNotNull { it }.toTypedArray())

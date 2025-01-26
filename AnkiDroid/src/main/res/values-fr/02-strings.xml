@@ -88,7 +88,7 @@
         <item quantity="other">+%d enterrées</item>
     </plurals>
     <string name="studyoptions_total_new_label">Total new cards</string>
-    <string name="studyoptions_total_label">Total cards</string>
+    <string name="studyoptions_total_label">Total de cartes</string>
     <!-- Card editor -->
     <string name="cardeditor_title_edit_card" maxLength="28">Modifier la note</string>
     <string name="discard">Jeter</string>
@@ -302,7 +302,6 @@
     <string name="show_cards" comment="Label for toggle cards button in BrowserOptionsDialog">Cartes</string>
     <string name="show_notes" comment="Label for toggle notes button in BrowserOptionsDialog">Notes</string>
     <string name="toggle_cards_notes">Activer/Désactiver les Cartes/Notes</string>
-    <string name="toggle_browser_mode_help">Activer/désactiver l\'affichage des cartes ou des notes dans le navigateur</string>
     <string name="truncate_content_help">Tronquer la hauteur de chaque ligne du navigateur pour ne montrer que les 3 premières lignes de contenu</string>
     <string name="browser_options_dialog_heading">Options du navigateur</string>
     <string name="audio_saved">Enregistrement sauvegardé</string>

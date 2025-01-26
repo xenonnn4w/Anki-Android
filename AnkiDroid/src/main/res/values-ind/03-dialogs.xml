@@ -56,7 +56,6 @@
     <string name="tts_no_tts">Jangan bicara</string>
     <string name="unused_strings">\n\nBerkas yang tidak digunakan:\n</string>
     <string name="reposition_card_dialog_title">Pindah posisi kartu baru</string>
-    <string name="reposition_card_dialog_message">Posisi Mulai:</string>
     <string name="reposition_card_not_new_error">Hanya kartu baru yang dapat pindah posisi</string>
     <plurals name="reposition_card_dialog_acknowledge">
         <item quantity="other">%d posisi kartu dipindah</item>
@@ -127,7 +126,6 @@
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Mencari kartu kosong&#8230;</string>
     <string name="empty_cards_count">Kartu yang akan dihapus: %d</string>
-    <string name="empty_cards_deleted">Kartu dihapus: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Tidak mendapat izin mikrofon</string>
     <string name="multimedia_editor_failed">Gagal membuka Editor Multimedia</string>
@@ -161,8 +159,6 @@
     <!-- Global Intent handler -->
     <!-- Also used by Card Browser, not renaming to save translators effort -->
     <string name="intent_handler_failed_no_storage_permission">Izin penyimpanan diperlukan. Harap izinkan akses penyimpanan lalu coba lagi.</string>
-    <!-- Browser Appearance -->
-    <string name="card_template_editor_card_browser_appearance_failed">Tidak dapat memuat Tampilan Peramban Kartu</string>
     <!-- Boot Service -->
     <string name="boot_service_failed_to_schedule_notifications">Gagal menjadwalkan pengingat</string>
     <string name="boot_service_too_many_notifications">Terlalu banyak pengingat dijadwalkan. Sebagian tidak akan muncul</string>

@@ -57,7 +57,6 @@
     <string name="tts_no_tts">ಮಾತನಾಡಬೇಡ</string>
     <string name="unused_strings">\n\nಬಳಕೆಯಾಗದ ಫೈಲ್‌ಗಳು:\n</string>
     <string name="reposition_card_dialog_title">ಹೊಸ ಕಾರ್ಡ್ ಅನ್ನು ಮರುಸೇರಿಸಿ</string>
-    <string name="reposition_card_dialog_message">ಆರಂಭಿಕ ಸ್ಥಾನ:</string>
     <string name="reposition_card_not_new_error">ಹೊಸ ಕಾರ್ಡ್‌ಗಳನ್ನು ಮಾತ್ರ ಮರುಸ್ಥಾಪಿಸಬಹುದು</string>
     <plurals name="reposition_card_dialog_acknowledge">
         <item quantity="one">%d ಕಾರ್ಡ್ ಅನ್ನು ಮರುಸ್ಥಾನಗೊಳಿಸಲಾಗಿದೆ</item>
@@ -131,7 +130,6 @@
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">ಖಾಲಿ ಕಾರ್ಡ್‌ಗಳಿಗಾಗಿ ಹುಡುಕಲಾಗುತ್ತಿದೆ&#8230;</string>
     <string name="empty_cards_count">ಅಳಿಸಲು ಕಾರ್ಡ್‌ಗಳು: %d</string>
-    <string name="empty_cards_deleted">ಕಾರ್ಡ್‌ಗಳನ್ನು ಅಳಿಸಲಾಗಿದೆ: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">ಮೈಕ್ರೊಫೋನ್ ಅನುಮತಿಯನ್ನು ಪಡೆಯಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ.</string>
     <string name="multimedia_editor_failed">ಮಲ್ಟಿಮೀಡಿಯಾ ಸಂಪಾದಕವನ್ನು ತೆರೆಯಲು ವಿಫಲವಾಗಿದೆ</string>
@@ -165,8 +163,6 @@
     <!-- Global Intent handler -->
     <!-- Also used by Card Browser, not renaming to save translators effort -->
     <string name="intent_handler_failed_no_storage_permission">ಅಗತ್ಯವಿರುವ ಸಂಗ್ರಹಣೆ ಅನುಮತಿ ಕಾಣೆಯಾಗಿದೆ. ದಯವಿಟ್ಟು ಶೇಖರಣಾ ಅನುಮತಿಯನ್ನು ನೀಡಿ ಮತ್ತು ನಂತರ ನಿಮ್ಮ ಕ್ರಿಯೆಯನ್ನು ಮರುಪ್ರಯತ್ನಿಸಿ.</string>
-    <!-- Browser Appearance -->
-    <string name="card_template_editor_card_browser_appearance_failed">ಕಾರ್ಡ್ ಬ್ರೌಸರ್ ವೀಕ್ಷಣೆಯನ್ನು ಲೋಡ್ ಮಾಡಲು ಸಾಧ್ಯವಾಗಲಿಲ್ಲ</string>
     <!-- Boot Service -->
     <string name="boot_service_failed_to_schedule_notifications">ಜ್ಞಾಪನೆಗಳನ್ನು ನಿಗದಿಪಡಿಸಲು ವಿಫಲವಾಗಿದೆ</string>
     <string name="boot_service_too_many_notifications">ಹಲವಾರು ಜ್ಞಾಪನೆಗಳನ್ನು ನಿಗದಿಪಡಿಸಲಾಗಿದೆ. ಕೆಲವು ಕಾಣಿಸುವುದಿಲ್ಲ</string>
@@ -190,7 +186,7 @@
     <string name="multimedia_editor_trans_translate">ಅನುವಾದಿಸು</string>
     <string name="help_title_community">ಸಮುದಾಯ</string>
     <string name="help_item_anki_forums">Anki Forums</string>
-    <string name="help_item_discord">ಅಪಶ್ರುತಿ</string>
+    <string name="help_item_discord">Discord</string>
     <string name="help_item_facebook">ಫೇಸ್ಬುಕ್</string>
     <string name="help_item_twitter">ಟ್ವಿಟರ್</string>
     <string name="help_title_privacy">ಗೌಪ್ಯತೆ</string>

@@ -59,7 +59,6 @@
     <string name="tts_no_tts">Не говорити</string>
     <string name="unused_strings">\n\nНевикористані файли:\n</string>
     <string name="reposition_card_dialog_title">Перемістити нову картку</string>
-    <string name="reposition_card_dialog_message">Початкова позиція:</string>
     <string name="reposition_card_not_new_error">Можна перемістити тільки нові картки</string>
     <plurals name="reposition_card_dialog_acknowledge">
         <item quantity="one">%d картку переміщено</item>
@@ -139,7 +138,6 @@
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Пошук порожніх карток&#8230;</string>
     <string name="empty_cards_count">Картки до видалення: %d</string>
-    <string name="empty_cards_deleted">Карток видалено: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Не вдалося отримати дозвіл на використання мікрофона.</string>
     <string name="multimedia_editor_failed">Не вдалося відкрити мультимедійний редактор</string>
@@ -173,8 +171,6 @@
     <!-- Global Intent handler -->
     <!-- Also used by Card Browser, not renaming to save translators effort -->
     <string name="intent_handler_failed_no_storage_permission">Немає доступу до сховища. Надайте дозвіл на доступ до сховища і спробуйте знову.</string>
-    <!-- Browser Appearance -->
-    <string name="card_template_editor_card_browser_appearance_failed">Не вдалося завантажити зовнішній вигляд переглядача карток</string>
     <!-- Boot Service -->
     <string name="boot_service_failed_to_schedule_notifications">Не вдалося запланувати нагадування</string>
     <string name="boot_service_too_many_notifications">Забагато нагадувань заплановано. Деякі з них не з’являться</string>

@@ -37,6 +37,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.core.view.isVisible
+import androidx.core.view.updateLayoutParams
 import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
@@ -44,6 +45,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
+import com.google.android.material.shape.ShapeAppearanceModel
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textview.MaterialTextView
 import com.ichi2.anki.AbstractFlashcardViewer.Companion.RESULT_NO_MORE_CARDS
@@ -76,6 +78,7 @@ import com.ichi2.anki.preferences.reviewer.ViewerAction.REDO
 import com.ichi2.anki.preferences.reviewer.ViewerAction.SUSPEND_CARD
 import com.ichi2.anki.preferences.reviewer.ViewerAction.SUSPEND_MENU
 import com.ichi2.anki.preferences.reviewer.ViewerAction.SUSPEND_NOTE
+import com.ichi2.anki.preferences.reviewer.ViewerAction.TOGGLE_AUTO_ADVANCE
 import com.ichi2.anki.preferences.reviewer.ViewerAction.UNDO
 import com.ichi2.anki.preferences.reviewer.ViewerAction.UNSET_FLAG
 import com.ichi2.anki.preferences.reviewer.ViewerAction.USER_ACTION_1
@@ -89,6 +92,9 @@ import com.ichi2.anki.preferences.reviewer.ViewerAction.USER_ACTION_8
 import com.ichi2.anki.preferences.reviewer.ViewerAction.USER_ACTION_9
 import com.ichi2.anki.previewer.CardViewerActivity
 import com.ichi2.anki.previewer.CardViewerFragment
+import com.ichi2.anki.settings.Prefs
+import com.ichi2.anki.settings.enums.FrameStyle
+import com.ichi2.anki.settings.enums.HideSystemBars
 import com.ichi2.anki.snackbar.BaseSnackbarBuilderProvider
 import com.ichi2.anki.snackbar.SnackbarBuilder
 import com.ichi2.anki.snackbar.showSnackbar
@@ -98,6 +104,7 @@ import com.ichi2.anki.utils.ext.menu
 import com.ichi2.anki.utils.ext.removeSubMenu
 import com.ichi2.anki.utils.ext.sharedPrefs
 import com.ichi2.anki.utils.ext.window
+import com.ichi2.anki.utils.setMargins
 import com.ichi2.libanki.sched.Counts
 import kotlinx.coroutines.launch
 
@@ -140,6 +147,7 @@ class ReviewerFragment :
         }
 
         setupImmersiveMode(view)
+        setupFrame(view)
         setupTypeAnswer(view)
         setupAnswerButtons(view)
         setupCounts(view)
@@ -180,6 +188,7 @@ class ReviewerFragment :
             MARK -> viewModel.toggleMark()
             REDO -> viewModel.redo()
             UNDO -> viewModel.undo()
+            TOGGLE_AUTO_ADVANCE -> viewModel.toggleAutoAdvance()
             BURY_NOTE -> viewModel.buryNote()
             BURY_CARD -> viewModel.buryCard()
             SUSPEND_NOTE -> viewModel.suspendNote()
@@ -229,7 +238,7 @@ class ReviewerFragment :
                     }
                 }
             }
-        val autoFocusTypeAnswer = sharedPrefs().getBoolean(getString(R.string.type_in_answer_focus_key), true)
+        val autoFocusTypeAnswer = Prefs.autoFocusTypeAnswer
         viewModel.typeAnswerFlow.collectIn(lifecycleScope) { typeInAnswer ->
             typeAnswerEditText.text = null
             if (typeInAnswer == null) {
@@ -249,10 +258,17 @@ class ReviewerFragment :
         }
     }
 
+    private fun resetZoom() {
+        webView.settings.loadWithOverviewMode = false
+        webView.settings.loadWithOverviewMode = true
+    }
+
     private fun setupAnswerButtons(view: View) {
-        val hideAnswerButtons = sharedPrefs().getBoolean(getString(R.string.hide_answer_buttons_key), false)
+        val prefs = sharedPrefs()
+        val hideAnswerButtons = prefs.getBoolean(getString(R.string.hide_answer_buttons_key), false)
+        val buttonsAreaLayout = view.findViewById<FrameLayout>(R.id.buttons_area)
         if (hideAnswerButtons) {
-            view.findViewById<FrameLayout>(R.id.buttons_area).isVisible = false
+            buttonsAreaLayout.isVisible = false
             return
         }
 
@@ -302,18 +318,29 @@ class ReviewerFragment :
 
         // TODO add some kind of feedback/animation after tapping show answer or the answer buttons
         viewModel.showingAnswer.collectLatestIn(lifecycleScope) { shouldShowAnswer ->
+            // use INVISIBLE instead of GONE to keep the same button height
             if (shouldShowAnswer) {
-                showAnswerButton.isVisible = false
-                answerButtonsLayout.isVisible = true
+                showAnswerButton.visibility = View.INVISIBLE
+                answerButtonsLayout.visibility = View.VISIBLE
             } else {
-                showAnswerButton.isVisible = true
-                answerButtonsLayout.isVisible = false
+                showAnswerButton.visibility = View.VISIBLE
+                answerButtonsLayout.visibility = View.INVISIBLE
             }
+            resetZoom()
         }
 
-        if (sharedPrefs().getBoolean(getString(R.string.hide_hard_and_easy_key), false)) {
+        if (prefs.getBoolean(getString(R.string.hide_hard_and_easy_key), false)) {
             hardButton.isVisible = false
             easyButton.isVisible = false
+        }
+
+        val buttonsHeight = Prefs.answerButtonsSize
+        if (buttonsHeight != 100) {
+            buttonsAreaLayout.post {
+                buttonsAreaLayout.updateLayoutParams {
+                    height = buttonsAreaLayout.measuredHeight * buttonsHeight / 100
+                }
+            }
         }
     }
 
@@ -426,9 +453,8 @@ class ReviewerFragment :
     }
 
     private fun setupImmersiveMode(view: View) {
-        val hideSystemBarsSetting = HideSystemBars.from(requireContext())
         val barsToHide =
-            when (hideSystemBarsSetting) {
+            when (Prefs.hideSystemBars) {
                 HideSystemBars.NONE -> return
                 HideSystemBars.STATUS_BAR -> WindowInsetsCompat.Type.statusBars()
                 HideSystemBars.NAVIGATION_BAR -> WindowInsetsCompat.Type.navigationBars()
@@ -441,7 +467,7 @@ class ReviewerFragment :
             systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
 
-        val ignoreDisplayCutout = sharedPrefs().getBoolean(getString(R.string.ignore_display_cutout_key), false)
+        val ignoreDisplayCutout = Prefs.ignoreDisplayCutout
         ViewCompat.setOnApplyWindowInsetsListener(view) { v, insets ->
             val defaultTypes = WindowInsetsCompat.Type.systemBars() or WindowInsetsCompat.Type.ime()
             val typeMask =
@@ -458,6 +484,16 @@ class ReviewerFragment :
                 bottom = bars.bottom,
             )
             WindowInsetsCompat.CONSUMED
+        }
+    }
+
+    private fun setupFrame(view: View) {
+        if (Prefs.frameStyle == FrameStyle.BOX) {
+            view.findViewById<MaterialCardView>(R.id.webview_container).apply {
+                setMargins(0)
+                cardElevation = 0F
+                shapeAppearanceModel = ShapeAppearanceModel() // Remove corners
+            }
         }
     }
 

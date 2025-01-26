@@ -28,6 +28,7 @@ import com.ichi2.anim.ActivityTransitionAnimation
 import com.ichi2.anki.AnkiDroidJsAPITest.Companion.formatApiResult
 import com.ichi2.anki.AnkiDroidJsAPITest.Companion.getDataFromRequest
 import com.ichi2.anki.AnkiDroidJsAPITest.Companion.jsApiContract
+import com.ichi2.anki.CollectionManager.TR
 import com.ichi2.anki.cardviewer.Gesture
 import com.ichi2.anki.cardviewer.ViewerCommand.FLIP_OR_ANSWER_EASE1
 import com.ichi2.anki.cardviewer.ViewerCommand.MARK
@@ -36,18 +37,20 @@ import com.ichi2.anki.preferences.PreferenceTestUtils
 import com.ichi2.anki.preferences.sharedPrefs
 import com.ichi2.anki.reviewer.ActionButtonStatus
 import com.ichi2.libanki.Card
+import com.ichi2.libanki.CardType
 import com.ichi2.libanki.Consts
 import com.ichi2.libanki.NotetypeJson
 import com.ichi2.libanki.Notetypes
+import com.ichi2.libanki.QueueType
 import com.ichi2.libanki.exception.ConfirmModSchemaException
 import com.ichi2.libanki.undoableOp
 import com.ichi2.libanki.utils.TimeManager
 import com.ichi2.testutils.MockTime
 import com.ichi2.testutils.common.Flaky
 import com.ichi2.testutils.common.OS
+import com.ichi2.testutils.ext.addNote
 import com.ichi2.utils.BASIC_MODEL_NAME
 import com.ichi2.utils.KotlinCleanup
-import com.ichi2.utils.deepClone
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertFalse
 import junit.framework.TestCase.assertTrue
@@ -83,7 +86,7 @@ class ReviewerTest : RobolectricTest() {
     @Test
     fun testOnSelectedTags() {
         // Add a note using basic model
-        addNoteUsingBasicModel()
+        addBasicNote()
 
         // Start the Reviewer activity
         val viewer = startRegularActivity<Reviewer>()
@@ -148,8 +151,9 @@ class ReviewerTest : RobolectricTest() {
 
     @Test
     fun noErrorShouldOccurIfSoundFileNotPresent() {
-        val firstNote = addNoteUsingBasicModel("[[sound:not_on_file_system.mp3]]", "World")
-        moveToReviewQueue(firstNote.firstCard())
+        addBasicNote("[[sound:not_on_file_system.mp3]]", "World")
+            .firstCard()
+            .moveToReviewQueue()
 
         val reviewer = startReviewer()
         reviewer.displayCardQuestion()
@@ -197,9 +201,9 @@ class ReviewerTest : RobolectricTest() {
     fun testMultipleCards() =
         runTest {
             addNoteWithThreeCards()
-            val nw = col.decks.configDictForDeckId(1).getJSONObject("new")
+            val new = defaultDeckConfig.new
             val time = collectionTime
-            nw.put("delays", JSONArray(intArrayOf(1, 10, 60, 120)))
+            new.delays = JSONArray(intArrayOf(1, 10, 60, 120))
 
             waitForAsyncTasksToComplete()
 
@@ -227,15 +231,15 @@ class ReviewerTest : RobolectricTest() {
     @Flaky(OS.ALL, "java.lang.AssertionError: Expected: \"2\" but: was \"1\"")
     fun testLrnQueueAfterUndo() =
         runTest {
-            val nw = col.decks.configDictForDeckId(1).getJSONObject("new")
+            val new = defaultDeckConfig.new
             val time = TimeManager.time as MockTime
-            nw.put("delays", JSONArray(intArrayOf(1, 10, 60, 120)))
+            new.delays = JSONArray(intArrayOf(1, 10, 60, 120))
 
             val cards =
                 arrayOf(
-                    addRevNoteUsingBasicModelDueToday("1", "bar").firstCard(),
-                    addNoteUsingBasicModel("2", "bar").firstCard(),
-                    addNoteUsingBasicModel("3", "bar").firstCard(),
+                    addRevBasicNoteDueToday("1", "bar").firstCard(),
+                    addBasicNote("2", "bar").firstCard(),
+                    addBasicNote("3", "bar").firstCard(),
                 )
             waitForAsyncTasksToComplete()
 
@@ -276,7 +280,7 @@ class ReviewerTest : RobolectricTest() {
             val didAb = addDeck("A::B")
             val basic = models.byName(BASIC_MODEL_NAME)
             basic!!.put("did", didAb)
-            addNoteUsingBasicModel("foo", "bar")
+            addBasicNote("foo", "bar")
 
             addDeck("A", setAsSelected = true)
 
@@ -302,7 +306,7 @@ class ReviewerTest : RobolectricTest() {
             waitForAsyncTasksToComplete()
 
             // #6587
-            addNoteUsingBasicModel("Hello", "World")
+            addBasicNote("Hello", "World")
 
             val sched = col.sched
 
@@ -446,12 +450,13 @@ class ReviewerTest : RobolectricTest() {
     }
 
     @Throws(ConfirmModSchemaException::class)
+    @KotlinCleanup("use a assertNotNull which returns rather than !!")
     private fun addNoteWithThreeCards() {
         val models = col.notetypes
-        var notetype: NotetypeJson? = models.copy(models.current())
-        notetype!!.put("name", "Three")
+        var notetype: NotetypeJson = models.copy(models.current())
+        notetype.put("name", "Three")
         models.add(notetype)
-        notetype = models.byName("Three")
+        notetype = models.byName("Three")!!
 
         cloneTemplate(models, notetype, "1")
         cloneTemplate(models, notetype, "2")
@@ -466,18 +471,18 @@ class ReviewerTest : RobolectricTest() {
     @Throws(ConfirmModSchemaException::class)
     private fun cloneTemplate(
         notetypes: Notetypes,
-        notetype: NotetypeJson?,
+        notetype: NotetypeJson,
         extra: String,
     ) {
-        val tmpls = notetype!!.getJSONArray("tmpls")
-        val defaultTemplate = tmpls.getJSONObject(0)
+        val tmpls = notetype.tmpls
+        val defaultTemplate = tmpls.first()
 
         val newTemplate = defaultTemplate.deepClone()
-        newTemplate.put("ord", tmpls.length())
+        newTemplate.setOrd(tmpls.length())
 
-        val cardName = CollectionManager.TR.cardTemplatesCard(tmpls.length() + 1)
-        newTemplate.put("name", cardName)
-        newTemplate.put("qfmt", newTemplate.getString("qfmt") + extra)
+        val cardName = TR.cardTemplatesCard(tmpls.length() + 1)
+        newTemplate.name = cardName
+        newTemplate.qfmt += extra
 
         notetypes.addTemplate(notetype, newTemplate)
     }
@@ -485,7 +490,7 @@ class ReviewerTest : RobolectricTest() {
     @CheckResult
     private fun startReviewer(withCards: Int = 0): Reviewer {
         for (i in 0 until withCards) {
-            addNoteUsingBasicModel()
+            addBasicNote()
         }
         return startReviewer(this)
     }
@@ -498,20 +503,22 @@ class ReviewerTest : RobolectricTest() {
         block: suspend Reviewer.() -> Unit,
     ) = runTest {
         for (frontSide in cards) {
-            addNoteUsingBasicModel(front = frontSide)
+            addBasicNote(front = frontSide)
         }
         val reviewer = startReviewer(this@ReviewerTest)
         block(reviewer)
     }
 
-    @KotlinCleanup("use extension function")
-    private fun moveToReviewQueue(reviewCard: Card) {
-        reviewCard.update {
-            queue = Consts.QUEUE_TYPE_REV
-            type = Consts.CARD_TYPE_REV
+    private fun Card.moveToReviewQueue() {
+        update {
+            queue = QueueType.Rev
+            type = CardType.Rev
             due = 0
         }
     }
+
+    private val defaultDeckConfig
+        get() = col.decks.configDictForDeckId(Consts.DEFAULT_DECK_ID)
 
     private class ReviewerForMenuItems : Reviewer() {
         var menu: Menu? = null

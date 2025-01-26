@@ -86,8 +86,8 @@
     <plurals name="studyoptions_buried_count">
         <item quantity="other">+%d 今日は非表示</item>
     </plurals>
-    <string name="studyoptions_total_new_label">新規カード総数</string>
-    <string name="studyoptions_total_label">カード総数</string>
+    <string name="studyoptions_total_new_label">新規（未学習）総数</string>
+    <string name="studyoptions_total_label">デッキ内総数</string>
     <!-- Card editor -->
     <string name="cardeditor_title_edit_card" maxLength="28">ノートを編集</string>
     <string name="discard">破棄</string>
@@ -297,7 +297,6 @@
     <string name="show_cards" comment="Label for toggle cards button in BrowserOptionsDialog">カード</string>
     <string name="show_notes" comment="Label for toggle notes button in BrowserOptionsDialog">ノート</string>
     <string name="toggle_cards_notes">カード /ノート の切り替え</string>
-    <string name="toggle_browser_mode_help">カードブラウザのリスト画面で、カードとノート、どちらのリストを表示するかを切り替えます</string>
     <string name="truncate_content_help">リスト画面において、カードまたはノートの内容の表示を１件につき３行までに制限します</string>
     <string name="browser_options_dialog_heading">ブラウザ オプション</string>
     <string name="audio_saved">録音を保存しました</string>

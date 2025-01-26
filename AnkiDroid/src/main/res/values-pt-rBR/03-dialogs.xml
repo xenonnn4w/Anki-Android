@@ -57,7 +57,6 @@
     <string name="tts_no_tts">Não fale</string>
     <string name="unused_strings">\n\nArquivos não utilizados:\n</string>
     <string name="reposition_card_dialog_title">Reposicionar novo cartão</string>
-    <string name="reposition_card_dialog_message">Posição inicial:</string>
     <string name="reposition_card_not_new_error">Apenas novos cartões podem ser reposicionados</string>
     <plurals name="reposition_card_dialog_acknowledge">
         <item quantity="one">%d cartão reposicionado</item>
@@ -131,7 +130,6 @@
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Buscando cards vazios&#8230;</string>
     <string name="empty_cards_count">Cards a deletar: %d</string>
-    <string name="empty_cards_deleted">Cards deletados: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Não foi possível obter permissão de microfone.</string>
     <string name="multimedia_editor_failed">Falha ao abrir o Editor de Multimídia</string>
@@ -165,8 +163,6 @@
     <!-- Global Intent handler -->
     <!-- Also used by Card Browser, not renaming to save translators effort -->
     <string name="intent_handler_failed_no_storage_permission">Falta a permissão de armazenamento necessário. Por favor, conceda permissão de armazenamento e tente novamente.</string>
-    <!-- Browser Appearance -->
-    <string name="card_template_editor_card_browser_appearance_failed">Não foi possível carregar a Aparência do Navegador de Cards</string>
     <!-- Boot Service -->
     <string name="boot_service_failed_to_schedule_notifications">Falha ao agendar lembretes</string>
     <string name="boot_service_too_many_notifications">Muitos lembretes programados. Alguns não aparecerão</string>

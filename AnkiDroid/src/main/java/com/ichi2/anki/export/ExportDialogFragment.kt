@@ -97,8 +97,10 @@ class ExportDialogFragment : DialogFragment() {
         // start with the option for exporting a collection like on desktop unless we received a
         // deck id or a type of selection(plus selected ids), in this case preselect apkg export
         if ((extraDid != null && extraDid != -1L) || extraType != null) {
+            exportTypeSelector.setSelection(ExportConfiguration.Apkg.index)
             showExtrasOptionsFor(dialogView, ExportConfiguration.Apkg)
         } else {
+            exportTypeSelector.setSelection(ExportConfiguration.Collection.index)
             showExtrasOptionsFor(dialogView, ExportConfiguration.Collection)
         }
         return AlertDialog
@@ -207,8 +209,6 @@ class ExportDialogFragment : DialogFragment() {
     /**
      * Initializes the views representing the extra options available when exporting a collection.
      */
-    @NeedsTest("Checkbox is only available on two selections ")
-    @NeedsTest("Checkbox defaults to false")
     @NeedsTest("Checkbox value is provided to the correct export functions (true/false)")
     private fun View.initializeCollectionExportUi() =
         with(CollectionManager.TR) {
@@ -225,8 +225,6 @@ class ExportDialogFragment : DialogFragment() {
     /**
      * Initializes the views representing the extra options available when exporting an Anki package.
      */
-    @NeedsTest("Checkbox is only available on two selections ")
-    @NeedsTest("Checkbox defaults to false")
     @NeedsTest("Checkbox value is provided to the correct export functions (true/false)")
     private fun View.initializeApkgExportUi() =
         with(CollectionManager.TR) {
@@ -304,10 +302,8 @@ class ExportDialogFragment : DialogFragment() {
                 selectedLabel.isVisible = false
             }
         }
-        exportTypeSelector.setSelection(targetConfig.index)
         ExportConfiguration.entries.forEach { config ->
-            container.findViewById<View>(config.layoutId).visibility =
-                if (config.layoutId == targetConfig.layoutId) View.VISIBLE else View.GONE
+            container.findViewById<View>(config.layoutId).isVisible = config.layoutId == targetConfig.layoutId
         }
     }
 

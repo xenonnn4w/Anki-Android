@@ -41,7 +41,7 @@ class TextField :
         get() = _text
         set(value) {
             _text = value!!
-            setThisModified()
+            thisModified = true
         }
 
     override var hasTemporaryMedia: Boolean = false
@@ -60,9 +60,5 @@ class TextField :
         value: String,
     ) {
         _text = value
-    }
-
-    companion object {
-        private const val SERIAL_VERSION_UID = -6508967905716947525L
     }
 }

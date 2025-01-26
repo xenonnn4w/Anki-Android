@@ -228,7 +228,7 @@ class CardMediaPlayerTest : JvmTest() {
         replayQuestion: Boolean?,
         autoplay: Boolean?,
     ) {
-        val card = addNoteUsingBasicModel().firstCard()
+        val card = addBasicNote().firstCard()
         mockkObject(card)
 
         every { card.renderOutput(any()) } answers {
@@ -243,12 +243,12 @@ class CardMediaPlayerTest : JvmTest() {
 
         if (replayQuestion != null) {
             updateDeckConfig(CardUtils.getDeckIdForCard(card)) {
-                put("replayq", replayQuestion)
+                replayq = replayQuestion
             }
         }
         if (autoplay != null) {
             updateDeckConfig(CardUtils.getDeckIdForCard(card)) {
-                put("autoplay", autoplay)
+                this.autoplay = autoplay
             }
         }
 

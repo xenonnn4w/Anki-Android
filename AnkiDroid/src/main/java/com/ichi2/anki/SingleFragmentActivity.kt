@@ -24,9 +24,7 @@ import androidx.fragment.app.FragmentContainerView
 import androidx.fragment.app.commit
 import com.ichi2.anki.android.input.ShortcutGroup
 import com.ichi2.anki.android.input.ShortcutGroupProvider
-import com.ichi2.anki.dialogs.customstudy.CustomStudyDialog
-import com.ichi2.anki.dialogs.customstudy.CustomStudyDialogFactory
-import com.ichi2.utils.ExtendedFragmentFactory
+import com.ichi2.anki.dialogs.customstudy.CustomStudyDialog.CustomStudyAction
 import com.ichi2.utils.FragmentFactoryUtils
 import timber.log.Timber
 import kotlin.reflect.KClass
@@ -41,19 +39,11 @@ import kotlin.reflect.jvm.jvmName
  *
  * [getIntent] can be used as an easy way to build a [SingleFragmentActivity]
  */
-open class SingleFragmentActivity :
-    AnkiActivity(),
-    CustomStudyDialog.CustomStudyListener {
+open class SingleFragmentActivity : AnkiActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         if (showedActivityFailedScreen(savedInstanceState)) {
             return
         }
-
-        // This page *may* host the CustomStudyDialog (CongratsPage)
-        // CustomStudyDialog requires a custom factory install during lifecycle or it can
-        // crash during lifecycle resume after background kill
-        val customStudyDialogFactory = CustomStudyDialogFactory({ this.getColUnsafe }, this)
-        customStudyDialogFactory.attachToActivity<ExtendedFragmentFactory>(this)
 
         super.onCreate(savedInstanceState)
         if (!ensureStoragePermissions()) {
@@ -80,6 +70,15 @@ open class SingleFragmentActivity :
             }
         supportFragmentManager.commit {
             replace(R.id.fragment_container, fragment, FRAGMENT_TAG)
+        }
+
+        supportFragmentManager.setFragmentResultListener(CustomStudyAction.REQUEST_KEY, this) { requestKey, bundle ->
+            when (CustomStudyAction.fromBundle(bundle)) {
+                CustomStudyAction.CUSTOM_STUDY_SESSION,
+                CustomStudyAction.EXTEND_STUDY_LIMITS,
+                ->
+                    openStudyOptionsAndFinish()
+            }
         }
     }
 
@@ -122,16 +121,6 @@ open class SingleFragmentActivity :
             }
         startActivity(intent, null)
         this.finish()
-    }
-
-    override fun onExtendStudyLimits() {
-        Timber.v("CustomStudyListener::onExtendStudyLimits()")
-        openStudyOptionsAndFinish()
-    }
-
-    override fun onCreateCustomStudySession() {
-        Timber.v("CustomStudyListener::onCreateCustomStudySession()")
-        openStudyOptionsAndFinish()
     }
 
     // END CustomStudyListener temporary implementation - should refactor out

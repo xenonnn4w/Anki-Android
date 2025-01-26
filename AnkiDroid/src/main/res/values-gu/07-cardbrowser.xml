@@ -91,9 +91,6 @@
     </string-array>
     <string name="card_browser_select_all" maxLength="28">બધા પસંદ કરો</string>
     <string name="card_browser_select_none" maxLength="28">કોઈ પસંદ કરો</string>
-    <string name="card_browser_interval_new_card" comment="Message indicating that a card is currently new, and so has no interval/ease.">(નવું)</string>
-    <string name="card_browser_due_filtered_card">(ફિલ્ટર કરેલ)</string>
-    <string name="card_browser_interval_learning_card">(શીખવું)</string>
     <string name="card_browser_no_cards_in_deck">ડેક \'%s\' માં કોઈ કાર્ડ મળ્યા નથી</string>
     <string name="card_browser_search_all_decks">બધા ડેક શોધો</string>
     <string name="card_browser_unknown_deck_name">અજ્ઞાત</string>
@@ -114,4 +111,11 @@
     <!--Keyboard shortcuts dialog-->
     <string name="edit_tags_dialog" comment="Description of the shortcut that opens the edit tags dialog">Edit tags dialog</string>
     <string name="show_order_dialog" comment="Description of the shortcut that shows the order dialog">Show order dialog</string>
+    <!-- Manage columns dialog -->
+    <string name="browse_manage_columns_main_heading">Columns</string>
+    <string name="browse_manage_columns">Manage columns</string>
+    <string name="user_active_columns">Active</string>
+    <string name="user_potential_columns">Available</string>
+    <string name="include_column">Include column</string>
+    <string name="exclude_column">Exclude column</string>
 </resources>

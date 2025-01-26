@@ -19,18 +19,14 @@ package com.ichi2.libanki
 
 import androidx.annotation.VisibleForTesting
 import anki.cards.FsrsMemoryState
-import anki.decks.deckId
 import com.ichi2.anki.Flag
 import com.ichi2.anki.utils.ext.ifZero
 import com.ichi2.annotations.NeedsTest
-import com.ichi2.libanki.Consts.CardQueue
-import com.ichi2.libanki.Consts.CardType
 import com.ichi2.libanki.TemplateManager.TemplateRenderContext.TemplateRenderOutput
 import com.ichi2.libanki.utils.LibAnkiAlias
 import com.ichi2.libanki.utils.NotInLibAnki
 import com.ichi2.libanki.utils.TimeManager
 import net.ankiweb.rsdroid.RustCleanup
-import org.json.JSONObject
 
 /**
  * A Card is the ultimate entity subject to review; it encapsulates the scheduling parameters (from which to derive
@@ -76,13 +72,9 @@ open class Card : Cloneable {
     var mod: Long = 0
     private var usn = 0
 
-    @get:CardType
-    @CardType
-    var type = 0
+    var type: CardType = CardType.New
 
-    @get:CardQueue
-    @CardQueue
-    var queue = 0
+    var queue: QueueType = QueueType.New
     var due: Int = 0
     var ivl = 0
     var factor = 0
@@ -106,7 +98,7 @@ open class Card : Cloneable {
         loadFromBackendCard(card)
     }
 
-    constructor(col: Collection, id: Long? = null) {
+    constructor(col: Collection, id: CardId? = null) {
         if (id != null) {
             this.id = id
             load(col)
@@ -131,8 +123,8 @@ open class Card : Cloneable {
         ord = card.templateIdx
         mod = card.mtimeSecs
         usn = card.usn
-        type = card.ctype
-        queue = card.queue
+        type = CardType.fromCode(card.ctype)
+        queue = QueueType.fromCode(card.queue)
         due = card.due
         ivl = card.interval
         factor = card.easeFactor
@@ -155,8 +147,8 @@ open class Card : Cloneable {
             noteId = nid
             deckId = did
             templateIdx = ord
-            ctype = type
-            queue = this@Card.queue
+            ctype = type.code
+            queue = this@Card.queue.code
             due = this@Card.due
             interval = ivl
             easeFactor = factor
@@ -218,12 +210,12 @@ open class Card : Cloneable {
     open fun noteType(col: Collection): NotetypeJson = note(col).notetype
 
     @LibAnkiAlias("template")
-    fun template(col: Collection): JSONObject {
+    fun template(col: Collection): CardTemplate {
         val m = noteType(col)
         return if (m.isStd) {
-            m.getJSONArray("tmpls").getJSONObject(ord)
+            m.tmpls[ord]
         } else {
-            noteType(col).getJSONArray("tmpls").getJSONObject(0)
+            noteType(col).tmpls[0]
         }
     }
 
@@ -234,15 +226,15 @@ open class Card : Cloneable {
 
     @LibAnkiAlias("current_deck_id")
     @NeedsTest("Test functionality which calls this")
-    fun currentDeckId() = deckId { did = oDid.ifZero { this@Card.did } }
+    fun currentDeckId() = oDid.ifZero { did }
 
     /**
      * Time limit for answering in milliseconds.
      */
     @LibAnkiAlias("time_limit")
     fun timeLimit(col: Collection): Int {
-        val conf = col.decks.configDictForDeckId(currentDeckId().did)
-        return conf.getInt("maxTaken") * 1000
+        val conf = col.decks.configDictForDeckId(currentDeckId())
+        return conf.maxTaken * 1000
     }
 
     /*
@@ -281,18 +273,15 @@ open class Card : Cloneable {
 
     @LibAnkiAlias("should_show_timer")
     fun shouldShowTimer(col: Collection): Boolean {
-        val options = col.decks.configDictForDeckId(currentDeckId().did)
-        return DeckConfig.parseTimerOpt(options, true)
+        val conf = col.decks.configDictForDeckId(currentDeckId())
+        return conf.timer
     }
 
     @LibAnkiAlias("replay_question_audio_on_answer_side")
-    fun replayQuestionAudioOnAnswerSide(col: Collection): Boolean {
-        val conf = col.decks.configDictForDeckId(currentDeckId().did)
-        return conf.optBoolean("replayq", true)
-    }
+    fun replayQuestionAudioOnAnswerSide(col: Collection) = col.decks.configDictForDeckId(currentDeckId()).replayq
 
     @LibAnkiAlias("autoplay")
-    fun autoplay(col: Collection): Boolean = col.decks.configDictForDeckId(currentDeckId().did).getBoolean("autoplay")
+    fun autoplay(col: Collection): Boolean = col.decks.configDictForDeckId(currentDeckId()).autoplay
 
     @NotInLibAnki
     public override fun clone(): Card =
@@ -445,8 +434,6 @@ open class Card : Cloneable {
     }
 
     companion object {
-        const val TYPE_REV = 2
-
         // A list of class members to skip in the toString() representation
         val SKIP_PRINT: Set<String> =
             HashSet(

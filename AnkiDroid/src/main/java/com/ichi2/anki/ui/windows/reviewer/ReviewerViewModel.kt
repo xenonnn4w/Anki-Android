@@ -112,6 +112,10 @@ class ReviewerViewModel(
         ChangeManager.subscribe(this)
         launchCatchingIO {
             updateUndoAndRedoLabels()
+            // The height of the answer buttons may increase if `Show button time` is enabled.
+            // To ensure consistent height, load the times to match the height of the `Show answer`
+            // button with the answer buttons.
+            updateNextTimes()
         }
         cardMediaPlayer.setOnSoundGroupCompletedListener {
             launchCatchingIO {
@@ -312,6 +316,28 @@ class ReviewerViewModel(
 
     fun stopAutoAdvance() {
         autoAdvance.cancelQuestionAndAnswerActionJobs()
+    }
+
+    fun toggleAutoAdvance() {
+        launchCatchingIO {
+            autoAdvance.isEnabled = !autoAdvance.isEnabled
+
+            val message =
+                if (autoAdvance.isEnabled) {
+                    CollectionManager.TR.actionsAutoAdvanceActivated()
+                } else {
+                    CollectionManager.TR.actionsAutoAdvanceDeactivated()
+                }
+            actionFeedbackFlow.emit(message)
+
+            if (autoAdvance.shouldWaitForAudio() && cardMediaPlayer.isPlaying) return@launchCatchingIO
+
+            if (showingAnswer.value) {
+                autoAdvance.onShowAnswer()
+            } else {
+                autoAdvance.onShowQuestion()
+            }
+        }
     }
 
     /* *********************************************************************************************

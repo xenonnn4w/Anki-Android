@@ -57,7 +57,6 @@
     <string name="tts_no_tts">არ წაიკითხოს</string>
     <string name="unused_strings">\n\nგამოუყენებელი ფაილები:\n</string>
     <string name="reposition_card_dialog_title">ახალი ბარათის გადაადგილება</string>
-    <string name="reposition_card_dialog_message">საწყისი პოზიცია:</string>
     <string name="reposition_card_not_new_error">პოზიციის შეცვლა მხოლოდ ახალი ბარათებისთვის შეიძლება</string>
     <plurals name="reposition_card_dialog_acknowledge">
         <item quantity="one">შეიცვალა %d ბარათის პოზიცია</item>
@@ -131,7 +130,6 @@
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">იძებნება ცარიელი ბარათები&#8230;</string>
     <string name="empty_cards_count">წასაშლელი ბარათი: %d</string>
-    <string name="empty_cards_deleted">წაიშალა %d ბარათი</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">ვერ მოიპოვა მიკროფონზე წვდომის ნებართვა.</string>
     <string name="multimedia_editor_failed">ვერ გაიხსნა მულტიმედია-რედაქტორი</string>
@@ -165,8 +163,6 @@
     <!-- Global Intent handler -->
     <!-- Also used by Card Browser, not renaming to save translators effort -->
     <string name="intent_handler_failed_no_storage_permission">Missing required storage permission. Please grant storage permission then retry your action.</string>
-    <!-- Browser Appearance -->
-    <string name="card_template_editor_card_browser_appearance_failed">ბარათების საძიებოს გარეგნობის ჩატვირთვა ვერ მოხერხდა</string>
     <!-- Boot Service -->
     <string name="boot_service_failed_to_schedule_notifications">შემახსენებელი შეტყობინებების დაგეგმვა ვერ მოხერხდა</string>
     <string name="boot_service_too_many_notifications">Too many reminders scheduled. Some will not appear</string>

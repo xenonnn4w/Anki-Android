@@ -57,7 +57,6 @@
     <string name="tts_no_tts">Non parlare</string>
     <string name="unused_strings">\n\nFile inutilizzati:\n</string>
     <string name="reposition_card_dialog_title">Riposiziona nuova carta</string>
-    <string name="reposition_card_dialog_message">Posizione iniziale:</string>
     <string name="reposition_card_not_new_error">Solo le nuove carte possono essere riposizionate</string>
     <plurals name="reposition_card_dialog_acknowledge">
         <item quantity="one">%d carta riposizionata</item>
@@ -131,7 +130,6 @@
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Cerco carte vuote&#8230;</string>
     <string name="empty_cards_count">Carte de eliminare: %d</string>
-    <string name="empty_cards_deleted">Carte eliminate: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Impossibile ottenere il permesso del microfono.</string>
     <string name="multimedia_editor_failed">Apertura dell\'editore multimediale fallita</string>
@@ -165,8 +163,6 @@
     <!-- Global Intent handler -->
     <!-- Also used by Card Browser, not renaming to save translators effort -->
     <string name="intent_handler_failed_no_storage_permission">Autorizzazione di archiviazione mancante. Si prega di concedere l\'autorizzazione all\'archiviazione e riprovare l\'azione.</string>
-    <!-- Browser Appearance -->
-    <string name="card_template_editor_card_browser_appearance_failed">Impossibile caricare l\'aspetto del browser delle carte</string>
     <!-- Boot Service -->
     <string name="boot_service_failed_to_schedule_notifications">Pianificazione dei promemoria fallita</string>
     <string name="boot_service_too_many_notifications">Troppi promemoria pianificati. Alcuni non appariranno.</string>

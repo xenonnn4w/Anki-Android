@@ -59,7 +59,6 @@
     <string name="tts_no_tts">Не прамаўляць</string>
     <string name="unused_strings">\n\nНявыкарыстаныя файлы:\n</string>
     <string name="reposition_card_dialog_title">Перамясціць новую картку</string>
-    <string name="reposition_card_dialog_message">Пачатковая пазіцыя:</string>
     <string name="reposition_card_not_new_error">Толькі новыя карткі могуць быць перамешчаныя</string>
     <plurals name="reposition_card_dialog_acknowledge">
         <item quantity="one">Перамешчана %d картка</item>
@@ -139,7 +138,6 @@
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Пошук пустых картак&#8230;</string>
     <string name="empty_cards_count">Картак да выдалення: %d</string>
-    <string name="empty_cards_deleted">Выдалена картак: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Памылка атрымання дазволу на выкарыстанне мікрафона.</string>
     <string name="multimedia_editor_failed">Памылка адкрыцця рэдактара мультымедыя</string>
@@ -173,8 +171,6 @@
     <!-- Global Intent handler -->
     <!-- Also used by Card Browser, not renaming to save translators effort -->
     <string name="intent_handler_failed_no_storage_permission">Няма дазволу на доступ да сховішча. Дайце неабходныя дазволы, а потым паўтарыце дзеянне.</string>
-    <!-- Browser Appearance -->
-    <string name="card_template_editor_card_browser_appearance_failed">Не атрымалася загрузіць аглядальнік картак</string>
     <!-- Boot Service -->
     <string name="boot_service_failed_to_schedule_notifications">Не атрымалася запланаваць напаміны</string>
     <string name="boot_service_too_many_notifications">Запланавана вельмі многа напамінаў. Некаторыя з іх не будуць адлюстраваныя</string>

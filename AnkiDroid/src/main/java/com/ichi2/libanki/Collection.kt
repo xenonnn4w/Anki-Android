@@ -272,7 +272,7 @@ class Collection(
      * Object creation helpers **************************************************
      * *********************************************
      */
-    fun getCard(id: Long): Card = Card(this, id)
+    fun getCard(id: CardId): Card = Card(this, id)
 
     fun updateCards(
         cards: Iterable<Card>,
@@ -284,7 +284,7 @@ class Collection(
         skipUndoEntry: Boolean = false,
     ): OpChanges = updateCards(listOf(card), skipUndoEntry)
 
-    fun getNote(id: Long): Note = Note(this, id)
+    fun getNote(id: NoteId): Note = Note(this, id)
 
     /**
      * Notes ******************************************************************** ***************************
@@ -396,54 +396,6 @@ class Collection(
         return noteIDsList
     }
 
-    data class CardIdToNoteId(
-        val id: Long,
-        val nid: Long,
-    )
-
-    /** Return a list of card ids  */
-    @RustCleanup("Remove in V16.")
-    @NotInLibAnki
-    fun findOneCardByNote(
-        query: String,
-        order: SortOrder,
-    ): List<CardId> {
-        // This function shouldn't exist and CardBrowser should be modified to use Notes,
-        // so not much effort was expended here
-
-        val noteIds = findNotes(query, order)
-
-        // select the card with the lowest `ord` to show
-        val cursor =
-            db.query(
-                """
-    SELECT c.id, card_with_min_ord.nid
-    FROM (
-      SELECT nid, MIN(ord) AS ord
-      FROM cards
-      WHERE nid IN ${ids2str(noteIds)} 
-      GROUP BY nid
-    ) AS card_with_min_ord
-    JOIN cards AS c ON card_with_min_ord.nid = c.nid AND card_with_min_ord.ord = c.ord
-                """.trimMargin(),
-            )
-        val resultList = mutableListOf<CardIdToNoteId>()
-
-        cursor.use { cur ->
-            while (cur.moveToNext()) {
-                val id = cur.getLong(cur.getColumnIndex("id"))
-                val nid = cur.getLong(cur.getColumnIndex("nid"))
-                resultList.add(CardIdToNoteId(id, nid))
-            }
-        }
-
-        // sort resultList by nid
-        val noteIdMap = noteIds.mapIndexed { index, id -> id to index }.toMap()
-        val sortedResultList = resultList.sortedBy { noteIdMap[it.nid] }
-        // Extract ids from sortedResultList
-        return sortedResultList.map { it.id }
-    }
-
     @LibAnkiAlias("find_and_replace")
     @RustCleanup("Calling code should handle returned OpChanges")
     fun findReplace(
@@ -470,10 +422,21 @@ class Collection(
         return null
     }
 
-    // consider changing implementation to return protobuf directly
+    /**
+     * Returns a [BrowserRow], cells dependent on [Backend.setActiveBrowserColumns]
+     *
+     * WARN: As this is a latency-sensitive call, most callers should use [Backend.browserRowForId]
+     *
+     * @param id Either a [CardId] or a [NoteId], depending on the value of
+     * [ConfigKey.Bool.BROWSER_TABLE_SHOW_NOTES_MODE]
+     *
+     * @see [setBrowserCardColumns]
+     * @see [setBrowserNoteColumns]
+     */
+    // For performance, this does not match upstream:
+    // https://github.com/ankitects/anki/blob/1fb1cbbf85c48a54c05cb4442b1b424a529cac60/pylib/anki/collection.py#L869-L881
     @LibAnkiAlias("browser_row_for_id")
-    @Deprecated("not implemented", replaceWith = ReplaceWith("nothing"))
-    fun browserRowForId(id: Long): BrowserRow = TODO()
+    fun browserRowForId(id: Long): BrowserRow = backend.browserRowForId(id)
 
     /** Return the stored card column names and ensure the backend columns are set and in sync. */
     @LibAnkiAlias("load_browser_card_columns")
@@ -579,9 +542,11 @@ class Collection(
             Timber.d("removeNotes: %d changes", it.count)
         }
 
-    fun removeCardsAndOrphanedNotes(cardIds: Iterable<Long>) {
-        backend.removeCards(cardIds)
-    }
+    /**
+     * @return the number of deleted cards. **Note:** if an invalid/duplicate [CardId] is provided,
+     * the output count may be less than the input.
+     */
+    fun removeCardsAndOrphanedNotes(cardIds: Iterable<CardId>) = backend.removeCards(cardIds)
 
     fun addNote(
         note: Note,
@@ -590,62 +555,6 @@ class Collection(
         val resp = backend.addNote(note.toBackendNote(), deckId)
         note.id = resp.noteId
         return resp.changes
-    }
-
-    /** allowEmpty is ignored in the new schema */
-    @RustCleanup("Remove this in favour of addNote() above; call addNote() inside undoableOp()")
-    fun addNote(note: Note): Int {
-        addNote(note, note.notetype.did)
-        return note.numberOfCards(this)
-    }
-
-    /**
-     * DB maintenance *********************************************************** ************************************
-     */
-    /*
-     * Basic integrity check. Only used by unit tests.
-     */
-    @KotlinCleanup("have getIds() return a list of mids and define idsToStr over it")
-    fun basicCheck(): Boolean {
-        // cards without notes
-        if (db.queryScalar("select 1 from cards where nid not in (select id from notes) limit 1") > 0) {
-            return false
-        }
-        val badNotes =
-            db.queryScalar(
-                """select 1 from notes where
-                  id not in (select distinct nid from cards)
-                  or
-                  mid not in ${ids2str(notetypes.ids())}
-                limit 1""",
-            ) > 0
-        // notes without cards or models
-        if (badNotes) {
-            return false
-        }
-        // invalid ords
-        for (m in notetypes.all()) {
-            // ignore clozes
-            if (m.getInt("type") != Consts.MODEL_STD) {
-                continue
-            }
-            // Make a list of valid ords for this model
-            val tmpls = m.getJSONArray("tmpls")
-            val badOrd =
-                db.queryScalar(
-                    """select 1 from cards where
-                        (ord < 0 or ord >= ?)
-                        and
-                        nid in (select id from notes where mid = ?)
-                      limit 1""",
-                    tmpls.length(),
-                    m.getLong("id"),
-                ) > 0
-            if (badOrd) {
-                return false
-            }
-        }
-        return true
     }
 
     /**
@@ -763,7 +672,7 @@ class Collection(
     ): String = backend.extractClozeForTyping(text = text, ordinal = ordinal)
 
     fun defaultsForAdding(currentReviewCard: Card? = null): anki.notes.DeckAndNotetype {
-        val homeDeck = currentReviewCard?.currentDeckId()?.did ?: 0L
+        val homeDeck = currentReviewCard?.currentDeckId() ?: 0L
         return backend.defaultsForAdding(homeDeckOfCurrentReviewCard = homeDeck)
     }
 

@@ -121,6 +121,7 @@ import com.ichi2.anki.reviewer.MotionEventHandler
 import com.ichi2.anki.reviewer.PreviousAnswerIndicator
 import com.ichi2.anki.servicelayer.LanguageHintService.applyLanguageHint
 import com.ichi2.anki.servicelayer.NoteService.isMarked
+import com.ichi2.anki.settings.Prefs
 import com.ichi2.anki.snackbar.BaseSnackbarBuilderProvider
 import com.ichi2.anki.snackbar.SnackbarBuilder
 import com.ichi2.anki.snackbar.showSnackbar
@@ -149,7 +150,6 @@ import com.ichi2.utils.ClipboardUtil.getText
 import com.ichi2.utils.HandlerUtils.executeFunctionWithDelay
 import com.ichi2.utils.HandlerUtils.newHandler
 import com.ichi2.utils.HashUtil.hashSetInit
-import com.ichi2.utils.KotlinCleanup
 import com.ichi2.utils.Stopwatch
 import com.ichi2.utils.WebViewDebugging.initializeDebugging
 import com.ichi2.utils.message
@@ -171,7 +171,6 @@ import java.util.function.Consumer
 import java.util.function.Function
 import kotlin.math.abs
 
-@KotlinCleanup("lots to deal with")
 abstract class AbstractFlashcardViewer :
     NavigationDrawerActivity(),
     ViewerCommand.CommandProcessor,
@@ -193,7 +192,6 @@ abstract class AbstractFlashcardViewer :
     /**
      * Variables to hold preferences
      */
-    @KotlinCleanup("internal for AnkiDroidJsApi")
     internal var prefShowTopbar = false
     protected var fullscreenMode = DEFAULT
         private set
@@ -238,16 +236,9 @@ abstract class AbstractFlashcardViewer :
     protected var flipCardLayout: FrameLayout? = null
     private var easeButtonsLayout: LinearLayout? = null
 
-    @KotlinCleanup("internal for AnkiDroidJsApi")
     internal var easeButton1: EaseButton? = null
-
-    @KotlinCleanup("internal for AnkiDroidJsApi")
     internal var easeButton2: EaseButton? = null
-
-    @KotlinCleanup("internal for AnkiDroidJsApi")
     internal var easeButton3: EaseButton? = null
-
-    @KotlinCleanup("internal for AnkiDroidJsApi")
     internal var easeButton4: EaseButton? = null
     protected var topBarLayout: RelativeLayout? = null
     private val clipboard: ClipboardManager? = null
@@ -898,7 +889,6 @@ abstract class AbstractFlashcardViewer :
     }
 
     // Set the content view to the one provided and initialize accessors.
-    @KotlinCleanup("Move a lot of these to onCreate()")
     protected open fun initLayout() {
         topBarLayout = findViewById(R.id.top_bar)
         cardFrame = findViewById(R.id.flashcard)
@@ -1237,7 +1227,7 @@ abstract class AbstractFlashcardViewer :
         // mDeckFilename = preferences.getString("deckFilename", "");
         minimalClickSpeed = preferences.getInt("showCardAnswerButtonTime", 0)
         fullscreenMode = fromPreference(preferences)
-        relativeButtonSize = preferences.getInt("answerButtonSize", 100)
+        relativeButtonSize = Prefs.answerButtonsSize
         tts.enabled = preferences.getBoolean("tts", false)
         doubleScrolling = preferences.getBoolean("double_scrolling", false)
         prefShowTopbar = preferences.getBoolean("showTopbar", true)
@@ -1327,7 +1317,7 @@ abstract class AbstractFlashcardViewer :
 
     private suspend fun automaticAnswerShouldWaitForAudio(): Boolean =
         withCol {
-            decks.configDictForDeckId(currentCard!!.did).optBoolean("waitForAudio", true)
+            decks.configDictForDeckId(currentCard!!.did).waitForAudio
         }
 
     internal inner class ReadTextListener : ReadText.ReadTextListener {
@@ -1455,7 +1445,6 @@ abstract class AbstractFlashcardViewer :
         processCardAction { cardWebView: WebView? -> cardWebView!!.dispatchTouchEvent(eUp) }
     }
 
-    @KotlinCleanup("internal for AnkiDroidJsApi")
     internal val isInNightMode: Boolean
         get() = Themes.currentTheme.isNightMode
 
@@ -2732,11 +2721,9 @@ abstract class AbstractFlashcardViewer :
         /** Handle providing help for "Image Not Found"  */
         internal val mediaErrorHandler = MediaErrorHandler()
 
-        @KotlinCleanup("moved from MyGestureDetector")
         // Android design spec for the size of the status bar.
         private const val NO_GESTURE_BORDER_DIP = 24
 
-        @KotlinCleanup("moved from SelectEaseHandler")
         // maximum screen distance from initial touch where we will consider a click related to the touch
         private const val CLICK_ACTION_THRESHOLD = 200
 

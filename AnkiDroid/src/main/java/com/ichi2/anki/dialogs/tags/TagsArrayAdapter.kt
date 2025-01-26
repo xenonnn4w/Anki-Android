@@ -28,6 +28,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.ichi2.anki.OnContextAndLongClickListener
 import com.ichi2.anki.OnContextAndLongClickListener.Companion.setOnContextAndLongClickListener
 import com.ichi2.anki.R
+import com.ichi2.anki.utils.ext.findViewById
 import com.ichi2.annotations.NeedsTest
 import com.ichi2.ui.CheckBoxTriStates
 import com.ichi2.ui.CheckBoxTriStates.State.CHECKED
@@ -51,11 +52,11 @@ class TagsArrayAdapter(
         itemView: View,
     ) : RecyclerView.ViewHolder(itemView) {
         internal lateinit var node: TagTreeNode
-        internal val expandButton: ImageButton = itemView.findViewById(R.id.id_expand_button)
-        internal val checkBoxView: CheckBoxTriStates = itemView.findViewById(R.id.tags_dialog_tag_item_checkbox)
+        internal val expandButton: ImageButton = findViewById(R.id.id_expand_button)
+        internal val checkBoxView: CheckBoxTriStates = findViewById(R.id.tags_dialog_tag_item_checkbox)
 
         // TextView contains the displayed tag (only the last part), while the full tag is stored in TagTreeNode
-        internal val textView: TextView = itemView.findViewById(R.id.tags_dialog_tag_item_text)
+        internal val textView: TextView = findViewById(R.id.tags_dialog_tag_item_text)
 
         @get:VisibleForTesting(otherwise = VisibleForTesting.NONE)
         val text: String
@@ -295,7 +296,7 @@ class TagsArrayAdapter(
             updateExpanderBackgroundImage(holder.expandButton, holder.node)
             // shift according to the level
             val lp = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT)
-            lp.setMargins(HIERARCHY_SHIFT_BASE * holder.node.level, 0, 0, 0)
+            lp.setMarginStart(HIERARCHY_SHIFT_BASE * holder.node.level)
             holder.expandButton.layoutParams = lp
         } else {
             // do not add padding if there is no visible nested tag

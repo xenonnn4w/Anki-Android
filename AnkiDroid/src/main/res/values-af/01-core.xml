@@ -129,7 +129,7 @@
     <string name="empty_deck">Hierdie pak is leeg</string>
     <string name="search_for_download_deck" comment="Deck search value for downloading deck" maxLength="28">Pak Soek</string>
     <string name="invalid_deck_name">Ongeldige pak naam</string>
-    <string name="studyoptions_congrats_finished">baie geluk! jy is klaar vir nou.</string>
+    <string name="studyoptions_congrats_finished">Congratulations! You have finished for today.</string>
     <string name="studyoptions_congrats_next_due_in" comment="The param will be replaced with \'The next card will be ready in X time\'">Pak vir eers klaar! %s</string>
     <string name="studyoptions_no_cards_due">Geen kaarte is al verskulding nie</string>
     <string name="sd_card_not_mounted">Toestel bergplek is nie heg nie</string>
@@ -148,7 +148,7 @@
     <string name="card_template_editor_back">Agterste sjabloon</string>
     <string name="card_template_editor_styling" maxLength="28">Styl</string>
     <string name="card_template_editor_menu_card_browser_appearance" maxLength="28">Kaartblaaier Voorkoms</string>
-    <string name="card_template_editor_deck_override" maxLength="28">Dek oorskrywing</string>
+    <string name="card_template_editor_deck_override" maxLength="28">Pak oorskrywing</string>
     <string name="card_template_editor_insert_field" maxLength="28">Voeg veld in</string>
     <string name="card_template_editor_select_field">Kies veld</string>
     <string name="card_template_editor_cant_delete">Ten minste een kaarttipe word benodig.</string>
@@ -168,7 +168,7 @@
     <string name="card_info_title" maxLength="28">Kaart inligting</string>
     <!-- Permissions -->
     <string name="read_write_permission_label">Lees en skryf na die AnkiDroid databasis</string>
-    <string name="read_write_permission_description">toegang tot bestaande notas, kaarte, notatipes en dekke, sowel as om nuwe te skep</string>
+    <string name="read_write_permission_description">toegang tot bestaande notas, kaarte, notatipes en pakke, sowel as om nuwe te skep</string>
     <!-- Context Menu -->
     <string name="card_browser_context_menu" comment="The value which appears in the system context menu. Note the casing difference">Kaart blaaier</string>
     <string name="context_menu_anki_card_label">Anki kaart</string>

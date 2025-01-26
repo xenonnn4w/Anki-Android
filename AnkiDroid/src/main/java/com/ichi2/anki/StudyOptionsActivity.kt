@@ -25,18 +25,15 @@ import androidx.lifecycle.lifecycleScope
 import anki.collection.OpChanges
 import com.ichi2.anki.CollectionManager.withCol
 import com.ichi2.anki.StudyOptionsFragment.StudyOptionsListener
-import com.ichi2.anki.dialogs.customstudy.CustomStudyDialog.CustomStudyListener
-import com.ichi2.anki.dialogs.customstudy.CustomStudyDialogFactory
+import com.ichi2.anki.dialogs.customstudy.CustomStudyDialog.CustomStudyAction
 import com.ichi2.libanki.ChangeManager
 import com.ichi2.ui.RtlCompliantActionProvider
-import com.ichi2.utils.ExtendedFragmentFactory
 import com.ichi2.widget.WidgetStatus
 import kotlinx.coroutines.launch
 
 class StudyOptionsActivity :
     AnkiActivity(),
     StudyOptionsListener,
-    CustomStudyListener,
     ChangeManager.Subscriber {
     private var undoState = UndoState()
 
@@ -44,8 +41,6 @@ class StudyOptionsActivity :
         if (showedActivityFailedScreen(savedInstanceState)) {
             return
         }
-        val customStudyDialogFactory = CustomStudyDialogFactory({ this.getColUnsafe }, this)
-        customStudyDialogFactory.attachToActivity<ExtendedFragmentFactory>(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.studyoptions)
         enableToolbar().apply { title = "" }
@@ -53,6 +48,15 @@ class StudyOptionsActivity :
             loadStudyOptionsFragment()
         }
         setResult(RESULT_OK)
+
+        supportFragmentManager.setFragmentResultListener(CustomStudyAction.REQUEST_KEY, this) { requestKey, bundle ->
+            when (CustomStudyAction.fromBundle(bundle)) {
+                CustomStudyAction.CUSTOM_STUDY_SESSION,
+                CustomStudyAction.EXTEND_STUDY_LIMITS,
+                ->
+                    currentFragment!!.refreshInterface()
+            }
+        }
     }
 
     private fun loadStudyOptionsFragment() {
@@ -90,7 +94,8 @@ class StudyOptionsActivity :
                 launchCatchingTask {
                     undoAndShowSnackbar()
                     // TODO why are we going to the Reviewer from here? Desktop doesn't do this
-                    Intent(this@StudyOptionsActivity, Reviewer::class.java)
+                    Reviewer
+                        .getIntent(this@StudyOptionsActivity)
                         .apply { flags = Intent.FLAG_ACTIVITY_FORWARD_RESULT }
                         .also { startActivity(it) }
                     finish()
@@ -114,19 +119,6 @@ class StudyOptionsActivity :
     }
 
     override fun onRequireDeckListUpdate() {
-        currentFragment!!.refreshInterface()
-    }
-
-    /**
-     * Callback methods from CustomStudyDialog
-     */
-    override fun onCreateCustomStudySession() {
-        // Sched already reset by CollectionTask in CustomStudyDialog
-        currentFragment!!.refreshInterface()
-    }
-
-    override fun onExtendStudyLimits() {
-        // Sched needs to be reset so provide true argument
         currentFragment!!.refreshInterface()
     }
 

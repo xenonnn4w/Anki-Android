@@ -21,6 +21,7 @@ import com.ichi2.anki.RobolectricTest
 import com.ichi2.anki.analytics.UsageAnalytics.preferencesWhoseChangesShouldBeReported
 import com.ichi2.anki.preferences.PreferenceTestUtils
 import com.ichi2.anki.preferences.SettingsFragment
+import com.ichi2.anki.settings.PrefKey
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers
 import org.junit.Test
@@ -29,8 +30,7 @@ import kotlin.test.assertNull
 
 @RunWith(AndroidJUnit4::class)
 class PreferencesAnalyticsTest : RobolectricTest() {
-    private val devOptionsKeys =
-        PreferenceTestUtils.getKeysFromXml(targetContext, R.xml.preferences_dev_options).toSet()
+    private val devOptionsKeys = PreferenceTestUtils.getDevOptionsKeys(targetContext)
 
     /** All preference keys besides dev options */
     private val allKeys =
@@ -80,6 +80,13 @@ class PreferencesAnalyticsTest : RobolectricTest() {
             "syncBaseUrl",
             "language",
             "customSyncCertificate",
+            // Experimental settings
+            "reviewerMenuSettings",
+            "hideAnswerButtons",
+            "hideHardAndEasy",
+            "reviewerFrameStyle",
+            PrefKey.HIDE_SYSTEM_BARS,
+            PrefKey.IGNORE_DISPLAY_CUTOUT,
         )
 
     @Test

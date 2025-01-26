@@ -91,9 +91,6 @@
     </string-array>
     <string name="card_browser_select_all" maxLength="28">Selecionar todas</string>
     <string name="card_browser_select_none" maxLength="28">Desselecionar</string>
-    <string name="card_browser_interval_new_card" comment="Message indicating that a card is currently new, and so has no interval/ease.">(nova)</string>
-    <string name="card_browser_due_filtered_card">(filtrado)</string>
-    <string name="card_browser_interval_learning_card">(em aprendizagem)</string>
     <string name="card_browser_no_cards_in_deck">Não foram encontradas fichas no baralho ‘%s’</string>
     <string name="card_browser_search_all_decks">Procurar em todos os baralhos</string>
     <string name="card_browser_unknown_deck_name">Desconhecido</string>
@@ -114,4 +111,11 @@
     <!--Keyboard shortcuts dialog-->
     <string name="edit_tags_dialog" comment="Description of the shortcut that opens the edit tags dialog">Abrir a janela para edição de etiquetas</string>
     <string name="show_order_dialog" comment="Description of the shortcut that shows the order dialog">Abrir janela para definir a ordem</string>
+    <!-- Manage columns dialog -->
+    <string name="browse_manage_columns_main_heading">Colunas</string>
+    <string name="browse_manage_columns">Gerir colunas</string>
+    <string name="user_active_columns">Activas</string>
+    <string name="user_potential_columns">Disponíveis</string>
+    <string name="include_column">Incluir coluna</string>
+    <string name="exclude_column">Excluir coluna</string>
 </resources>

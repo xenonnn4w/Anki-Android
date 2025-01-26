@@ -36,9 +36,9 @@ import anki.decks.DeckTreeNode
 import anki.decks.FilteredDeckForUpdate
 import anki.decks.SetDeckCollapsedRequest
 import anki.decks.copy
-import com.google.protobuf.kotlin.toByteStringUtf8
 import com.ichi2.annotations.NeedsTest
 import com.ichi2.libanki.backend.BackendUtils
+import com.ichi2.libanki.backend.BackendUtils.toJsonBytes
 import com.ichi2.libanki.utils.LibAnkiAlias
 import com.ichi2.libanki.utils.NotInLibAnki
 import com.ichi2.libanki.utils.append
@@ -82,7 +82,7 @@ class Decks(
     }
 
     fun save(g: DeckConfig) {
-        g.id = col.backend.addOrUpdateDeckConfigLegacy(g.toString().toByteStringUtf8())
+        g.id = col.backend.addOrUpdateDeckConfigLegacy(toJsonBytes(g))
     }
 
     /*
@@ -141,7 +141,11 @@ class Decks(
         type: DeckConfigId = 0L,
     ): DeckId = id(name = name, create = true, type = type)!!
 
-    fun remove(deckIds: Iterable<Long>): OpChangesWithCount = col.backend.removeDecks(dids = deckIds)
+    /**
+     * Deletes one or more decks from the collection
+     * @return [OpChangesWithCount]: the number of cards deleted
+     */
+    fun remove(deckIds: Iterable<DeckId>): OpChangesWithCount = col.backend.removeDecks(dids = deckIds)
 
     /** A sorted sequence of deck names and IDs. */
     @LibAnkiAlias("all_names_and_ids")
@@ -394,7 +398,7 @@ class Decks(
 
     @LibAnkiAlias("add_config")
     private fun addConfig(name: String): DeckConfig {
-        val conf = DeckConfig(newDeckConfigLegacy())
+        val conf = newDeckConfigLegacy()
         conf.name = name
         this.save(conf)
         return conf

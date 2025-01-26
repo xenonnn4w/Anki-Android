@@ -59,7 +59,6 @@
     <string name="tts_no_tts">Nehovoriť</string>
     <string name="unused_strings">\n\nNepoužívaných súborov:\n</string>
     <string name="reposition_card_dialog_title">Premiestniť novú kartičku</string>
-    <string name="reposition_card_dialog_message">Počiatočná pozícia:</string>
     <string name="reposition_card_not_new_error">Len pri nových kartách je možné zmeniť pozíciu (premiestniť)</string>
     <plurals name="reposition_card_dialog_acknowledge">
         <item quantity="one">%d premiestnená kartička</item>
@@ -139,7 +138,6 @@
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Hľadanie prázdnych kartičiek&#8230;</string>
     <string name="empty_cards_count">Počet kartičiek, ktoré budú vymazané: %d</string>
-    <string name="empty_cards_deleted">Počet vymazaných kartičiek: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Nepodarilo sa získať povolenie k mikrofónu.</string>
     <string name="multimedia_editor_failed">Nepodarilo sa otvoriť editor multimédií</string>
@@ -173,8 +171,6 @@
     <!-- Global Intent handler -->
     <!-- Also used by Card Browser, not renaming to save translators effort -->
     <string name="intent_handler_failed_no_storage_permission">Chýbajúce povolenie pre prístup k úložisku. Prosím povoľte prístup k úložisku a akciu zopakujte.</string>
-    <!-- Browser Appearance -->
-    <string name="card_template_editor_card_browser_appearance_failed">Nepodarilo sa načítať vzhľad prehliadača kartičiek</string>
     <!-- Boot Service -->
     <string name="boot_service_failed_to_schedule_notifications">Nepodarilo sa naplánovať pripomienky</string>
     <string name="boot_service_too_many_notifications">Naplánovaných príliš veľa pripomienok. Niektoré sa nezobrazia</string>

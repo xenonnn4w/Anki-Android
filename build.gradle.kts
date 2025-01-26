@@ -17,7 +17,6 @@ plugins {
     alias(libs.plugins.kotlin.jvm) apply false
     alias(libs.plugins.kotlin.serialization) apply false
     alias(libs.plugins.ktlint.gradle.plugin) apply false
-    alias(libs.plugins.dokka) apply false
     alias(libs.plugins.keeper) apply false
 }
 
@@ -130,8 +129,8 @@ val preDexEnabled by extra("true" == System.getProperty("pre-dex", "true"))
 val universalApkEnabled by extra("true" == System.getProperty("universal-apk", "false"))
 
 val testReleaseBuild by extra(System.getenv("TEST_RELEASE_BUILD") == "true")
-var androidTestName by extra(
-    if (testReleaseBuild) "connectedPlayReleaseAndroidTest" else "connectedPlayDebugAndroidTest"
+var androidTestVariantName by extra(
+    if (testReleaseBuild) "Release" else "Debug"
 )
 
 val gradleTestMaxParallelForks by extra(

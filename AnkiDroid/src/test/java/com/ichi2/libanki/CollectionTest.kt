@@ -19,6 +19,7 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import anki.notes.NoteFieldsCheckResponse
 import anki.notetypes.StockNotetype
 import com.ichi2.testutils.JvmTest
+import com.ichi2.testutils.ext.addNote
 import com.ichi2.utils.createBasicModel
 import org.hamcrest.MatcherAssert.assertThat
 import org.hamcrest.Matchers
@@ -40,7 +41,7 @@ class CollectionTest : JvmTest() {
     fun editClozeGenerateCardsInSameDeck() {
         // #7781
         // Technically, editing a card with conditional fields can also cause this, but cloze cards are much more common
-        val n = addNoteUsingModelName("Cloze", "{{c1::Hello}} {{c2::World}}", "Extra")
+        val n = addNoteUsingNoteTypeName("Cloze", "{{c1::Hello}} {{c2::World}}", "Extra")
         val did = addDeck("Testing")
         n.updateCards { this.did = did }
         assertThat("two cloze notes should be generated", n.numberOfCards(), equalTo(2))
@@ -110,13 +111,13 @@ class CollectionTest : JvmTest() {
         var n = col.addNote(note)
         assertEquals(1, n)
         // test multiple cards - add another template
-        val m = col.notetypes.current()
-        val mm = col.notetypes
+        val noteType = col.notetypes.current()
+        val noteTypes = col.notetypes
         val t = Notetypes.newTemplate("Reverse")
-        t.put("qfmt", "{{Back}}")
-        t.put("afmt", "{{Front}}")
-        mm.addTemplateModChanged(m, t)
-        mm.save(m)
+        t.qfmt = "{{Back}}"
+        t.afmt = "{{Front}}"
+        noteTypes.addTemplateModChanged(noteType, t)
+        noteTypes.save(noteType)
         assertEquals(2, col.cardCount())
         // creating new notes should use both cards
         note = col.newNote()
@@ -191,11 +192,11 @@ class CollectionTest : JvmTest() {
     @Test
     @Ignore("Pending port of media search from Rust code")
     fun test_furigana() {
-        val mm = col.notetypes
-        val m = mm.current()
+        val noteTypes = col.notetypes
+        val noteType = noteTypes.current()
         // filter should work
-        m.getJSONArray("tmpls").getJSONObject(0).put("qfmt", "{{kana:Front}}")
-        mm.save(m)
+        noteType.tmpls[0].qfmt = "{{kana:Front}}"
+        noteTypes.save(noteType)
         val n = col.newNote()
         n.setItem("Front", "foo[abc]")
         col.addNote(n)
@@ -207,14 +208,14 @@ class CollectionTest : JvmTest() {
         val question = c.question(true)
         assertThat("Question «$question» does not contains «anki:play».", question, Matchers.containsString("anki:play"))
         // it shouldn't throw an error while people are editing
-        m.getJSONArray("tmpls").getJSONObject(0).put("qfmt", "{{kana:}}")
-        mm.save(m)
+        noteType.tmpls[0].qfmt = "{{kana:}}"
+        noteTypes.save(noteType)
         c.question(true)
     }
 
     @Test
     fun test_filterToValidCards() {
-        val cid = addNoteUsingBasicModel("foo", "bar").firstCard().id
+        val cid = addBasicNote("foo", "bar").firstCard().id
         assertEquals(ArrayList(setOf(cid)), col.filterToValidCards(longArrayOf(cid, cid + 1)))
     }
 

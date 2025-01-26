@@ -59,7 +59,6 @@
     <string name="tts_no_tts">Nie mów</string>
     <string name="unused_strings">\n\nNieużywane pliki:\n</string>
     <string name="reposition_card_dialog_title">Przestawianie nowej karty</string>
-    <string name="reposition_card_dialog_message">Pozycja początkowa:</string>
     <string name="reposition_card_not_new_error">Tylko nowe karty mogą być przestawione</string>
     <plurals name="reposition_card_dialog_acknowledge">
         <item quantity="one">%d karta przestawiona</item>
@@ -139,7 +138,6 @@
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Wyszukiwanie pustych kart&#8230;</string>
     <string name="empty_cards_count">Kart do usunięcia: %d</string>
-    <string name="empty_cards_deleted">Usuniętych kart: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Nie udało się uzyskać uprawnień do interakcji z mikrofonem.</string>
     <string name="multimedia_editor_failed">Nie udało się otworzyć edytora multimediów</string>
@@ -173,8 +171,6 @@
     <!-- Global Intent handler -->
     <!-- Also used by Card Browser, not renaming to save translators effort -->
     <string name="intent_handler_failed_no_storage_permission">Brak wymaganych uprawnień do przechowywania danych. Proszę przyznać uprawnienia do pamięci, a następnie ponowić próbę.</string>
-    <!-- Browser Appearance -->
-    <string name="card_template_editor_card_browser_appearance_failed">Nie można załadować wyglądu przeglądarki kart</string>
     <!-- Boot Service -->
     <string name="boot_service_failed_to_schedule_notifications">Nie udało się ustawić przypomnień</string>
     <string name="boot_service_too_many_notifications">Ustawiono zbyt dużo przypomnień. Niektóre się nie pojawią</string>

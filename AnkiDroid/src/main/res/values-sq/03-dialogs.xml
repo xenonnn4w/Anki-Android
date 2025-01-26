@@ -57,7 +57,6 @@
     <string name="tts_no_tts">mos fol</string>
     <string name="unused_strings">\n\nSkedarët e papërdorur:\n</string>
     <string name="reposition_card_dialog_title">Rivendosni kartën e re</string>
-    <string name="reposition_card_dialog_message">Pozicioni fillestar:</string>
     <string name="reposition_card_not_new_error">Vetëm kartat e reja mund të ripozicionohen</string>
     <plurals name="reposition_card_dialog_acknowledge">
         <item quantity="one">%d kartë u ripozicionua</item>
@@ -131,7 +130,6 @@
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Po gjen karta boshe&#8230;</string>
     <string name="empty_cards_count">Kartat për të fshirë: %d</string>
-    <string name="empty_cards_deleted">Kartat e fshira: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Nuk mund të merrej leja për mikrofonin.</string>
     <string name="multimedia_editor_failed">Hapja e redaktuesit të multimedias dështoi</string>
@@ -165,8 +163,6 @@
     <!-- Global Intent handler -->
     <!-- Also used by Card Browser, not renaming to save translators effort -->
     <string name="intent_handler_failed_no_storage_permission">Mungon leja e kërkuar e ruajtjes. Jepni lejen e ruajtjes dhe më pas riprovoni veprimin tuaj.</string>
-    <!-- Browser Appearance -->
-    <string name="card_template_editor_card_browser_appearance_failed">Pamja e shfletuesit të kartës nuk mund të ngarkohej</string>
     <!-- Boot Service -->
     <string name="boot_service_failed_to_schedule_notifications">Planifikimi i rikujtuesve dështoi</string>
     <string name="boot_service_too_many_notifications">Shumë rikujtues të planifikuar. Disa nuk do të shfaqen</string>

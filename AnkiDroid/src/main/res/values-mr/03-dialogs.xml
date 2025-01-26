@@ -57,7 +57,6 @@
     <string name="tts_no_tts">बोलू नका</string>
     <string name="unused_strings">\n\nन वापरलेल्या फाइल्स:\n</string>
     <string name="reposition_card_dialog_title">नवीन कार्ड पुनर्स्थित करा</string>
-    <string name="reposition_card_dialog_message">प्रारंभ स्थितीः</string>
     <string name="reposition_card_not_new_error">केवळ नवीन कार्डे पुनर्स्थित केली जाऊ शकतात</string>
     <plurals name="reposition_card_dialog_acknowledge">
         <item quantity="one">%d कार्ड बदलले</item>
@@ -131,7 +130,6 @@
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">रिक्त कार्ड शोधत आहे &#8230;</string>
     <string name="empty_cards_count">हटविण्यासाठी कार्डे:%d</string>
-    <string name="empty_cards_deleted">कार्ड हटविली:%d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">मायक्रोफोन परवानगी प्राप्त करू शकलो नाही.</string>
     <string name="multimedia_editor_failed">मल्टीमीडिया संपादक उघडण्यात अयशस्वी</string>
@@ -165,8 +163,6 @@
     <!-- Global Intent handler -->
     <!-- Also used by Card Browser, not renaming to save translators effort -->
     <string name="intent_handler_failed_no_storage_permission">आवश्यक संचय परवानगी गहाळ आहे. कृपया संचयनास परवानगी द्या त्यानंतर आपल्या कृतीचा पुन्हा प्रयत्न करा.</string>
-    <!-- Browser Appearance -->
-    <string name="card_template_editor_card_browser_appearance_failed">कार्ड ब्राउझर स्वरूप लोड करणे शक्य झाले नाही</string>
     <!-- Boot Service -->
     <string name="boot_service_failed_to_schedule_notifications">स्मरणपत्रे शेड्यूल करण्यात अयशस्वी</string>
     <string name="boot_service_too_many_notifications">बरीच स्मरणपत्रे शेड्यूल केली. काही दिसणार नाहीत</string>
@@ -190,7 +186,7 @@
     <string name="multimedia_editor_trans_translate">भाषांतर करा</string>
     <string name="help_title_community">समुदाय</string>
     <string name="help_item_anki_forums">अंकी मंच</string>
-    <string name="help_item_discord">विघटन</string>
+    <string name="help_item_discord">Discord</string>
     <string name="help_item_facebook">फेसबुक</string>
     <string name="help_item_twitter">ट्विटर</string>
     <string name="help_title_privacy">गोपनीयता</string>

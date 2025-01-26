@@ -16,10 +16,12 @@
 
 package com.ichi2.testutils
 
+import androidx.appcompat.app.AppCompatDelegate
 import com.ichi2.anki.CollectionManager
 import com.ichi2.anki.ioDispatcher
 import com.ichi2.anki.isCollectionEmpty
 import com.ichi2.libanki.Card
+import com.ichi2.libanki.CardType
 import com.ichi2.libanki.Collection
 import com.ichi2.libanki.Consts
 import com.ichi2.libanki.DeckConfig
@@ -27,8 +29,11 @@ import com.ichi2.libanki.DeckId
 import com.ichi2.libanki.Note
 import com.ichi2.libanki.NotetypeJson
 import com.ichi2.libanki.Notetypes
+import com.ichi2.libanki.QueueType
 import com.ichi2.libanki.exception.ConfirmModSchemaException
 import com.ichi2.libanki.utils.set
+import com.ichi2.testutils.ext.addNote
+import com.ichi2.utils.LanguageUtil
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.TestScope
@@ -47,34 +52,35 @@ import kotlin.time.Duration.Companion.milliseconds
 interface TestClass {
     val col: Collection
 
-    fun addNoteUsingBasicModel(
+    fun addBasicNote(
         front: String = "Front",
         back: String = "Back",
-    ): Note = addNoteUsingModelName("Basic", front, back)
+    ): Note = addNoteUsingNoteTypeName("Basic", front, back)
 
-    fun addRevNoteUsingBasicModelDueToday(
+    fun addRevBasicNoteDueToday(
         @Suppress("SameParameterValue") front: String,
         @Suppress("SameParameterValue") back: String,
     ): Note {
-        val note = addNoteUsingBasicModel(front, back)
+        val note = addBasicNote(front, back)
         val card = note.firstCard()
-        card.queue = Consts.QUEUE_TYPE_REV
-        card.type = Consts.CARD_TYPE_REV
+        card.queue = QueueType.Rev
+        card.type = CardType.Rev
         card.due = col.sched.today
+        col.updateCards(listOf(card), skipUndoEntry = true)
         return note
     }
 
-    fun addNoteUsingBasicAndReversedModel(
+    fun addBasicAndReversedNote(
         front: String = "Front",
         back: String = "Back",
-    ): Note = addNoteUsingModelName("Basic (and reversed card)", front, back)
+    ): Note = addNoteUsingNoteTypeName("Basic (and reversed card)", front, back)
 
-    fun addNoteUsingBasicTypedModel(
+    fun addBasicWithTypingNote(
         @Suppress("SameParameterValue") front: String,
         @Suppress("SameParameterValue") back: String,
-    ): Note = addNoteUsingModelName("Basic (type in the answer)", front, back)
+    ): Note = addNoteUsingNoteTypeName("Basic (type in the answer)", front, back)
 
-    fun addCloseNote(
+    fun addClozeNote(
         text: String,
         extra: String = "Extra",
     ): Note =
@@ -83,16 +89,16 @@ interface TestClass {
             col.addNote(this)
         }
 
-    fun addNoteUsingModelName(
+    fun addNoteUsingNoteTypeName(
         name: String?,
         vararg fields: String,
     ): Note {
-        val model =
+        val noteType =
             col.notetypes.byName((name)!!)
-                ?: throw IllegalArgumentException("Could not find model '$name'")
+                ?: throw IllegalArgumentException("Could not find note type '$name'")
         // PERF: if we modify newNote(), we can return the card and return a Pair<Note, Card> here.
         // Saves a database trip afterwards.
-        val n = col.newNote(model)
+        val n = col.newNote(noteType)
         for ((i, field) in fields.withIndex()) {
             n.setField(i, field)
         }
@@ -100,40 +106,50 @@ interface TestClass {
         return n
     }
 
-    fun addNonClozeModel(
+    /**
+     * Create a new note type in the collection.
+     * @param name the name of the note type
+     * @param fields the name of the fields of the note type
+     * @param qfmt the question template
+     * @param afmt the answer template
+     * @return the name of note type, [name]
+     */
+    fun addStandardNoteType(
         name: String,
         fields: Array<String>,
-        qfmt: String?,
-        afmt: String?,
+        qfmt: String,
+        afmt: String,
     ): String {
-        val model = col.notetypes.new(name)
+        val noteType = col.notetypes.new(name)
         for (field in fields) {
-            col.notetypes.addFieldInNewModel(model, col.notetypes.newField(field))
+            col.notetypes.addFieldInNewNoteType(noteType, col.notetypes.newField(field))
         }
-        val t = Notetypes.newTemplate("Card 1")
-        t.put("qfmt", qfmt)
-        t.put("afmt", afmt)
-        col.notetypes.addTemplateInNewModel(model, t)
-        col.notetypes.add(model)
+        val t =
+            Notetypes.newTemplate("Card 1").also { tmpl ->
+                tmpl.qfmt = qfmt
+                tmpl.afmt = afmt
+            }
+        col.notetypes.addTemplateInNewNoteType(noteType, t)
+        col.notetypes.add(noteType)
         return name
     }
 
     /** Adds a note with Text to Speech functionality */
-    fun addNoteUsingTextToSpeechNoteType(
+    fun addTextToSpeechNote(
         front: String,
         back: String,
     ) {
-        addNonClozeModel("TTS", arrayOf("Front", "Back"), "{{Front}}{{tts en_GB:Front}}", "{{tts en_GB:Front}}<br>{{Back}}")
-        addNoteUsingModelName("TTS", front, back)
+        addStandardNoteType("TTS", arrayOf("Front", "Back"), "{{Front}}{{tts en_GB:Front}}", "{{tts en_GB:Front}}<br>{{Back}}")
+        addNoteUsingNoteTypeName("TTS", front, back)
     }
 
     fun addField(
         notetype: NotetypeJson,
         name: String,
     ) {
-        val models = col.notetypes
+        val noteTypes = col.notetypes
         try {
-            models.addFieldLegacy(notetype, models.newField(name))
+            noteTypes.addFieldLegacy(notetype, noteTypes.newField(name))
         } catch (e: ConfirmModSchemaException) {
             throw RuntimeException(e)
         }
@@ -179,12 +195,26 @@ interface TestClass {
         addNotes(1)
     }
 
+    /**
+     * Closes and reopens the backend using the provided [language], typically for
+     * [CollectionManager.TR] calls
+     *
+     * This does not set the [application locales][AppCompatDelegate.setApplicationLocales]
+     *
+     * @param language tag in the form: `de` or `zh-CN`
+     */
+    suspend fun Collection.reopenWithLanguage(language: String) {
+        LanguageUtil.setDefaultBackendLanguages(language)
+        CollectionManager.discardBackend()
+        CollectionManager.getColUnsafe()
+    }
+
     fun selectDefaultDeck() {
         col.decks.select(Consts.DEFAULT_DECK_ID)
     }
 
     /** Adds [count] notes in the same deck with the same front & back */
-    fun addNotes(count: Int): List<Note> = (0..count).map { addNoteUsingBasicModel() }
+    fun addNotes(count: Int): List<Note> = List(count) { addBasicNote() }
 
     fun Note.moveToDeck(
         deckName: String,

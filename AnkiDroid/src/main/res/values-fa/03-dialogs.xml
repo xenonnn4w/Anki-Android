@@ -57,7 +57,6 @@
     <string name="tts_no_tts">حرف نزن</string>
     <string name="unused_strings">\n\nفایل های استفاده نشده:\n</string>
     <string name="reposition_card_dialog_title">تغییر مکان کارت جدید</string>
-    <string name="reposition_card_dialog_message">موقعیت شروع:</string>
     <string name="reposition_card_not_new_error">فقط کارت‌های جدید می‌توانند جابه‌جا شوند</string>
     <plurals name="reposition_card_dialog_acknowledge">
         <item quantity="one">%d کارت جابه‌جا شد</item>
@@ -131,7 +130,6 @@
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">در حال پیدا کردن کارت های خالی&#8230;</string>
     <string name="empty_cards_count">کارتها برای اینکه حذف شوند: %d</string>
-    <string name="empty_cards_deleted">کارتهای حذف شده: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">دسترسی به میکروفون به آنکی‌دروید داده نشده است.</string>
     <string name="multimedia_editor_failed">باز کردن ویرایشگر رسانه انجام نشد</string>
@@ -165,8 +163,6 @@
     <!-- Global Intent handler -->
     <!-- Also used by Card Browser, not renaming to save translators effort -->
     <string name="intent_handler_failed_no_storage_permission">دسترسی حافظه لازم است. لطفاً دسترسی حافظه را به آنکی‌دروید داده و سپس دوباره تلاش کنید.</string>
-    <!-- Browser Appearance -->
-    <string name="card_template_editor_card_browser_appearance_failed">ظاهر مرورگر کارت بارگذاری نشد</string>
     <!-- Boot Service -->
     <string name="boot_service_failed_to_schedule_notifications">تنظیم یادآور انجام نشد</string>
     <string name="boot_service_too_many_notifications">یادآورهای زیادی تنظیم شده‌اند. بعضی از آنها نمایش داده نخواهند شد</string>

@@ -61,7 +61,6 @@
     <string name="tts_no_tts">لا تنطق</string>
     <string name="unused_strings">\n\nملفات عير مستخدمة:\n</string>
     <string name="reposition_card_dialog_title">تغيير موضع البطاقة الجديدة</string>
-    <string name="reposition_card_dialog_message">موضع البداية:</string>
     <string name="reposition_card_not_new_error">يمكن تغيير موضع البطاقات الجديدة فقط</string>
     <plurals name="reposition_card_dialog_acknowledge">
         <item quantity="zero">تم تغيير موضع %d بطاقة</item>
@@ -147,7 +146,6 @@
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">يجري البحث عن بطاقات فارغة&#8230;</string>
     <string name="empty_cards_count">بطاقات ستُحذَف: %d</string>
-    <string name="empty_cards_deleted">بطاقات حُذِفت: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">تعذر الحصول على إذن الميكروفون.</string>
     <string name="multimedia_editor_failed">تعذر فتح محرر الوسائط المتعددة</string>
@@ -181,8 +179,6 @@
     <!-- Global Intent handler -->
     <!-- Also used by Card Browser, not renaming to save translators effort -->
     <string name="intent_handler_failed_no_storage_permission">يفتقد إذن التخزين المطلوب. يرجى منح إذن التخزين ثم المحاولة مجددًا.</string>
-    <!-- Browser Appearance -->
-    <string name="card_template_editor_card_browser_appearance_failed">تعذر تحميل مظهر متصفح البطاقات</string>
     <!-- Boot Service -->
     <string name="boot_service_failed_to_schedule_notifications">تعذرت جدولة التنبيهات</string>
     <string name="boot_service_too_many_notifications">تمت جدولة كثير من التنبيهات. لن يظهر بعضها</string>

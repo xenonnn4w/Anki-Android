@@ -57,7 +57,6 @@
     <string name="tts_no_tts">பேசாதே</string>
     <string name="unused_strings">\n\nபயன்படுத்தப்படாத கோப்புகள்:\n</string>
     <string name="reposition_card_dialog_title">புதிய அட்டையை மாற்றவும்</string>
-    <string name="reposition_card_dialog_message">தொடக்க நிலை:</string>
     <string name="reposition_card_not_new_error">புதிய அட்டைகளை மட்டுமே இடமாற்றம் செய்ய முடியும்</string>
     <plurals name="reposition_card_dialog_acknowledge">
         <item quantity="one">%d கார்டு மாற்றப்பட்டது</item>
@@ -131,7 +130,6 @@
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">வெற்று அட்டைகளைக் கண்டறிகிறது&#8230;</string>
     <string name="empty_cards_count">நீக்க வேண்டிய கார்டுகள்: %d</string>
-    <string name="empty_cards_deleted">கார்டுகள் நீக்கப்பட்டன: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">மைக்ரோஃபோன் அனுமதியைப் பெற முடியவில்லை.</string>
     <string name="multimedia_editor_failed">மல்டிமீடியா எடிட்டரைத் திறக்க முடியவில்லை</string>
@@ -165,8 +163,6 @@
     <!-- Global Intent handler -->
     <!-- Also used by Card Browser, not renaming to save translators effort -->
     <string name="intent_handler_failed_no_storage_permission">தேவையான சேமிப்பக அனுமதி இல்லை. சேமிப்பக அனுமதியை வழங்கவும், உங்கள் செயலை மீண்டும் முயற்சிக்கவும்.</string>
-    <!-- Browser Appearance -->
-    <string name="card_template_editor_card_browser_appearance_failed">கார்டு உலாவியின் தோற்றத்தை ஏற்ற முடியவில்லை</string>
     <!-- Boot Service -->
     <string name="boot_service_failed_to_schedule_notifications">நினைவூட்டல்களைத் திட்டமிடுவதில் தோல்வி</string>
     <string name="boot_service_too_many_notifications">பல நினைவூட்டல்கள் திட்டமிடப்பட்டுள்ளன. சில தோன்றாது</string>
@@ -190,7 +186,7 @@
     <string name="multimedia_editor_trans_translate">மொழிபெயர்</string>
     <string name="help_title_community">சமூகம்</string>
     <string name="help_item_anki_forums">Anki மன்றங்கள்</string>
-    <string name="help_item_discord">கருத்து வேறுபாடு</string>
+    <string name="help_item_discord">Discord</string>
     <string name="help_item_facebook">Facebook</string>
     <string name="help_item_twitter">ட்விட்டர்</string>
     <string name="help_title_privacy">தனியுரிமை</string>

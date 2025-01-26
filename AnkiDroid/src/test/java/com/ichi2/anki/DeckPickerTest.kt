@@ -29,7 +29,6 @@ import com.ichi2.testutils.BackendEmulatingOpenConflict
 import com.ichi2.testutils.BackupManagerTestUtilities
 import com.ichi2.testutils.DbUtils
 import com.ichi2.testutils.grantWritePermissions
-import com.ichi2.testutils.libanki.buryNewSiblings
 import com.ichi2.testutils.revokeWritePermissions
 import com.ichi2.utils.KotlinCleanup
 import com.ichi2.utils.ResourceLoader
@@ -177,10 +176,10 @@ class DeckPickerTest : RobolectricTest() {
         val sched = col.sched
         val dconf = col.decks.getConfig(1)
         assertNotNull(dconf)
-        dconf.getJSONObject("new").put("perDay", 10)
+        dconf.new.perDay = 10
         col.decks.save(dconf)
         for (i in 0..10) {
-            addNoteUsingBasicModel("Which card is this ?", i.toString())
+            addBasicNote("Which card is this ?", i.toString())
         }
         // This set a card as current card
         sched.card
@@ -209,8 +208,7 @@ class DeckPickerTest : RobolectricTest() {
                     DeckPicker::class.java,
                     Intent(),
                 )
-            deckPicker.confirmDeckDeletion(did)
-            advanceRobolectricLooperWithSleep()
+            deckPicker.viewModel.deleteDeck(did).join()
             assertThat("deck was deleted", col.decks.count(), equalTo(1))
         }
 
@@ -503,9 +501,10 @@ class DeckPickerTest : RobolectricTest() {
                 val deckId = addDeck("Deck 1")
                 getColUnsafe.decks.select(deckId)
                 getColUnsafe.notetypes.byName("Basic")!!.put("did", deckId)
-                val card = addNoteUsingBasicModel("front", "back").firstCard()
+                val card = addBasicNote("front", "back").firstCard()
                 getColUnsafe.sched.buryCards(listOf(card.id))
                 updateDeckList()
+                advanceRobolectricLooper()
                 assertEquals(1, visibleDeckCount)
                 assertTrue(getColUnsafe.sched.haveBuried(), "Deck should have buried cards")
                 supportFragmentManager.selectContextMenuOption(DeckPickerContextMenuOption.UNBURY, deckId)
@@ -519,7 +518,7 @@ class DeckPickerTest : RobolectricTest() {
             startActivityNormallyOpenCollectionWithIntent(DeckPicker::class.java, Intent()).run {
                 val cardIds =
                     (0..3)
-                        .map { addNoteUsingBasicModel("$it", "").firstCard().id }
+                        .map { addBasicNote("$it", "").firstCard().id }
                 assertTrue(allCardsInSameDeck(cardIds, 1))
                 val deckId = addDynamicDeck("Deck 1")
                 getColUnsafe.sched.rebuildDyn(deckId)
@@ -539,7 +538,7 @@ class DeckPickerTest : RobolectricTest() {
 
     private fun allCardsInSameDeck(
         cardIds: List<Long>,
-        deckId: Long,
+        deckId: DeckId,
     ): Boolean = cardIds.all { col.getCard(it).did == deckId }
 
     @Test
@@ -697,13 +696,13 @@ class DeckPickerTest : RobolectricTest() {
         // one empty deck to be initially selected, one with cards to check 'unbury' status
         val emptyDeck = addDeck("No Cards")
         val deckWithCards = addDeck("With Cards")
-        updateDeckConfig(deckWithCards) { buryNewSiblings = true }
+        updateDeckConfig(deckWithCards) { new.bury = true }
 
         // Add a note with 2 cards in deck "With Cards", one of these cards is to be buried
         col.notetypes.byName("Basic (and reversed card)")!!.also { noteType ->
             col.notetypes.save(noteType.apply { put("did", deckWithCards) })
         }
-        addNoteUsingBasicAndReversedModel()
+        addBasicAndReversedNote()
 
         // Answer 'Easy' for one of the cards, burying the other
         col.decks.select(deckWithCards)
@@ -716,7 +715,7 @@ class DeckPickerTest : RobolectricTest() {
         assertThat("unbury is not visible: deck has no cards", !col.sched.haveBuried())
 
         deckPicker {
-            assertThat("deck focus is set", focusedDeck, equalTo(emptyDeck))
+            assertThat("deck focus is set", viewModel.focusedDeck, equalTo(emptyDeck))
 
             // ACT: open up the Deck Context Menu
             val deckToClick =
@@ -727,7 +726,7 @@ class DeckPickerTest : RobolectricTest() {
 
             // ASSERT
             assertThat("unbury is visible: one card is buried", col.sched.haveBuried())
-            assertThat("deck focus has changed", focusedDeck, equalTo(deckWithCards))
+            assertThat("deck focus has changed", viewModel.focusedDeck, equalTo(deckWithCards))
         }
     }
 

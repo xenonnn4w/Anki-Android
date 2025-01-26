@@ -87,8 +87,8 @@
         <item quantity="one">+%d buried</item>
         <item quantity="other">+%d buried</item>
     </plurals>
-    <string name="studyoptions_total_new_label">Total new cards</string>
-    <string name="studyoptions_total_label">Total cards</string>
+    <string name="studyoptions_total_new_label">Összes új kártya</string>
+    <string name="studyoptions_total_label">Összes kártya</string>
     <!-- Card editor -->
     <string name="cardeditor_title_edit_card" maxLength="28">Jegyzet szerkesztése</string>
     <string name="discard">Elvetés</string>
@@ -303,9 +303,8 @@
     <string name="show_cards" comment="Label for toggle cards button in BrowserOptionsDialog">Kártyák</string>
     <string name="show_notes" comment="Label for toggle notes button in BrowserOptionsDialog">Jegyzetek</string>
     <string name="toggle_cards_notes">Kártyák/Jegyzetek váltása</string>
-    <string name="toggle_browser_mode_help">Kártyák vagy jegyzetek megjelenítésének váltása</string>
     <string name="truncate_content_help">A böngésző minden sorának magasságát úgy állítja be, hogy csak az első 3 sor legyen látható.</string>
-    <string name="browser_options_dialog_heading">Böngésző beállításai</string>
+    <string name="browser_options_dialog_heading">Browser options</string>
     <string name="audio_saved">Felvétel mentve</string>
     <string name="deleting_selected_notes">A kijelölt jegyzetek törlése.</string>
     <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">Nyomj egy hangra a meghallgatáshoz</string>
@@ -325,10 +324,10 @@
         <item quantity="other">%d cards unburied</item>
     </plurals>
     <string name="card_template_reposition_template" comment="move a card template to a new position" maxLength="28">Reposition</string>
-    <string name="start_recording">Record</string>
+    <string name="start_recording">Felvétel indítása</string>
     <string name="stop_recording">Stop</string>
-    <string name="play_recording">Play</string>
-    <string name="next_recording">Next</string>
+    <string name="play_recording">Indítás</string>
+    <string name="next_recording">Következő</string>
     <!--  AlertDialog in the deleteCardTemplate  -->
     <string name="orphan_note_title">Cannot Delete Card Type</string>
     <string name="orphan_note_message">Deleting this card type will leave some notes without any cards.</string>

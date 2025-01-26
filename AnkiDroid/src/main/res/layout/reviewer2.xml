@@ -79,7 +79,8 @@
             <WebView
                 android:id="@+id/webview"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                tools:backgroundTint="@color/white"/>
 
         </com.google.android.material.card.MaterialCardView>
 
@@ -118,7 +119,8 @@
         <FrameLayout
             android:id="@+id/buttons_area"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/touch_target"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/touch_target"
             android:layout_marginTop="2dp"
             android:layout_marginHorizontal="@dimen/reviewer_side_margin"
             >
@@ -130,14 +132,14 @@
                 android:layout_height="match_parent"
                 style="@style/Widget.Material3.Button.TextButton"
                 android:visibility="visible"
-                tools:visibility="gone"
+                tools:visibility="invisible"
                 />
 
             <LinearLayout
                 android:id="@+id/answer_buttons"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone"
+                android:visibility="invisible"
                 tools:visibility="visible"
                 >
 

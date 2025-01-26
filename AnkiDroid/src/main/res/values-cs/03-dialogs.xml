@@ -59,7 +59,6 @@
     <string name="tts_no_tts">Nemluv</string>
     <string name="unused_strings">\n\nNepoužité soubory:\n</string>
     <string name="reposition_card_dialog_title">Změnit pořadí nové karty</string>
-    <string name="reposition_card_dialog_message">Počáteční pozice:</string>
     <string name="reposition_card_not_new_error">Změnit pořadí lze pouze u nových karet</string>
     <plurals name="reposition_card_dialog_acknowledge">
         <item quantity="one">%d karta přesunuta</item>
@@ -139,7 +138,6 @@
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Hledají se prázdné karty&#8230;</string>
     <string name="empty_cards_count">Karet k odstranění: %d</string>
-    <string name="empty_cards_deleted">Odstraněno karet: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Nelze získat oprávnění k mikrofonu.</string>
     <string name="multimedia_editor_failed">Nepodařilo se otevřít multimediální editor</string>
@@ -173,8 +171,6 @@
     <!-- Global Intent handler -->
     <!-- Also used by Card Browser, not renaming to save translators effort -->
     <string name="intent_handler_failed_no_storage_permission">Chybí požadované oprávnění k úložišti. Prosím udělte oprávnění k úložišti a zkuste to znovu.</string>
-    <!-- Browser Appearance -->
-    <string name="card_template_editor_card_browser_appearance_failed">Nelze načíst vzhled prohlížeče karet</string>
     <!-- Boot Service -->
     <string name="boot_service_failed_to_schedule_notifications">Nepodařilo se naplánovat upomínky</string>
     <string name="boot_service_too_many_notifications">Naplánováno příliš mnoho upomínek. Některé se nezobrazí</string>
@@ -280,7 +276,7 @@
     <string name="compress">Compress</string>
     <!-- Tts playback error dialog -->
     <string name="tts_error_dialog_title">Jazyk není podporován</string>
-    <string name="tts_error_dialog_reason_text">The text to speech engine <b>%1$s</b> does not support the following language: <b>%2$s</b></string>
-    <string name="tts_error_dialog_change_button_text">Change engine</string>
-    <string name="tts_error_dialog_supported_voices_button_text">Voice options</string>
+    <string name="tts_error_dialog_reason_text">Modul převodu textu na řeč <b>%1$s</b> nepodporuje následující jazyk: <b>%2$s</b></string>
+    <string name="tts_error_dialog_change_button_text">Změnit modul</string>
+    <string name="tts_error_dialog_supported_voices_button_text">Možnosti hlasu</string>
 </resources>
