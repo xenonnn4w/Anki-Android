@@ -42,11 +42,13 @@ import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup
 import android.view.ViewPropertyAnimator
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.ActivityResultCallback
 import androidx.activity.result.ActivityResultLauncher
@@ -58,7 +60,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.Toolbar
 import androidx.appcompat.widget.TooltipCompat
-import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.app.ActivityCompat.OnRequestPermissionsResultCallback
 import androidx.core.content.edit
@@ -91,6 +92,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.ichi2.anki.CollectionManager.TR
 import com.ichi2.anki.CollectionManager.withCol
 import com.ichi2.anki.CollectionManager.withOpenColOrNull
+import com.ichi2.anki.DeckPickerFloatingActionMenu.FloatingActionBarToggleListener
 import com.ichi2.anki.InitialActivity.StartupFailure
 import com.ichi2.anki.InitialActivity.StartupFailure.DBError
 import com.ichi2.anki.InitialActivity.StartupFailure.DatabaseLocked
@@ -102,6 +104,7 @@ import com.ichi2.anki.InitialActivity.StartupFailure.WebviewFailed
 import com.ichi2.anki.IntentHandler.Companion.intentToReviewDeckFromShorcuts
 import com.ichi2.anki.StudyOptionsFragment.StudyOptionsListener
 import com.ichi2.anki.analytics.UsageAnalytics
+import com.ichi2.anki.android.back.exitViaDoubleTapBackCallback
 import com.ichi2.anki.android.input.ShortcutGroup
 import com.ichi2.anki.android.input.shortcut
 import com.ichi2.anki.deckpicker.BITMAP_BYTES_PER_PIXEL
@@ -123,6 +126,7 @@ import com.ichi2.anki.dialogs.DeckPickerContextMenu.DeckPickerContextMenuOption
 import com.ichi2.anki.dialogs.DeckPickerNoSpaceLeftDialog
 import com.ichi2.anki.dialogs.DialogHandlerMessage
 import com.ichi2.anki.dialogs.EditDeckDescriptionDialog
+import com.ichi2.anki.dialogs.EmptyCardsDialogFragment
 import com.ichi2.anki.dialogs.ImportDialog.ImportDialogListener
 import com.ichi2.anki.dialogs.ImportFileSelectionFragment.ApkgImportResultLauncherProvider
 import com.ichi2.anki.dialogs.ImportFileSelectionFragment.CsvImportResultLauncherProvider
@@ -165,7 +169,6 @@ import com.ichi2.async.deleteMedia
 import com.ichi2.compat.CompatHelper.Companion.getSerializableCompat
 import com.ichi2.compat.CompatHelper.Companion.sdkVersion
 import com.ichi2.libanki.ChangeManager
-import com.ichi2.libanki.Consts
 import com.ichi2.libanki.DeckId
 import com.ichi2.libanki.Decks
 import com.ichi2.libanki.MediaCheckResult
@@ -176,7 +179,6 @@ import com.ichi2.ui.AccessibleSearchView
 import com.ichi2.ui.BadgeDrawableBuilder
 import com.ichi2.utils.AdaptionUtil
 import com.ichi2.utils.ClipboardUtil.IMPORT_MIME_TYPES
-import com.ichi2.utils.HandlerUtils
 import com.ichi2.utils.ImportUtils
 import com.ichi2.utils.ImportUtils.ImportResult
 import com.ichi2.utils.KotlinCleanup
@@ -256,7 +258,6 @@ open class DeckPicker :
 
     // Short animation duration from system
     private var shortAnimDuration = 0
-    private var backButtonPressedToExit = false
     private lateinit var deckPickerContent: RelativeLayout
 
     // TODO: Encapsulate ProgressDialog within a class to limit the use of deprecated functionality
@@ -390,6 +391,28 @@ open class DeckPicker :
                 }
             },
         )
+
+    private val exitAndSyncBackCallback =
+        object : OnBackPressedCallback(enabled = true) {
+            override fun handleOnBackPressed() {
+                // TODO: Room for improvement now we use back callbacks
+                // can't use launchCatchingTask because any errors
+                // would need to be shown in the UI
+                lifecycleScope
+                    .launch {
+                        automaticSync(runInBackground = true)
+                    }.invokeOnCompletion {
+                        finish()
+                    }
+            }
+        }
+
+    private val closeFloatingActionBarBackPressCallback =
+        object : OnBackPressedCallback(enabled = false) {
+            override fun handleOnBackPressed() {
+                floatingActionMenu.closeFloatingActionMenu(applyRiseAndShrinkAnimation = true)
+            }
+        }
 
     private inner class DeckPickerActivityResultCallback(
         private val callback: (result: ActivityResult) -> Unit,
@@ -569,8 +592,14 @@ open class DeckPicker :
                     pullToSyncWrapper.isEnabled = recyclerViewLayoutManager.findFirstCompletelyVisibleItemPosition() == 0
                 }
             }
-        // Setup the FloatingActionButtons, should work everywhere with min API >= 15
-        floatingActionMenu = DeckPickerFloatingActionMenu(this, view, this)
+        // Setup the FloatingActionButtons
+        floatingActionMenu =
+            DeckPickerFloatingActionMenu(this, view, this).apply {
+                toggleListener =
+                    FloatingActionBarToggleListener { isOpening ->
+                        closeFloatingActionBarBackPressCallback.isEnabled = isOpening
+                    }
+            }
 
         reviewSummaryTextView = findViewById(R.id.today_stats_text_view)
 
@@ -619,6 +648,13 @@ open class DeckPicker :
         )
 
         setupFlows()
+    }
+
+    override fun setupBackPressedCallbacks() {
+        onBackPressedDispatcher.addCallback(this, exitAndSyncBackCallback)
+        onBackPressedDispatcher.addCallback(this, exitViaDoubleTapBackCallback())
+        onBackPressedDispatcher.addCallback(this, closeFloatingActionBarBackPressCallback)
+        super.setupBackPressedCallbacks()
     }
 
     @Suppress("UNUSED_PARAMETER")
@@ -1150,7 +1186,10 @@ open class DeckPicker :
             }
             R.id.action_empty_cards -> {
                 Timber.i("DeckPicker:: Empty cards button pressed")
-                handleEmptyCards()
+                EmptyCardsDialogFragment().show(
+                    supportFragmentManager,
+                    EmptyCardsDialogFragment.TAG,
+                )
                 return true
             }
             R.id.action_model_browser_open -> {
@@ -1351,42 +1390,6 @@ open class DeckPicker :
                 } else {
                     Timber.i("autoSync: starting foreground")
                     sync()
-                }
-            }
-        }
-    }
-
-    @Deprecated("Deprecated in Java")
-    @Suppress("DEPRECATION")
-    override fun onBackPressed() {
-        val preferences = baseContext.sharedPrefs()
-        if (isDrawerOpen) {
-            super.onBackPressed()
-        } else {
-            Timber.i("Back key pressed")
-            if (floatingActionMenu.isFABOpen) {
-                floatingActionMenu.closeFloatingActionMenu(applyRiseAndShrinkAnimation = true)
-            } else {
-                if (!preferences.getBoolean(
-                        "exitViaDoubleTapBack",
-                        false,
-                    ) ||
-                    backButtonPressedToExit
-                ) {
-                    // can't use launchCatchingTask because any errors
-                    // would need to be shown in the UI
-                    lifecycleScope
-                        .launch {
-                            automaticSync(runInBackground = true)
-                        }.invokeOnCompletion {
-                            finish()
-                        }
-                } else {
-                    showSnackbar(R.string.back_pressed_once, Snackbar.LENGTH_SHORT)
-                }
-                backButtonPressedToExit = true
-                HandlerUtils.executeFunctionWithDelay(Consts.SHORT_TOAST_DURATION) {
-                    backButtonPressedToExit = false
                 }
             }
         }
@@ -2258,11 +2261,9 @@ open class DeckPicker :
             val fabLinearLayout = findViewById<LinearLayout>(R.id.fabLinearLayout)
             // Adjust bottom margin of fabLinearLayout based on reviewSummaryTextView height
             reviewSummaryTextView.doOnLayout {
-                if (reviewSummaryTextView.lineCount > 1) {
-                    val layoutParams = fabLinearLayout.layoutParams as CoordinatorLayout.LayoutParams
-                    layoutParams.setMargins(0, 0, 0, reviewSummaryTextView.height / 2)
-                    fabLinearLayout.layoutParams = layoutParams
-                }
+                val layoutParams = fabLinearLayout.layoutParams as ViewGroup.MarginLayoutParams
+                layoutParams.setMargins(0, 0, 0, reviewSummaryTextView.height / 2)
+                fabLinearLayout.layoutParams = layoutParams
             }
         }
         Timber.d("Startup - Deck List UI Completed")
@@ -2498,32 +2499,6 @@ open class DeckPicker :
     private fun openReviewer() {
         val intent = Reviewer.getIntent(this)
         reviewLauncher.launch(intent)
-    }
-
-    private fun handleEmptyCards() {
-        launchCatchingTask {
-            val emptyCards =
-                withProgress(R.string.emtpy_cards_finding) {
-                    viewModel.findEmptyCards()
-                }
-            AlertDialog.Builder(this@DeckPicker).show {
-                setTitle(TR.emptyCardsWindowTitle())
-                if (emptyCards.isEmpty()) {
-                    setMessage(TR.emptyCardsNotFound())
-                    setPositiveButton(R.string.dialog_ok) { _, _ -> }
-                } else {
-                    setMessage(getString(R.string.empty_cards_count, emptyCards.size))
-                    setPositiveButton(R.string.dialog_positive_delete) { _, _ ->
-                        launchCatchingTask {
-                            withProgress(TR.emptyCardsDeleting()) {
-                                viewModel.deleteEmptyCards(emptyCards).join()
-                            }
-                        }
-                    }
-                    setNegativeButton(R.string.dialog_cancel) { _, _ -> }
-                }
-            }
-        }
     }
 
     private fun createSubDeckDialog(did: DeckId) {
