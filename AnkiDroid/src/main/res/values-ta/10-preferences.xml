@@ -97,6 +97,7 @@
     <string name="gestures_summ">பதிலளிப்பது மற்றும் கார்டுகளைத் திருத்துவது போன்ற செயல்களுக்கு சைகைகளை ஒதுக்குங்கள்.பதிலளிப்பது மற்றும் கார்டுகளைத் திருத்துவது போன்ற செயல்களுக்கு சைகைகளை ஒதுக்குங்கள்.</string>
     <string name="gestures_corner_touch" maxLength="41">9-புள்ளி தொடுதல்</string>
     <string name="gestures_corner_touch_summary">திரை மூலைகளில் தொடு சைகைகளை அனுமதிக்கவும்</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">முழு திரை வழிசெலுத்தல் டிராயர்</string>
     <string name="gestures_fullscreen_nav_drawer_summary">திரையில் எங்கிருந்தும் வலதுபுறமாக ஸ்வைப் செய்யும் போது வழிசெலுத்தல் டிராயரைத் திறக்கவும்</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">இல்லை</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">கீழே இடதுபுறத்தைத் தொடவும்</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">கீழ் வலதுபுறத்தைத் தொடவும்</string>
     <string name="gestures_shake" maxLength="41">சாதனத்தை அசைக்கவும்</string>
-    <string name="card_browser_enable_external_context_menu">‘%s’ மெனு</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">‘%s’ மெனு</string>
     <string name="card_browser_enable_external_context_menu_summary">உலகளவில் சூழல் மெனு \'%s\' ஐ இயக்குகிறது</string>
     <string name="double_scrolling_gap" maxLength="41">இரட்டை ஸ்க்ரோலிங்</string>
     <string name="double_scrolling_gap_summ">eReader மூலம் ஸ்க்ரோல் இடைவெளியை இரட்டிப்பாக்கவும்</string>
@@ -260,9 +261,7 @@
     <string name="donate_description"><![CDATA[நீங்கள் <a href=\"%1$s\">நன்கொடை அளிப்பதன் மூலம்</a> AnkiDroid இன் வளர்ச்சியை ஆதரிக்கலாம். எந்தத் தொகையும் ஆழமாகப் பாராட்டப்படுகிறது.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">சைகையைச் சேர்க்கவும்</string>
-    <string name="binding_replace_gesture">சைகையை மாற்றவும்</string>
     <string name="binding_add_key">விசையைச் சேர்க்கவும்</string>
-    <string name="binding_replace_key">விசையை மாற்றவும்</string>
     <string name="key_picker_default_press_key">ஒரு விசையை அழுத்தவும்</string>
     <string name="binding_add_axis">கடைசி ஒத்திசைவு 10 க்கும் அதிகமாக இருந்தால், தொடக்க/வெளியேறும்போது பயன்பாடு தானாகவே ஒத்திசைக்கப்படும்</string>
     <string name="axis_picker_move_joystick">கடைசி ஒத்திசைவு 10 க்கும் அதிகமாக இருந்தால், தொடக்க/வெளியேறும்போது பயன்பாடு தானாகவே ஒத்திசைக்கப்படும்</string>
@@ -297,8 +296,7 @@
     <string name="pref_cat_dev_options" maxLength="41">டெவலப்பர் விருப்பங்கள்</string>
     <string name="dev_options_enabled_pref" maxLength="41">டெவலப்பர் விருப்பங்களை இயக்கு</string>
     <string name="disable_dev_options">டெவலப்பர் விருப்பங்களை முடக்கு</string>
-    <string name="dev_options_warning">        டெவலப்பர் விருப்பங்களை இயக்கும் முன் உறுதிசெய்யவும். இந்த விருப்பத்தேர்வுகள் ஆபத்தானவை மற்றும் பயன்பாட்டை உடைக்கலாம் அல்லது உங்கள் சேகரிப்பை சிதைக்கலாம்.\n\nஇந்த விருப்பங்கள் பெரபயனர்களுக்குப் பொருந்தாதுொருந்தாது, எனவே அவை மொழிபெயர்க்கப்படவில்லை, எனவே அவை ஆங்கிலத்தில் உள்ளன.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

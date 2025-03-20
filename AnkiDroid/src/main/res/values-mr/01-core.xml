@@ -98,7 +98,7 @@
     <string name="menu_suspend_card" maxLength="28">निलंबन कार्ड</string>
     <string name="menu_suspend_note" maxLength="28">निलंबित नोट</string>
     <string name="menu_bury" maxLength="28">दफन</string>
-    <string name="menu_suspend" maxLength="28"> निलंबित करा</string>
+    <string name="menu_suspend" maxLength="28">निलंबित करा</string>
     <string name="menu_delete_note" maxLength="28">टीप हटवा</string>
     <string name="menu_flag" maxLength="41">झेंडा</string>
     <string name="rename_flag">ध्वजांचे नाव बदला</string>
@@ -178,7 +178,7 @@
     <string name="sync_conflict_keep_remote_new" comment="Select AnkiWeb files to keep while syncing">एन्कीवेब</string>
     <string name="sync_conflict_remote_confirm_new">तुमचा एंकिवेब  वरील संग्रह पुर्नस्तीत करा एंकिड्रॉइड वर.</string>
     <string name="sync_conflict_local_confirm_new">AnkiWeb वरील तुमचा संग्रह AnkiDroid वरील तुमच्या संग्रहाने बदलायचा?</string>
-    <string name="sync_conflict_title_new">संग्रहाला  निवडा ठेवण्यासाठी </string>
+    <string name="sync_conflict_title_new">संग्रहाला  निवडा ठेवण्यासाठी</string>
     <string name="sync_conflict_replace_title">संग्रह पून्हास्तित करा</string>
     <!-- Generic errors -->
     <string name="error__etc__cannot_write_to_or_create_file">फाइलवर लिहू किंवा तयार करू शकत नाही %s</string>

@@ -97,6 +97,7 @@
     <string name="gestures_summ">Magtalaga ng mga kilos sa mga pagkilos tulad ng pagsagot at pag-edit ng mga card.</string>
     <string name="gestures_corner_touch" maxLength="41">9 na puntong pagpindot</string>
     <string name="gestures_corner_touch_summary">Pahintulutan ang mga gestures sa kanto ng screen</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Buong screen na kahon pangnabigasyon</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Buksan ang kahon pangnabigasyon tuwing sumaswipe pakanan mula sa kahit saang parte ng screen.</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">Wala</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Pagpindot sa kaliwa sa ibaba</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Pagpindot sa kanan sa ibaba</string>
     <string name="gestures_shake" maxLength="41">Alugin ang device</string>
-    <string name="card_browser_enable_external_context_menu">Menu ng \'%s\'</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">Menu ng \'%s\'</string>
     <string name="card_browser_enable_external_context_menu_summary">Ine-enable ang context manu na \'%s\' kahit saan</string>
     <string name="double_scrolling_gap" maxLength="41">Double scrolling</string>
     <string name="double_scrolling_gap_summ">I-double ang scroll gap sa eReader</string>
@@ -261,9 +262,7 @@
     <string name="donate_description"><![CDATA[Maaari mong suportahan ang pag-develop sa AnkiDroid sa pamamagitan ng <a href=\"%1$s\">paghahandog</a>. Lubos naming ipinapasalamat ang anumang halaga.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Magdagdag ng gesture</string>
-    <string name="binding_replace_gesture">Palitan ang gesture</string>
     <string name="binding_add_key">Magdagdag ng key</string>
-    <string name="binding_replace_key">Palitan ang key</string>
     <string name="key_picker_default_press_key">Pindutin ang key</string>
     <string name="binding_add_axis">Magdagdag ng joystick/motion controller</string>
     <string name="axis_picker_move_joystick">Igalaw ang joystick/motion controller</string>
@@ -298,8 +297,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Mga opsyon pangdeveloper</string>
     <string name="dev_options_enabled_pref" maxLength="41">Paganahin ang mga opsyon pangdeveloper</string>
     <string name="disable_dev_options">Huwag paganahin ang mga opsyon pangdeveloper</string>
-    <string name="dev_options_warning">        Siguraduhin na gusto mong paganahin ang mga opsyon pangdeveloper. Ang mga opsyon dito ay delikado at maaring ikasira ng app o ika-corrupt ng iyong mga tipon.\n\nTandaan na ang mga opsyon na ito ay hindi angkop sa karamihan ng mga user at samakatwid ay hindi sinalin ang mga ito, kaya naka-Ingles ang mga ito.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

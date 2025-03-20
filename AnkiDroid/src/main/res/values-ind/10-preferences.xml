@@ -96,6 +96,7 @@
     <string name="gestures_summ">Menerapkan gestur sebagai tindakan untuk menjawab dan mengedit kartu.</string>
     <string name="gestures_corner_touch" maxLength="41">Mode sentuhan 9-poin</string>
     <string name="gestures_corner_touch_summary">Perbolehkan gestur sentuhan di bagian pojok layar</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Navigasi laci layar penuh</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Buka laci navigasi ketika menggeser kanan layar dari mana saja</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">Tidak ada</string>
@@ -115,7 +116,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Sentuh bagian bawah kiri</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Sentuh bagian bawah kanan</string>
     <string name="gestures_shake" maxLength="41">Goyangkan perangkat</string>
-    <string name="card_browser_enable_external_context_menu">Menu ‘%s’</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">Menu ‘%s’</string>
     <string name="card_browser_enable_external_context_menu_summary">Mengaktifkan konteks menu ‘%s’ secara global</string>
     <string name="double_scrolling_gap" maxLength="41">Guliran ganda</string>
     <string name="double_scrolling_gap_summ">Gandakan jarak gulir dengan pembaca elektronik</string>
@@ -259,9 +260,7 @@
     <string name="donate_description"><![CDATA[Anda dapat mendukung pengembangan AnkiDroid dengan <a href=\"%1$s\">berdonasi</a>. Berapa pun jumlahnya akan sangat kami hargai.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Tambahkan gestur</string>
-    <string name="binding_replace_gesture">Ganti gestur</string>
     <string name="binding_add_key">Tambahkan tombol</string>
-    <string name="binding_replace_key">Ganti tombol</string>
     <string name="key_picker_default_press_key">Tekan tombol</string>
     <string name="binding_add_axis">Tambahkan pengendali joystick/gerakan</string>
     <string name="axis_picker_move_joystick">Gerakkan pengendali joystick/gerakan</string>
@@ -296,8 +295,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Opsi pengembang</string>
     <string name="dev_options_enabled_pref" maxLength="41">Aktifkan opsi pengembang</string>
     <string name="disable_dev_options">Nonaktifkan opsi pengembang</string>
-    <string name="dev_options_warning">        Pastikan sebelum mengaktifkan opsi pengembang. Opsi ini berbahaya dan dapat merusak aplikasi atau merusak koleksi Anda.\n\nPerhatikan bahwa opsi-opsi ini tidak cocok untuk sebagian besar pengguna dan oleh karena itu tidak diterjemahkan, jadi opsi-opsi ini dalam bahasa Inggris.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

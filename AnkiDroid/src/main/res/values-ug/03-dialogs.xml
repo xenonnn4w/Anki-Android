@@ -55,13 +55,7 @@
     <string name="delete_cram_deck_message">سۈزۈلگەن دەستە %s نى ئۆچۈرۈپ، ھەممە كارتىنى ئەسلىدىكى دەستىگە قايتۇرامدۇ؟</string>
     <string name="no_tts_available_message">بۇ تىلدا ئىشلەتكىلى بولىدىغان تېكىستتىن ئاۋازغا موتورى يوق</string>
     <string name="tts_no_tts">سۆزلىمە</string>
-    <string name="unused_strings">\n\nئىشلىتىلمىگەن ھۆججەت:\n</string>
-    <string name="reposition_card_dialog_title">يېڭى كارتىنى قايتا تەرتىپلە</string>
     <string name="reposition_card_not_new_error">پەقەت يېڭى كارتىنىڭ ئورنىنىلا يۆتكىگىلى بولىدۇ</string>
-    <plurals name="reposition_card_dialog_acknowledge">
-        <item quantity="one">%d كارتىنىڭ ئورنى يۆتكەلدى</item>
-        <item quantity="other">%d كارتىنىڭ ئورنى يۆتكەلدى</item>
-    </plurals>
     <string name="reset_card_dialog_title">كارتا ئىلگىرىلەش جەريانىنى ئەسلىگە قايتۇر</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="one">%d كارتا ئەسلىگە قايتۇرۇلدى</item>
@@ -70,7 +64,7 @@
     <string name="answering_error_title">ساندان خاتالىقى</string>
     <string name="answering_error_message">توپلامغا يازالمىدى. ساندان بۇزۇلغان بولۇشى ياكى دىسكىدا يېتەرلىك بوشلۇق بولماسلىقى مۇمكىن.\n\nئەگەر بۇ خىل ئەھۋال دائىم يۈز بەرسە، سانداننى تەكشۈرۈڭ، توپلامنى ئوڭشاڭ ياكى زاپاستىن ئەسلىگە كەلتۈرۈڭ. بۇنىڭ ئۈچۈن «تاللانما» نى چېكىڭ.\n\ياكى AnkiDroid كەمتۈكى بولۇشى مۇمكىن؛ خاتالىقنى مەلۇم قىلسىڭىز بىز ئۇنى تەكشۈرەلەيمىز.</string>
     <string name="answering_error_report">خاتالىق مەلۇم قىل</string>
-    <string name="storage_full_message">AnkiDroid نى ئېچىشقا يېتەرلىك دىسكا بوشلۇقى يوق. داۋاملاشتۇرۇش ئۈچۈن ئارزاق بوشلۇق بوشىتىڭ. </string>
+    <string name="storage_full_message">There is not enough free storage space to open AnkiDroid. Free up some space to continue.</string>
     <string name="repair_deck_dialog">سانداننى ھەقىقەتەن ئوڭشامسىز؟\n\nباشلاشتىن ئىلگىرى، بىر نۇسخا كۆچۈرۈلمىسى «%s» تارماق قىسقۇچقا قۇرۇلىدۇ.</string>
     <string name="intent_aedict_empty">سەھىپە «كۆڭۈلدىكى» بوش</string>
     <string name="intent_aedict_category">AnkiDroid قا كارتا قوشۇشتا بارلىق خاتىرە دەپتەر سەھىپىنى چىقىرىۋېتىدۇ ياكى «كۆڭۈلدىكى» ئاتىدا بىرنى قوشىدۇ</string>
@@ -112,10 +106,7 @@
     <string name="check_media_message">ۋاسىتە تەكشۈرۈۋاتىدۇ&#8230;</string>
     <string name="check_media_acknowledge">ۋاسىتە تەكشۈرۈلدى</string>
     <string name="check_media_invalid">كودلىنىشى ئىناۋەتسىز ھۆججەت: %d</string>
-    <string name="check_media_unused">ھۆججەت ۋاسىتە قىسقۇچتا ئەمما ھېچقانداق كارتا ئىشلەتمەيدۇ: %d</string>
-    <string name="check_media_nohave">كارتىدا ئىشلىتىلگەن ئەمما ۋاسىتە قىسقۇچتا يوق ھۆججەت: %d</string>
     <string name="check_media_no_unused_missing">ئىشلىتىلمىگەن ياكى يوقالغان ھېچقانداق ھۆججەت بايقالمىدى</string>
-    <string name="check_media_db_updated">ۋاسىتە ساندانى قايتا قۇرۇلدى</string>
     <string name="check_media_delete_unused">ئىشلىتىلمىگەننى ئۆچۈر</string>
     <string name="delete_media_message">ۋاسىتە ئۆچۈرۈۋاتىدۇ&#8230;</string>
     <string name="delete_media_result_title">ئۆچۈرۈش نەتىجىسى</string>
@@ -129,7 +120,6 @@
     <string name="tags_dialog_option_due_cards" comment="Name of cards that are already been reviewed in the past, and that should be reviewed again">مۆھلەت</string>
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">بوش كارتىنى ئىزدەۋاتىدۇ&#8230;</string>
-    <string name="empty_cards_count">ئۆچۈرىدىغان كارتا: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">مىكروفون ئىجازىتىگە ئېرىشەلمىدى.</string>
     <string name="multimedia_editor_failed">كۆپ ۋاسىتە تەھرىرلىگۈچنى ئاچالمىدى</string>
@@ -222,10 +212,8 @@
     <string name="button_backup_later" comment="dismiss the \'Backup\' dialog for around 2 weeks">كېيىن</string>
     <string name="button_do_not_show_again" comment="permanently dismisses a dialog">قايتا كۆرسەتمە</string>
     <string name="dismiss_backup_warning_title">سانلىق-مەلۇمات يوقۇلۇش ئاگاھلاندۇرۇشى</string>
-    <string name="dismiss_backup_warning_new_user">        Android شەخسىيەت تۈزۈمى ئۆزگەرگەنلىكتىن، ئەگەر ئەپ ئۆچۈرۈلسە، سانلىق مەلۇماتىڭىز ۋە ئۆزلۈكىدىن زاپاسلانغانلار تېلېفونىڭىزدىن ئۆچۈرۈلىدۇ
-    </string>
-    <string name="dismiss_backup_warning_upgrade">        Android شەخسىيەت تۈزۈمى ئۆزگەرگەنلىكتىن، ئەگەر ئەپ ئۆچۈرۈلسە، سانلىق مەلۇماتىڭىز ۋە ئۆزلۈكىدىن زاپاسلانغانلارنى زىيارەت قىلغىلى بولمايدۇ
-    </string>
+    <string name="dismiss_backup_warning_new_user">Due to Android privacy changes, your data and automated backups will be deleted from your phone if the app is uninstalled</string>
+    <string name="dismiss_backup_warning_upgrade">Due to Android privacy changes, your data and automated backups will be inaccessible if the app is uninstalled</string>
     <string name="deck_already_exists">دەستە مەۋجۇت</string>
     <string name="empty_deck_name">دەستە ئىسمى بوش قالمايدۇ</string>
     <string name="create_deck_numeric_hint">ئەگەر دەستە تەرتىپ مەسىلىسى بولسا (مەسىلەن، «10»«2»)دىن ئىلگىرى كۆرۈنسە، «2» نى «02» گە ئالماشتۇرۇڭ)</string>

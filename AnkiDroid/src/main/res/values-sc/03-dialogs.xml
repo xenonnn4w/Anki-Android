@@ -55,13 +55,7 @@
     <string name="delete_cram_deck_message">Iscantzellare su matzu filtradu %s e torrare a imbiare totu sas cartas a sos matzos originale issoro?</string>
     <string name="no_tts_available_message">Non b\'est a disponimentu peruna limba de sìntesi vocale</string>
     <string name="tts_no_tts">Non chistiones</string>
-    <string name="unused_strings">\n\nDocumentos no impreados:\n</string>
-    <string name="reposition_card_dialog_title">Torra a positzionare sa carta noa</string>
     <string name="reposition_card_not_new_error">Petzi sas cartas noas si podent torrare a positzionare</string>
-    <plurals name="reposition_card_dialog_acknowledge">
-        <item quantity="one">%d carta torrada a positzionare</item>
-        <item quantity="other">%d cartas torradas a positzionare</item>
-    </plurals>
     <string name="reset_card_dialog_title">Reseta su progressu de sa carta</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="one">%d carta resetada</item>
@@ -73,7 +67,7 @@
                                              Si custu acontesset prus de su sòlitu proa a verificare sa base de datos, ariparare sa colletzione o a la ripristinare dae una còpia de seguresa. Incarca in “optziones” pro lu fàghere.\n
                                              \\O diat pòdere èssere fintzas unu problema de AnkiDroid; pro praghere sinnala s\'errore pro nos permìtere de lu verificare.</string>
     <string name="answering_error_report">Sinnala una faddina</string>
-    <string name="storage_full_message">Non b\'at ispàtziu de memòria bastante pro abèrrere AnkiDroid. Lìbera unu pagu de ispàtziu pro sighire.</string>
+    <string name="storage_full_message">There is not enough free storage space to open AnkiDroid. Free up some space to continue.</string>
     <string name="repair_deck_dialog">Cheres a beru proare a riparare sa base de datos?\n
                    \n
                    In antis de incumintzare cun sa proa s\'at a creare una còpia in sa suta-cartella “%s”.</string>
@@ -117,10 +111,7 @@
     <string name="check_media_message">Vetifichende sos mèdios&#8230;</string>
     <string name="check_media_acknowledge">Mèdios verificados</string>
     <string name="check_media_invalid">Documentos cun una codìfica non vàlida: %d</string>
-    <string name="check_media_unused">Documentos in sa cartella de sos mèdios ma chi non benint impreados dae peruna carta: %d</string>
-    <string name="check_media_nohave">Documentos impreados in sas cartas ma chi mancant in sa cartella de sos mèdios: %d</string>
     <string name="check_media_no_unused_missing">Perunu documentu no impreadu o chi manchet agatadu</string>
-    <string name="check_media_db_updated">Base de datos multimediales torrada a fraigare</string>
     <string name="check_media_delete_unused">Iscantzella sos no impreados</string>
     <string name="delete_media_message">Iscantzellende mèdios&#8230;</string>
     <string name="delete_media_result_title">Resurtadu de s\'iscantzelladura</string>
@@ -134,7 +125,6 @@
     <string name="tags_dialog_option_due_cards" comment="Name of cards that are already been reviewed in the past, and that should be reviewed again">De revisionare</string>
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Agatende sas cartas bòidas&#8230;</string>
-    <string name="empty_cards_count">Cartas de iscantzellare: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">No est istadu possìbile otènnere su permissu pro su micròfonu.</string>
     <string name="multimedia_editor_failed">Abertura de s\'Editore Multimediale fallida</string>
@@ -215,7 +205,7 @@
         <item quantity="one">In %d segundu diat pòdere incumintzare una sincronizatzione automàtica</item>
         <item quantity="other">In %d segundos diat pòdere incumintzare una sincronizatzione automàtica</item>
     </plurals>
-    <string name="metered_sync_data_warning">Su frunidore de ìnternet tuo ti diat pòdere fàghere pagare dinare pro s\'impreu de datos </string>
+    <string name="metered_sync_data_warning">Su frunidore de ìnternet tuo ti diat pòdere fàghere pagare dinare pro s\'impreu de datos</string>
     <string name="deck_picker_new">Nùmeru de cartas noas de pompiare oe in custu matzu.</string>
     <string name="deck_picker_rev">Nùmeru de cartas chi iscadint oe in custu matzu.</string>
     <string name="deck_picker_lrn">Nùmeru de cartas de imparare in custu matzu.</string>
@@ -232,14 +222,12 @@
     <string name="backup_your_collection">Faghe una còpia de seguresa de sa colletzione tua</string>
     <string name="backup_collection_message">No as fatu una còpia de seguresa de sa colletzione tua dae unu pagu de tempus. Lu dias dèpere fàghere como pro prevènnere pèrdidas de datos</string>
     <string name="button_backup" maxLength="41">Faghe una còpia</string>
-    <string name="button_disable_reminder">Disabìlita su promemòria </string>
+    <string name="button_disable_reminder">Disabìlita su promemòria</string>
     <string name="button_backup_later" comment="dismiss the \'Backup\' dialog for around 2 weeks">Prus a tardu</string>
     <string name="button_do_not_show_again" comment="permanently dismisses a dialog">Non lu torres a mustrare</string>
     <string name="dismiss_backup_warning_title">Avisu de pèrdida de datos</string>
-    <string name="dismiss_backup_warning_new_user">        Pro neghe de sas modìficas a sa riservadesa de Android, sos datos tuos e sas còpias de seguresa automàticas tuas s\'ant a iscantzellare dae su telèfonu tuo si as a disinstallare s\'aplicatzione
-    </string>
-    <string name="dismiss_backup_warning_upgrade">        Pro neghe de sas modìficas a sa riservadesa de Android, non s\'at a pòdere atzèdere a sos datos tuos e a sas còpias de seguresa automàticas tuas si as a disinstallare s\'aplicatzione
-    </string>
+    <string name="dismiss_backup_warning_new_user">Due to Android privacy changes, your data and automated backups will be deleted from your phone if the app is uninstalled</string>
+    <string name="dismiss_backup_warning_upgrade">Due to Android privacy changes, your data and automated backups will be inaccessible if the app is uninstalled</string>
     <string name="deck_already_exists">Su matzu esistit giai</string>
     <string name="empty_deck_name">Su nùmene de su matzu non podet èssere bòidu</string>
     <string name="create_deck_numeric_hint">Si tenes problemas de òrdine de su matzu (a es. ‘10’ aparit in antis de ‘2’), remplasa ‘2’ cun ‘02’</string>

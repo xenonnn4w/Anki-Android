@@ -54,12 +54,7 @@
     <string name="delete_cram_deck_message">Delete filtered deck %s and send all cards back to their original decks?</string>
     <string name="no_tts_available_message">Không có ngôn ngữ chuyển-văn-bản-thành-lời</string>
     <string name="tts_no_tts">Đừng phát âm</string>
-    <string name="unused_strings">\n\nUnused files:\n</string>
-    <string name="reposition_card_dialog_title">Đặt lại vị trí thẻ mới</string>
     <string name="reposition_card_not_new_error">Chỉ thẻ mới có thể được định vị lại</string>
-    <plurals name="reposition_card_dialog_acknowledge">
-        <item quantity="other">%d thẻ được định vị lại</item>
-    </plurals>
     <string name="reset_card_dialog_title">Đặt lại tiến trình thẻ</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="other">đặt lại thẻ %d</item>
@@ -67,7 +62,7 @@
     <string name="answering_error_title">Lỗi cơ sở dữ liệu</string>
     <string name="answering_error_message">Ghi vào bộ sưu tập không thành công. Cơ sở dữ liệu có thể bị hỏng hoặc có thể không có đủ dung lượng trống.\n\nNếu điều này xảy ra thường xuyên hơn, hãy thử kiểm tra cơ sở dữ liệu, sửa chữa bộ sưu tập hoặc khôi phục nó từ bản sao lưu. Chạm vào “tùy chọn” cho điều đó. \n\Hoặc nó cũng có thể là lỗi AnkiDroid; vui lòng thông báo lỗi để chúng tôi có thể kiểm tra điều này.</string>
     <string name="answering_error_report">Báo cáo lỗi</string>
-    <string name="storage_full_message">Không đủ không gian lưu trữ miễn phí để mở AnkiDroid. Giải phóng một số không gian để tiếp tục. </string>
+    <string name="storage_full_message">There is not enough free storage space to open AnkiDroid. Free up some space to continue.</string>
     <string name="repair_deck_dialog">Bạn có thực sự muốn sửa chữa cơ sở dữ liệu? \n\nTrước khi bắt đầu, một bản sao sẽ được tạo trong thư mục con \"%s\".</string>
     <string name="intent_aedict_empty">Danh mục \"mặc định\" rỗng</string>
     <string name="intent_aedict_category">Để thêm thẻ vào AnkiDroid, hãy xoá toàn bộ danh mục Notepad hoặc thêm danh mục tên \"mặc định\"</string>
@@ -82,7 +77,7 @@
     <string name="no_space_to_downgrade_content" tools:ignore="UnusedResources">AnkiDroid needs %s free storage space to continue. Please clear some space</string>
     <string name="restore_backup_title">Khôi phục sao lưu?</string>
     <string name="restore_backup">Bộ sưu tập sẽ được thay bằng bản sao cũ hơn. Bất kỳ tiến trình nào chưa lưu sẽ bị mất.</string>
-    <string name="restore_backup_choose_another">Chọn cái khác </string>
+    <string name="restore_backup_choose_another">Chọn cái khác</string>
     <string name="dialog_cancel">Huỷ</string>
     <string name="dialog_ok">OK</string>
     <string name="dialog_confirm" tools:ignore="UnusedResources">Xác nhận</string>
@@ -109,10 +104,7 @@
     <string name="check_media_message">Đang kiểm tra tệp đa phương tiện&#8230;</string>
     <string name="check_media_acknowledge">Đã kiểm tệp đa phương tiện</string>
     <string name="check_media_invalid">Các tệp với mã hoá không hợp lệ: %d</string>
-    <string name="check_media_unused">Tệp trong thư mục đa phương tiện nhưng không được dùng bởi thẻ nào: %d</string>
-    <string name="check_media_nohave">Các tệp dùng trong thẻ mà không có trong thư mục đa phương tiện: %d</string>
     <string name="check_media_no_unused_missing">Không thấy tệp chưa dùng hoặc thất lạc nào</string>
-    <string name="check_media_db_updated">Đã dựng lại CSDL đa phương tiện</string>
     <string name="check_media_delete_unused">Xoá tệp chưa dùng</string>
     <string name="delete_media_message">Đang xóa phương tiện&#8230;</string>
     <string name="delete_media_result_title">Kết quả xóa</string>
@@ -125,7 +117,6 @@
     <string name="tags_dialog_option_due_cards" comment="Name of cards that are already been reviewed in the past, and that should be reviewed again">Tới hạn</string>
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Đang tìm thẻ rỗng&#8230;</string>
-    <string name="empty_cards_count">Thẻ sẽ được xóa: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Không thể quyền micrô.</string>
     <string name="multimedia_editor_failed">Không mở được Trình chỉnh sửa Đa phương tiện</string>
@@ -217,10 +208,8 @@
     <string name="button_backup_later" comment="dismiss the \'Backup\' dialog for around 2 weeks">Để sau</string>
     <string name="button_do_not_show_again" comment="permanently dismisses a dialog">Không hiển thị lại</string>
     <string name="dismiss_backup_warning_title">Cảnh báo mất dữ liệu</string>
-    <string name="dismiss_backup_warning_new_user">        Do những thay đổi về quyền riêng tư của Android, dữ liệu và các bản sao lưu tự động của bạn sẽ bị xoá khỏi điện thoại nếu ứng dụng bị gỡ cài đặt
-    </string>
-    <string name="dismiss_backup_warning_upgrade">        Do những thay đổi về quyền riêng tư của Android, dữ liệu và các bản sao lưu tự động của bạn sẽ không thể truy cập được nếu ứng dụng bị gỡ cài đặt
-    </string>
+    <string name="dismiss_backup_warning_new_user">Due to Android privacy changes, your data and automated backups will be deleted from your phone if the app is uninstalled</string>
+    <string name="dismiss_backup_warning_upgrade">Due to Android privacy changes, your data and automated backups will be inaccessible if the app is uninstalled</string>
     <string name="deck_already_exists">Bộ thẻ đã tồn tại</string>
     <string name="empty_deck_name">Tên bộ thẻ không được để trống</string>
     <string name="create_deck_numeric_hint">If you have deck ordering issues (e.g. ‘10’ appears before ‘2’), replace ‘2’ with ‘02’</string>

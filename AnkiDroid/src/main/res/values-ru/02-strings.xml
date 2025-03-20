@@ -52,7 +52,7 @@
     <string name="CardEditorModel">Тип:</string>
     <string name="CardEditorTags">Метки: %1$s</string>
     <string name="CardEditorCards">Карточки: %1$s</string>
-    <string name="edit_occlusions"> Править скрытие</string>
+    <string name="edit_occlusions">Править скрытие</string>
     <string name="tag_name">Название метки</string>
     <string name="add_new_filter_tags">Добавить/отфильтровать метки</string>
     <string name="add_tag" maxLength="28">Добавить метку</string>
@@ -140,7 +140,7 @@
     <string name="import_preparing_file">Подготовка файла для импорта&#8230;</string>
     <string name="import_message_add" comment="Adding a new deck to the collection (import)">Добавить</string>
     <string name="import_message_replace_confirm">Ваша коллекция будет удалена, и её заменят данные из файла %s</string>
-    <string name="import_dialog_message_add">Добавить \"%s\" в коллекцию? Может потребоваться немало времени </string>
+    <string name="import_dialog_message_add">Добавить \"%s\" в коллекцию? Может потребоваться немало времени</string>
     <string name="import_log_no_apkg">Это недопустимый пакет Anki</string>
     <string name="import_title_error" comment="Title of error dialog">Ошибка</string>
     <string name="import_error_handle_exception">Не удалось импортировать файл\n\n%s</string>
@@ -195,6 +195,7 @@
     <!-- Deckpicker Background -->
     <string name="background_image_title" maxLength="41">Фон</string>
     <string name="choose_an_image" maxLength="41">Выбрать изображение</string>
+    <string name="remove_wallpaper_image" maxLength="41">Remove background</string>
     <string name="remove_background_image">Удалить фон?</string>
     <!-- Card Template Browser Appearance -->
     <string name="restore_default" maxLength="28">Сбросить настройки</string>
@@ -202,7 +203,6 @@
     <!-- Whiteboard save image message in Reviewer -->
     <string name="white_board_image_save_failed">Не удалось сохранить изображение доски. %s</string>
     <string name="white_board_image_saved">Изображение доски сохранено в %s</string>
-    <string name="title_whiteboard_pen_color" maxLength="41">Цвет маркера</string>
     <string name="title_whiteboard_editor" maxLength="28">Редактор доски</string>
     <string name="user_is_a_robot">Обнаружен автоматический тест. Если вы человек, обратитесь в службу поддержки AnkiDroid</string>
     <!-- JS api -->
@@ -241,7 +241,7 @@
     <string name="note_editor_image_too_large">Изображение слишком большое. Вставьте изображение вручную</string>
     <string name="note_editor_video_too_large">Видео слишком большое. Вставьте видео вручную</string>
     <string name="note_editor_audio_too_large">Аудио слишком большое. Вставьте аудио вручную</string>
-    <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">        Выполняется резервное копирование Android. Попробуйте еще раз</string>
+    <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">Android backup in progress. Please try again</string>
     <string name="create_shortcut_error_vivo" comment="iManager is an app on Vivo phones">Возможно, вам потребуется iManager, чтобы AnkiDroid мог добавлять ярлыки</string>
     <string name="create_shortcut_failed" comment="home screen == launcher">Ваш домашний экран не позволяет AnkiDroid добавлять ярлыки</string>
     <string name="create_shortcut_error">Ошибка при добавлении ярлыка: %s</string>
@@ -257,6 +257,7 @@
     <!-- %% is required to display % symbol. Reference: https://stackoverflow.com/a/16834358 -->
     <string name="percentage">%s%%</string>
     <string name="download_deck">Скачать колоду</string>
+    <string name="open_in_browser" comment="Label of a button inviting to open ankiweb\'s shared deck page if automated download failed">Open in Browser</string>
     <string name="try_again">Попробуйте ещё раз</string>
     <string name="cancel_download">Отменить загрузку</string>
     <string name="cancel_download_question_title">Отменить загрузку?</string>
@@ -269,7 +270,7 @@
     <string name="search_using_deck_name">Искать по названию колоды</string>
     <string name="external_storage_unavailable">Загрузка прервана, внешняя память недоступна</string>
     <string name="home" maxLength="28">Главная</string>
-    <!-- Reviewer actions 
+    <!-- Reviewer actions
     Each of these strings ends with a period, following the notation of Anki Desktop -->
     <string name="card_buried">Карточка отложена.</string>
     <plurals name="note_suspended">
@@ -312,18 +313,17 @@
     <string name="show_notes" comment="Label for toggle notes button in BrowserOptionsDialog">Записи</string>
     <string name="toggle_cards_notes">Карточки — записи</string>
     <string name="truncate_content_help">Показывать в списке только первые 3 строки</string>
-    <string name="browser_options_dialog_heading">Browser options</string>
-    <string name="audio_saved">Запись сохранена </string>
+    <string name="browser_options_dialog_heading">Параметры списка карточек</string>
+    <string name="audio_saved">Запись сохранена</string>
     <string name="deleting_selected_notes">Выбранные записи удаляются</string>
-    <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">        Нажмите на голосе, чтобы послушать
-    </string>
-    <string name="tts_voices_selected_voice_should_be_installed" comment="If a voice has been tapped, is installable but not installed, we want to inform the user that they should install it for the best experience There will also be an option to use it without downloading">Нужно установить голос перед использованием</string>
-    <string name="tts_voices_use_selected_voice_without_install" comment="A user has been informed that a voice should be installed before use. This is text on a snackbar button which allows them to use the voice without installing it">Всё равно использовать </string>
+    <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">Tap a voice to listen</string>
+    <string name="tts_voices_selected_voice_should_be_installed" comment="If a voice has been tapped, is installable but not installed, we want to inform the user that they should install it for the best experience There will also be an option to use it without downloading">Voice should be installed before use</string>
+    <string name="tts_voices_use_selected_voice_without_install" comment="A user has been informed that a voice should be installed before use. This is text on a snackbar button which allows them to use the voice without installing it">Use anyway</string>
     <string name="tts_voices_playback_error_new" comment="an error occurred when playing a text to speech voice. The parameter is a technical error code such as \'ERROR_NOT_INSTALLED_YET\' or \'ERROR_NETWORK_TIMEOUT\'">Ошибка синтеза речи (%s)</string>
     <!-- Chips should probably be in a separate file, due to the additional length req -->
-    <string name="tts_voices_chip_filter_to_internet" comment="     Filters a list of text to speech voices, to enable/disable voices which require the internet to     function.     This is on a chip control, so keep the text short, ideally one word">Интернет</string>
-    <string name="tts_voices_chip_filter_to_installable_audio" comment="     Displays a list of Text to Speech voices which should be downloaded/installed before use     This is on a chip control, so keep the text short, ideally one word">Установить</string>
-    <string name="tts_voices_failed_opening_tts_system_settings" comment="error message if opening the system text to speech settings fails">Не удалось открыть настройки синтеза</string>
+    <string name="tts_voices_chip_filter_to_internet" comment="     Filters a list of text to speech voices, to enable/disable voices which require the internet to     function.     This is on a chip control, so keep the text short, ideally one word">Internet</string>
+    <string name="tts_voices_chip_filter_to_installable_audio" comment="     Displays a list of Text to Speech voices which should be downloaded/installed before use     This is on a chip control, so keep the text short, ideally one word">Install</string>
+    <string name="tts_voices_failed_opening_tts_system_settings" comment="error message if opening the system text to speech settings fails">Failed to open text to speech settings</string>
     <string name="shared_decks_login_required">Пожалуйста, войдите, чтобы скачать больше колод</string>
     <string name="deck_description_field_hint">Описание</string>
     <string name="failed_to_copy">Не удалось скопировать</string>
@@ -344,20 +344,18 @@
     <string name="orphan_note_message">Удаление этого типа карточек оставит некоторые записи без карточек.</string>
     <string name="voice_not_supported">Этот голос не поддерживается. Попробуйте другой или установите голосовой движок.</string>
     <!--Keyboard shortcuts dialog-->
-    <string name="show_keyboard_shortcuts_dialog" comment="Description of the shortcut that shows the keyboard shortcuts dialog">Показать диалог сочетаний клавиш</string>
-    <string name="deck_picker_group" comment="Label for the group of shortcuts related to the deck picker">Выборщик колоды</string>
+    <string name="deck_picker_group" comment="Label for the group of shortcuts related to the deck picker">Выбор колоды</string>
     <string name="delete_deck_without_confirmation" comment="Description of the shortcut that deletes the deck without asking for confirmation">Удалить колоду без подтверждения</string>
-    <string name="note_editor_group" comment="Label for the group of shortcuts related to the note editor">Редактор заметок</string>
+    <string name="note_editor_group" comment="Label for the group of shortcuts related to the note editor">Редактор записей</string>
     <string name="select_deck" comment="Description of the shortcut that opens the deck selection dialog">Выбрать колоду</string>
     <string name="select_note_type" comment="Description of the shortcut that shows the note selection spinner">Выбрать тип записи</string>
     <string name="tag_editor" comment="Description of the shortcut that opens the tags dialog">Редактор меток</string>
     <string name="card_template_editor_group" comment="Label for the group of shortcuts related to the card template editor">Редактор шаблонов карточек</string>
     <string name="edit_front_template" comment="Description of the shortcut that shows the question side of the card template">Изменить шаблон лицевой стороны</string>
     <string name="edit_back_template" comment="Description of the shortcut that shows the answer side of the card template">Изменить шаблон оборота</string>
-    <string name="edit_styling" comment="Description of the shortcut that shows the styling side of the card template">Редактировать стилизирование</string>
+    <string name="edit_styling" comment="Description of the shortcut that shows the styling side of the card template">Править стиль</string>
     <string name="copy_the_template" comment="Description of the shortcut that copy the template as markdown">Копировать шаблон как markdown</string>
     <string name="edit_browser_appearance" comment="Description of the shortcut that edits the browser appearance of card template">Изменить вид браузера</string>
-    <string name="show_shortcuts_message">Нажмите Alt+K, чтобы показать сочетания клавиш</string>
     <string name="missing_user_action_dialog_message" comment="%s is the user action number">В этом блокноте не задано действие пользователя %s. Пожалуйста, настройте его</string>
     <string name="directory_inaccessible_info">Узнайте больше о том, как восстановить доступ здесь %s или перейдите к настройкам для обновления папки коллекции.</string>
 </resources>

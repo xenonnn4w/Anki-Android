@@ -26,6 +26,7 @@ import android.widget.LinearLayout
 import androidx.appcompat.view.menu.MenuBuilder
 import androidx.appcompat.view.menu.MenuItemImpl
 import androidx.appcompat.widget.ActionMenuView
+import androidx.core.view.size
 import androidx.lifecycle.findViewTreeLifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.ichi2.anki.Flag
@@ -51,6 +52,7 @@ class ReviewerMenuView
         attrs: AttributeSet? = null,
         defStyleAttr: Int = 0,
     ) : LinearLayout(context, attrs, defStyleAttr) {
+        private val repository = ReviewerMenuRepository(context.sharedPrefs())
         private val frontMenu: Menu
         private val overflowMenu: Menu
 
@@ -68,6 +70,8 @@ class ReviewerMenuView
             frontMenu.clear()
             overflowMenu.clear()
         }
+
+        fun isEmpty() = frontMenu.size == 0 && overflowMenu.size == 0
 
         fun findItem(id: Int): MenuItemImpl? = (frontMenu.findItem(id) ?: overflowMenu.findItem(id)) as? MenuItemImpl
 
@@ -122,7 +126,7 @@ class ReviewerMenuView
         }
 
         private fun setupMenus() {
-            val menuItems = MenuDisplayType.getMenuItems(context.sharedPrefs(), MenuDisplayType.ALWAYS, MenuDisplayType.MENU_ONLY)
+            val menuItems = repository.getActionsByMenuDisplayTypes(MenuDisplayType.ALWAYS, MenuDisplayType.MENU_ONLY)
             addActions(menuItems.getValue(MenuDisplayType.ALWAYS), menuItems.getValue(MenuDisplayType.MENU_ONLY))
             // wait until attached to a fragment or activity to launch the coroutine to setup flags
             viewTreeObserver.addOnGlobalLayoutListener(

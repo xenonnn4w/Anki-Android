@@ -97,6 +97,7 @@
     <string name="gestures_summ">Atribuir gestos a ações tais como responder e editar fichas.</string>
     <string name="gestures_corner_touch" maxLength="41">Toque de 9 pontos</string>
     <string name="gestures_corner_touch_summary">Permitir gestos de toque nos cantos da tela</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Mostrar teclas de atalho do teclado</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Painel de navegação no ecrã completo</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Abrir painel de navegação quando desliza para a direita de qualquer ponto do ecrã</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">Nenhum</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Toque no canto inferior esquerdo</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Toque no canto inferior direito</string>
     <string name="gestures_shake" maxLength="41">Agitar o dispositivo</string>
-    <string name="card_browser_enable_external_context_menu">Menu ‘%s’</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">Menu ‘%s’</string>
     <string name="card_browser_enable_external_context_menu_summary">Activa o menu contextual ‘%s’, globalmente</string>
     <string name="double_scrolling_gap" maxLength="41">Scroll duplo</string>
     <string name="double_scrolling_gap_summ">Duplicar a velocidade de scroll com o eReader</string>
@@ -261,9 +262,7 @@
     <string name="donate_description"><![CDATA[Pode apoiar o desenvolvimento do AnkiDroid ao <a href=\"%1$s\">doar</a>. Ficamos muito gratos independentemente do valor.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Adicionar gesto</string>
-    <string name="binding_replace_gesture">Substituir gesto</string>
     <string name="binding_add_key">Adicionar tecla</string>
-    <string name="binding_replace_key">Substituir tecla</string>
     <string name="key_picker_default_press_key">Pressione uma tecla</string>
     <string name="binding_add_axis">Adicionar um \"joystick\"/comando de movimento</string>
     <string name="axis_picker_move_joystick">Mover um \"joystick\"/comando de movimento</string>
@@ -298,8 +297,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Opções de programador</string>
     <string name="dev_options_enabled_pref" maxLength="41">Ativar as opções de programador</string>
     <string name="disable_dev_options">Desativar opções do desenvolvedor</string>
-    <string name="dev_options_warning">        Antes de activar as opções de programador, assegure-se que é mesmo isso que quer fazer. Estas opções são perigosas e podem estragar a aplicação ou corromper a sua colecção.\n\nEstas opções são destinadas a programadores, daí não terem tradução e estarem em Inglês.
-    </string>
+    <string name="dev_options_warning">Tenha a certeza antes de activar as opções de programador. Estas opções são perigosas e podem impedir o correcto funcionamento da aplicação ou a corrupção da sua colecção.\n\nRepare que estas opções não são adequadas para a maioria dos utilizadores e, por isso, não foram traduzidas do inglês.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

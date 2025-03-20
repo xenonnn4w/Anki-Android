@@ -47,14 +47,14 @@
     <!-- generic strings -->
     <string name="disabled">Выкл.</string>
     <plurals name="pref_summ_minutes">
-        <item quantity="one">%d минута</item>
+        <item quantity="one">%d мин</item>
         <item quantity="few">%d мин</item>
         <item quantity="many">%d мин</item>
         <item quantity="other">%d мин</item>
     </plurals>
     <string name="pref_milliseconds">%s мс</string>
     <!-- TODO: move to 20-search-preference so we can contribute upstream (searchpreference_no_results)-->
-    <string name="pref_search_no_results">Ничего не найденo</string>
+    <string name="pref_search_no_results">Ничего не найдено</string>
     <!-- preferences.xml categories-->
     <string name="pref_cat_general" comment="name of the general preference category" maxLength="41">Общие</string>
     <string name="pref_cat_studying" maxLength="41">Поведение</string>
@@ -99,6 +99,7 @@
     <string name="gestures_summ">Назначает жесты действиям вроде ответа и правки</string>
     <string name="gestures_corner_touch" maxLength="41">9 зон касания</string>
     <string name="gestures_corner_touch_summary">Разрешить сенсорные жесты в углах экрана</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Панель навигации при полном экране</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Открывать панель навигации при смахивании вправо с любого места на экране</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">Нет</string>
@@ -117,8 +118,8 @@
     <string name="gestures_corner_tap_middle_center" maxLength="41">Касание в центре экрана</string>
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Касание внизу в левом углу</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Касание внизу в правом углу</string>
-    <string name="gestures_shake" maxLength="41">Потрясти устройство </string>
-    <string name="card_browser_enable_external_context_menu">Пункт «%s» в меню</string>
+    <string name="gestures_shake" maxLength="41">Потрясти устройство</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">Пункт «%s» в меню</string>
     <string name="card_browser_enable_external_context_menu_summary">Добавляет пункт «%s» в контекстное меню системы</string>
     <string name="double_scrolling_gap" maxLength="41">Двойная прокрутка</string>
     <string name="double_scrolling_gap_summ">Удвоить дистанцию прокрутки на читалках</string>
@@ -202,7 +203,7 @@
     <string name="thirdparty_apps_summary">Покажет список приложений, которые используют API AnkiDroid, например, словари</string>
     <!-- Appearance settings -->
     <string name="pref_cat_reviewer" maxLength="41">Повторение</string>
-    <string name="show_deck_title" maxLength="41">Показать название колоды</string>
+    <string name="show_deck_title" maxLength="41">Показывать название колоды</string>
     <string name="accessibility" maxLength="41">Специальные возможности</string>
     <!-- Paste clipboard image as png option -->
     <string name="paste_as_png" maxLength="41">Вставлять изображения буфера как PNG</string>
@@ -263,9 +264,7 @@
     <string name="donate_description"><![CDATA[Вы можете поддержать развитие AnkiDroid, <a href=\"%1$s\">пожертвованием</a>. Любая сумма сильно поможет.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Добавить жест</string>
-    <string name="binding_replace_gesture">Заменить жест</string>
     <string name="binding_add_key">Добавить кнопку</string>
-    <string name="binding_replace_key">Заменить клавишу</string>
     <string name="key_picker_default_press_key">Нажмите кнопку</string>
     <string name="binding_add_axis">Добавить джойстик/контроллер движения</string>
     <string name="axis_picker_move_joystick">Переместить джойстик/контроллер движения</string>
@@ -300,8 +299,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Настройки разработчика</string>
     <string name="dev_options_enabled_pref" maxLength="41">Включить параметры для разработчиков</string>
     <string name="disable_dev_options">Отключить настройки разработчика</string>
-    <string name="dev_options_warning">        Пожалуйста, убедитесь, что вы знаете что делаете перед включением опций разработчика. Эти параметры являются опасными и могут нарушить приложение или повредить вашу коллекцию.\n\nОбратите внимание, что эти опции не подходят для большинства пользователей и поэтому не переводятся, поэтому они находятся на английском языке.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->
@@ -371,9 +369,9 @@
     <string name="ignore_display_cutout" maxLength="41">Игнорировать вырез экрана</string>
     <string name="hide_answer_buttons" maxLength="41">Скрывать кнопки ответа</string>
     <string name="hide_hard_and_easy" maxLength="41">Скрывать кнопки «Трудно» и «Легко»</string>
-    <string name="reviewer_frame_style" maxLength="41">Frame style</string>
-    <string name="reviewer_frame_style_card" maxLength="41" comment="Style name of the \'Card\' card frame of the Reviewer">Card</string>
-    <string name="reviewer_frame_style_box" maxLength="41" comment="Style name of the \'Box\' card frame of the Reviewer">Box</string>
+    <string name="reviewer_frame_style" maxLength="41">Стиль рамки</string>
+    <string name="reviewer_frame_style_card" maxLength="41" comment="Style name of the \'Card\' card frame of the Reviewer">Карточка</string>
+    <string name="reviewer_frame_style_box" maxLength="41" comment="Style name of the \'Box\' card frame of the Reviewer">Квадратная</string>
     <!--Keyboard shortcuts dialog-->
     <string name="open_settings" comment="Description of the shortcut that opens the app settings">Открыть настройки</string>
 </resources>

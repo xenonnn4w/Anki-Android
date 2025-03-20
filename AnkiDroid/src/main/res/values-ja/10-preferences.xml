@@ -96,6 +96,7 @@
     <string name="gestures_summ">回答やカード編集などの操作にジェスチャーを割り当てます</string>
     <string name="gestures_corner_touch" maxLength="41">タップを９種類にする</string>
     <string name="gestures_corner_touch_summary">カード画面内を縦３ × 横３の９エリアに区別して各エリアにタップジェスチャーを割り当てられます</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">キーボードショートカットを表示</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">どこでもドロワー</string>
     <string name="gestures_fullscreen_nav_drawer_summary">アプリ画面上のどこからでも、右向きにスワイプするとナビゲーションドロワーが開きます</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">なし</string>
@@ -115,7 +116,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">左下をタップ</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">右下をタップ</string>
     <string name="gestures_shake" maxLength="41">デバイスを振る</string>
-    <string name="card_browser_enable_external_context_menu">「%s」メニュー</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">「%s」メニュー</string>
     <string name="card_browser_enable_external_context_menu_summary">AnkiDroidおよび他のアプリ（ウェブブラウザなど）で、文字列を選択した際に表示されるコンテキストメニューに「%s」という項目を追加します</string>
     <string name="double_scrolling_gap" maxLength="41">ダブルスクロール</string>
     <string name="double_scrolling_gap_summ">eReader とのスクロールのギャップを 2 倍にする場合、これを有効にします</string>
@@ -258,9 +259,7 @@
     <string name="donate_description"><![CDATA[<a href=\"%1$s\">寄付</a>することでAnkiDroidの開発を支援することができます。]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">ジェスチャーを追加</string>
-    <string name="binding_replace_gesture">ジェスチャーを置換</string>
     <string name="binding_add_key">キーを追加</string>
-    <string name="binding_replace_key">キーを置換</string>
     <string name="key_picker_default_press_key">いずれかのキーを押してください</string>
     <string name="binding_add_axis">ジョイスティック/モーションコントローラーの動作を追加</string>
     <string name="axis_picker_move_joystick">ジョイスティック/モーションコントローラーを動かしてください</string>
@@ -295,8 +294,7 @@
     <string name="pref_cat_dev_options" maxLength="41">開発者向けオプション</string>
     <string name="dev_options_enabled_pref" maxLength="41">開発者向けオプションを有効にする</string>
     <string name="disable_dev_options">開発者向けオプションを無効にする</string>
-    <string name="dev_options_warning">        注意：開発者向けのオプションは、使い方によってはアプリ自体やコレクションを破損させるおそれがあります。\n\nこれらのオプションはほとんどのユーザーには適していないため、英語でのみ表示されます。
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

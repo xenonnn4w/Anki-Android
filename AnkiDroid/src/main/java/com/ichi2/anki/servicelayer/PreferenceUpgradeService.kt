@@ -50,7 +50,7 @@ import com.ichi2.anki.reviewer.CardSide
 import com.ichi2.anki.reviewer.FullScreenMode
 import com.ichi2.anki.reviewer.MappableBinding
 import com.ichi2.anki.reviewer.MappableBinding.Companion.toPreferenceString
-import com.ichi2.anki.reviewer.screenBuilder
+import com.ichi2.anki.reviewer.ReviewerBinding
 import com.ichi2.libanki.Consts
 import com.ichi2.utils.HashUtil.hashSetInit
 import timber.log.Timber
@@ -338,11 +338,27 @@ object PreferenceUpgradeService {
                 upgradeGestureToBinding(preferences, "gestureTapLeft", Gesture.TAP_LEFT)
                 upgradeGestureToBinding(preferences, "gestureTapCenter", Gesture.TAP_CENTER)
                 upgradeGestureToBinding(preferences, "gestureTapRight", Gesture.TAP_RIGHT)
-                upgradeGestureToBinding(preferences, "gestureTapBottomLeft", Gesture.TAP_BOTTOM_LEFT)
+                upgradeGestureToBinding(
+                    preferences,
+                    "gestureTapBottomLeft",
+                    Gesture.TAP_BOTTOM_LEFT,
+                )
                 upgradeGestureToBinding(preferences, "gestureTapBottom", Gesture.TAP_BOTTOM)
-                upgradeGestureToBinding(preferences, "gestureTapBottomRight", Gesture.TAP_BOTTOM_RIGHT)
-                upgradeVolumeGestureToBinding(preferences, "gestureVolumeUp", KeyEvent.KEYCODE_VOLUME_UP)
-                upgradeVolumeGestureToBinding(preferences, "gestureVolumeDown", KeyEvent.KEYCODE_VOLUME_DOWN)
+                upgradeGestureToBinding(
+                    preferences,
+                    "gestureTapBottomRight",
+                    Gesture.TAP_BOTTOM_RIGHT,
+                )
+                upgradeVolumeGestureToBinding(
+                    preferences,
+                    "gestureVolumeUp",
+                    KeyEvent.KEYCODE_VOLUME_UP,
+                )
+                upgradeVolumeGestureToBinding(
+                    preferences,
+                    "gestureVolumeDown",
+                    KeyEvent.KEYCODE_VOLUME_DOWN,
+                )
             }
 
             private fun upgradeVolumeGestureToBinding(
@@ -399,8 +415,21 @@ object PreferenceUpgradeService {
                 Timber.i("Moving preference from '%s' to '%s'", oldGesturePreferenceKey, command.preferenceKey)
 
                 // add to the binding_COMMANDNAME preference
-                val mappableBinding = MappableBinding(binding, command.screenBuilder(CardSide.BOTH))
-                command.addBindingAtEnd(preferences, mappableBinding)
+                val mappableBinding = ReviewerBinding(binding, CardSide.BOTH)
+                val addAtEnd: (MutableList<MappableBinding>, MappableBinding) -> Boolean =
+                    { collection, element ->
+                        // do not reorder the elements
+                        if (collection.contains(element)) {
+                            false
+                        } else {
+                            collection.add(element)
+                            true
+                        }
+                    }
+                val bindings: MutableList<MappableBinding> = ReviewerBinding.fromPreference(preferences, command)
+                addAtEnd(bindings, mappableBinding)
+                val newValue: String = bindings.toPreferenceString()
+                preferences.edit { putString(command.preferenceKey, newValue) }
             }
         }
 
@@ -497,8 +526,8 @@ object PreferenceUpgradeService {
                 val destinyPrefValue = preferences.getString(destinyPrefKey, null)
 
                 val joinedBindings =
-                    MappableBinding.fromPreferenceString(destinyPrefValue) +
-                        MappableBinding.fromPreferenceString(sourcePrefValue)
+                    ReviewerBinding.fromPreferenceString(destinyPrefValue) +
+                        ReviewerBinding.fromPreferenceString(sourcePrefValue)
                 preferences.edit {
                     putString(destinyPrefKey, joinedBindings.toPreferenceString())
                     remove(sourcePrefKey)

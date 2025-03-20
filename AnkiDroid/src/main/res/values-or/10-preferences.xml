@@ -97,6 +97,7 @@
     <string name="gestures_summ">ପତ୍ରଗୁଡ଼ିକର ଉତ୍ତର ଏବଂ ସମ୍ପାଦନ କରିବା ଭଳି କାର୍ଯ୍ୟରେ ଅଙ୍ଗଭଙ୍ଗୀ ନ୍ୟସ୍ତ କରନ୍ତୁ</string>
     <string name="gestures_corner_touch" maxLength="41">୯-ଅଙ୍କ ସ୍ପର୍ଶ</string>
     <string name="gestures_corner_touch_summary">ସ୍କ୍ରୀନ୍ କୋଣରେ ସ୍ପର୍ଶ ଅଙ୍ଗଭଙ୍ଗୀକୁ ଅନୁମତି ଦିଅନ୍ତୁ</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">ପୂର୍ଣ୍ଣ ସ୍କ୍ରୀନ୍ ଦିଗଚଳନ ଡ୍ରର୍</string>
     <string name="gestures_fullscreen_nav_drawer_summary">ସ୍କ୍ରୀନ୍‌ର ଯେକୌଣସି ସ୍ଥାନରୁ ଡାହାଣକୁ ସ୍ୱାଇପ୍ କରିବା ମାତ୍ରେ ଦିଗଚଳନ ଡ୍ରର୍ ଖୋଲିବା</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">କିଛି ନାହିଁ</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">ତଳ ବାମକୁ ସ୍ପର୍ଶ କଲେ</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">ତଳ ଡାହାଣକୁ ସ୍ପର୍ଶ କଲେ</string>
     <string name="gestures_shake" maxLength="41">ଡିଵାଇସ୍ ଝାଙ୍କିଲେ</string>
-    <string name="card_browser_enable_external_context_menu">‘%s’ ମେନୁ</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">‘%s’ ମେନୁ</string>
     <string name="card_browser_enable_external_context_menu_summary">ସବୁ ଜାଗାରେ ‘%s’ ପ୍ରସଙ୍ଗ ମେନୁକୁ ସକ୍ଷମ କରିଥାଏ</string>
     <string name="double_scrolling_gap" maxLength="41">ଦ୍ୱିଗୁଣ ସ୍କ୍ରୋଲିଂ</string>
     <string name="double_scrolling_gap_summ">eReaderରେ ସ୍କ୍ରୋଲ୍ ଫାଙ୍କକୁ ଦୁଇଗୁଣ କରନ୍ତୁ</string>
@@ -260,9 +261,7 @@
     <string name="donate_description"><![CDATA[ଆପଣ <a href=\"%1$s\">ଦାନ</a> କରି AnkiDroidର ବିକାଶକୁ ସମର୍ଥନ କରିପାରିବେ। ଯେକୌଣସି ରାଶି ଅତ୍ୟନ୍ତ ପ୍ରଶଂସନୀୟ ଅଟେ।]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">ଅଙ୍ଗଭଙ୍ଗୀ ଯୋଡ଼ନ୍ତୁ</string>
-    <string name="binding_replace_gesture">ଅଙ୍ଗଭଙ୍ଗୀ ବଦଳାନ୍ତୁ</string>
     <string name="binding_add_key">Key ଯୋଡ଼ନ୍ତୁ</string>
-    <string name="binding_replace_key">Key ବଦଳାନ୍ତୁ</string>
     <string name="key_picker_default_press_key">ଏକ key ଦବାନ୍ତୁ</string>
     <string name="binding_add_axis">Add joystick/motion controller</string>
     <string name="axis_picker_move_joystick">Move a joystick/motion controller</string>
@@ -297,8 +296,7 @@
     <string name="pref_cat_dev_options" maxLength="41">ଡେଵେଲପର୍ ଵିକଳ୍ପ</string>
     <string name="dev_options_enabled_pref" maxLength="41">ଡେଵେଲପର୍ ଵିକଳ୍ପ ସକ୍ଷମ କରିବା</string>
     <string name="disable_dev_options">ଡେଵେଲପର୍ ଵିକଳ୍ପ ଅକ୍ଷମ କରିବା</string>
-    <string name="dev_options_warning">        ଡେଵେଲପର୍ ଵିକଳ୍ପ ସକ୍ଷମ କରିବା ଆଗରୁ ଦୟାକରି ନିଶ୍ଚିତ ହୁଅନ୍ତୁ। ଏଇ ଵିକଳ୍ପ ବିପଜ୍ଜନକ ଏଵଂ ଆପ୍ ଭାଙ୍ଗିପାରନ୍ତି କିମ୍ବା ଆପଣଙ୍କ ସଂଗ୍ରହକୁ ଭ୍ରଷ୍ଟ କରିପାରନ୍ତି।\n\nଧ୍ୟାନ ଦିଅନ୍ତୁ ଯେ ଏହି ଵିକଳ୍ପଗୁଡ଼ିକ ଅଧିକାଂଶ ଉପଭୋକ୍ତାଙ୍କ ପାଇଁ ଉପଯୁକ୍ତ ନୁହେଁ ଏଣୁ ଅନୁଵାଦ କରାନଯାଇ ଇଂରାଜୀରେ ହି ଥାଏ।
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->
@@ -369,8 +367,8 @@
     <string name="hide_answer_buttons" maxLength="41">ଉତ୍ତର ବଟନ୍ ଲୁଚାଇବା</string>
     <string name="hide_hard_and_easy" maxLength="41">‘କଠିନ’ ଏବଂ ‘ସହଜ’ ଉତ୍ତର ବଟନ୍ ଲୁଚାଇବା</string>
     <string name="reviewer_frame_style" maxLength="41">Frame style</string>
-    <string name="reviewer_frame_style_card" maxLength="41" comment="Style name of the \'Card\' card frame of the Reviewer">Card</string>
-    <string name="reviewer_frame_style_box" maxLength="41" comment="Style name of the \'Box\' card frame of the Reviewer">Box</string>
+    <string name="reviewer_frame_style_card" maxLength="41" comment="Style name of the \'Card\' card frame of the Reviewer">ପତ୍ର</string>
+    <string name="reviewer_frame_style_box" maxLength="41" comment="Style name of the \'Box\' card frame of the Reviewer">ବାକ୍ସ</string>
     <!--Keyboard shortcuts dialog-->
     <string name="open_settings" comment="Description of the shortcut that opens the app settings">Open settings</string>
 </resources>

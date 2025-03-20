@@ -23,15 +23,17 @@ import android.text.style.UnderlineSpan
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.ViewGroup.MarginLayoutParams
 import android.view.inputmethod.EditorInfo
 import android.view.inputmethod.InputMethodManager
 import android.webkit.WebView
-import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.StringRes
 import androidx.appcompat.view.menu.SubMenuBuilder
 import androidx.appcompat.widget.ActionMenuView
+import androidx.appcompat.widget.AppCompatImageButton
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.getSystemService
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
@@ -42,7 +44,6 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.google.android.material.appbar.MaterialToolbar
 import com.google.android.material.button.MaterialButton
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.shape.ShapeAppearanceModel
@@ -104,7 +105,6 @@ import com.ichi2.anki.utils.ext.menu
 import com.ichi2.anki.utils.ext.removeSubMenu
 import com.ichi2.anki.utils.ext.sharedPrefs
 import com.ichi2.anki.utils.ext.window
-import com.ichi2.anki.utils.setMargins
 import com.ichi2.libanki.sched.Counts
 import kotlinx.coroutines.launch
 
@@ -120,13 +120,7 @@ class ReviewerFragment :
         get() = requireView().findViewById(R.id.webview)
 
     override val baseSnackbarBuilder: SnackbarBuilder = {
-        val typeAnswerContainer = this@ReviewerFragment.view?.findViewById<View>(R.id.type_answer_container)
-        anchorView =
-            if (typeAnswerContainer?.isVisible == true) {
-                typeAnswerContainer
-            } else {
-                this@ReviewerFragment.view?.findViewById(R.id.buttons_area)
-            }
+        anchorView = this@ReviewerFragment.view?.findViewById(R.id.snackbar_anchor)
     }
 
     override fun onStop() {
@@ -142,8 +136,8 @@ class ReviewerFragment :
     ) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<MaterialToolbar>(R.id.toolbar).apply {
-            setNavigationOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
+        view.findViewById<AppCompatImageButton>(R.id.back_button).setOnClickListener {
+            requireActivity().finish()
         }
 
         setupImmersiveMode(view)
@@ -172,6 +166,10 @@ class ReviewerFragment :
             webView.evaluateJavascript(eval) {
                 viewModel.onStateMutationCallback()
             }
+        }
+
+        viewModel.showingAnswer.collectIn(lifecycleScope) {
+            resetZoom()
         }
     }
 
@@ -265,10 +263,13 @@ class ReviewerFragment :
 
     private fun setupAnswerButtons(view: View) {
         val prefs = sharedPrefs()
-        val hideAnswerButtons = prefs.getBoolean(getString(R.string.hide_answer_buttons_key), false)
-        val buttonsAreaLayout = view.findViewById<FrameLayout>(R.id.buttons_area)
-        if (hideAnswerButtons) {
-            buttonsAreaLayout.isVisible = false
+        val answerButtonsLayout = view.findViewById<LinearLayout>(R.id.answer_buttons)
+        if (prefs.getBoolean(getString(R.string.hide_answer_buttons_key), false)) {
+            // Expand the menu if there is no answer buttons in big screens
+            view.findViewById<ReviewerMenuView>(R.id.reviewer_menu_view).updateLayoutParams<ConstraintLayout.LayoutParams> {
+                matchConstraintMaxWidth = 0
+            }
+            answerButtonsLayout.isVisible = false
             return
         }
 
@@ -314,19 +315,15 @@ class ReviewerFragment :
                     viewModel.onShowAnswer(typedAnswer = typedAnswer)
                 }
             }
-        val answerButtonsLayout = view.findViewById<LinearLayout>(R.id.answer_buttons)
 
-        // TODO add some kind of feedback/animation after tapping show answer or the answer buttons
-        viewModel.showingAnswer.collectLatestIn(lifecycleScope) { shouldShowAnswer ->
-            // use INVISIBLE instead of GONE to keep the same button height
-            if (shouldShowAnswer) {
+        viewModel.showingAnswer.collectLatestIn(lifecycleScope) { isAnswerShown ->
+            if (isAnswerShown) {
                 showAnswerButton.visibility = View.INVISIBLE
                 answerButtonsLayout.visibility = View.VISIBLE
             } else {
                 showAnswerButton.visibility = View.VISIBLE
                 answerButtonsLayout.visibility = View.INVISIBLE
             }
-            resetZoom()
         }
 
         if (prefs.getBoolean(getString(R.string.hide_hard_and_easy_key), false)) {
@@ -336,9 +333,9 @@ class ReviewerFragment :
 
         val buttonsHeight = Prefs.answerButtonsSize
         if (buttonsHeight != 100) {
-            buttonsAreaLayout.post {
-                buttonsAreaLayout.updateLayoutParams {
-                    height = buttonsAreaLayout.measuredHeight * buttonsHeight / 100
+            answerButtonsLayout.post {
+                answerButtonsLayout.updateLayoutParams {
+                    height = answerButtonsLayout.measuredHeight * buttonsHeight / 100
                 }
             }
         }
@@ -410,6 +407,10 @@ class ReviewerFragment :
 
     private fun setupMenu(view: View) {
         val menu = view.findViewById<ReviewerMenuView>(R.id.reviewer_menu_view)
+        if (menu.isEmpty()) {
+            menu.isVisible = false
+            return
+        }
         menu.setOnMenuItemClickListener(this)
 
         viewModel.flagFlow
@@ -490,7 +491,11 @@ class ReviewerFragment :
     private fun setupFrame(view: View) {
         if (Prefs.frameStyle == FrameStyle.BOX) {
             view.findViewById<MaterialCardView>(R.id.webview_container).apply {
-                setMargins(0)
+                updateLayoutParams<MarginLayoutParams> {
+                    topMargin = 0
+                    leftMargin = 0
+                    rightMargin = 0
+                }
                 cardElevation = 0F
                 shapeAppearanceModel = ShapeAppearanceModel() // Remove corners
             }
@@ -508,13 +513,13 @@ class ReviewerFragment :
 
     private fun launchEditNote() {
         lifecycleScope.launch {
-            val intent = viewModel.getEditNoteDestination().getIntent(requireContext())
+            val intent = viewModel.getEditNoteDestination().toIntent(requireContext())
             noteEditorLauncher.launch(intent)
         }
     }
 
     private fun launchAddNote() {
-        val intent = NoteEditorLauncher.AddNoteFromReviewer().getIntent(requireContext())
+        val intent = NoteEditorLauncher.AddNoteFromReviewer().toIntent(requireContext())
         noteEditorLauncher.launch(intent)
     }
 
@@ -532,7 +537,7 @@ class ReviewerFragment :
 
     private fun launchDeckOptions() {
         lifecycleScope.launch {
-            val intent = viewModel.getDeckOptionsDestination().getIntent(requireContext())
+            val intent = viewModel.getDeckOptionsDestination().toIntent(requireContext())
             deckOptionsLauncher.launch(intent)
         }
     }

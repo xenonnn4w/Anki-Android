@@ -57,15 +57,7 @@
     <string name="delete_cram_deck_message">Выдаліць фільтраваную калоду %s і адправіць усе карткі назад у іх арыгінальныя калоды?</string>
     <string name="no_tts_available_message">Сінтэз маўлення недаступны</string>
     <string name="tts_no_tts">Не прамаўляць</string>
-    <string name="unused_strings">\n\nНявыкарыстаныя файлы:\n</string>
-    <string name="reposition_card_dialog_title">Перамясціць новую картку</string>
     <string name="reposition_card_not_new_error">Толькі новыя карткі могуць быць перамешчаныя</string>
-    <plurals name="reposition_card_dialog_acknowledge">
-        <item quantity="one">Перамешчана %d картка</item>
-        <item quantity="few">Перамешчаны %d карткі</item>
-        <item quantity="many">Перамешчаны %d картак</item>
-        <item quantity="other">Перамешчаны %d картак</item>
-    </plurals>
     <string name="reset_card_dialog_title">Скінуць дасягненні па картцы</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="one">Скінута %d картка</item>
@@ -76,12 +68,12 @@
     <string name="answering_error_title">Памылка базы даных</string>
     <string name="answering_error_message">Збой запісу ў калекцыю. Прычынаю можа быць пашкоджаная база даных або недахоп свабоднага месца на дыску.\n\nПаспрабуйце праверыць базу даных або аднавіць калекцыю з рэзервовай копіі. Для гэтага націсніце \"Параметры\". \n\Таксама гэта памылка можа быць выклікана самой праграмай; паведаміце пра гэта распрацоўшчыкам.</string>
     <string name="answering_error_report">Паведаміць пра памылку</string>
-    <string name="storage_full_message">Недастаткова свабоднага месца, каб адрыць AnkiDroid. Вызваліце крыху месца на прыладзе, каб працягнуць.</string>
+    <string name="storage_full_message">There is not enough free storage space to open AnkiDroid. Free up some space to continue.</string>
     <string name="repair_deck_dialog">Вы сапраўды хочаце аднавіць базу даных?\n\nПерад спробай па яе аднаўленні, будзе створана копія ў  падпапцы \'%s\'.</string>
     <string name="intent_aedict_empty">Катэгорыя “default” нічога не змяшчае</string>
     <string name="intent_aedict_category">Для таго, каб дадаць карткі ў AnkiDroid, выдаліце ўсе катэгорыі Notepad або дадайце катэгорыю з назвай \"default\"</string>
-    <string name="custom_study_new_extend">Павялічыць/паменшыць (“-3”) абмежаванні новых картак на сёння </string>
-    <string name="custom_study_rev_extend">Павялічыць/паменшыць (“-3”) абмежаванні паўтарэння новых картак на сёння </string>
+    <string name="custom_study_new_extend">Павялічыць/паменшыць (“-3”) абмежаванні новых картак на сёння</string>
+    <string name="custom_study_rev_extend">Павялічыць/паменшыць (“-3”) абмежаванні паўтарэння новых картак на сёння</string>
     <string name="custom_study_forgotten">Паўтарыць забытыя карткі за апошнія некалькі дзён:</string>
     <string name="custom_study_ahead">Вывучыць на некалькі дзён наперад:</string>
     <string name="custom_study_preview">Прагледзець новыя карткі, якія дадзены за апошнія некалькі дзён:</string>
@@ -118,10 +110,7 @@
     <string name="check_media_message">Праверка медыяфайлаў&#8230;</string>
     <string name="check_media_acknowledge">Медыяфайлы правераныя</string>
     <string name="check_media_invalid">Файлы з памылковым кадаваннем: %d</string>
-    <string name="check_media_unused">Медыяфайлы знаходзяцца ў адпаведнай папцы, але не прымацаваныя да картак: %d</string>
-    <string name="check_media_nohave">Медыяфайлы не знаходзяцца ў адпаведнай папцы, але прымацаваныя да картак: %d</string>
     <string name="check_media_no_unused_missing">Адсутных або файлаў, якія не выкарыстоўваюцца не знойдзена</string>
-    <string name="check_media_db_updated">База даных з медыяфайлаламі перабудавана</string>
     <string name="check_media_delete_unused">Выдаліць, якія не выкарыстоўваюцца</string>
     <string name="delete_media_message">Выдаленне медыяфайлаў&#8230;</string>
     <string name="delete_media_result_title">Вынік выдалення</string>
@@ -137,7 +126,6 @@
     <string name="tags_dialog_option_due_cards" comment="Name of cards that are already been reviewed in the past, and that should be reviewed again">Да прагляду</string>
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Пошук пустых картак&#8230;</string>
-    <string name="empty_cards_count">Картак да выдалення: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Памылка атрымання дазволу на выкарыстанне мікрафона.</string>
     <string name="multimedia_editor_failed">Памылка адкрыцця рэдактара мультымедыя</string>
@@ -145,7 +133,7 @@
     <string name="multimedia_editor_audio_permission_denied">Адхілены доступ да запісу гуку</string>
     <!-- Database Integrity Check -->
     <string name="integrity_check_startup_title">Праграма AnkiDroid абноўленая</string>
-    <string name="integrity_check_startup_content">Праграма AnkiDroid абноўленая. Дадзенае абнаўленне змяшчае выпраўленні магчымых праблем з базай даных і мы раім вам запусціць яе праверку. </string>
+    <string name="integrity_check_startup_content">Праграма AnkiDroid абноўленая. Дадзенае абнаўленне змяшчае выпраўленні магчымых праблем з базай даных і мы раім вам запусціць яе праверку.</string>
     <string name="integrity_check_continue_anyway">Усё роўна працягнуць</string>
     <string name="integrity_check_insufficient_space">Праверка базы даных патрабуе вялікай колькасці часовага сховішча.\n\nВельмі пажадана мець прынамсі %s свабоднага месца на прыладзе для таго, каб паспяхова выканаць гэту аперацыю.</string>
     <string name="integrity_check_insufficient_space_extra_content">\n\nУ цяперашні час у вас %s вольнага месца.</string>
@@ -232,19 +220,15 @@
     <string name="button_backup_later" comment="dismiss the \'Backup\' dialog for around 2 weeks">Пазней</string>
     <string name="button_do_not_show_again" comment="permanently dismisses a dialog">Больш не паказваць</string>
     <string name="dismiss_backup_warning_title">Папярэджанне пра страту даных</string>
-    <string name="dismiss_backup_warning_new_user">        У сувязі са змяненнямі палітыкі прыватнасці Android, пасля выдалення праграмы вашы даныя і аўтаматычныя рэзервовыя копіі будуць выдалены з вашай прылады
-    
-    </string>
-    <string name="dismiss_backup_warning_upgrade">        У сувязі са змяненнямі палітыкі прыватнасці Android, пасля выдалення праграмы вашы даныя і аўтаматычныя рэзервовыя копіі стануць недаступны
-    
-    </string>
+    <string name="dismiss_backup_warning_new_user">Due to Android privacy changes, your data and automated backups will be deleted from your phone if the app is uninstalled</string>
+    <string name="dismiss_backup_warning_upgrade">Due to Android privacy changes, your data and automated backups will be inaccessible if the app is uninstalled</string>
     <string name="deck_already_exists">Калода ўжо існуе</string>
     <string name="empty_deck_name">Калода не можа быць пустой</string>
-    <string name="create_deck_numeric_hint">Калі ў вас ёсць праблемы з парадкам калод (напрыклад, ‘10’  калода стаіць перад ‘2’), замяніце ‘2’ на ‘02’ </string>
+    <string name="create_deck_numeric_hint">Калі ў вас ёсць праблемы з парадкам калод (напрыклад, ‘10’  калода стаіць перад ‘2’), замяніце ‘2’ на ‘02’</string>
     <!-- Set Due Date -->
     <string name="set_due_date_match_interval" comment="when setting a card\'s due date, this checkbox also changes the interval of the card">Задаць інтэрвал на тое ж самае значэнне</string>
     <plurals name="set_due_date_single_day_label" comment="a date control is provided afterwards">
-        <item quantity="one">Паказваць картку за </item>
+        <item quantity="one">Паказваць картку за</item>
         <item quantity="few">Паказваць карткі за</item>
         <item quantity="many">Паказваць карткі за</item>
         <item quantity="other">Паказваць карткі за</item>

@@ -97,6 +97,7 @@
     <string name="gestures_summ">Assign gestures to actions such as answering and editing cards.</string>
     <string name="gestures_corner_touch" maxLength="41">Αφή 9 σημείων</string>
     <string name="gestures_corner_touch_summary">Allow touch gestures in screen corners</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Full screen navigation drawer</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Open navigation drawer when swiped right from anywhere on the screen</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">None</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Άγγιγμα κάτω αριστερά</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Άγγιγμα κάτω δεξιά</string>
     <string name="gestures_shake" maxLength="41">Ανακίνηση συσκευής</string>
-    <string name="card_browser_enable_external_context_menu">Μενού ‘%s’</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">Μενού ‘%s’</string>
     <string name="card_browser_enable_external_context_menu_summary">Enables the ‘%s’ context menu globally</string>
     <string name="double_scrolling_gap" maxLength="41">Διπλή κύλιση</string>
     <string name="double_scrolling_gap_summ">Double the scroll gap with eReader</string>
@@ -261,9 +262,7 @@
     <string name="donate_description"><![CDATA[Μπορείτε να υποστηρίξετε την ανάπτυξη του AnkiDroid κάνοντας <a href=\"%1$s\">δωρεά</a>. Οποιοδήποτε ποσό εκτιμάται βαθύτατα.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Προσθήκη χειρονομίας</string>
-    <string name="binding_replace_gesture">Αντικατάσταση χειρονομίας</string>
     <string name="binding_add_key">Προσθήκη κλειδιού</string>
-    <string name="binding_replace_key">Αντικατάσταση κλειδιού</string>
     <string name="key_picker_default_press_key">Πατήστε ένα πλήκτρο</string>
     <string name="binding_add_axis">Add joystick/motion controller</string>
     <string name="axis_picker_move_joystick">Move a joystick/motion controller</string>
@@ -286,7 +285,7 @@
     <string name="card_side_both" maxLength="28">Ερώτηση &amp; Απάντηση</string>
     <string name="display_binding_card_side_question" comment="When displaying a key bind on a preference this formatter is used if the bind only applies to the question">Ε: %s</string>
     <string name="display_binding_card_side_answer" comment="When displaying a key bind on a preference this formatter is used if the bind only applies to the answer">Α: %s</string>
-    <string name="display_binding_card_side_both" comment="When displaying a key bind on a preference this formatter is used if the bind only applies to both the question and the answer">%s </string>
+    <string name="display_binding_card_side_both" comment="When displaying a key bind on a preference this formatter is used if the bind only applies to both the question and the answer">%s</string>
     <!-- Binding Preference -->
     <string name="binding_remove_binding" comment="The parameter is the name of the key/gesture.     Keys cannot be translated yet.">Αφαίρεση ‘%s’</string>
     <string name="bindings_already_bound">Already bound to ‘%s’</string>
@@ -298,8 +297,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Επιλογές για προγραμματιστές</string>
     <string name="dev_options_enabled_pref" maxLength="41">Ενεργοποίηση επιλογών προγραμματιστών</string>
     <string name="disable_dev_options">Απενεργοποίηση επιλογών προγραμματιστών</string>
-    <string name="dev_options_warning">        Βεβαιωθείτε πριν ενεργοποιήσετε τις επιλογές προγραμματιστή. Αυτές οι επιλογές είναι επικίνδυνες και θα μπορούσαν να καταστρέψουν την εφαρμογή ή να καταστρέψουν τη συλλογή σας.\n\nΣημειώστε ότι αυτές οι επιλογές δεν είναι κατάλληλες για τους περισσότερους χρήστες και ως εκ τούτου δεν μεταφράζονται, οπότε είναι στα αγγλικά.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

@@ -99,6 +99,7 @@
     <string name="gestures_summ">Przydziel gesty do akcji takich jak odpowiedzi lub edycja kart.</string>
     <string name="gestures_corner_touch" maxLength="41">Dotyk 9-punktowy</string>
     <string name="gestures_corner_touch_summary">Zezwalaj na gesty dotykowe w rogach ekranu</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Panel nawigacyjny w pełnym ekranie</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Otwórz panel nawigacyjny po przesunięciu w prawo w dowolnym miejscu ekranu</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">Brak</string>
@@ -118,8 +119,8 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Dotknij lewej dolnej części ekranu</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Dotknij prawej dolnej części ekranu</string>
     <string name="gestures_shake" maxLength="41">Potrząśnij urządzeniem</string>
-    <string name="card_browser_enable_external_context_menu">Menu „%s”</string>
-    <string name="card_browser_enable_external_context_menu_summary">Włącza menu kontekstowe „%s”globalne </string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">Menu „%s”</string>
+    <string name="card_browser_enable_external_context_menu_summary">Włącza menu kontekstowe „%s”globalne</string>
     <string name="double_scrolling_gap" maxLength="41">Podwójne przewijanie</string>
     <string name="double_scrolling_gap_summ">Podwójny skok suwaka na eReaderze</string>
     <string name="swipe_sensitivity" maxLength="41">Czułość przy przewijaniu</string>
@@ -264,9 +265,7 @@
     <string name="donate_description"><![CDATA[Możesz wspierać rozwój AnkiDroida <a href=\"%1$s\">darowizną</a>. Jesteśmy wdzięczni za każdą kwotę.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Dodaj gest</string>
-    <string name="binding_replace_gesture">Zastąp gest</string>
     <string name="binding_add_key">Dodaj klawisz</string>
-    <string name="binding_replace_key">Zamień klucz</string>
     <string name="key_picker_default_press_key">Naciśnij klawisz</string>
     <string name="binding_add_axis">Add joystick/motion controller</string>
     <string name="axis_picker_move_joystick">Move a joystick/motion controller</string>
@@ -300,9 +299,8 @@
     <!-- Developer options -->
     <string name="pref_cat_dev_options" maxLength="41">Ustawienia programisty</string>
     <string name="dev_options_enabled_pref" maxLength="41">Włącz opcje dla programistów</string>
-    <string name="disable_dev_options">Wyłącz opcje dla programistów </string>
-    <string name="dev_options_warning">        Przed włączeniem opcji deweloperskich upewnij się, że wiesz co robisz. Te opcje są niebezpieczne i mogą zniszczyć aplikację lub uszkodzić kolekcję.\n\nZauważ, że te opcje nie są odpowiednie dla większości użytkowników i dlatego nie są przetłumaczone, więc są w języku angielskim.
-    </string>
+    <string name="disable_dev_options">Wyłącz opcje dla programistów</string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

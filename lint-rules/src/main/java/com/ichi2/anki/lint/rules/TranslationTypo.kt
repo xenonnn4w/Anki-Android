@@ -25,10 +25,12 @@ import com.android.tools.lint.detector.api.ResourceXmlDetector
 import com.android.tools.lint.detector.api.Scope
 import com.android.tools.lint.detector.api.XmlContext
 import com.android.tools.lint.detector.api.XmlScanner
+import com.android.utils.forEach
 import com.google.common.annotations.VisibleForTesting
 import com.ichi2.anki.lint.utils.Constants
 import com.ichi2.anki.lint.utils.CrowdinContext.Companion.toCrowdinContext
 import com.ichi2.anki.lint.utils.ext.isRightToLeftLanguage
+import org.w3c.dom.CDATASection
 import org.w3c.dom.Element
 
 /**
@@ -97,8 +99,8 @@ class TranslationTypo :
             return
         }
 
-        // Only check <string> or <plurals><item>, not the container
-        if ("resources" == element.tagName) {
+        // Ignore container tags: visitElement already handles visiting sub-tags (<item>/<string>)
+        if (element.tagName in listOf("resources", "plurals", "string-array")) {
             return
         }
 
@@ -132,6 +134,20 @@ class TranslationTypo :
         // remove empty strings
         if (element.textContent.isEmpty() && element.getAttribute("name") != "empty_string") {
             element.reportIssue("should not be empty")
+        }
+
+        // TODO(14903): remove "values" check once lint passes without it
+        if ("values" == context.file.parentFile.name && element.textContent.trim() != element.textContent) {
+            var isValid = true
+            element.childNodes.forEach {
+                if (it is CDATASection) {
+                    isValid = false
+                }
+            }
+
+            if (isValid) {
+                element.reportIssue("should not contain trailing whitespace")
+            }
         }
     }
 }

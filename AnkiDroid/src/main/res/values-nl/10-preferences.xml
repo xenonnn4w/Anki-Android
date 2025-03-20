@@ -97,6 +97,7 @@
     <string name="gestures_summ">Bewegingen toewijzen aan acties zoals het beantwoorden en bewerken van kaarten.</string>
     <string name="gestures_corner_touch" maxLength="41">9-punts aanraakscherm</string>
     <string name="gestures_corner_touch_summary">Aanraakgebaren in schermhoeken toestaan</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Volledig scherm navigatiebalk</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Open navigatiescherm wanneer je overal en op het scherm naar rechts veegt</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">Geen</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Druk linksonder</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Druk rechtsonder</string>
     <string name="gestures_shake" maxLength="41">Schud apparaat</string>
-    <string name="card_browser_enable_external_context_menu">‘%s’ menu</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">‘%s’ menu</string>
     <string name="card_browser_enable_external_context_menu_summary">Schakelt het contextmenu \' \'%s\' overal in</string>
     <string name="double_scrolling_gap" maxLength="41">Sneller scrollen</string>
     <string name="double_scrolling_gap_summ">Verdubbel de scroll-afstand voor eReader</string>
@@ -260,9 +261,7 @@
     <string name="donate_description"><![CDATA[U kunt de ontwikkeling van AnkiDroid steunen door te <a href="%1$s">doneren</a>. Elk bedrag wordt zeer op prijs gesteld.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Gebaar toevoegen</string>
-    <string name="binding_replace_gesture">Gebaar vervangen</string>
     <string name="binding_add_key">Sleutel toevoegen</string>
-    <string name="binding_replace_key">Vervang sleutel</string>
     <string name="key_picker_default_press_key">Druk op een toets</string>
     <string name="binding_add_axis">Joystick/bewegingscontroller toevoegen</string>
     <string name="axis_picker_move_joystick">Joystick/bewegingscontroller bewegen</string>
@@ -297,8 +296,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Opties voor ontwikkelaars</string>
     <string name="dev_options_enabled_pref" maxLength="41">Opties voor ontwikkelaars inschakelen</string>
     <string name="disable_dev_options">Ontwikkelaarsopties uitschakelen</string>
-    <string name="dev_options_warning">        Zorg ervoor dat u zeker bent voordat u de ontwikkelaarsopties inschakelt. Deze opties zijn gevaarlijk en kunnen de app kapot maken of je collectie beschadigen.\n\nMerk op dat deze opties niet geschikt zijn voor de meeste gebruikers en daarom niet vertaald zijn, dus in het Engels zijn.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

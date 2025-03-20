@@ -99,6 +99,7 @@
     <string name="gestures_summ">שיוך מחוות לפעולות כגון מענה ועריכת קלפים.</string>
     <string name="gestures_corner_touch" maxLength="41">מגע 9 נקודות</string>
     <string name="gestures_corner_touch_summary">אפשר מחוות מגע בפינות המסך</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">מגירת היישומים במסך מלא</string>
     <string name="gestures_fullscreen_nav_drawer_summary">פתח את מגירת הניווט בעת החלקה ימינה מכל מקום על המסך</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">ללא</string>
@@ -118,7 +119,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">נגיעה בצד שמאל למטה</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">נגיעה בצד ימין למטה</string>
     <string name="gestures_shake" maxLength="41">נער את המכשיר</string>
-    <string name="card_browser_enable_external_context_menu">תפריט %s</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">תפריט %s</string>
     <string name="card_browser_enable_external_context_menu_summary">מאפשר את תפריט ההקשר \'%s\' גלובלית במערכת</string>
     <string name="double_scrolling_gap" maxLength="41">גלילה כפולה</string>
     <string name="double_scrolling_gap_summ">הכפל את פער הגלילה עם eReader</string>
@@ -264,9 +265,7 @@
     <string name="donate_description"><![CDATA[אתה יכול לתמוך בפיתוח של AnkiDroid על ידי <a href=\"%1$s\">תרומה</a>. כל סכום מוערך מאוד.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">הוסף מחווה</string>
-    <string name="binding_replace_gesture">החלף מחווה</string>
     <string name="binding_add_key">הוסף כפתור</string>
-    <string name="binding_replace_key">החלף כפתור</string>
     <string name="key_picker_default_press_key">לחץ על כפתור</string>
     <string name="binding_add_axis">הוסף ג\'ויסטיק/בקר תנועה</string>
     <string name="axis_picker_move_joystick">הזז ג\'ויסטיק/בקר תנועה</string>
@@ -301,8 +300,7 @@
     <string name="pref_cat_dev_options" maxLength="41">אפשרויות מפתח</string>
     <string name="dev_options_enabled_pref" maxLength="41">הפעלת מצב מפתח</string>
     <string name="disable_dev_options">השבת את מצב המפתח</string>
-    <string name="dev_options_warning">        אנא ודא לפני הפעלת מצב מפתח. אפשרויות אלה מסוכנות ועלולות להשבית את האפליקציה או להשחית את האוסף שלך.\n\nשים לב שהאפשרויות הללו אינן מתאימות לרוב המשתמשים ולכן אינן מתורגמות, ולכן הן באנגלית.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->
@@ -373,9 +371,9 @@
     <string name="ignore_display_cutout" maxLength="41">התעלם מגזרת התצוגה</string>
     <string name="hide_answer_buttons" maxLength="41">הסתר כפתורי תשובה</string>
     <string name="hide_hard_and_easy" maxLength="41">הסתר את הלחצנים \'קשה\' ו\'קל\'</string>
-    <string name="reviewer_frame_style" maxLength="41">Frame style</string>
-    <string name="reviewer_frame_style_card" maxLength="41" comment="Style name of the \'Card\' card frame of the Reviewer">Card</string>
-    <string name="reviewer_frame_style_box" maxLength="41" comment="Style name of the \'Box\' card frame of the Reviewer">Box</string>
+    <string name="reviewer_frame_style" maxLength="41">סגנון מסגרת</string>
+    <string name="reviewer_frame_style_card" maxLength="41" comment="Style name of the \'Card\' card frame of the Reviewer">כרטיס</string>
+    <string name="reviewer_frame_style_box" maxLength="41" comment="Style name of the \'Box\' card frame of the Reviewer">תיבה</string>
     <!--Keyboard shortcuts dialog-->
     <string name="open_settings" comment="Description of the shortcut that opens the app settings">פתח הגדרות</string>
 </resources>

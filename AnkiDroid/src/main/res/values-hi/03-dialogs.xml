@@ -55,13 +55,7 @@
     <string name="delete_cram_deck_message">फ़िल्टर किए गए डेक %s को हटाएं और सभी कार्डों को उनके मूल डेक पर वापस भेजें?</string>
     <string name="no_tts_available_message">कोई लेख-से-बोली भाषा उपलब्ध नहीं</string>
     <string name="tts_no_tts">बात न करें</string>
-    <string name="unused_strings">\n\nअप्रयुक्त फाइलें:\n</string>
-    <string name="reposition_card_dialog_title">नया कार्ड पुन: प्रस्तुत करें</string>
     <string name="reposition_card_not_new_error">केवल नए कार्डों को बदला जा सकता है</string>
-    <plurals name="reposition_card_dialog_acknowledge">
-        <item quantity="one">%d कार्डों का स्थान बदल दिया गया है</item>
-        <item quantity="other">%d कार्डों का स्थान बदल दिया गया है</item>
-    </plurals>
     <string name="reset_card_dialog_title">पत्ता प्रगति रीसेट करें</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="one">%d कार्ड रीसेट हुआ</item>
@@ -70,7 +64,7 @@
     <string name="answering_error_title">डेटाबेस त्रुटि</string>
     <string name="answering_error_message">संग्रह में लेखन विफल रहा। डेटाबेस दूषित हो सकता है या डिस्क पर पर्याप्त खाली स्थान नहीं हो सकता है। \n\n यदि यह अधिक बार होता है, तो डेटाबेस की जाँच करने, संग्रह की मरम्मत करने या इसे बैकअप से पुनर्स्थापित करने का प्रयास करें। इसके लिए \"विकल्प\" स्पर्श करें। \n या यह एक एंकॉइड बग भी हो सकता है; कृपया त्रुटि रिपोर्ट करें ताकि हम इसकी जांच कर सकें।</string>
     <string name="answering_error_report">त्रुटि की सूचना दें</string>
-    <string name="storage_full_message">AnkiDroid को खोलने के लिए पर्याप्त फ्री स्टोरेज स्पेस नहीं है। जारी रखने के लिए कुछ जगह खाली करें। </string>
+    <string name="storage_full_message">There is not enough free storage space to open AnkiDroid. Free up some space to continue.</string>
     <string name="repair_deck_dialog">क्या आप वास्तव में डेटाबेस को सुधारने का प्रयास करना चाहते हैं? \n\nBefore प्रयास प्रारंभ कर रहा है, एक प्रतिलिपि सबफ़ोल्डर \"%s\" में बनाया जाएगा ।</string>
     <string name="intent_aedict_empty">श्रेणी \"डिफ़ॉल्ट\" रिक्त है</string>
     <string name="intent_aedict_category">AnkiDroid में कार्ड जोड़ने के लिए सभी नोटपैड श्रेणियों को हटाएँ या एक \"डिफ़ॉल्ट\" नामक पत्ता जोड़ें</string>
@@ -112,10 +106,7 @@
     <string name="check_media_message">मीडिया जांच कर रहा है.. ।</string>
     <string name="check_media_acknowledge">मीडिया जांचा गया</string>
     <string name="check_media_invalid">अमांय एंकोडिंग वाली फ़ाइलें: %d</string>
-    <string name="check_media_unused">मीडिया फ़ोल्डर में फ़ाइलें लेकिन किसी भी कार्ड द्वारा उपयोग नहीं: %d</string>
-    <string name="check_media_nohave">कार्ड पर उपयोग की गई फ़ाइलें मीडिया फ़ोल्डर में नहीं: %d</string>
     <string name="check_media_no_unused_missing">कोई अनुपयोगी या गुम फ़ाइलें नहीं मिलीं</string>
-    <string name="check_media_db_updated">मीडिया डेटाबेस पुन</string>
     <string name="check_media_delete_unused">अप्रयुक्त हटाएं</string>
     <string name="delete_media_message">मीडिया हटा रहा है&#8230;</string>
     <string name="delete_media_result_title">विलोपन का परिणाम</string>
@@ -129,7 +120,6 @@
     <string name="tags_dialog_option_due_cards" comment="Name of cards that are already been reviewed in the past, and that should be reviewed again">बाकी</string>
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">रिक्त कार्ड ढूंढ रहा है.. ।</string>
-    <string name="empty_cards_count">कार्ड हटाने के लिए: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">माइक्रोफ़ोन अनुमति प्राप्त नहीं कर सका।</string>
     <string name="multimedia_editor_failed">मल्टीमीडिया संपादक खोलने में विफल</string>
@@ -222,10 +212,8 @@
     <string name="button_backup_later" comment="dismiss the \'Backup\' dialog for around 2 weeks">बाद में</string>
     <string name="button_do_not_show_again" comment="permanently dismisses a dialog">दोबारा न दिखाएं</string>
     <string name="dismiss_backup_warning_title">डेटा हानि चेतावनी</string>
-    <string name="dismiss_backup_warning_new_user">        एंड्रॉइड गोपनीयता परिवर्तनों के कारण, ऐप अनइंस्टॉल होने पर आपका डेटा और स्वचालित बैकअप आपके फोन से हटा दिए जाएंगे
-    </string>
-    <string name="dismiss_backup_warning_upgrade">        एंड्रॉइड गोपनीयता परिवर्तनों के कारण, ऐप अनइंस्टॉल होने पर आपका डेटा और स्वचालित बैकअप पहुंच योग्य नहीं होगा
-    </string>
+    <string name="dismiss_backup_warning_new_user">Due to Android privacy changes, your data and automated backups will be deleted from your phone if the app is uninstalled</string>
+    <string name="dismiss_backup_warning_upgrade">Due to Android privacy changes, your data and automated backups will be inaccessible if the app is uninstalled</string>
     <string name="deck_already_exists">डेक पहले से मौजूद है</string>
     <string name="empty_deck_name">डेक का नाम खाली नहीं हो सकता</string>
     <string name="create_deck_numeric_hint">यदि आपके पास डेक ऑर्डरिंग समस्याएं हैं (उदाहरण के लिए \'10\' \'2\' से पहले आता है), तो \'2\' को \'02\' से बदलें</string>

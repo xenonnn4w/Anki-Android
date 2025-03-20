@@ -188,6 +188,7 @@
     <!-- Deckpicker Background -->
     <string name="background_image_title" maxLength="41">پس منظر</string>
     <string name="choose_an_image" maxLength="41">تصویر منتخب کریں۔</string>
+    <string name="remove_wallpaper_image" maxLength="41">Remove background</string>
     <string name="remove_background_image">پس منظر ہٹائیں؟</string>
     <!-- Card Template Browser Appearance -->
     <string name="restore_default" maxLength="28">ڈیفالٹ بحال کریں۔</string>
@@ -195,7 +196,6 @@
     <!-- Whiteboard save image message in Reviewer -->
     <string name="white_board_image_save_failed">وائٹ بورڈ امیج کو محفوظ کرنے میں ناکام۔ %s</string>
     <string name="white_board_image_saved">وائٹ بورڈ کی تصویر %s میں محفوظ ہو گئی۔</string>
-    <string name="title_whiteboard_pen_color" maxLength="41">وائٹ بورڈ قلم کا رنگ</string>
     <string name="title_whiteboard_editor" maxLength="28">وائٹ بورڈ ایڈیٹر</string>
     <string name="user_is_a_robot">خودکار ٹیسٹ کا پتہ چلا۔ اگر آپ انسان ہیں تو AnkiDroid سپورٹ سے رابطہ کریں۔</string>
     <!-- JS api -->
@@ -234,7 +234,7 @@
     <string name="note_editor_image_too_large">تصویر بہت بڑی ہے، براہ کرم دستی طور پر تصویر داخل کریں۔</string>
     <string name="note_editor_video_too_large">ویڈیو فائل بہت بڑی ہے، براہ کرم ویڈیو کو دستی طور پر داخل کریں۔</string>
     <string name="note_editor_audio_too_large">آڈیو فائل بہت بڑی ہے، براہ کرم آڈیو کو دستی طور پر داخل کریں۔</string>
-    <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">Android بیک اپ جاری ہے۔ دوبارہ کوشش کریں</string>
+    <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">Android backup in progress. Please try again</string>
     <string name="create_shortcut_error_vivo" comment="iManager is an app on Vivo phones">AnkiDroid کو شارٹ کٹ شامل کرنے کی اجازت دینے کے لیے آپ کو iManager استعمال کرنے کی ضرورت پڑ سکتی ہے۔</string>
     <string name="create_shortcut_failed" comment="home screen == launcher">آپ کی ہوم اسکرین AnkiDroid کو شارٹ کٹ شامل کرنے کی اجازت نہیں دیتی ہے۔</string>
     <string name="create_shortcut_error">شارٹ کٹ شامل کرنے میں خرابی: %s</string>
@@ -250,6 +250,7 @@
     <!-- %% is required to display % symbol. Reference: https://stackoverflow.com/a/16834358 -->
     <string name="percentage">%s%%</string>
     <string name="download_deck">ڈیک ڈاؤن لوڈ کریں۔</string>
+    <string name="open_in_browser" comment="Label of a button inviting to open ankiweb\'s shared deck page if automated download failed">Open in Browser</string>
     <string name="try_again">دوبارہ کوشش کریں</string>
     <string name="cancel_download">ڈاؤن لوڈ منسوخ کریں۔</string>
     <string name="cancel_download_question_title">ڈاؤن لوڈ منسوخ کریں؟</string>
@@ -262,7 +263,7 @@
     <string name="search_using_deck_name">ڈیک کا نام استعمال کرکے تلاش کریں</string>
     <string name="external_storage_unavailable">ڈاؤن لوڈ منسوخ کر دیا گیا، بیرونی اسٹوریج دستیاب نہیں ہے</string>
     <string name="home" maxLength="28">گھر</string>
-    <!-- Reviewer actions 
+    <!-- Reviewer actions
     Each of these strings ends with a period, following the notation of Anki Desktop -->
     <string name="card_buried">کارڈ دفن کر دیا گیا</string>
     <plurals name="note_suspended">
@@ -306,20 +307,14 @@
     <string name="browser_options_dialog_heading">Browser options</string>
     <string name="audio_saved">ریکارڈنگ محفوظ ہو گئی</string>
     <string name="deleting_selected_notes">منتخب نوٹوں کو حذف کیا جا رہا ہے</string>
-    <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">        سننے کے لیے آواز کو تھپتھپائیں
-    </string>
-    <string name="tts_voices_selected_voice_should_be_installed" comment="If a voice has been tapped, is installable but not installed, we want to inform the user that they should install it for the best experience There will also be an option to use it without downloading">آواز کو استعمال کرنے سے پہلے انسٹال کرنا چاہیے
-    </string>
-    <string name="tts_voices_use_selected_voice_without_install" comment="A user has been informed that a voice should be installed before use. This is text on a snackbar button which allows them to use the voice without installing it">بہرحال استعمال کریں
-    </string>
+    <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">Tap a voice to listen</string>
+    <string name="tts_voices_selected_voice_should_be_installed" comment="If a voice has been tapped, is installable but not installed, we want to inform the user that they should install it for the best experience There will also be an option to use it without downloading">Voice should be installed before use</string>
+    <string name="tts_voices_use_selected_voice_without_install" comment="A user has been informed that a voice should be installed before use. This is text on a snackbar button which allows them to use the voice without installing it">Use anyway</string>
     <string name="tts_voices_playback_error_new" comment="an error occurred when playing a text to speech voice. The parameter is a technical error code such as \'ERROR_NOT_INSTALLED_YET\' or \'ERROR_NETWORK_TIMEOUT\'">ٹیکسٹ ٹو اسپیچ کی خرابی (%s)</string>
     <!-- Chips should probably be in a separate file, due to the additional length req -->
-    <string name="tts_voices_chip_filter_to_internet" comment="     Filters a list of text to speech voices, to enable/disable voices which require the internet to     function.     This is on a chip control, so keep the text short, ideally one word">        انٹرنیٹ
-    </string>
-    <string name="tts_voices_chip_filter_to_installable_audio" comment="     Displays a list of Text to Speech voices which should be downloaded/installed before use     This is on a chip control, so keep the text short, ideally one word">        انسٹال کریں
-    </string>
-    <string name="tts_voices_failed_opening_tts_system_settings" comment="error message if opening the system text to speech settings fails">        متن سے اسپیچ کی ترتیبات کو کھولنے میں ناکام
-    </string>
+    <string name="tts_voices_chip_filter_to_internet" comment="     Filters a list of text to speech voices, to enable/disable voices which require the internet to     function.     This is on a chip control, so keep the text short, ideally one word">Internet</string>
+    <string name="tts_voices_chip_filter_to_installable_audio" comment="     Displays a list of Text to Speech voices which should be downloaded/installed before use     This is on a chip control, so keep the text short, ideally one word">Install</string>
+    <string name="tts_voices_failed_opening_tts_system_settings" comment="error message if opening the system text to speech settings fails">Failed to open text to speech settings</string>
     <string name="shared_decks_login_required">مزید ڈیک ڈاؤن لوڈ کرنے کے لیے براہ کرم لاگ ان کریں</string>
     <string name="deck_description_field_hint">تفصیل</string>
     <string name="failed_to_copy">کاپی کرنے میں ناکام</string>
@@ -338,7 +333,6 @@
     <string name="orphan_note_message">اس کارڈ کی قسم کو حذف کرنے سے کچھ نوٹ بغیر کسی کارڈ کے رہ جائیں گے۔</string>
     <string name="voice_not_supported">آواز تعاون یافتہ نہیں ہے۔ دوسرا آزمائیں یا صوتی انجن انسٹال کریں۔</string>
     <!--Keyboard shortcuts dialog-->
-    <string name="show_keyboard_shortcuts_dialog" comment="Description of the shortcut that shows the keyboard shortcuts dialog">کی بورڈ شارٹ کٹ ڈائیلاگ دکھائیں۔</string>
     <string name="deck_picker_group" comment="Label for the group of shortcuts related to the deck picker">ڈیک چننے والا</string>
     <string name="delete_deck_without_confirmation" comment="Description of the shortcut that deletes the deck without asking for confirmation">تصدیق کے بغیر ڈیک کو حذف کریں۔</string>
     <string name="note_editor_group" comment="Label for the group of shortcuts related to the note editor">نوٹ ایڈیٹر</string>
@@ -351,7 +345,6 @@
     <string name="edit_styling" comment="Description of the shortcut that shows the styling side of the card template">اسٹائل میں ترمیم کریں</string>
     <string name="copy_the_template" comment="Description of the shortcut that copy the template as markdown">ٹیمپلیٹ کو بطور مارک ڈاؤن کاپی کریں</string>
     <string name="edit_browser_appearance" comment="Description of the shortcut that edits the browser appearance of card template">براؤزر کی ظاہری شکل میں ترمیم کریں</string>
-    <string name="show_shortcuts_message">کی بورڈ شارٹ کٹ دکھانے کے لیے Alt+K دبائیں</string>
     <string name="missing_user_action_dialog_message" comment="%s is the user action number">صارف کی کارروائی %s اس نوٹ ٹائپ میں سیٹ نہیں ہے۔ براہ کرم اسے ترتیب دیں</string>
     <string name="directory_inaccessible_info">یہاں %s تک رسائی کو بحال کرنے کے بارے میں مزید جانیں یا کلیکشن فولڈر کو اپ ڈیٹ کرنے کے لیے سیٹنگز پر جائیں۔</string>
 </resources>

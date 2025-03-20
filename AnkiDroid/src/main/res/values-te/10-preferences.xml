@@ -97,6 +97,7 @@
     <string name="gestures_summ">కార్డులకు సమాధానం ఇవ్వడం మరియు సవరించడం వంటి చర్యలకు సంజ్ఞలను కేటాయించండి.</string>
     <string name="gestures_corner_touch" maxLength="41">9-పాయింట్ టచ్</string>
     <string name="gestures_corner_touch_summary">స్క్రీన్ మూలల్లో టచ్ సంజ్ఞలను అనుమతించండి</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">పూర్తి స్క్రీన్ నావిగేషన్ డ్రాయర్</string>
     <string name="gestures_fullscreen_nav_drawer_summary">స్క్రీన్‌పై ఎక్కడి నుండైనా కుడివైపుకు స్వైప్ చేస్తున్నప్పుడు నావిగేషన్ డ్రాయర్‌ను తెరవండి</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">ఏదీ లేదు</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">దిగువ ఎడమవైపు తాకండి</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">దిగువ కుడివైపు తాకండి</string>
     <string name="gestures_shake" maxLength="41">షేక్ పరికరం</string>
-    <string name="card_browser_enable_external_context_menu">\'%s\' మెను</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">\'%s\' మెను</string>
     <string name="card_browser_enable_external_context_menu_summary">ప్రపంచవ్యాప్తంగా \'%s\' సందర్భ మెనుని ప్రారంభిస్తుంది</string>
     <string name="double_scrolling_gap" maxLength="41">డబుల్ స్క్రోలింగ్</string>
     <string name="double_scrolling_gap_summ">eReader తో డబుల్ స్క్రోల్ స్పేస్</string>
@@ -259,13 +260,11 @@
     <string name="donate_description"><![CDATA[మీరు <a href=\"%1$s\">దానం చేయడం</a> ద్వారా AnkiDroid అభివృద్ధికి మద్దతు ఇవ్వవచ్చు. ఏదైనా మొత్తం లోతుగా ప్రశంసించబడుతుంది.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">సంజ్ఞను జోడించండి</string>
-    <string name="binding_replace_gesture">సంజ్ఞను భర్తీ చేయండి</string>
     <string name="binding_add_key">ఒక కీని జోడించండి</string>
-    <string name="binding_replace_key">కీని భర్తీ చేయండి</string>
     <string name="key_picker_default_press_key">ఒక కీని నొక్కండి</string>
     <string name="binding_add_axis">జాయ్‌స్టిక్/మోషన్ కంట్రోలర్‌ను జోడించండి</string>
     <string name="axis_picker_move_joystick">జాయ్‌స్టిక్/మోషన్ కంట్రోలర్‌ను తరలించండి</string>
-    <string name="user_actions" maxLength="41">వినియోగదారు చర్యలు </string>
+    <string name="user_actions" maxLength="41">వినియోగదారు చర్యలు</string>
     <string name="user_actions_summary" maxLength="41">సమీక్ష స్క్రీన్ నుండి జావాస్క్రిప్ట్‌ని ట్రిగ్గర్ చేయండి</string>
     <string name="user_action_1" maxLength="28">వినియోగదారు చర్య 1</string>
     <string name="user_action_2" maxLength="28">వినియోగదారు చర్యలు 2</string>
@@ -296,7 +295,7 @@
     <string name="pref_cat_dev_options" maxLength="41">డెవలపర్ ఎంపికలు</string>
     <string name="dev_options_enabled_pref" maxLength="41">డెవలపర్ ఎంపికలను ప్రారంభించండి</string>
     <string name="disable_dev_options">డెవలపర్ ఎంపికలను నిలిపివేయండి</string>
-    <string name="dev_options_warning">దయచేసి డెవలపర్ ఎంపికలను ప్రారంభించే ముందు నిర్ధారించుకోండి. ఈ ఎంపికలు ప్రమాదకరమైనవి మరియు యాప్‌ను విచ్ఛిన్నం చేయవచ్చు లేదా మీ సేకరణకు హాని కలిగించవచ్చు.\n\nఈ ఎంపికలు చాలా మంది వినియోగదారులకు తగినవి కావు మరియు అందువల్ల అనువదించబడలేదు, కాబట్టి అవి ఆంగ్లంలో ఉన్నాయని దయచేసి గమనించండి.</string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

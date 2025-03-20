@@ -27,6 +27,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import anki.collection.OpChanges
+import anki.scheduler.UnburyDeckRequest
 import com.google.android.material.appbar.MaterialToolbar
 import com.ichi2.anki.CollectionManager.TR
 import com.ichi2.anki.CollectionManager.withCol
@@ -42,12 +43,16 @@ import com.ichi2.anki.launchCatchingTask
 import com.ichi2.anki.preferences.sharedPrefs
 import com.ichi2.anki.showThemedToast
 import com.ichi2.anki.snackbar.showSnackbar
+import com.ichi2.anki.utils.Destination
 import com.ichi2.anki.utils.SECONDS_PER_DAY
 import com.ichi2.anki.utils.TIME_HOUR
 import com.ichi2.anki.utils.TIME_MINUTE
 import com.ichi2.libanki.ChangeManager
 import com.ichi2.libanki.DeckId
 import com.ichi2.libanki.undoableOp
+import com.ichi2.utils.listItemsAndMessage
+import com.ichi2.utils.negativeButton
+import com.ichi2.utils.show
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
@@ -90,14 +95,41 @@ class CongratsPage :
                     .show()
             }.launchIn(lifecycleScope)
 
-        viewModel.openStudyOptions
-            .onEach { openStudyOptionsAndFinish() }
-            .launchIn(lifecycleScope)
+        viewModel.unburyState
+            .onEach { state ->
+                when (state) {
+                    UnburyState.OpenStudy -> openStudyOptionsAndFinish()
+                    UnburyState.SelectMode -> {
+                        val unburyOptions =
+                            mutableListOf(
+                                TR.studyingManuallyBuriedCards(),
+                                TR.studyingBuriedSiblings(),
+                                TR.studyingAllBuriedCards(),
+                            )
+                        AlertDialog.Builder(requireContext()).show {
+                            negativeButton(R.string.dialog_cancel)
+                            listItemsAndMessage(
+                                TR.studyingWhatWouldYouLikeToUnbury(),
+                                unburyOptions,
+                            ) { _, position ->
+                                val mode =
+                                    when (position) {
+                                        0 -> UnburyDeckRequest.Mode.USER_ONLY
+                                        1 -> UnburyDeckRequest.Mode.SCHED_ONLY
+                                        2 -> UnburyDeckRequest.Mode.ALL
+                                        else -> error("Unhandled unbury option: ${unburyOptions[position]}")
+                                    }
+                                viewModel.onUnburyModeSelected(mode)
+                            }
+                        }
+                    }
+                }
+            }.launchIn(lifecycleScope)
 
         viewModel.deckOptionsDestination
             .flowWithLifecycle(lifecycle)
             .onEach { destination ->
-                val intent = destination.getIntent(requireContext())
+                val intent = destination.toIntent(requireContext())
                 startActivity(intent, null)
             }.launchIn(lifecycleScope)
 
@@ -111,7 +143,7 @@ class CongratsPage :
             }
         }
 
-        setFragmentResultListener(CustomStudyAction.REQUEST_KEY) { requestKey, bundle ->
+        setFragmentResultListener(CustomStudyAction.REQUEST_KEY) { _, bundle ->
             when (CustomStudyAction.fromBundle(bundle)) {
                 CustomStudyAction.CUSTOM_STUDY_SESSION,
                 CustomStudyAction.EXTEND_STUDY_LIMITS,
@@ -209,16 +241,32 @@ class CongratsViewModel :
     ViewModel(),
     OnErrorListener {
     override val onError = MutableSharedFlow<String>()
-    val openStudyOptions = MutableSharedFlow<Boolean>()
+    val unburyState = MutableSharedFlow<UnburyState>()
     val deckOptionsDestination = MutableSharedFlow<DeckOptionsDestination>()
 
     fun onUnbury() {
         launchCatchingIO {
-            undoableOp {
-                sched.unburyDeck(decks.getCurrentId())
+            // https://github.com/ankitects/anki/blob/acaeee91fa853e4a7a78dcddbb832d009ec3529a/qt/aqt/overview.py#L154
+            val congratsInfo = withCol { sched.congratulationsInfo() }
+            if (congratsInfo.haveSchedBuried && congratsInfo.haveUserBuried) {
+                unburyState.emit(UnburyState.SelectMode)
+                return@launchCatchingIO
             }
-            openStudyOptions.emit(true)
+            unburyAndStudy(UnburyDeckRequest.Mode.ALL)
         }
+    }
+
+    fun onUnburyModeSelected(mode: UnburyDeckRequest.Mode) {
+        launchCatchingIO {
+            unburyAndStudy(mode)
+        }
+    }
+
+    private suspend fun unburyAndStudy(mode: UnburyDeckRequest.Mode) {
+        undoableOp {
+            sched.unburyDeck(decks.getCurrentId(), mode)
+        }
+        unburyState.emit(UnburyState.OpenStudy)
     }
 
     fun onDeckOptions() {
@@ -233,11 +281,17 @@ class CongratsViewModel :
 class DeckOptionsDestination(
     private val deckId: DeckId,
     private val isFiltered: Boolean,
-) {
-    fun getIntent(context: Context): Intent =
+) : Destination {
+    override fun toIntent(context: Context): Intent =
         if (isFiltered) {
             Intent(context, FilteredDeckOptions::class.java)
         } else {
             DeckOptions.getIntent(context, deckId)
         }
+}
+
+sealed class UnburyState {
+    data object OpenStudy : UnburyState()
+
+    data object SelectMode : UnburyState()
 }

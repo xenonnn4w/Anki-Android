@@ -40,7 +40,6 @@ import anki.search.BrowserRow
 import anki.search.SearchNode
 import anki.sync.SyncAuth
 import anki.sync.SyncStatusResponse
-import com.ichi2.anki.Flag
 import com.ichi2.libanki.Utils.ids2str
 import com.ichi2.libanki.backend.model.toBackendNote
 import com.ichi2.libanki.backend.model.toProtoBuf
@@ -53,7 +52,6 @@ import com.ichi2.libanki.utils.NotInLibAnki
 import com.ichi2.libanki.utils.TimeManager
 import com.ichi2.utils.KotlinCleanup
 import net.ankiweb.rsdroid.Backend
-import net.ankiweb.rsdroid.RustCleanup
 import net.ankiweb.rsdroid.exceptions.BackendInvalidInputException
 import timber.log.Timber
 import java.io.File
@@ -396,16 +394,22 @@ class Collection(
         return noteIDsList
     }
 
+    /**
+     * @return An [OpChangesWithCount] representing the number of affected notes
+     */
     @LibAnkiAlias("find_and_replace")
-    @RustCleanup("Calling code should handle returned OpChanges")
+    @CheckResult
     fun findReplace(
         nids: List<Long>,
-        src: String,
-        dst: String,
+        search: String,
+        replacement: String,
         regex: Boolean = false,
         field: String? = null,
-        fold: Boolean = true,
-    ): Int = backend.findAndReplace(nids, src, dst, regex, !fold, field ?: "").count
+        matchCase: Boolean = false,
+    ): OpChangesWithCount = backend.findAndReplace(nids, search, replacement, regex, matchCase, field ?: "")
+
+    @LibAnkiAlias("field_names_for_note_ids")
+    fun fieldNamesForNoteIds(nids: List<Long>): List<String> = backend.fieldNamesForNotes(nids)
 
     // Browser Table
 
@@ -483,7 +487,7 @@ class Collection(
 
     fun startTimebox() {
         startTime = TimeManager.time.intTime()
-        startReps = sched.reps
+        startReps = sched.numberOfAnswersRecorded
     }
 
     data class TimeboxReached(
@@ -503,7 +507,7 @@ class Collection(
         return if (elapsed > limit) {
             TimeboxReached(
                 limit,
-                sched.reps - startReps,
+                sched.numberOfAnswersRecorded - startReps,
             ).also {
                 startTimebox()
             }
@@ -557,22 +561,6 @@ class Collection(
         return resp.changes
     }
 
-    /**
-     * Card Flags *****************************************************************************************************
-     */
-    fun setUserFlag(
-        flag: Flag,
-        cids: List<Long>,
-    ) {
-        db.execute(
-            "update cards set flags = (flags & ~?) | ?, usn=?, mod=? where id in ${ids2str(cids)}",
-            7,
-            flag.code,
-            usn(),
-            TimeManager.time.intTime(),
-        )
-    }
-
     lateinit var notetypes: Notetypes
         protected set
 
@@ -604,8 +592,8 @@ class Collection(
     @CheckResult
     fun setUserFlagForCards(
         cids: Iterable<Long>,
-        flag: Flag,
-    ): OpChangesWithCount = backend.setFlag(cardIds = cids, flag = flag.code)
+        flag: Int,
+    ): OpChangesWithCount = backend.setFlag(cardIds = cids, flag = flag)
 
     fun getEmptyCards(): EmptyCardsReport = backend.getEmptyCards()
 

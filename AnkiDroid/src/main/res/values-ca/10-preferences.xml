@@ -97,6 +97,7 @@
     <string name="gestures_summ">Assignar gestos a accions com cartes de resposta i d\'edició.</string>
     <string name="gestures_corner_touch" maxLength="41">Tacte de 9 punts</string>
     <string name="gestures_corner_touch_summary">Permet gestos tàctils a les cantonades de la pantalla</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Carpeta de navegació a pantalla completa</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Obriu la carpeta de navegació quan llisqueu a la dreta des de qualsevol lloc de la pantalla</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">Cap</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Tocar a baix a l\'esquerra</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Tocar a baix a la dreta</string>
     <string name="gestures_shake" maxLength="41">Shake device</string>
-    <string name="card_browser_enable_external_context_menu">Menú ‘%s’</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">Menú ‘%s’</string>
     <string name="card_browser_enable_external_context_menu_summary">Permet a tot arreu el menú contextual \'%s\'</string>
     <string name="double_scrolling_gap" maxLength="41">Desplaçament doble</string>
     <string name="double_scrolling_gap_summ">Doble el scrolling amb l\'eReader</string>
@@ -157,7 +158,7 @@
     <string name="safe_display_summ">Desactiveu totes les animacions i utilitzeu un mètode més segur per dibuixar cartes. Els dispositius de tinta electrònica poden requerir-ho.</string>
     <string name="disable_extended_text_ui" maxLength="41">Desactiva mode d\'edició d\'un sol camp</string>
     <!--See: multimedia_editor_popup_cloze. We can\'t use format strings as this is auto-generated-->
-    <string name="disable_extended_text_ui_summ">Permet el menú \'Supressió Parcial\' quan som en mode apaisat </string>
+    <string name="disable_extended_text_ui_summ">Permet el menú \'Supressió Parcial\' quan som en mode apaisat</string>
     <string name="vertical_centering" maxLength="41">Alinear al centre</string>
     <string name="vertical_centering_summ">Centra verticalment el contingut de cartes</string>
     <string name="pref_double_tap_time_interval" maxLength="41">Interval de doble tacte (milisegons)</string>
@@ -260,9 +261,7 @@
     <string name="donate_description"><![CDATA[Podeu donar suport al desenvolupament d\'AnkiDroid <a href=\"%1$s\">fent una donació</a>. Apreciarem molt qualsevol quantitat.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Afegeix gest</string>
-    <string name="binding_replace_gesture">Substitueix el gest</string>
     <string name="binding_add_key">Afegir una clau</string>
-    <string name="binding_replace_key">Substitueix la tecla</string>
     <string name="key_picker_default_press_key">Premeu una tecla</string>
     <string name="binding_add_axis">Add joystick/motion controller</string>
     <string name="axis_picker_move_joystick">Move a joystick/motion controller</string>
@@ -297,8 +296,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Opcions per a desenvolupadors</string>
     <string name="dev_options_enabled_pref" maxLength="41">Activa les opcions per a desenvolupadors</string>
     <string name="disable_dev_options">Desactiva les opcions per a desenvolupadors</string>
-    <string name="dev_options_warning">        Assegureu-vos abans d\'activar les opcions de desenvolupador. Aquestes opcions són perilloses i podrien trencar l\'aplicació o danyar la vostra col·lecció.\n\nTingueu en compte que aquestes opcions no són adequades per a la majoria dels usuaris i, per tant, no estan traduïdes, de manera que estan en anglès.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

@@ -97,6 +97,7 @@
     <string name="gestures_summ">കാർഡുകൾക്ക് ഉത്തരം നൽകൽ, എഡിറ്റുചെയ്യൽ എന്നിവ പോലുള്ള പ്രവർത്തനങ്ങൾക്ക് ആംഗ്യങ്ങൾ നൽകുക.</string>
     <string name="gestures_corner_touch" maxLength="41">9-പോയിൻ്റ് ടച്ച്</string>
     <string name="gestures_corner_touch_summary">സ്‌ക്രീൻ കോണുകളിൽ ടച്ച് സവിശേഷതകൾ അനുവദിക്കുക</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">പൂർണ്ണ സ്‌ക്രീൻ നാവിഗേഷൻ ഡ്രോയർ</string>
     <string name="gestures_fullscreen_nav_drawer_summary">സ്ക്രീനിൽ എവിടെനിന്നും വലത്തേക്ക് സ്വൈപ്പ് ചെയ്യുമ്പോൾ നാവിഗേഷൻ ഡ്രോയർ തുറക്കുക</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">ഒന്നുമില്ല</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">ചുവടെ ഇടത് സ്പർശിക്കുക</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">ചുവടെ വലതുവശത്ത് സ്‌പർശിക്കുക</string>
     <string name="gestures_shake" maxLength="41">ഉപകരണം കുലുക്കുക</string>
-    <string name="card_browser_enable_external_context_menu">‘%s’ മെനു</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">‘%s’ മെനു</string>
     <string name="card_browser_enable_external_context_menu_summary">ആഗോളതലത്തിൽ ‘%s’ സന്ദർഭ മെനു പ്രവർത്തനക്ഷമമാക്കുന്നു</string>
     <string name="double_scrolling_gap" maxLength="41">ഇരട്ട സ്ക്രോളിംഗ്</string>
     <string name="double_scrolling_gap_summ">eReader ഉപയോഗിച്ച് സ്ക്രോൾ വിടവ് ഇരട്ടിയാക്കുക</string>
@@ -260,9 +261,7 @@
     <string name="donate_description"><![CDATA[<a href=\"%1$s\">സംഭാവന ചെയ്യുന്നതിലൂടെ</a> നിങ്ങൾക്ക് AnkiDroid വികസനത്തെ പിന്തുണയ്ക്കാം. ഏത് തുകയും ആഴത്തിൽ വിലമതിക്കുന്നു.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">ആംഗ്യം ചേർക്കുക</string>
-    <string name="binding_replace_gesture">ആംഗ്യം മാറ്റിസ്ഥാപിക്കുക</string>
     <string name="binding_add_key">കീ ചേർക്കുക</string>
-    <string name="binding_replace_key">കീ മാറ്റിസ്ഥാപിക്കുക</string>
     <string name="key_picker_default_press_key">ഒരു കീ അമർത്തുക</string>
     <string name="binding_add_axis">ഒരു ജോയിസ്റ്റിക്ക്/മോഷൻ കൺട്രോളർ ചേർക്കുക</string>
     <string name="axis_picker_move_joystick">ഒരു ജോയിസ്റ്റിക്ക്/മോഷൻ കൺട്രോളർ നീക്കുക</string>
@@ -297,8 +296,7 @@
     <string name="pref_cat_dev_options" maxLength="41">ഡെവലപ്പർ ഓപ്ഷനുകൾ</string>
     <string name="dev_options_enabled_pref" maxLength="41">ഡെവലപ്പർ ഓപ്ഷനുകൾ പ്രവർത്തനക്ഷമമാക്കുക</string>
     <string name="disable_dev_options">ഡെവലപ്പർ ഓപ്ഷനുകൾ പ്രവർത്തനരഹിതമാക്കുക</string>
-    <string name="dev_options_warning">        Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

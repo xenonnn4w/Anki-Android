@@ -97,6 +97,7 @@
     <string name="gestures_summ">Cevap verme ve kart düzenleme gibi eylemlere el hareketleri ata.</string>
     <string name="gestures_corner_touch" maxLength="41">9 noktadan dokunma</string>
     <string name="gestures_corner_touch_summary">Ekran köşelerinde dokunma hareketlerine izin ver</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Tam ekran gezinme çekmecesi</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Ekranın üzerindeki herhangi bir yerden sağa doğru parmağınızı kaydırdığınızda bütün dosyaların genel görünümü için bir önizleme açılacaktır</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">Hiçbiri</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Sol alta dokun</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Sağ alta dokun</string>
     <string name="gestures_shake" maxLength="41">Cihazı salla</string>
-    <string name="card_browser_enable_external_context_menu">\"%s\" Menüsü</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">\"%s\" Menüsü</string>
     <string name="card_browser_enable_external_context_menu_summary">\"%s\" durum menüsünü uygulama çapında etkinleştirir</string>
     <string name="double_scrolling_gap" maxLength="41">Hızlı kaydırma</string>
     <string name="double_scrolling_gap_summ">eOkuyucu\'yla kaydırma mesafesini iki katına çıkarmak istiyorsanız bunu etkinleştirin</string>
@@ -260,9 +261,7 @@
     <string name="donate_description"><![CDATA[AnkiDroid\'in geliştirilmesine <a href=\"%1$s\">bağış yaparak</a> destek olabilirsiniz. Miktarı ne olursa olsun içten teşekkürlerimizi kazanırsınız.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Hareket ekle</string>
-    <string name="binding_replace_gesture">El hareketini değiştir</string>
     <string name="binding_add_key">Anahtar ekle</string>
-    <string name="binding_replace_key">Tuşu değiştir</string>
     <string name="key_picker_default_press_key">Bir tuşa basın</string>
     <string name="binding_add_axis">Joystick/hareket kumandası ekle</string>
     <string name="axis_picker_move_joystick">Bir joystick/hareket kumandasını hareket ettir</string>
@@ -297,7 +296,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Geliştirici seçenekleri</string>
     <string name="dev_options_enabled_pref" maxLength="41">Geliştirici seçeneklerini aç</string>
     <string name="disable_dev_options">Geliştirici seçeneklerini kapat</string>
-    <string name="dev_options_warning">        Lütfen geliştirici seçeneklerini açmadan önce emin olun. Bu seçenekler tehlikelidir ve uygulamayı ya da koleksiyonunuzu bozabilir.\n\nBu seçenekler çoğu kullanıcı için uygun değildir ve çevrilmezler, bu yüzden İngilizce olduklarını göz önünde bulundurun.</string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

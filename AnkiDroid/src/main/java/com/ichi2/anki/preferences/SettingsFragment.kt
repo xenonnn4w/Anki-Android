@@ -21,7 +21,6 @@ import androidx.annotation.VisibleForTesting
 import androidx.annotation.XmlRes
 import androidx.core.os.bundleOf
 import androidx.preference.Preference
-import androidx.preference.PreferenceCategory
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import androidx.preference.PreferenceManager.OnPreferenceTreeClickListener
@@ -93,7 +92,7 @@ abstract class SettingsFragment :
             (preference as? DialogFragmentProvider)?.makeDialogFragment()
                 ?: return super.onDisplayPreferenceDialog(preference)
         Timber.d("displaying custom preference: ${dialogFragment::class.simpleName}")
-        dialogFragment.arguments = bundleOf("key" to preference.key)
+        dialogFragment.arguments = bundleOf(PREF_DIALOG_KEY to preference.key)
         dialogFragment.setTargetFragment(this, 0)
         dialogFragment.show(parentFragmentManager, "androidx.preference.PreferenceFragment.DIALOG")
     }
@@ -112,22 +111,9 @@ abstract class SettingsFragment :
             .unregisterOnSharedPreferenceChangeListener(this)
     }
 
-    protected fun allPreferences(): List<Preference> {
-        val allPreferences = mutableListOf<Preference>()
-        for (i in 0 until preferenceScreen.preferenceCount) {
-            val pref = preferenceScreen.getPreference(i)
-            if (pref is PreferenceCategory) {
-                for (j in 0 until pref.preferenceCount) {
-                    allPreferences.add(pref.getPreference(j))
-                }
-            } else {
-                allPreferences.add(pref)
-            }
-        }
-        return allPreferences
-    }
-
     companion object {
+        const val PREF_DIALOG_KEY = "key"
+
         /**
          * Converts a preference value to a numeric number that
          * can be reported to analytics, since analytics events only accept

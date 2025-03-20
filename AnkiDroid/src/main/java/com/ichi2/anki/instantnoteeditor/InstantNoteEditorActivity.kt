@@ -84,7 +84,10 @@ class InstantNoteEditorActivity :
 
     private var dialogView: View? = null
 
-    private var editMode = EditMode.ADVANCED
+    private val editMode: EditMode
+        get() = viewModel.editorMode.value
+
+    private val updatedTextKey = "updatedText"
 
     private lateinit var editModeButton: MaterialButton
 
@@ -127,7 +130,10 @@ class InstantNoteEditorActivity :
             return
         }
 
-        handleSharedText(intent)
+        viewModel.setClozeFieldText(
+            savedInstanceState?.getString(updatedTextKey) ?: getSharedIntentText(intent),
+        )
+
         setupErrorListeners()
         prepareEditorDialog()
     }
@@ -161,7 +167,6 @@ class InstantNoteEditorActivity :
         }
 
     /** Setup the deck spinner and custom editor dialog layout **/
-    // TODO: subscribe to the flow of deckId to change the control value
     private fun showEditorDialog() {
         showDialog()
         deckSpinnerSelection =
@@ -179,16 +184,12 @@ class InstantNoteEditorActivity :
             }
     }
 
-    /** Handles the shared text received through an Intent. **/
-    private fun handleSharedText(receivedIntent: Intent) {
-        val sharedText = receivedIntent.getStringExtra(Intent.EXTRA_TEXT) ?: return
-        Timber.d("Setting cloze field text to $sharedText")
-        viewModel.setClozeFieldText(sharedText)
-    }
+    /** Gets the shared text received through an Intent. **/
+    private fun getSharedIntentText(receivedIntent: Intent): String? = receivedIntent.getStringExtra(Intent.EXTRA_TEXT)
 
     private fun openNoteEditor() {
         val sharedText = clozeEditTextField.text.toString()
-        val noteEditorIntent = NoteEditorLauncher.AddInstantNote(sharedText).getIntent(this)
+        val noteEditorIntent = NoteEditorLauncher.AddInstantNote(sharedText).toIntent(this)
         startActivity(noteEditorIntent)
         finish()
     }
@@ -216,6 +217,8 @@ class InstantNoteEditorActivity :
         for (editField in editFields) {
             editFieldsLayout?.addView(editField)
         }
+
+        setLayoutVisibility()
 
         instantAlertDialog =
             AlertDialog.Builder(this).show {
@@ -246,6 +249,11 @@ class InstantNoteEditorActivity :
         dialogView.rootView.userClickOutsideDialog(
             exclude = instantAlertDialog.findViewById(R.id.instant_add_editor_root)!!,
         )
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        if (intentTextChanged()) outState.putString(updatedTextKey, clozeFieldText)
     }
 
     @KotlinCleanup("notetypeJson -> non-null")
@@ -304,10 +312,9 @@ class InstantNoteEditorActivity :
         editModeButton.setOnClickListener {
             viewModel.setClozeFieldText(textBox.text.toString())
             when (editMode) {
-                EditMode.SINGLE_TAP -> {
+                EditMode.ADVANCED -> {
                     hideKeyboard()
                     textBox.setText(clozeFieldText)
-                    editMode = EditMode.ADVANCED
                     viewModel.setEditorMode(EditMode.SINGLE_TAP)
                     editModeButton.setIconResource(R.drawable.ic_mode_edit_white)
 
@@ -318,14 +325,26 @@ class InstantNoteEditorActivity :
                     viewModel.setClozeFieldText(textBox.text.toString())
                 }
 
-                EditMode.ADVANCED -> {
-                    viewModel.setEditorMode(EditMode.ADVANCED)
+                EditMode.SINGLE_TAP -> {
                     editModeButton.setIconResource(R.drawable.ic_touch)
-                    editMode = EditMode.SINGLE_TAP
+                    viewModel.setEditorMode(EditMode.ADVANCED)
 
                     singleTapLayout.visibility = View.GONE
                     editFieldsLayout?.visibility = View.VISIBLE
                 }
+            }
+        }
+    }
+
+    private fun setLayoutVisibility() {
+        when (editMode) {
+            EditMode.SINGLE_TAP -> {
+                singleTapLayout.visibility = View.VISIBLE
+                editFieldsLayout?.visibility = View.GONE
+            }
+            EditMode.ADVANCED -> {
+                singleTapLayout.visibility = View.GONE
+                editFieldsLayout?.visibility = View.VISIBLE
             }
         }
     }

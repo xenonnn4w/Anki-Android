@@ -99,6 +99,7 @@
     <string name="gestures_summ">Přiřazení gest akcím, jako je odpovídání a úprava karet</string>
     <string name="gestures_corner_touch" maxLength="41">Devítibodový dotyk</string>
     <string name="gestures_corner_touch_summary">Povolí dotyková gesta v rozích obrazovky</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Navigační menu v režimu celé obrazovky</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Otevřít navigační menu, když se táhne doprava kdekoliv na obrazovce</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">Žádné</string>
@@ -118,7 +119,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Klepnutí vlevo dole</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Klepnutí vpravo dole</string>
     <string name="gestures_shake" maxLength="41">Zatřesení zařízením</string>
-    <string name="card_browser_enable_external_context_menu">Menu „%s“</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">Menu „%s“</string>
     <string name="card_browser_enable_external_context_menu_summary">Povolí globální kontextovou nabídku „%s“</string>
     <string name="double_scrolling_gap" maxLength="41">Dvojitý posun</string>
     <string name="double_scrolling_gap_summ">Dvojitý posuvník s eReader</string>
@@ -264,9 +265,7 @@
     <string name="donate_description"><![CDATA[Můžete podpořit vývoj AnkiDroidu <a href=\"%1$s\">finančními příspěvky</a>. Jakékoliv částky si hluboce vážíme.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Přidat gesto</string>
-    <string name="binding_replace_gesture">Nahradit gesto</string>
     <string name="binding_add_key">Přidat klávesu</string>
-    <string name="binding_replace_key">Nahradit klávesu</string>
     <string name="key_picker_default_press_key">Stiskněte tlačítko</string>
     <string name="binding_add_axis">Přidat joystick / ovladač pohybu</string>
     <string name="axis_picker_move_joystick">Pohnout joystickem / ovladačem pohybu</string>
@@ -301,8 +300,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Možnosti pro vývojáře</string>
     <string name="dev_options_enabled_pref" maxLength="41">Povolit možnosti pro vývojáře</string>
     <string name="disable_dev_options">Zakázat možnosti pro vývojáře</string>
-    <string name="dev_options_warning">        Prosím buďte si jisti před povolením možností pro vývojáře. Tyto možnosti jsou nebezpečné a mohou poškodit aplikaci nebo vaši kolekci.\n\nVšimněte si, že tyto možnosti nejsou vhodné pro většinu uživatelů, a proto nejsou přeloženy, takže jsou v angličtině.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->
@@ -333,7 +331,7 @@
     </plurals>
     <!-- Delete unused media -->
     <string name="pref__delete_unused_media_files__title" maxLength="41" comment="Preference title">Odstranit nepoužívané multimediální soubory</string>
-    <string name="pref__delete_unused_media_files__summary">Odstranit obrázky a další multimédia, která nemají předponu _ a na které neodkazují žádné poznámky </string>
+    <string name="pref__delete_unused_media_files__summary">Odstranit obrázky a další multimédia, která nemají předponu _ a na které neodkazují žádné poznámky</string>
     <string name="dialog__delete_unused_media_files__title" comment="Title for a dialog where you can select unused media files to delete">Odstranit nepoužívané multimediální soubory</string>
     <!-- Delete backups -->
     <string name="pref__delete_backups__title" maxLength="41" comment="Preference title">Odstranit zálohy</string>
@@ -372,8 +370,8 @@
     <string name="ignore_display_cutout" maxLength="41">Ignorovat výřez displeje</string>
     <string name="hide_answer_buttons" maxLength="41">Skrýt tlačítka odpovědí</string>
     <string name="hide_hard_and_easy" maxLength="41">Skrýt tlačítka „Těžké“ a „Snadné“</string>
-    <string name="reviewer_frame_style" maxLength="41">Frame style</string>
-    <string name="reviewer_frame_style_card" maxLength="41" comment="Style name of the \'Card\' card frame of the Reviewer">Card</string>
+    <string name="reviewer_frame_style" maxLength="41">Styl rámečku</string>
+    <string name="reviewer_frame_style_card" maxLength="41" comment="Style name of the \'Card\' card frame of the Reviewer">Karta</string>
     <string name="reviewer_frame_style_box" maxLength="41" comment="Style name of the \'Box\' card frame of the Reviewer">Box</string>
     <!--Keyboard shortcuts dialog-->
     <string name="open_settings" comment="Description of the shortcut that opens the app settings">Open settings</string>

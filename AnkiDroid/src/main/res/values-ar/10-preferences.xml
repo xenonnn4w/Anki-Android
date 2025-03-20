@@ -101,6 +101,7 @@
     <string name="gestures_summ">تعيين إيماءات إلى إجراءات مثل إجابة البطاقات وتحريرها.</string>
     <string name="gestures_corner_touch" maxLength="41">لمس بحجم 9 نقاط</string>
     <string name="gestures_corner_touch_summary">السماح بإيماءات اللمس في حواف الشاشة</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">قائمة تجول ملء الشاشة</string>
     <string name="gestures_fullscreen_nav_drawer_summary">فتح قائمة التجول عند السحب لليمين من أي مكان في الشاشة</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">لا شَيْء</string>
@@ -120,7 +121,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">النقر في أسفل اليسار</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">النقر في أسفل اليمين</string>
     <string name="gestures_shake" maxLength="41">رج الجهاز</string>
-    <string name="card_browser_enable_external_context_menu">قائمة \'%s\'</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">قائمة \'%s\'</string>
     <string name="card_browser_enable_external_context_menu_summary">يفعل قائمة سياق \'%s\' عمومًا</string>
     <string name="double_scrolling_gap" maxLength="41">مضاعفة فجوة التمرير</string>
     <string name="double_scrolling_gap_summ">مضاعفة فجوة التمرير مع القارئ الإلكتروني</string>
@@ -268,9 +269,7 @@
     <string name="donate_description"><![CDATA[تستطيع دعم تطوير أنكيدرويد من خلال <a href=\"%1$s\">التبرع</a>. نقدّر أي كمية.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">إضافة إيماءة</string>
-    <string name="binding_replace_gesture">استبدال الإيماء</string>
     <string name="binding_add_key">إضافة مفتاح</string>
-    <string name="binding_replace_key">استبدال المفتاح</string>
     <string name="key_picker_default_press_key">ضغط مفتاح</string>
     <string name="binding_add_axis">إضافة وحدة عصا التحكم أو جهاز التحرك/حركة</string>
     <string name="axis_picker_move_joystick">نقل وحدة عصا التحكم أو جهاز التحرك/حركة</string>
@@ -305,7 +304,7 @@
     <string name="pref_cat_dev_options" maxLength="41">خيارات المطور</string>
     <string name="dev_options_enabled_pref" maxLength="41">تفعيل خيارات المطور</string>
     <string name="disable_dev_options">إلغاء تفعيل خيارات المطور</string>
-    <string name="dev_options_warning">        يرجى التفكير قبل تفعيل خيارات المطور. هذه الخيارات خطرة وقد تعطل التطبيق أو مجموعتك.\n\nلاحظ أن هذه الخيارات ليست مناسبة لمعظم المستخدمين لذلك فهي ليست مترجمة بل معروضة بالإنجليزية.</string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

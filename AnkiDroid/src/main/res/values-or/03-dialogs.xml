@@ -55,13 +55,7 @@
     <string name="delete_cram_deck_message">Delete filtered deck %s and send all cards back to their original decks?</string>
     <string name="no_tts_available_message">କୌଣସି ପାଠ୍ୟ-ରୁ-କଥନ ଭାଷା ଉପଲବ୍ଧ ନାହିଁ</string>
     <string name="tts_no_tts">କଥା କୁହ ନାହିଁ</string>
-    <string name="unused_strings">\n\nଅବ୍ୟବହୃତ ଫାଇଲ:\n</string>
-    <string name="reposition_card_dialog_title">ନୂଆ ପତ୍ରଟିକୁ ପୁନଃଅଵସ୍ଥିତ କରିବା</string>
     <string name="reposition_card_not_new_error">କେଵଳ ନୂଆ ପତ୍ରଗୁଡ଼ିକୁ ପୁନଃଅଵସ୍ଥିତ କରିହେବ</string>
-    <plurals name="reposition_card_dialog_acknowledge">
-        <item quantity="one">%dଟିଏ ପତ୍ର ପୁନଃଅଵସ୍ଥିତ କରାଗଲା</item>
-        <item quantity="other">%dଟି ପତ୍ର ପୁନଃଅଵସ୍ଥିତ କରାଗଲା</item>
-    </plurals>
     <string name="reset_card_dialog_title">ପତ୍ରର ପ୍ରଗତି ପୁନଃସେଟ୍ କର</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="one">%dଟିଏ ପତ୍ର ପୁନଃସେଟ୍ ହେଲା</item>
@@ -70,7 +64,7 @@
     <string name="answering_error_title">ଡାଟାବେସ୍ ତ୍ରୁଟି</string>
     <string name="answering_error_message">ସଂଗ୍ରହରେ ଲିଖନ ବିଫଳ ହେଲା। ଡାଟାବେସ୍ ଭ୍ରଷ୍ଟ ହୋଇପାରେ କିମ୍ବା ଡିସ୍କରେ ପର୍ଯ୍ୟାପ୍ତ ଖାଲି ସ୍ଥାନ ନ ଥାଇପାରେ।\n\nଯଦି ଏହା ଅଧିକ ଘଟେ, ଡାଟାବେସ୍ ଯାଞ୍ଚ କରିବାକୁ ଚେଷ୍ଟା କରନ୍ତୁ, ସଂଗ୍ରହକୁ ମରାମତି କରନ୍ତୁ କିମ୍ବା ବ୍ୟାକଅପ୍ ରୁ ପୁନଃସ୍ଥାପନ କରନ୍ତୁ। ଏଥିପାଇଁ “ବିକଳ୍ପ” କୁ ବାଛନ୍ତୁ।\nକିମ୍ବା ଏହା ଏକ AnkiDroid ବଗ୍ ମଧ୍ୟ ହୋଇପାରେ। ଦୟାକରି କୀଟ ପ୍ରତିବେଦନ କରନ୍ତୁ ଯାହା ଦ୍ୱାରା ଆମେ ଏହାକୁ ଯାଞ୍ଚ କରିପାରିବୁ।</string>
     <string name="answering_error_report">ତ୍ରୁଟି ପ୍ରତିବେଦନ କରିବା</string>
-    <string name="storage_full_message">AnkiDroid ଖୋଲିବା ପାଇଁ ପର୍ଯ୍ୟାପ୍ତ ମୁକ୍ତ ଷ୍ଟୋରେଜ୍ ସ୍ଥାନ ନାହିଁ। ଜାରି ରଖିବାକୁ ହେଲେ କିଛି ସ୍ଥାନ ଖାଲି କରନ୍ତୁ। </string>
+    <string name="storage_full_message">There is not enough free storage space to open AnkiDroid. Free up some space to continue.</string>
     <string name="repair_deck_dialog">ଆପଣ ପ୍ରକୃତରେ ଡାଟାବେସ୍ ମରାମତି କରିବାକୁ ଚେଷ୍ଟା କରିବାକୁ ଚାହୁଁଛନ୍ତି କି?\n\nପ୍ରୟାସ ଆରମ୍ଭ କରିବା ପୂର୍ବରୁ, “%s” ଉପଫୋଲ୍ଡର୍ ରେ ଏକ କପି ସୃଷ୍ଟି ହେବ।</string>
     <string name="intent_aedict_empty">ବର୍ଗ “ଡିଫଲ୍ଟ” ଖାଲି ଅଛି</string>
     <string name="intent_aedict_category">AnkiDroid ରେ ପତ୍ର ଯୋଡ଼ିବା ପାଇଁ ସମସ୍ତ Notepad ବର୍ଗଗୁଡ଼ିକୁ ଅପସାରଣ କରନ୍ତୁ କିମ୍ବା “ଡିଫଲ୍ଟ” ନାମକ ଏକ ବର୍ଗ ଯୋଡ଼ନ୍ତୁ</string>
@@ -102,7 +96,7 @@
     <string name="dialog_positive_overwrite">ନବଲିଖନ କରନ୍ତୁ</string>
     <string name="dialog_positive_repair">ସଜାଡନ୍ତୁ</string>
     <string name="dialog_positive_replace">ପ୍ରତିସ୍ଥାପନ</string>
-    <string name="dialog_collection_path_not_dir">ନିର୍ଦ୍ଦିଷ୍ଟ ପଥ ଏକ ବୈଧ ନିର୍ଦେଶିକା ନୁହେଁ </string>
+    <string name="dialog_collection_path_not_dir">ନିର୍ଦ୍ଦିଷ୍ଟ ପଥ ଏକ ବୈଧ ନିର୍ଦେଶିକା ନୁହେଁ</string>
     <string name="dialog_invalid_custom_certificate">The provided text does not resolve to a valid PEM-encoded X509 certificate</string>
     <string name="dialog_invalid_custom_certificate_title">Error parsing certificate</string>
     <string name="dialog_updated_custom_certificate">Certificate updated</string>
@@ -112,10 +106,7 @@
     <string name="check_media_message">ମିଡ଼ିଆ ଯାଞ୍ଚ ଚାଲିଛି&#8230;</string>
     <string name="check_media_acknowledge">ମିଡ଼ିଆ ଯାଞ୍ଚ କରାଗଲା</string>
     <string name="check_media_invalid">ଅବୈଧ ଏନକୋଡିଂ ସହିତ ଫାଇଲଗୁଡିକ: %d</string>
-    <string name="check_media_unused">ମିଡ଼ିଆ ଫୋଲ୍ଡରରେ ଗଚ୍ଛିତ କିନ୍ତୁ କୌଣସି ପତ୍ର ଦ୍ୱାରା ବ୍ୟବହାର ହେଉନଥିବା ଫାଇଲଗୁଡ଼ିକ: %d</string>
-    <string name="check_media_nohave">ପତ୍ରରେ ବ୍ୟବହୃତ କିନ୍ତୁ ମିଡ଼ିଆ ଫୋଲ୍ଡରରେ ନଥିବା ଫାଇଲଗୁଡ଼ିକ: %d</string>
     <string name="check_media_no_unused_missing">କୌଣସି ଅବ୍ୟବହୃତ କିମ୍ବା ନିଖୋଜ ଫାଇଲ ମିଳିଲା ନାହିଁ</string>
-    <string name="check_media_db_updated">ମିଡ଼ିଆ ଡାଟାବେସ୍ ପୁନଃନିର୍ମିତ</string>
     <string name="check_media_delete_unused">ଅବ୍ୟବହୃତ ବିଲୋପ କରନ୍ତୁ</string>
     <string name="delete_media_message">ମିଡ଼ିଆ ଵିଲୋପ ହେଉଛି&#8230;</string>
     <string name="delete_media_result_title">ବିଲୋପ ଫଳାଫଳ</string>
@@ -129,7 +120,6 @@
     <string name="tags_dialog_option_due_cards" comment="Name of cards that are already been reviewed in the past, and that should be reviewed again">ବାକି</string>
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">ଖାଲି ପତ୍ର ଖୋଜାହେଉଛି&#8230;</string>
-    <string name="empty_cards_count">ବିଲୋପ କରିବାକୁ ପତ୍ର : %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">ମାଇକ୍ରୋଫୋନ୍ ଅନୁମତି ପାଇପାରିଲୁ ନାହିଁ।</string>
     <string name="multimedia_editor_failed">ମଲ୍ଟିମିଡ଼ିଆ ସମ୍ପାଦକ ଖୋଲିବାରେ ବିଫଳ</string>
@@ -148,7 +138,7 @@
     <!-- Database Errors-->
     <string name="database_locked_title">ଡାଟାବେସ୍ ଲକ୍ ହୋଇଛି</string>
     <string name="database_locked_summary">AnkiDroid ଡାଟାବେସ୍ ଅନ୍ୟ ଏକ ଆପ୍ ଦ୍ୱାରା ଵ୍ୟଵହାର ହେଉଛି। ଦୟାକରି ଅନ୍ୟ ଆପ୍‌ଟିକୁ ବନ୍ଦ କରି AnkiDroid ଖୋଲନ୍ତୁ।</string>
-    <string name="incompatible_database_version_title">ଅସଙ୍ଗତ ଡାଟାବେସ୍ ସଂସ୍କରଣ </string>
+    <string name="incompatible_database_version_title">ଅସଙ୍ଗତ ଡାଟାବେସ୍ ସଂସ୍କରଣ</string>
     <string name="incompatible_database_version_summary">AnkiDroidର ଏହି ସଂସ୍କରଣ ଡାଟାବେସ୍ ସହିତ କାମ କରିପାରିବନାହିଁ। ଏହାକୁ ଖୋଲିବା ପାଇଁ AnkiDroidକୁ ଅଦ୍ୟତନ କରନ୍ତୁ କିମ୍ବା ଡାଟାବେସ୍‌କୁ ଡାଉନଗ୍ରେଡ୍ କରନ୍ତୁ\n\nସମର୍ଥିତ ସଂସ୍କରଣ: %1$d\nଡାଟାବେସ୍ ସଂସ୍କରଣ: %2$d\n\nନିମ୍ନଲିଖିତ ପୁନରୁଦ୍ଧାର ଵିକଳ୍ପ ଆପଣଙ୍କର ସାମ୍ପ୍ରତିକ ସଂଗ୍ରହକୁ ନବଲିଖନ କରିବ, ସମ୍ଭବତଃ ଏକ ସୁସଙ୍ଗତ ଡାଟାବେସ୍ ସଂସ୍କରଣ ସହିତ:</string>
     <!-- Deck Picker Background-->
     <string name="background_image_applied">ପୃଷ୍ଠପଟ ପ୍ରତିଛବି ପ୍ରୟୋଗ ହୋଇଛି</string>
@@ -222,10 +212,8 @@
     <string name="button_backup_later" comment="dismiss the \'Backup\' dialog for around 2 weeks">ପରେ</string>
     <string name="button_do_not_show_again" comment="permanently dismisses a dialog">ପୁନଃ ଦେଖାଅନି</string>
     <string name="dismiss_backup_warning_title">ଡାଟା କ୍ଷତି ଚେତାଵନୀ</string>
-    <string name="dismiss_backup_warning_new_user">        ଆଣ୍ଡ୍ରଏଡ୍ ଗୋପନୀୟତା ପରିଵର୍ତ୍ତନ ହେତୁ, ଆପ୍ ଅନଇନଷ୍ଟଲ୍ ହେଲେ ଆପଣଙ୍କ ଫୋନ୍‌ରୁ ଆପଣଙ୍କ ଡାଟା ଏଵଂ ସ୍ୱଚାଳିତ ବ୍ୟାକଅପ୍ ଵିଲୋପ ହୋଇଯିବ
-    </string>
-    <string name="dismiss_backup_warning_upgrade">        ଆଣ୍ଡ୍ରଏଡ୍ ଗୋପନୀୟତା ପରିଵର୍ତ୍ତନ ହେତୁ, ଆପ୍ ଅନଇନଷ୍ଟଲ୍ ହେଲେ ଆପଣଙ୍କ ଡାଟା ଏଵଂ ସ୍ୱଚାଳିତ ବ୍ୟାକଅପ୍ ଅଗମ୍ୟ ପାଲଟିବ
-    </string>
+    <string name="dismiss_backup_warning_new_user">Due to Android privacy changes, your data and automated backups will be deleted from your phone if the app is uninstalled</string>
+    <string name="dismiss_backup_warning_upgrade">Due to Android privacy changes, your data and automated backups will be inaccessible if the app is uninstalled</string>
     <string name="deck_already_exists">Deck already exists</string>
     <string name="empty_deck_name">ତାସଖଣ୍ଡ ନାମ ଖାଲି ଛଡ଼ାଯାଇପାରିବ ନାହିଁ</string>
     <string name="create_deck_numeric_hint">If you have deck ordering issues (e.g. ‘10’ appears before ‘2’), replace ‘2’ with ‘02’</string>

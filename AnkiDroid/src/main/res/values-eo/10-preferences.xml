@@ -97,6 +97,7 @@
     <string name="gestures_summ">Asigni gestojn al agoj, kiel respondi aŭ redakti karton.</string>
     <string name="gestures_corner_touch" maxLength="41">9-punkta frapeto</string>
     <string name="gestures_corner_touch_summary">Ebligi gestojn en anguloj de la ekrano</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Naviga tirmenuo sur plenekrano</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Malfermi navigan tirmenuon per ŝovumi dekstren sur la plenekrano</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">Neniu</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Frapeti suban maldekstron</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Frapeti suban dekstron</string>
     <string name="gestures_shake" maxLength="41">Skui aparaton</string>
-    <string name="card_browser_enable_external_context_menu">Menuo “%s”</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">Menuo “%s”</string>
     <string name="card_browser_enable_external_context_menu_summary">Aktivigi la kuntekstan menuon “%s” tutaplikaĵe</string>
     <string name="double_scrolling_gap" maxLength="41">Duobla rulumado</string>
     <string name="double_scrolling_gap_summ">Duobligi distancon de rulumado kun elektronika legilo</string>
@@ -256,9 +257,7 @@
     <string name="donate_description"><![CDATA[Vi povas subteni evoluigon de AnkiDroid per <a href=\"%1$s\">donaci monon</a>. Ĉiu monsumo estas dankinda.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Aldoni geston</string>
-    <string name="binding_replace_gesture">Anstataŭigi geston</string>
     <string name="binding_add_key">Aldoni klavon</string>
-    <string name="binding_replace_key">Anstataŭigi klavon</string>
     <string name="key_picker_default_press_key">Premu klavon</string>
     <string name="binding_add_axis">Asigni ludstirilon</string>
     <string name="axis_picker_move_joystick">Movu per ludstirilo</string>
@@ -293,7 +292,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Programistaj agordoj</string>
     <string name="dev_options_enabled_pref" maxLength="41">Aktivigi programistajn agordojn</string>
     <string name="disable_dev_options">Malaktivigi programistajn agordojn</string>
-    <string name="dev_options_warning">Antaŭ ol aktivigi programistajn agordojn, certiĝu, ke vi scias kion vi faras. Tiuj ĉi agordoj estas danĝeraj kaj povas difekti la aplikaĵon aŭ vian kolekton.\n\nRimarko: tiuj ĉi agordoj ne taŭgas por kutimaj uzantoj, do ne estas tradukitaj (estas en la angla).</string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

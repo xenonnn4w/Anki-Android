@@ -13,11 +13,16 @@
  * You should have received a copy of the GNU General Public License along with
  * this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.ichi2.anki.utils
+package com.ichi2.anki.utils.ext
 
-import android.view.ViewGroup.MarginLayoutParams
-import android.widget.FrameLayout
+import com.ichi2.libanki.Card
 
-fun FrameLayout.setMargins(value: Int) {
-    (layoutParams as? MarginLayoutParams)?.setMargins(value, value, value, value)
+/**
+ * Set flags to [flag].
+ * Should only be used for testing.
+ */
+object CardExt {
+    fun Card.setFlag(flag: Int) {
+        flags = flag
+    }
 }

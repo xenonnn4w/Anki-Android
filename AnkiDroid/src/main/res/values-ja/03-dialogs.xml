@@ -54,12 +54,7 @@
     <string name="delete_cram_deck_message">フィルターデッキ「%s」を削除し、すべてのカードを元のデッキに戻しますか？</string>
     <string name="no_tts_available_message">テキスト読み上げ可能な言語がありません</string>
     <string name="tts_no_tts">発声なし</string>
-    <string name="unused_strings">\n\n(*) のファイルのリスト:\n</string>
-    <string name="reposition_card_dialog_title">位置（新規カード番号）を変更</string>
     <string name="reposition_card_not_new_error">位置（新規カード番号）の変更は、新規カード以外には行えません。</string>
-    <plurals name="reposition_card_dialog_acknowledge">
-        <item quantity="other">%d枚のカードの位置（新規カード番号）を変更しました</item>
-    </plurals>
     <string name="reset_card_dialog_title">カードの学習進度をリセット</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="other">%d枚のカードの学習履歴をリセットしました</item>
@@ -67,14 +62,14 @@
     <string name="answering_error_title">データベース エラー</string>
     <string name="answering_error_message">コレクションへの書き込み中にエラーが発生しました。データベースの破損しているか、ストレージの空き容量が不足している可能性があります。\n\n繰り返しエラーが発生する場合には、「データベースをチェック」、コレクションの修復、「バックアップから復元」を試してみてください。\nまた、AnkiDroidのバグである可能性が考えられる場合は、開発者にご報告ください。</string>
     <string name="answering_error_report">エラーを報告</string>
-    <string name="storage_full_message">AnkiDroidアプリを開くための十分な空き容量がストレージにありません。続行するには空き容量を確保してください。 </string>
+    <string name="storage_full_message">There is not enough free storage space to open AnkiDroid. Free up some space to continue.</string>
     <string name="repair_deck_dialog">データベースの修復を試みて本当によろしいですか？\n\n試行の開始前に、サブフォルダ \"%s\" にコピーを作成します。</string>
     <string name="intent_aedict_empty">カテゴリー \"default\" が空です</string>
     <string name="intent_aedict_category">AnkiDroidにカードを登録するため、すべてのNotepadカテゴリを削除するか、\"default\" という名前のカテゴリを追加してください</string>
     <string name="custom_study_new_extend">上限枚数をいくつ増やしますか？（減らす場合は負の数）</string>
     <string name="custom_study_rev_extend">上限枚数をいくつ増やしますか？（減らす場合は負の数）</string>
     <string name="custom_study_forgotten">直近 x 日間で「やり直し」を選んだカードを再学習</string>
-    <string name="custom_study_ahead"> x 日先までの復習カードを予習</string>
+    <string name="custom_study_ahead">x 日先までの復習カードを予習</string>
     <string name="custom_study_preview">直近 x 日間で追加した習得未開始の新規カードを予習</string>
     <string name="storage_full_title">ストレージの空き容量がありません</string>
     <string name="storage_almost_full_title">ストレージの空き容量が少なくなっています</string>
@@ -109,10 +104,7 @@
     <string name="check_media_message">メディアをチェックしています&#8230;</string>
     <string name="check_media_acknowledge">メディアのチェックの完了</string>
     <string name="check_media_invalid">エンコーディングが無効なファイル数: %d</string>
-    <string name="check_media_unused">(*) メディア用フォルダ内に存在するが、どのカードにも使用されていないファイル: %d個</string>
-    <string name="check_media_nohave">カードに表示するよう記載されているが、メディア用フォルダ内に存在しないファイル: %d個</string>
     <string name="check_media_no_unused_missing">使用されていないファイル、不足しているファイルはありません</string>
-    <string name="check_media_db_updated">メディアのデータベースを再構築しました</string>
     <string name="check_media_delete_unused">(*) のファイルを削除</string>
     <string name="delete_media_message">メディアを削除中&#8230;</string>
     <string name="delete_media_result_title">削除結果</string>
@@ -125,7 +117,6 @@
     <string name="tags_dialog_option_due_cards" comment="Name of cards that are already been reviewed in the past, and that should be reviewed again">期日到来済</string>
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">白紙カード（表側に何も表示されないカード）がないか確認しています&#8230;</string>
-    <string name="empty_cards_count">白紙カードが%d枚見つかりました。削除しますか？</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">マイクの権限を取得できませんでした。</string>
     <string name="multimedia_editor_failed">マルチメディアエディタを開けませんでした</string>
@@ -145,7 +136,7 @@
     <string name="database_locked_title">データベースがロックされています</string>
     <string name="database_locked_summary">AnkiDroidデータベースを別のアプリが使用中です。該当するアプリを終了してAnkiDroidを再起動してください。</string>
     <string name="incompatible_database_version_title">互換性のないバージョンのデータベース</string>
-    <string name="incompatible_database_version_summary">このデータベースは、このAnkiDroidでは使用できません。 これを使用するには、AnkiDroidをアップグレードするか、データベースをダウングレードしてください。\n\nこのAnkiDroidで開ける最大バージョン: %1$d\nこのデータベースのバージョン: %2$d\n\n次の復元オプションは、現在のコレクションを、このAnkiDroidで使用できる可能性が高いデータベースで上書きします。 </string>
+    <string name="incompatible_database_version_summary">このデータベースは、このAnkiDroidでは使用できません。 これを使用するには、AnkiDroidをアップグレードするか、データベースをダウングレードしてください。\n\nこのAnkiDroidで開ける最大バージョン: %1$d\nこのデータベースのバージョン: %2$d\n\n次の復元オプションは、現在のコレクションを、このAnkiDroidで使用できる可能性が高いデータベースで上書きします。</string>
     <!-- Deck Picker Background-->
     <string name="background_image_applied">背景画像に適用しました</string>
     <string name="background_image_removed">背景画像を削除しました</string>
@@ -217,9 +208,8 @@
     <string name="button_backup_later" comment="dismiss the \'Backup\' dialog for around 2 weeks">後で</string>
     <string name="button_do_not_show_again" comment="permanently dismisses a dialog">今後表示しない</string>
     <string name="dismiss_backup_warning_title">データ損失の警告</string>
-    <string name="dismiss_backup_warning_new_user">        Androidのプライバシーポリシーの変更に伴い、今後AnkiDroidをアンインストールすると、あなたのコレクションや自動バックアップのデータもこの端末から削除されます。
-    </string>
-    <string name="dismiss_backup_warning_upgrade">        Androidのプライバシーポリシーの変更に伴い、今後AnkiDroidをアンインストールすると、現在のコレクションや自動バックアップのデータにアクセスできなくなります。</string>
+    <string name="dismiss_backup_warning_new_user">Due to Android privacy changes, your data and automated backups will be deleted from your phone if the app is uninstalled</string>
+    <string name="dismiss_backup_warning_upgrade">Due to Android privacy changes, your data and automated backups will be inaccessible if the app is uninstalled</string>
     <string name="deck_already_exists">同じ名前のデッキがすでにあります</string>
     <string name="empty_deck_name">デッキ名の入力が必要です</string>
     <string name="create_deck_numeric_hint">デッキは名前の文字列順に並べられるため、たとえばデッキ「10」はデッキ「2」よりも上に配置されます。この場合、「2」を「02」に変更すれば、それより下に「10」を配置できます。</string>

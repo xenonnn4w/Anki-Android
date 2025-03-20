@@ -23,6 +23,7 @@ import com.ichi2.anki.utils.ext.ifNotZero
 import com.ichi2.utils.StringUtil
 import com.ichi2.utils.lastIndexOfOrNull
 import timber.log.Timber
+import java.util.Objects
 
 sealed interface Binding {
     data class GestureInput(
@@ -75,6 +76,7 @@ sealed interface Binding {
         val modifierKeys: ModifierKeys
     }
 
+    @Suppress("EqualsOrHashCode")
     data class KeyCode(
         val keycode: Int,
         override val modifierKeys: ModifierKeys = ModifierKeys.none(),
@@ -101,8 +103,12 @@ sealed interface Binding {
                 append(modifierKeys.toString())
                 append(keycode)
             }
+
+        // don't include the modifierKeys
+        override fun hashCode(): Int = Objects.hash(keycode)
     }
 
+    @Suppress("EqualsOrHashCode")
     data class UnicodeCharacter(
         val unicodeCharacter: Char,
         override val modifierKeys: ModifierKeys = AppDefinedModifierKeys.allowShift(),
@@ -121,6 +127,9 @@ sealed interface Binding {
                 append(modifierKeys.toString())
                 append(unicodeCharacter)
             }
+
+        // don't include the modifierKeys
+        override fun hashCode(): Int = Objects.hash(unicodeCharacter)
     }
 
     data object UnknownBinding : Binding {
@@ -153,13 +162,9 @@ sealed interface Binding {
 
         private fun ctrlMatches(event: KeyEvent): Boolean = ctrl == event.isCtrlPressed
 
-        private fun altMatches(event: KeyEvent): Boolean = altMatches(event.isAltPressed)
+        private fun altMatches(event: KeyEvent): Boolean = alt == event.isAltPressed
 
         open fun shiftMatches(shiftPressed: Boolean): Boolean = shift == shiftPressed
-
-        fun ctrlMatches(ctrlPressed: Boolean): Boolean = ctrl == ctrlPressed
-
-        fun altMatches(altPressed: Boolean): Boolean = alt == altPressed
 
         override fun toString() =
             buildString {
@@ -168,7 +173,7 @@ sealed interface Binding {
                 if (shift) append("Shift+")
             }
 
-        fun semiStructuralEquals(keys: ModifierKeys): Boolean {
+        private fun semiStructuralEquals(keys: ModifierKeys): Boolean {
             if (this.alt != keys.alt || this.ctrl != keys.ctrl) {
                 return false
             }
@@ -178,6 +183,10 @@ sealed interface Binding {
                     this.shiftMatches(false) == keys.shiftMatches(false)
             )
         }
+
+        override fun equals(other: Any?): Boolean = other is ModifierKeys && semiStructuralEquals(other)
+
+        override fun hashCode(): Int = Objects.hash(ctrl, alt, shiftMatches(true))
 
         companion object {
             fun none(): ModifierKeys = ModifierKeys(shift = false, ctrl = false, alt = false)
@@ -204,7 +213,7 @@ sealed interface Binding {
     }
 
     /** Modifier keys which cannot be defined by a binding  */
-    private class AppDefinedModifierKeys private constructor() : ModifierKeys(false, false, false) {
+    class AppDefinedModifierKeys private constructor() : ModifierKeys(false, false, false) {
         override fun shiftMatches(shiftPressed: Boolean): Boolean = true
 
         companion object {

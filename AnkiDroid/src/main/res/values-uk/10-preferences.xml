@@ -99,6 +99,7 @@
     <string name="gestures_summ">Використовувати жести для таких дій, як відповідь і редагування карток.</string>
     <string name="gestures_corner_touch" maxLength="41">9-точковий дотик</string>
     <string name="gestures_corner_touch_summary">Дозволити сенсорні жести в кутах екрану</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Показати комбінації клавіш клавіатури</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Повноекранна панель навігації</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Відкривати панель навігації при проведенні вправо з будь-якого місця на екрані</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">Немає</string>
@@ -118,7 +119,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Дотик лівого нижнього кута</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Дотик правого нижнього кута</string>
     <string name="gestures_shake" maxLength="41">Потрясти пристроєм</string>
-    <string name="card_browser_enable_external_context_menu">Меню \'%s\'</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">Меню \'%s\'</string>
     <string name="card_browser_enable_external_context_menu_summary">Включає \'%s\' в загальне контекстне меню</string>
     <string name="double_scrolling_gap" maxLength="41">Подвійне прокручування</string>
     <string name="double_scrolling_gap_summ">Подвоїти розрив прокручування в eReader-і</string>
@@ -233,7 +234,7 @@
     <string name="media" maxLength="41">Медіафайли</string>
     <string name="misc" maxLength="41">Різне</string>
     <!-- studyoptions -->
-    <string name="studyoptions_limit_select_tags">Оберіть позначки</string>
+    <string name="studyoptions_limit_select_tags">Оберіть теги</string>
     <!-- Deck configurations -->
     <string name="deck_conf_general" maxLength="41" comment="Label of the submenu for the general options of new deck">Загальні</string>
     <string name="deck_conf_reminders" maxLength="41">Нагадування</string>
@@ -245,7 +246,7 @@
     <string name="deck_conf_cram_reschedule_summ">Перепланувати картки на основі моїх відповідей в цій колоді</string>
     <string name="deck_conf_cram_filter_2_check">Увімкнути другий фільтр</string>
     <string name="deck_conf_cram_steps_summ" maxLength="41">Задати власні кроки</string>
-    <string name="deck_conf_cram_preview_delays" maxLength="41"> Затримка попереднього перегляду</string>
+    <string name="deck_conf_cram_preview_delays" maxLength="41">Затримка попереднього перегляду</string>
     <string name="deck_conf_cram_preview_delays_summ">Затримка в секундах. 0 повертає картку до початкової колоди.</string>
     <!-- analytics options -->
     <string name="analytics_dialog_title">Допоможіть зробити AnkiDroid кращим!</string>
@@ -265,9 +266,7 @@
     <string name="donate_description"><![CDATA[Ви можете підтримати розробку AnkiDroid <a href=\"%1$s\">внеском</a>. Будь-яка сума глибоко цінується.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Додати жест</string>
-    <string name="binding_replace_gesture">Замінити жест</string>
     <string name="binding_add_key">Додати клавішу</string>
-    <string name="binding_replace_key">Замінити клавішу</string>
     <string name="key_picker_default_press_key">Натисніть клавішу</string>
     <string name="binding_add_axis">Додати джойстик/контролер руху</string>
     <string name="axis_picker_move_joystick">Рухайте джойстиком/контролером руху</string>
@@ -302,8 +301,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Параметри розробника</string>
     <string name="dev_options_enabled_pref" maxLength="41">Увімкнути параметри розробника</string>
     <string name="disable_dev_options">Вимкнути параметри розробника</string>
-    <string name="dev_options_warning">        Будь ласка, переконайтесь, що дійсно бажаєте ввімкнути параметрів розробника. Ці параметри небезпечні й можуть зламати програму або зіпсувати вашу колекцію.\n\nЗверніть увагу, що ці опції не підходять для більшості користувачів, тому не перекладені, так що текст в них англійською мовою.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->
@@ -374,9 +372,9 @@
     <string name="ignore_display_cutout" maxLength="41">Ігнорувати виріз дисплею</string>
     <string name="hide_answer_buttons" maxLength="41">Приховати кнопки відповіді</string>
     <string name="hide_hard_and_easy" maxLength="41">Приховати кнопки \'Важко\' і \'Легко\'</string>
-    <string name="reviewer_frame_style" maxLength="41">Frame style</string>
-    <string name="reviewer_frame_style_card" maxLength="41" comment="Style name of the \'Card\' card frame of the Reviewer">Card</string>
-    <string name="reviewer_frame_style_box" maxLength="41" comment="Style name of the \'Box\' card frame of the Reviewer">Box</string>
+    <string name="reviewer_frame_style" maxLength="41">Стиль рамки</string>
+    <string name="reviewer_frame_style_card" maxLength="41" comment="Style name of the \'Card\' card frame of the Reviewer">Картка</string>
+    <string name="reviewer_frame_style_box" maxLength="41" comment="Style name of the \'Box\' card frame of the Reviewer">Квадратна</string>
     <!--Keyboard shortcuts dialog-->
     <string name="open_settings" comment="Description of the shortcut that opens the app settings">Відкрити налаштування</string>
 </resources>

@@ -55,13 +55,7 @@
     <string name="delete_cram_deck_message">Ĉu forigi la filtritan kartaron %s kaj movi ĉiujn ĝiajn kartojn reen al iliaj originalaj kartaroj?</string>
     <string name="no_tts_available_message">Neniu parolsintezilo disponebla</string>
     <string name="tts_no_tts">Ne paroli</string>
-    <string name="unused_strings">\n\nNeuzataj dosieroj:\n</string>
-    <string name="reposition_card_dialog_title">Repozicii novan karton</string>
     <string name="reposition_card_not_new_error">Nur novaj kartoj povas esti repoziciitaj</string>
-    <plurals name="reposition_card_dialog_acknowledge">
-        <item quantity="one">%d karto estas repoziciita</item>
-        <item quantity="other">%d kartoj estas repoziciitaj</item>
-    </plurals>
     <string name="reset_card_dialog_title">Nuligi progreson de karto</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="one">%d karto estas nuligita</item>
@@ -70,7 +64,7 @@
     <string name="answering_error_title">Eraro pri datumbazo</string>
     <string name="answering_error_message">Malsukcesis skribi al la kolekto. La datumbazo povas esti difektita aŭ eble mankas spaco en la konservejo.\n\nSe tio ĉi okazos pli ofte, provu kontroli la datumbazon, ripari la kolekton aŭ restarigi ĝin el sekurkopio. Frapetu “agordojn” por fari tion.\nAŭ tio ĉi povas esti eraro en AnkiDroid, do bonvolu raporti ĝin por ke ni povu ĝin ripari.</string>
     <string name="answering_error_report">Raporti eraron</string>
-    <string name="storage_full_message">Ne estas sufiĉe da libera konserva spaco por  malfermi AnkiDroid. Liberigi iom da spaco por pluigi.</string>
+    <string name="storage_full_message">There is not enough free storage space to open AnkiDroid. Free up some space to continue.</string>
     <string name="repair_deck_dialog">Ĉu vi certe volas ripari la datumbazon?\n\nAntaŭ ol komenci, kopio estos kreita en subdosierujo “%s”.</string>
     <string name="intent_aedict_empty">La ĉefa kategorio estas malplena</string>
     <string name="intent_aedict_category">Por aldoni kartojn al AnkiDroid, forigu ĉiujn kategoriojn de kajero kaj aldonu unu nomitan «default»</string>
@@ -112,10 +106,7 @@
     <string name="check_media_message">Kontrolado de aŭdvidaĵoj&#8230;</string>
     <string name="check_media_acknowledge">Kontrolis aŭdvidaĵojn</string>
     <string name="check_media_invalid">Dosieroj kun erara signokodo: %d</string>
-    <string name="check_media_unused">Dosieroj ene aŭdvidaĵa dosierujo, sed ne uzataj de iu karto: %d</string>
-    <string name="check_media_nohave">Dosieroj uzataj de kartoj, sed malestaj en aŭdvidaĵa dosierujo: %d</string>
     <string name="check_media_no_unused_missing">Ne trovis iujn ajn neuzatajn aŭ mankajn dosierojn</string>
-    <string name="check_media_db_updated">Rekreis datumbazon de aŭdvidaĵoj</string>
     <string name="check_media_delete_unused">Forigi neuzatajn</string>
     <string name="delete_media_message">Forigado de aŭdvidaĵoj&#8230;</string>
     <string name="delete_media_result_title">Rezulto de forigo</string>
@@ -129,7 +120,6 @@
     <string name="tags_dialog_option_due_cards" comment="Name of cards that are already been reviewed in the past, and that should be reviewed again">Lernendaj</string>
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Serĉado de malplenaj kartoj&#8230;</string>
-    <string name="empty_cards_count">Kartoj por forigi: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Ne povis akiri permeson al la mikrofono.</string>
     <string name="multimedia_editor_failed">Fiaskis malfermi redaktilon de plurmedioj</string>
@@ -222,8 +212,8 @@
     <string name="button_backup_later" comment="dismiss the \'Backup\' dialog for around 2 weeks">Poste</string>
     <string name="button_do_not_show_again" comment="permanently dismisses a dialog">Ne montri denove</string>
     <string name="dismiss_backup_warning_title">Averto pri perdi datumojn</string>
-    <string name="dismiss_backup_warning_new_user">Pro privatecaj ŝanĝoj en la operaciumo Android, viaj datumoj kaj aŭtomataj sekurkopioj estos forigitaj el via telefono, se la aplikaĵo estos malinstalita</string>
-    <string name="dismiss_backup_warning_upgrade">Pro privatecaj ŝanĝoj en la operaciumo Android, viaj datumoj kaj aŭtomataj sekurkopioj estos nealireblaj, se la aplikaĵo estos malinstalita</string>
+    <string name="dismiss_backup_warning_new_user">Due to Android privacy changes, your data and automated backups will be deleted from your phone if the app is uninstalled</string>
+    <string name="dismiss_backup_warning_upgrade">Due to Android privacy changes, your data and automated backups will be inaccessible if the app is uninstalled</string>
     <string name="deck_already_exists">Kartaro jam ekzistas</string>
     <string name="empty_deck_name">Nomo de kartaro ne estu malplena</string>
     <string name="create_deck_numeric_hint">Se vi havas problemojn pri karta ordigo (ekzemple “10” troviĝas antaŭ “2”), renomu “2” al “02”</string>

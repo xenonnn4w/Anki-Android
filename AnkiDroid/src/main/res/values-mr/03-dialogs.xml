@@ -55,13 +55,7 @@
     <string name="delete_cram_deck_message">Delete filtered deck %s and send all cards back to their original decks?</string>
     <string name="no_tts_available_message">मजकूर-ते-भाषणाची भाषा उपलब्ध नाही</string>
     <string name="tts_no_tts">बोलू नका</string>
-    <string name="unused_strings">\n\nन वापरलेल्या फाइल्स:\n</string>
-    <string name="reposition_card_dialog_title">नवीन कार्ड पुनर्स्थित करा</string>
     <string name="reposition_card_not_new_error">केवळ नवीन कार्डे पुनर्स्थित केली जाऊ शकतात</string>
-    <plurals name="reposition_card_dialog_acknowledge">
-        <item quantity="one">%d कार्ड बदलले</item>
-        <item quantity="other">%d कार्ड पुनर्स्थित केली</item>
-    </plurals>
     <string name="reset_card_dialog_title">कार्ड प्रगती रीसेट करा</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="one">%d कार्ड रीसेट</item>
@@ -70,7 +64,7 @@
     <string name="answering_error_title">डेटाबेस त्रुटी</string>
     <string name="answering_error_message">संग्रहात लेखन अयशस्वी. डेटाबेस दूषित होऊ शकतो किंवा डिस्कवर पुरेशी रिक्त जागा असू शकत नाही. \N \n जर हे बर्‍याचदा घडले तर डेटाबेस तपासून पहा, संग्रह दुरुस्त करा किंवा बॅकअपमधून पुनर्संचयित करा. त्यासाठी “पर्याय” ला स्पर्श करा. \N\ किंवा हा अँकीड्रोइड बग देखील असू शकतो; कृपया त्रुटी नोंदवा जेणेकरुन आम्ही हे तपासू शकतो.</string>
     <string name="answering_error_report">अहवाल त्रुटी</string>
-    <string name="storage_full_message">AnkiDroid उघडण्यासाठी पुरेशी मोकळी जागा नाही. सुरू ठेवण्यासाठी काही जागा सोडा.</string>
+    <string name="storage_full_message">There is not enough free storage space to open AnkiDroid. Free up some space to continue.</string>
     <string name="repair_deck_dialog">आपण खरोखर डेटाबेस दुरुस्त करण्याचा प्रयत्न करू इच्छिता? \N\n प्रयत्न सुरू करण्यापूर्वी, एक प्रत सबफोल्डर \"%s\" मध्ये तयार केली जाईल.</string>
     <string name="intent_aedict_empty">वर्ग “डीफॉल्ट” रिक्त आहे</string>
     <string name="intent_aedict_category">AnkiDroid वर कार्डे जोडण्यासाठी सर्व नोटपॅड श्रेण्या काढा किंवा “डीफॉल्ट” नावाची एक जोडा</string>
@@ -112,10 +106,7 @@
     <string name="check_media_message">मीडिया तपासत आहे&#8230;</string>
     <string name="check_media_acknowledge">माध्यम तपासले</string>
     <string name="check_media_invalid">अवैध एन्कोडिंगसह फायली:%d</string>
-    <string name="check_media_unused">मीडिया फोल्डरमधील फायली परंतु कोणत्याही कार्डांद्वारे वापरल्या जात नाहीत:%d</string>
-    <string name="check_media_nohave">फायली कार्डावर वापरल्या परंतु मीडिया फोल्डरमध्ये नाहीत:%d</string>
     <string name="check_media_no_unused_missing">कोणत्याही न वापरलेल्या किंवा गहाळ फायली आढळल्या नाहीत</string>
-    <string name="check_media_db_updated">मीडिया डेटाबेस पुन्हा तयार केला</string>
     <string name="check_media_delete_unused">न वापरलेले हटवा</string>
     <string name="delete_media_message">मीडिया हटवित आहे&#8230;</string>
     <string name="delete_media_result_title">हटविण्याचा निकाल</string>
@@ -129,7 +120,6 @@
     <string name="tags_dialog_option_due_cards" comment="Name of cards that are already been reviewed in the past, and that should be reviewed again">देय</string>
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">रिक्त कार्ड शोधत आहे &#8230;</string>
-    <string name="empty_cards_count">हटविण्यासाठी कार्डे:%d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">मायक्रोफोन परवानगी प्राप्त करू शकलो नाही.</string>
     <string name="multimedia_editor_failed">मल्टीमीडिया संपादक उघडण्यात अयशस्वी</string>
@@ -222,8 +212,8 @@
     <string name="button_backup_later" comment="dismiss the \'Backup\' dialog for around 2 weeks">नंतर</string>
     <string name="button_do_not_show_again" comment="permanently dismisses a dialog">परत दाखवू नकोस</string>
     <string name="dismiss_backup_warning_title">डेटा गमावण्याची चेतावणी</string>
-    <string name="dismiss_backup_warning_new_user">Android गोपनीयता बदलांमुळे, ॲप अनइंस्टॉल केल्याने तुमचा डेटा आणि तुमच्या फोनवरून स्वयंचलित बॅकअप हटवले जातील</string>
-    <string name="dismiss_backup_warning_upgrade">Android गोपनीयता बदलांमुळे, ॲप अनइंस्टॉल केल्यास तुमचा डेटा आणि स्वयंचलित बॅकअप प्रवेशयोग्य असतील</string>
+    <string name="dismiss_backup_warning_new_user">Due to Android privacy changes, your data and automated backups will be deleted from your phone if the app is uninstalled</string>
+    <string name="dismiss_backup_warning_upgrade">Due to Android privacy changes, your data and automated backups will be inaccessible if the app is uninstalled</string>
     <string name="deck_already_exists">डेक आधीच अस्तित्वात आहे</string>
     <string name="empty_deck_name">Deck name cannot be empty</string>
     <string name="create_deck_numeric_hint">तुम्हाला डेक ऑर्डरिंग समस्या असल्यास (उदा. \'10\' \'2\' च्या आधी दिसतो), \'2\' ला \'02\' ने बदला</string>

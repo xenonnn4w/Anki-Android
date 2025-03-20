@@ -34,6 +34,7 @@
     <string name="day_theme_key">dayTheme</string>
     <string name="night_theme_key">nightTheme</string>
     <string name="pref_deck_picker_background_key">deckPickerBackground</string>
+    <string name="pref_remove_wallpaper_key">removeWallPaper</string>
     <string name="custom_buttons_link_preference">custom_buttons_link</string>
     <string name="fullscreen_mode_preference">fullscreenMode</string>
     <string name="center_vertically_preference">centerVertically</string>
@@ -84,6 +85,7 @@
     <string name="gestures_preference">gestures</string>
     <string name="gestures_corner_touch_preference">gestureCornerTouch</string>
     <string name="nav_drawer_gesture_key">gestureFullScreenNavigationDrawer</string>
+    <string name="pref_keyboard_shortcuts_key">showKeyboardShortcuts</string>
     <string name="pref_swipe_sensitivity_key">swipeSensitivity</string>
     <string name="show_answer_command_key">binding_SHOW_ANSWER</string>
     <string name="answer_again_command_key">binding_FLIP_OR_ANSWER_EASE1</string>
@@ -181,6 +183,7 @@
     <string name="new_congrats_screen_pref_key">new_congrats_screen</string>
     <string name="new_reviewer_pref_key">newReviewer</string>
     <string name="new_reviewer_options_key">newReviewerOptions</string>
+    <string name="pref_browser_find_replace">browserFindReplace</string>
     <string name="dev_options_enabled_by_user_key">devOptionsEnabledByUser</string>
     <string name="pref_cat_wip_key">workInProgressDevOptions</string>
     <!-- Developer options > Create fake media -->

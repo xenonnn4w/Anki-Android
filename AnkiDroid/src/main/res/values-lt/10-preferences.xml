@@ -99,6 +99,7 @@
     <string name="gestures_summ">Nustatykite kokiais gestais atsakinėsite į klausimus ir redaguosite korteles.</string>
     <string name="gestures_corner_touch" maxLength="41">9-point touch</string>
     <string name="gestures_corner_touch_summary">Allow touch gestures in screen corners</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Full screen navigation drawer</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Open navigation drawer when swiped right from anywhere on the screen</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">None</string>
@@ -118,7 +119,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Touch bottom left</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Touch bottom right</string>
     <string name="gestures_shake" maxLength="41">Shake device</string>
-    <string name="card_browser_enable_external_context_menu">‘%s’ Menu</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">‘%s’ Menu</string>
     <string name="card_browser_enable_external_context_menu_summary">Enables the ‘%s’ context menu globally</string>
     <string name="double_scrolling_gap" maxLength="41">Dvigubas slinkimas</string>
     <string name="double_scrolling_gap_summ">Padvigubinkite slinkimo tarpą naudodami el. knygų skaityklę</string>
@@ -249,7 +250,7 @@
     <string name="deck_conf_cram_preview_delays_summ">Delays are in seconds. 0 returns card to original deck.</string>
     <!-- analytics options -->
     <string name="analytics_dialog_title">Padėkite tobulinti „AnkiDroid“!</string>
-    <string name="analytics_title" maxLength="41"> Dalintis funkcijų naudojimu</string>
+    <string name="analytics_title" maxLength="41">Dalintis funkcijų naudojimu</string>
     <string name="analytics_summ">Galite prisidėti prie „AnkiDroid“ tobulinimo, padėdami kūrėjų komandai suprasti, kokiomis funkcijomis žmonės naudojasi</string>
     <string name="note_editor_replace_newlines" maxLength="41">Replace newlines with HTML</string>
     <string name="note_editor_replace_newlines_summ">In the Note Editor, convert any instances of &lt;br&gt; to newlines when editing a card.</string>
@@ -265,9 +266,7 @@
     <string name="donate_description"><![CDATA[You can support AnkiDroid\'s development by <a href=\"%1$s\">donating</a>. Any amount is deeply appreciated.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Add gesture</string>
-    <string name="binding_replace_gesture">Replace gesture</string>
     <string name="binding_add_key">Add key</string>
-    <string name="binding_replace_key">Replace key</string>
     <string name="key_picker_default_press_key">Press a key</string>
     <string name="binding_add_axis">Add joystick/motion controller</string>
     <string name="axis_picker_move_joystick">Move a joystick/motion controller</string>
@@ -302,8 +301,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Developer options</string>
     <string name="dev_options_enabled_pref" maxLength="41">Enable developer options</string>
     <string name="disable_dev_options">Disable developer options</string>
-    <string name="dev_options_warning">        Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

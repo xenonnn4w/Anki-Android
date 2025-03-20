@@ -33,7 +33,6 @@
     <string name="toast_last_field">नोट प्रकार में कम से कम एक फ़ील्ड होना चाहिए।</string>
     <string name="toast_empty_name">आपको एक नाम दर्ज करना होगा</string>
     <string name="toast_duplicate_field">फ़ील्ड का नाम पहले से उपयोग में है</string>
-    <string name="toast_out_of_range">आपको एक मान्य मूल्य दर्ज करना होगा</string>
     <!--Plurals-->
     <plurals name="model_browser_types_available">
         <item quantity="one">%d नोट प्रकार उपलब्ध</item>
@@ -58,7 +57,6 @@
     <string name="model_field_editor_rename">फ़ील्ड का नाम बदलें</string>
     <string name="model_field_editor_language_hint">कीबोर्ड भाषा संकेत सेट करें</string>
     <string name="model_field_editor_reposition_menu">फ़ील्ड का स्थान बदलें</string>
-    <string name="model_field_editor_reposition">फ़ील्ड का स्थान बदलें (%1$d-%2$d के बीच का मूल्य दर्ज करें)</string>
     <string name="model_field_editor_toggle_sticky">जोड़ते समय अंतिम इनपुट याद रखें</string>
     <string name="model_field_editor_changing">फ़ील्ड अद्यतित हो रहे हैं</string>
     <string name="model_field_editor_sort_field">इस फ़ील्ड के अनुसार क्रम में रखें</string>
@@ -66,9 +64,9 @@
     <string name="model_delete_warning">आप सुनिश्चित करें कि आप इस नोटों को हटाना चाहते हैं?</string>
     <string name="field_delete_warning">क्या आप सचमुच इस फ़ील्ड को मिटाना चाहते हैं?</string>
     <!--Model Add Suffixes-->
-    <string name="model_browser_add_add">जोड़ें: %1$s </string>
+    <string name="model_browser_add_add">Add: %1$s</string>
     <!--This prefix is used for standard note types-->
-    <string name="model_browser_add_clone">जुड़वाँ: %1$s </string>
+    <string name="model_browser_add_clone">Clone: %1$s</string>
     <!--Browser Appearance-->
     <string name="card_template_browser_appearance_summary">वह टेम्प्लेट दर्ज करें जिसका उपयोग कार्ड ब्राउज़र आपके कार्ड प्रदर्शित करने के लिए करेगा।अधिक संक्षिप्त उत्तर प्रदर्शित करने के लिए इसका उपयोग करें।\n\n एक \"{{Country}} की राजधानी है:\" अग्र टेम्पलेट को \n कार्ड ब्राउज़र में \n \"राजधानी:{{Country}}\" की तरह संपीड़ित किया जा सकता है I</string>
     <string name="card_template_browser_appearance_question_format">प्रश्न प्रारूप</string>

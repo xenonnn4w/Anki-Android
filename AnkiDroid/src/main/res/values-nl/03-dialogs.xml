@@ -55,13 +55,7 @@
     <string name="delete_cram_deck_message">Verwijder gefilterd deck %s en plaats alle kaarten terug in hun oorspronkelijke decks?</string>
     <string name="no_tts_available_message">Geen tekst-naar-spraak taal beschikbaar</string>
     <string name="tts_no_tts">Niet spreken</string>
-    <string name="unused_strings">\n\nOngebruikte bestanden:\n</string>
-    <string name="reposition_card_dialog_title">Nieuwe kaart verplaatsen</string>
     <string name="reposition_card_not_new_error">Alleen nieuwe kaarten kunnen verplaatst worden</string>
-    <plurals name="reposition_card_dialog_acknowledge">
-        <item quantity="one">%d kaart verplaatst</item>
-        <item quantity="other">%d kaarten verplaatst</item>
-    </plurals>
     <string name="reset_card_dialog_title">Herstel leervoortgang</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="one">%d kaart gereset</item>
@@ -70,7 +64,7 @@
     <string name="answering_error_title">Fout in database</string>
     <string name="answering_error_message">Het schrijven naar de collectie is mislukt. De database kan corrupt zijn of er is onvoldoende opslagruimte op de schijf.\n\nAls dit vaker gebeurt, probeer de database te controleren, de collectie te herstellen of terug te zetten vanaf een back-up. Klik hiervoor op \'instellingen\'.\n\nHet kan ook een fout in AnkiDroid zijn. Gelieve de fout te melden zodat we dit kunnen controleren.</string>
     <string name="answering_error_report">Fout melden</string>
-    <string name="storage_full_message">Er is onvoldoende opslagruimte beschikbaar om AnkiDroid te openen. Maak ruimte vrij om door te gaan. </string>
+    <string name="storage_full_message">There is not enough free storage space to open AnkiDroid. Free up some space to continue.</string>
     <string name="repair_deck_dialog">Weet u zeker dat wilt proberen de database te repareren?\n\nVoordat dit wordt geprobeerd, wordt een kopie gemaakt in de submap \'%s\'.</string>
     <string name="intent_aedict_empty">Categorie \'standaard\' is leeg</string>
     <string name="intent_aedict_category">Om kaarten aan AnkiDroid toe te voegen verwijder je alle Notepad categorieën of voeg een toe met de naam \'standaard\'</string>
@@ -112,10 +106,7 @@
     <string name="check_media_message">Media controleren&#8230;</string>
     <string name="check_media_acknowledge">Media gecontroleerd</string>
     <string name="check_media_invalid">Bestanden met ongeldige codering: %d</string>
-    <string name="check_media_unused">Bestanden in media-map maar niet in kaarten gebruikt: %d</string>
-    <string name="check_media_nohave">Bestanden die worden gebruikt op kaarten maar niet in mediamap: %d</string>
     <string name="check_media_no_unused_missing">Geen ongebruikte of vermiste bestanden gevonden</string>
-    <string name="check_media_db_updated">Mediagegevensbestand herbouwd</string>
     <string name="check_media_delete_unused">Ongebruikte verwijderen</string>
     <string name="delete_media_message">Verwijdering van media&#8230;</string>
     <string name="delete_media_result_title">Resultaat van verwijdering</string>
@@ -129,7 +120,6 @@
     <string name="tags_dialog_option_due_cards" comment="Name of cards that are already been reviewed in the past, and that should be reviewed again">Te doen</string>
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Lege kaarten aan het zoeken&#8230;</string>
-    <string name="empty_cards_count">Kaarten te verwijderen: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Kon geen toestemming voor de microfoon verkrijgen.</string>
     <string name="multimedia_editor_failed">Openen van de multimedia-editor is mislukt</string>
@@ -190,8 +180,8 @@
     <string name="help_item_facebook">Facebook</string>
     <string name="help_item_twitter">Twitter</string>
     <string name="help_title_privacy">Privacy</string>
-    <string name="help_item_ankidroid_privacy_policy">Ankidroid Privacybeleid </string>
-    <string name="help_item_ankiweb_privacy_policy">AnkiWeb Privacybeleid </string>
+    <string name="help_item_ankidroid_privacy_policy">Ankidroid Privacybeleid</string>
+    <string name="help_item_ankiweb_privacy_policy">AnkiWeb Privacybeleid</string>
     <string name="help_item_ankiweb_terms_and_conditions">AnkiWeb Voorwaarden</string>
     <string name="help_title_send_exception">Stuur probleemoplossingsrapport</string>
     <string name="help_dialog_exception_report_debounce">Rapport is al ingediend</string>
@@ -222,10 +212,8 @@
     <string name="button_backup_later" comment="dismiss the \'Backup\' dialog for around 2 weeks">Later</string>
     <string name="button_do_not_show_again" comment="permanently dismisses a dialog">Dit bericht niet meer tonen</string>
     <string name="dismiss_backup_warning_title">Waarschuwing voor dataverlies</string>
-    <string name="dismiss_backup_warning_new_user">        Door wijzigingen in de privacy van Android worden uw gegevens en geautomatiseerde back-ups verwijderd van uw telefoon als de app is verwijderd
-    </string>
-    <string name="dismiss_backup_warning_upgrade">        Door wijzigingen in de privacy van Android zullen uw gegevens en geautomatiseerde back-ups niet toegankelijk zijn als de app is verwijderd
-    </string>
+    <string name="dismiss_backup_warning_new_user">Due to Android privacy changes, your data and automated backups will be deleted from your phone if the app is uninstalled</string>
+    <string name="dismiss_backup_warning_upgrade">Due to Android privacy changes, your data and automated backups will be inaccessible if the app is uninstalled</string>
     <string name="deck_already_exists">Set bestaat al</string>
     <string name="empty_deck_name">Deck name cannot be empty</string>
     <string name="create_deck_numeric_hint">Als je problemen met een leerset hebt (bijvoorbeeld ‘10’ treedt op voor ‘2’), vervang dan ‘2’ door ‘02’</string>

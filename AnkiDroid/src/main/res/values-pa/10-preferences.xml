@@ -97,6 +97,7 @@
     <string name="gestures_summ">ਜਵਾਬ ਦੇਣ ਅਤੇ ਕਾਰਡਾਂ ਨੂੰ ਸੰਪਾਦਿਤ ਕਰਨ ਵਰਗੀਆਂ ਕਾਰਵਾਈਆਂ ਲਈ ਸੰਕੇਤ ਦਿਓ।</string>
     <string name="gestures_corner_touch" maxLength="41">9-ਪੁਆਇੰਟ ਟੱਚ</string>
     <string name="gestures_corner_touch_summary">ਸਕਰੀਨ ਕੋਨਿਆਂ ਵਿੱਚ ਛੋਹਣ ਦੇ ਇਸ਼ਾਰਿਆਂ ਦੀ ਆਗਿਆ ਦਿਓ</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">ਪੂਰੀ ਸਕ੍ਰੀਨ ਨੈਵੀਗੇਸ਼ਨ ਦਰਾਜ਼</string>
     <string name="gestures_fullscreen_nav_drawer_summary">ਸਕ੍ਰੀਨ \'ਤੇ ਕਿਤੇ ਵੀ ਸਵਾਈਪ ਕਰਨ \'ਤੇ ਨੈਵੀਗੇਸ਼ਨ ਦਰਾਜ਼ ਖੋਲ੍ਹੋ</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">ਕੋਈ ਨਹੀਂ</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">ਹੇਠਾਂ ਖੱਬੇ ਪਾਸੇ ਛੋਹਵੋ</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">ਹੇਠਾਂ ਸੱਜੇ ਪਾਸੇ ਛੋਹਵੋ</string>
     <string name="gestures_shake" maxLength="41">ਸ਼ੇਕ ਜੰਤਰ</string>
-    <string name="card_browser_enable_external_context_menu">\'%s\' ਮੀਨੂ</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">\'%s\' ਮੀਨੂ</string>
     <string name="card_browser_enable_external_context_menu_summary">ਵਿਸ਼ਵ ਪੱਧਰ \'ਤੇ \'%s\' ਸੰਦਰਭ ਮੀਨੂ ਨੂੰ ਸਮਰੱਥ ਬਣਾਉਂਦਾ ਹੈ</string>
     <string name="double_scrolling_gap" maxLength="41">ਡਬਲ ਸਕ੍ਰੋਲਿੰਗ</string>
     <string name="double_scrolling_gap_summ">eReader ਨਾਲ ਸਕ੍ਰੋਲ ਗੈਪ ਨੂੰ ਦੁੱਗਣਾ ਕਰੋ</string>
@@ -260,9 +261,7 @@
     <string name="donate_description"><![CDATA[ਤੁਸੀਂ <a href=\"%1$s\">ਦਾਨ ਦੇ ਕੇ</a> AnkiDroid ਦੇ ਵਿਕਾਸ ਦਾ ਸਮਰਥਨ ਕਰ ਸਕਦੇ ਹੋ। ਕਿਸੇ ਵੀ ਰਕਮ ਦੀ ਡੂੰਘਾਈ ਨਾਲ ਸ਼ਲਾਘਾ ਕੀਤੀ ਜਾਂਦੀ ਹੈ.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">ਸੰਕੇਤ ਸ਼ਾਮਲ ਕਰੋ</string>
-    <string name="binding_replace_gesture">ਸੰਕੇਤ ਬਦਲੋ</string>
     <string name="binding_add_key">ਕੁੰਜੀ ਸ਼ਾਮਲ ਕਰੋ</string>
-    <string name="binding_replace_key">ਕੁੰਜੀ ਨੂੰ ਬਦਲੋ</string>
     <string name="key_picker_default_press_key">ਇੱਕ ਕੁੰਜੀ ਦਬਾਓ</string>
     <string name="binding_add_axis">ਜਾਇਸਟਿਕ/ਮੋਸ਼ਨ ਕੰਟਰੋਲਰ ਸ਼ਾਮਲ ਕਰੋ</string>
     <string name="axis_picker_move_joystick">ਇੱਕ ਜਾਇਸਟਿਕ/ਮੋਸ਼ਨ ਕੰਟਰੋਲਰ ਨੂੰ ਹਿਲਾਓ</string>
@@ -297,7 +296,7 @@
     <string name="pref_cat_dev_options" maxLength="41">ਵਿਕਾਸਕਾਰ ਵਿਕਲਪ</string>
     <string name="dev_options_enabled_pref" maxLength="41">ਵਿਕਾਸਕਾਰ ਵਿਕਲਪਾਂ ਨੂੰ ਸਮਰੱਥ ਬਣਾਓ</string>
     <string name="disable_dev_options">ਵਿਕਾਸ ਕਾਰਖਾਨੇ ਬਣਾਉਣ ਨੂੰ ਬਣਾਉਣਾ</string>
-    <string name="dev_options_warning">ਕਿਰਪਾ ਕਰਕੇ ਵਿਕਾਸਕਾਰ ਵਿਕਲਪਾਂ ਨੂੰ ਸਮਰੱਥ ਕਰਨ ਤੋਂ ਪਹਿਲਾਂ ਯਕੀਨੀ ਬਣਾਓ। ਇਹ ਵਿਕਲਪ ਖ਼ਤਰਨਾਕ ਹਨ ਅਤੇ ਐਪ ਨੂੰ ਤੋੜ ਸਕਦੇ ਹਨ ਜਾਂ ਤੁਹਾਡੇ ਸੰਗ੍ਰਹਿ ਨੂੰ ਖਰਾਬ ਕਰ ਸਕਦੇ ਹਨ।\n\nਨੋਟ ਕਰੋ ਕਿ ਇਹ ਵਿਕਲਪ ਜ਼ਿਆਦਾਤਰ ਉਪਭੋਗਤਾਵਾਂ ਲਈ ਢੁਕਵੇਂ ਨਹੀਂ ਹਨ ਅਤੇ ਇਸਲਈ ਅਨੁਵਾਦ ਨਹੀਂ ਕੀਤੇ ਗਏ ਹਨ, ਇਸਲਈ ਇਹ ਅੰਗਰੇਜ਼ੀ ਵਿੱਚ ਹਨ।</string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

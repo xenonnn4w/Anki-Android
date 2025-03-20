@@ -19,7 +19,6 @@ package com.ichi2.libanki
 
 import androidx.annotation.VisibleForTesting
 import anki.cards.FsrsMemoryState
-import com.ichi2.anki.Flag
 import com.ichi2.anki.utils.ext.ifZero
 import com.ichi2.annotations.NeedsTest
 import com.ichi2.libanki.TemplateManager.TemplateRenderContext.TemplateRenderOutput
@@ -87,7 +86,9 @@ open class Card : Cloneable {
     var oDid: DeckId = 0
     var originalPosition: Int? = null
     private var customData: String = ""
-    private var flags = 0
+
+    @VisibleForTesting
+    var flags = 0
     private var memoryState: FsrsMemoryState? = null
     private var desiredRetention: Float? = null
 
@@ -323,19 +324,8 @@ open class Card : Cloneable {
     }
 
     // upstream's function returns an int between 0 and 7 (included).
-    // We return an enum entry for the sake of improving the typing.
     @LibAnkiAlias("user_flag")
-    fun userFlag() = Flag.fromCode(flags and 0b111)
-
-    /**
-     * Set [flags] to [flag].
-     * Should only be used for testing.
-     * Use [setUserFlag] instead.
-     */
-    @VisibleForTesting
-    fun setFlag(flag: Int) {
-        flags = flag
-    }
+    fun userFlag() = flags and 0b111
 
     /**
      * Set the first three bits of [flags] to [flag]. Don't change the other ones.
@@ -344,93 +334,8 @@ open class Card : Cloneable {
     // We take a flag for the sake of typing clarity.
     @RustCleanup("deprecated in Anki: use col.set_user_flag_for_cards() instead")
     @LibAnkiAlias("set_user_flag")
-    fun setUserFlag(flag: Flag) {
-        flags = setFlagInInt(flags, flag.code)
-    }
-
-    @NotInLibAnki
-    val isInDynamicDeck: Boolean
-        get() = // In Anki Desktop, a card with oDue <> 0 && oDid == 0 is not marked as dynamic.
-            oDid != 0L
-
-    /** A cache represents an intermediary step between a card id and a card object. Creating a Card has some fixed cost
-     * in term of database access. Using an id has an unknown cost: none if the card is never accessed, heavy if the
-     * card is accessed a lot of time. CardCache ensure that the cost is paid at most once, by waiting for first access
-     * to load the data, and then saving them. Since CPU and RAM is usually less of a bottleneck than database access,
-     * it may often be worth using this cache.
-     *
-     * Beware that the card is loaded only once. Change in the database are not reflected, so use it only if you can
-     * safely assume that the card has not changed. That is
-     * long id;
-     * Card card = col.getCard(id);
-     * ....
-     * Card card2 = col.getCard(id);
-     * is not equivalent to
-     * long id;
-     * Card.Cache cache = new Cache(col, id);
-     * Card card = cache.getCard();
-     * ....
-     * Card card2 = cache.getCard();
-     *
-     * It is equivalent to:
-     * long id;
-     * Card.Cache cache = new Cache(col, id);
-     * Card card = cache.getCard();
-     * ....
-     * cache.reload();
-     * Card card2 = cache.getCard();
-     */
-    @NotInLibAnki
-    open class Cache : Cloneable {
-        val col: Collection
-        val id: CardId
-        private var _card: Card? = null
-
-        constructor(col: Collection, id: CardId) {
-            this.col = col
-            this.id = id
-        }
-
-        /** Copy of cache. Useful to create a copy of a subclass without loosing card if it is loaded.  */
-        protected constructor(cache: Cache) {
-            col = cache.col
-            this.id = cache.id
-            _card = cache._card
-        }
-
-        /**
-         * The card with id given at creation. Note that it has content of the time at which the card was loaded, which
-         * may have changed in database. So it is not equivalent to getCol().getCard(getId()). If you need fresh data, reload
-         * first. */
-        @get:Synchronized
-        val card: Card
-            get() {
-                if (_card == null) {
-                    _card = col.getCard(this.id)
-                }
-                return _card!!
-            }
-
-        /** Next access to card will reload the card from the database.  */
-        @Synchronized
-        open fun reload() {
-            _card = null
-        }
-
-        override fun hashCode(): Int =
-            java.lang.Long
-                .valueOf(this.id)
-                .hashCode()
-
-        /** The cloned version represents the same card but data are not loaded.  */
-        public override fun clone(): Cache = Cache(col, this.id)
-
-        override fun equals(other: Any?): Boolean =
-            if (other !is Cache) {
-                false
-            } else {
-                this.id == other.id
-            }
+    fun setUserFlag(flag: Int) {
+        flags = setFlagInInt(flags, flag)
     }
 
     companion object {

@@ -33,7 +33,6 @@
     <string name="toast_last_field">గమనిక గమనికలు కనీసం ఒక ఫీల్డ్ అయి ఉండాలి</string>
     <string name="toast_empty_name">మీరు తప్పనిసరిగా పేరు నమోదు చేయాలి</string>
     <string name="toast_duplicate_field">ఫీల్డ్ పేరు ఇప్పటికే ఉపయోగించబడింది</string>
-    <string name="toast_out_of_range">మీరు చెల్లుబాటు అయ్యే విలువను నమోదు చేయాలి</string>
     <!--Plurals-->
     <plurals name="model_browser_types_available">
         <item quantity="one">%d గమనిక రకం అందుబాటులో ఉంది</item>
@@ -58,7 +57,6 @@
     <string name="model_field_editor_rename">ఫీల్డ్ పేరు మార్చండి</string>
     <string name="model_field_editor_language_hint">కీబోర్డ్ భాష సూచనను సెట్ చేయండి</string>
     <string name="model_field_editor_reposition_menu">రీపోషన్ ఫీల్డ్</string>
-    <string name="model_field_editor_reposition">ప్రత్యామ్నాయ క్షేత్రం (%1$d-%2$d విలువను నమోదు చేయండి)</string>
     <string name="model_field_editor_toggle_sticky">జోడించేటప్పుడు చివరి ఇన్‌పుట్‌ను గుర్తుంచుకోండి</string>
     <string name="model_field_editor_changing">ఖాళీలను నవీకరిస్తోంది</string>
     <string name="model_field_editor_sort_field">ఈ ఫీల్డ్ ద్వారా క్రమబద్ధీకరించు</string>
@@ -66,9 +64,9 @@
     <string name="model_delete_warning">మీరు ఈ గమనిక రకాన్ని ఖచ్చితంగా తొలగించాలనుకుంటున్నారా?</string>
     <string name="field_delete_warning">మీరు ఖచ్చితంగా ఈ ఫీల్డ్ని తొలగించాలనుకుంటున్నారా?</string>
     <!--Model Add Suffixes-->
-    <string name="model_browser_add_add">చెరచు %1$s </string>
+    <string name="model_browser_add_add">Add: %1$s</string>
     <!--This prefix is used for standard note types-->
-    <string name="model_browser_add_clone">ఒకే రీతి: %1$s </string>
+    <string name="model_browser_add_clone">Clone: %1$s</string>
     <!--Browser Appearance-->
     <string name="card_template_browser_appearance_summary">మీ కార్డ్‌లను ప్రదర్శించడానికి కార్డ్ బ్రౌజర్ ఉపయోగించే టెంప్లేట్‌ను నమోదు చేయండి. మరింత సంక్షిప్త సమాధానాన్ని ప్రదర్శించడానికి దీన్ని ఉపయోగించండి.\n\n\n బ్రౌజర్‌లో “{{Country}} రాజధాని:”\n ముందు ఉన్న టెంప్లేట్ కార్డ్ “క్యాపిటల్: {{Country}}”కి కుదించబడుతుంది.</string>
     <string name="card_template_browser_appearance_question_format">ప్రశ్న ఫార్మాట్</string>

@@ -97,6 +97,7 @@
     <string name="gestures_summ">استفاده از حرکات و ضربات لمسی برای انجام کارهایی مثل پاسخ دادن و ویرایش کارت‌ها.</string>
     <string name="gestures_corner_touch" maxLength="41">لمس صفحه 9 قسمت</string>
     <string name="gestures_corner_touch_summary">اجازه بده برای حرکات لمس در گوشه های صفحه</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">کشوی جهت‌یابی در کل صفحه</string>
     <string name="gestures_fullscreen_nav_drawer_summary">کشو ی جهت یابی را باز کن وقتی صفحه را به سمت راست می کشم</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">هیچ کدام</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">لمس پایین سمت چپ</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">لمس پایین سمت راست</string>
     <string name="gestures_shake" maxLength="41">لرزش دستگاه</string>
-    <string name="card_browser_enable_external_context_menu">منوی \'%s\'</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">منوی \'%s\'</string>
     <string name="card_browser_enable_external_context_menu_summary">\'%s\' را در لیست به صورت عمومی فعال می‌کند</string>
     <string name="double_scrolling_gap" maxLength="41">پیمایش دو برابری</string>
     <string name="double_scrolling_gap_summ">فعال کنید اگر می‌خواهید فاصله پیمایش را در کتابخوان دیجیتالی دو برابر کنید</string>
@@ -260,9 +261,7 @@
     <string name="donate_description"><![CDATA[شما میتوانید توسعه AnkiDroid را همایت کنید با <a href=\"%1$s\">اهدای پول</a>. هر مقداری ما را بی نهایت خوشحال میکند.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">حرکت لمس اضافه کن</string>
-    <string name="binding_replace_gesture">حرکت لمس با جایگذین کن</string>
     <string name="binding_add_key">کلید اضافه کن</string>
-    <string name="binding_replace_key">کلید را جایگذین کن</string>
     <string name="key_picker_default_press_key">یک کلید را انتخاب کنید</string>
     <string name="binding_add_axis">اضافه کردن اهرمک/تنظیم کننده حرکات</string>
     <string name="axis_picker_move_joystick">یک اهرمک/تنظیم کننده حرکات را حرکت دهید</string>
@@ -297,8 +296,7 @@
     <string name="pref_cat_dev_options" maxLength="41">گزینه های توسعه دهنده</string>
     <string name="dev_options_enabled_pref" maxLength="41">فعال‌سازی گزینه های توسعه دهنده</string>
     <string name="disable_dev_options">غیر فعال‌سازی گزینه‌های توسعه دهنده</string>
-    <string name="dev_options_warning">        لطفا از تصمیم خود برای فعال‌سازی گزینه‌های توسعه دهنده مطمئن شوید. این گزینه ها خطرناک هستند و توانایی خراب کردن برنامه یا فاسد کردن مجموعه ی شما را دارند.\n\nاین را بدانید که این گزینه ها مخصوص اکثریت افراد نیستند و بنابراین ترجمه نشده اند، پس به زبان انگلیسی هستند.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

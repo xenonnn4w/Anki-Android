@@ -97,6 +97,7 @@
     <string name="gestures_summ">جاۋاب ۋە كارتا تەھرىرلەشكە ئوخشاش مەشغۇلاتقا قول ئىشارىتى بەلگىلەيدۇ.</string>
     <string name="gestures_corner_touch" maxLength="41">9 نۇقتا سەزگۈچ</string>
     <string name="gestures_corner_touch_summary">ئېكران بۇلۇڭلىرى تېگىشىش قول ئىشارىتىگە يول قويىدۇ</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">ھەرپتاختا تېزلەتمىسىنى كۆرسەت</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">پۈتۈن ئېكران يولباشچى تارتمىسى</string>
     <string name="gestures_fullscreen_nav_drawer_summary">ئېكراننىڭ خالىغان يېرىدىن ئوڭغا سۈرۈلسە يولباشچى تارتمىسىنى ئاچىدۇ</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">يوق</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">سول ئاستىنى چەك</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">ئوڭ ئاستىنى چەك</string>
     <string name="gestures_shake" maxLength="41">ئۈسكۈنىنى سىلكى</string>
-    <string name="card_browser_enable_external_context_menu">«%s» تىزىملىكى</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">«%s» تىزىملىكى</string>
     <string name="card_browser_enable_external_context_menu_summary">«%s» مەزمۇن تىزىملىكىنى پۈتكۈل دائىرىدە قوزغىتىدۇ</string>
     <string name="double_scrolling_gap" maxLength="41">قوش دومىلات</string>
     <string name="double_scrolling_gap_summ">ئېلېكتىرونلۇق ئوقۇغۇچتا قوش دومىلىتىدۇ</string>
@@ -160,7 +161,7 @@
     <!--See: multimedia_editor_popup_cloze. We can\'t use format strings as this is auto-generated-->
     <string name="disable_extended_text_ui_summ">توغرىسىغا ھالەتتە مەزمۇن تىزىملىكىدە «بوش ئورۇن تولدۇرۇش» قا يول قويىدۇ.</string>
     <string name="vertical_centering" maxLength="41">ئۇتتۇرىغا توغرىلا</string>
-    <string name="vertical_centering_summ">كارتا مەزمۇنىنى بويىغا ئوتتۇرىغا توغرىلايدۇ </string>
+    <string name="vertical_centering_summ">كارتا مەزمۇنىنى بويىغا ئوتتۇرىغا توغرىلايدۇ</string>
     <string name="pref_double_tap_time_interval" maxLength="41">ۋاقىت ئارىلىقى قوش چېكىلىدۇ (مىللىسېكۇنت)</string>
     <string name="pref_double_tap_time_interval_summary">ئەگەر بۇ ۋاقىت ئۆتۈپ كەتمىگەن بولسا، جاۋاب توپچىنىڭ ئىككىنچى قېتىم چېكىلىشى نەزەردىن ساقىت قىلىنىدۇ. بۇ تاسادىپىي قوش چېكىشنىڭ ئالدىنى ئالىدۇ</string>
     <string name="pref_show_answer_long_press_time" maxLength="41">«جاۋابنى كۆرسەت» نىڭ ئۇزۇن بېسىش ۋاقتى</string>
@@ -261,9 +262,7 @@
     <string name="donate_description"><![CDATA[سىز AnkiDroid ئىجادىيىتىگە <a href=\"%1$s\">ئىئانە</a> قىلىش ئارقىلىق قوللىيالايسىز. ھەر قانداق مىقداردىكى ئىئانە چوڭقۇر ئالقىشلىنىدۇ.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">قول ئىشارەت قوش</string>
-    <string name="binding_replace_gesture">قول ئىشارەتنى ئالماشتۇر</string>
     <string name="binding_add_key">توپچە قوش</string>
-    <string name="binding_replace_key">توپچە ئالماشتۇر</string>
     <string name="key_picker_default_press_key">توپچە باس</string>
     <string name="binding_add_axis">ئويۇن تىزگىنىكى/ھەرىكەت تىزگىنلىگۈچ قوشىدۇ</string>
     <string name="axis_picker_move_joystick">ئويۇن تىزگىنىكى/ھەرىكەت تىزگىنلىگۈچ يۆتكەيدۇ</string>
@@ -298,8 +297,7 @@
     <string name="pref_cat_dev_options" maxLength="41">ئىجادكارلار تاللانمىسى</string>
     <string name="dev_options_enabled_pref" maxLength="41">ئىجادكارلار تاللانمىسىنى قوزغىتىدۇ</string>
     <string name="disable_dev_options">ئىجادكارلار تاللانمىسىنى چەكلەيدۇ</string>
-    <string name="dev_options_warning">        ئىجادكارلار تاللانمىسىنىڭ قوزغىتىلغانلىقىغا كاپالەتلىك قىلىڭ. بۇ تاللانما خەتەرلىك ئەپ ياكى توپلامنى بۇزۇشى مۇمكىن.\n\nئەسكەرتىش بۇ تاللانما كۆپىنچە ئىشلەتكۈچىگە ماس كەلمەيدۇ، ئۇنىڭ ئۈستىگە تەرجىمە قىلىنمىغان شۇڭا ئىنگلىزچە.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

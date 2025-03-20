@@ -33,6 +33,7 @@ import anki.scheduler.CongratsInfoResponse
 import anki.scheduler.CustomStudyDefaultsResponse
 import anki.scheduler.CustomStudyRequest
 import anki.scheduler.QueuedCards
+import anki.scheduler.RepositionDefaultsResponse
 import anki.scheduler.SchedTimingTodayResponse
 import anki.scheduler.SchedulingContext
 import anki.scheduler.SchedulingState
@@ -142,7 +143,7 @@ open class Scheduler(
         ease: Ease,
     ): OpChanges =
         col.backend.answerCard(buildAnswer(info.topCard, info.states, ease)).also {
-            reps += 1
+            numberOfAnswersRecorded += 1
         }
 
     /** Legacy path, used by tests. */
@@ -153,7 +154,7 @@ open class Scheduler(
         val top = queuedCards.cardsList.first()
         val answer = buildAnswer(card, top.states, ease)
         col.backend.answerCard(answer)
-        reps += 1
+        numberOfAnswersRecorded += 1
         // tests assume the card was mutated
         card.load(col)
     }
@@ -209,10 +210,11 @@ open class Scheduler(
             QueuedCards.Queue.UNRECOGNIZED, null -> TODO("unrecognized queue")
         }
 
-    /** @return Number of repetitions today. Note that a repetition is the fact that the scheduler sent a card, and not the fact that the card was answered.
-     * So buried, suspended, ... cards are also counted as repetitions.
+    /**
+     * Number of [answerCard] was called since this scheduler object was created.
+     * Note that when the user undo a review, this number is not decremented.
      */
-    var reps: Int = 0
+    var numberOfAnswersRecorded: Int = 0
 
     /** Only provided for legacy unit tests. */
     fun nextIvl(
@@ -483,6 +485,9 @@ open class Scheduler(
 
     @CheckResult
     fun customStudyDefaults(deckId: DeckId): CustomStudyDefaultsResponse = col.backend.customStudyDefaults(deckId)
+
+    @CheckResult
+    fun repositionDefaults(): RepositionDefaultsResponse = col.backend.repositionDefaults()
 
     /**
      * @return Number of new card in current deck and its descendants. Capped at [REPORT_LIMIT]

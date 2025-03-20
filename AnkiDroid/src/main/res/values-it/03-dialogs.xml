@@ -55,13 +55,7 @@
     <string name="delete_cram_deck_message">Delete filtered deck %s and send all cards back to their original decks?</string>
     <string name="no_tts_available_message">Nessuna lingua per la sintesi vocale disponibile</string>
     <string name="tts_no_tts">Non parlare</string>
-    <string name="unused_strings">\n\nFile inutilizzati:\n</string>
-    <string name="reposition_card_dialog_title">Riposiziona nuova carta</string>
     <string name="reposition_card_not_new_error">Solo le nuove carte possono essere riposizionate</string>
-    <plurals name="reposition_card_dialog_acknowledge">
-        <item quantity="one">%d carta riposizionata</item>
-        <item quantity="other">%d carte riposizionate</item>
-    </plurals>
     <string name="reset_card_dialog_title">Reimposta progresso carta</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="one">%d carta resettata</item>
@@ -70,7 +64,7 @@
     <string name="answering_error_title">Errore database</string>
     <string name="answering_error_message">Scrittura della raccolta non riuscita. La banca dati potrebbe essere danneggiata o potrebbe non esserci abbastanza spazio vuoto sul disco.\n\nSe questo accade più spesso, prova a controllare la banca dati, a riparare la collezione o a ripristinarla da un backup. Tocca «opzioni» per quello.\n\O potrebbe essere anche un errore di AnkiDroid, per favore segnala l\'errore in modo da poterlo controllare.</string>
     <string name="answering_error_report">Segnala errori</string>
-    <string name="storage_full_message">Non c\'è abbastanza spazio libero per aprire AnkiDroid. Libera spazio per continuare. </string>
+    <string name="storage_full_message">There is not enough free storage space to open AnkiDroid. Free up some space to continue.</string>
     <string name="repair_deck_dialog">Vuoi veramente provare a riparare il database?\n\nPrima di iniziare il tentativo, verrà creata una copia nella sottocartella \'%s\'.</string>
     <string name="intent_aedict_empty">Categoria \'default\' è vuota</string>
     <string name="intent_aedict_category">Per aggiungere le carte ad AnkiDroid rimuovi tutte le categorie Notepad o aggiungine una chiamata \'default\'</string>
@@ -112,10 +106,7 @@
     <string name="check_media_message">Controllo i media&#8230;</string>
     <string name="check_media_acknowledge">Media controllati</string>
     <string name="check_media_invalid">File con codifica non valida: %d</string>
-    <string name="check_media_unused">File nella cartella media ma non utilizzati da nessuna carta: %d</string>
-    <string name="check_media_nohave">File utilizzati sulle carte, ma non nella cartella media: %d</string>
     <string name="check_media_no_unused_missing">Nessun file inutilizzato o mancante trovato.</string>
-    <string name="check_media_db_updated">Database media ricostruito.</string>
     <string name="check_media_delete_unused">Elimina inutilizzati</string>
     <string name="delete_media_message">Eliminando media&#8230;</string>
     <string name="delete_media_result_title">Eliminazione risultato</string>
@@ -129,7 +120,6 @@
     <string name="tags_dialog_option_due_cards" comment="Name of cards that are already been reviewed in the past, and that should be reviewed again">Ripasso</string>
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Cerco carte vuote&#8230;</string>
-    <string name="empty_cards_count">Carte de eliminare: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Impossibile ottenere il permesso del microfono.</string>
     <string name="multimedia_editor_failed">Apertura dell\'editore multimediale fallita</string>
@@ -222,10 +212,8 @@
     <string name="button_backup_later" comment="dismiss the \'Backup\' dialog for around 2 weeks">Più tardi</string>
     <string name="button_do_not_show_again" comment="permanently dismisses a dialog">Non mostrare più</string>
     <string name="dismiss_backup_warning_title">Avviso di perdita dati</string>
-    <string name="dismiss_backup_warning_new_user">        A causa delle modifiche alla privacy di Android, i tuoi dati e i backup automatici verranno eliminati dal tuo telefono se l\'app viene disinstallata
-    </string>
-    <string name="dismiss_backup_warning_upgrade">        A causa delle modifiche alla privacy di Android, i tuoi dati e i backup automatici verranno eliminati dal tuo telefono se l\'app viene disinstallata
-    </string>
+    <string name="dismiss_backup_warning_new_user">Due to Android privacy changes, your data and automated backups will be deleted from your phone if the app is uninstalled</string>
+    <string name="dismiss_backup_warning_upgrade">Due to Android privacy changes, your data and automated backups will be inaccessible if the app is uninstalled</string>
     <string name="deck_already_exists">Mazzo già esistente</string>
     <string name="empty_deck_name">Deck name cannot be empty</string>
     <string name="create_deck_numeric_hint">In caso di problemi di ordine del mazzo (es. \'10\' appare prima di \'2\'), sostituire \'2\' con \'02\'</string>

@@ -97,6 +97,7 @@
     <string name="gestures_summ">Gesztusok hozzárendelése olyan műveletekhez, mint a kártyák megválaszolása és szerkesztése.</string>
     <string name="gestures_corner_touch" maxLength="41">Érintési gesztusok beállítása</string>
     <string name="gestures_corner_touch_summary">Érintési gesztusok engedélyezése a képernyő sarkaiban</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Navigációs sáv bezárása</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Navigációs sáv megnyitása amikor a képernyő jobb oldalára csúsztat</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">Nincs</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Érintés bal alul</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Érintés jobb alul</string>
     <string name="gestures_shake" maxLength="41">Készülék megrázása</string>
-    <string name="card_browser_enable_external_context_menu">\'%s\' Menü</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">\'%s\' Menü</string>
     <string name="card_browser_enable_external_context_menu_summary">Engedélyezi a \'%s\' kontextus menüt globálisan</string>
     <string name="double_scrolling_gap" maxLength="41">Dupla görgetés</string>
     <string name="double_scrolling_gap_summ">Görgess a kétszeres méretű e-Olvasó méretre</string>
@@ -260,9 +261,7 @@
     <string name="donate_description"><![CDATA[Elősegítheted az AnkiDroid fejlesztését <a href=\"%1$s\">támogatással</a>. Bármilyen összeget nagyra értékelünk.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Gesztus hozzáadása</string>
-    <string name="binding_replace_gesture">Gesztus felcserélése</string>
     <string name="binding_add_key">Kulcs hozzáadása</string>
-    <string name="binding_replace_key">Kulcs felcserélése</string>
     <string name="key_picker_default_press_key">Nyomj meg egy billentyűt</string>
     <string name="binding_add_axis">Add joystick/motion controller</string>
     <string name="axis_picker_move_joystick">Move a joystick/motion controller</string>
@@ -297,7 +296,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Fejlesztői beállítások</string>
     <string name="dev_options_enabled_pref" maxLength="41">Fejlesztői beállítások engedélyezése</string>
     <string name="disable_dev_options">Fejlesztői beállítások letiltása</string>
-    <string name="dev_options_warning">        Kérjük, győződjön meg róla, mielőtt engedélyezné a fejlesztői beállításokat. Ezek a beállítások veszélyesek és tönkretehetik az alkalmazást vagy korruptá tehetik a gyűjteményt.\n\nMegjegyezzük, hogy ezek az opciók nem alkalmasak a legtöbb felhasználó számára, ezért nincsenek lefordítva, szóval angolul vannak.</string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

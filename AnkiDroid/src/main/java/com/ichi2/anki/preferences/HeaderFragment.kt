@@ -66,7 +66,7 @@ class HeaderFragment :
             requirePreference<SearchPreference>(R.string.search_preference_key).searchConfiguration,
         )
 
-        if (!resources.isWindowCompact()) {
+        if (settingsIsSplit) {
             parentFragmentManager.findFragmentById(R.id.settings_container)?.let {
                 val key = getHeaderKeyForFragment(it) ?: return@let
                 highlightPreference(key)
@@ -135,6 +135,28 @@ class HeaderFragment :
                     .withResId(R.xml.preferences_controls)
                     .addBreadcrumb(activity.getString(R.string.pref_cat_controls))
                     .addBreadcrumb(setDuePreferenceTitle)
+                // Some strings can't be indexed from the XML document as they are loaded from the back-end. We add them manually.
+                indexItem()
+                    .withKey(activity.getString(R.string.anki_card_external_context_menu_key))
+                    .withTitle(
+                        activity.getString(
+                            R.string.card_browser_enable_external_context_menu,
+                            activity.getString(R.string.context_menu_anki_card_label),
+                        ),
+                    ).withResId(R.xml.preferences_general)
+                    .addBreadcrumb(activity.getString(R.string.pref_cat_general))
+                    .addBreadcrumb(activity.getString(R.string.pref_cat_system_wide))
+
+                indexItem()
+                    .withKey(activity.getString(R.string.card_browser_external_context_menu_key))
+                    .withTitle(
+                        activity.getString(
+                            R.string.card_browser_enable_external_context_menu,
+                            activity.getString(R.string.card_browser_context_menu),
+                        ),
+                    ).withResId(R.xml.preferences_general)
+                    .addBreadcrumb(activity.getString(R.string.pref_cat_general))
+                    .addBreadcrumb(activity.getString(R.string.pref_cat_system_wide))
             }
 
             // Some preferences and categories are only shown conditionally,
@@ -192,3 +214,11 @@ class HeaderFragment :
             }
     }
 }
+
+/**
+ * Whether the Settings view is split in two.
+ * If so, the left side contains the list of all preference categories, and the right side contains the category currently opened.
+ * Otherwise, the same view is used to show the list of categories first, and then one specific category.
+ */
+val Fragment.settingsIsSplit
+    get() = !resources.isWindowCompact()

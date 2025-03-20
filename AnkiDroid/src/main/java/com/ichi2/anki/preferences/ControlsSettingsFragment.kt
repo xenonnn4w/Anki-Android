@@ -15,7 +15,9 @@
  */
 package com.ichi2.anki.preferences
 
+import android.content.res.Configuration
 import androidx.annotation.StringRes
+import androidx.preference.Preference
 import com.ichi2.anki.CollectionManager.TR
 import com.ichi2.anki.R
 import com.ichi2.anki.cardviewer.ViewerCommand
@@ -23,6 +25,7 @@ import com.ichi2.anki.reviewer.MappableBinding.Companion.toPreferenceString
 import com.ichi2.anki.ui.internationalization.toSentenceCase
 import com.ichi2.annotations.NeedsTest
 import com.ichi2.preferences.ControlPreference
+import com.ichi2.preferences.ReviewerControlPreference
 
 class ControlsSettingsFragment : SettingsFragment() {
     override val preferenceResource: Int
@@ -35,12 +38,28 @@ class ControlsSettingsFragment : SettingsFragment() {
         val commands = ViewerCommand.entries.associateBy { it.preferenceKey }
         // set defaultValue in the prefs creation.
         // if a preference is empty, it has a value like "1/"
-        allPreferences()
-            .filterIsInstance<ControlPreference>()
+        preferenceScreen
+            .allPreferences()
+            .filterIsInstance<ReviewerControlPreference>()
             .filter { pref -> pref.value == null }
-            .forEach { pref -> pref.value = commands[pref.key]?.defaultValue?.toPreferenceString() }
+            .forEach { pref ->
+                commands[pref.key]
+                    ?.defaultValue
+                    ?.toPreferenceString()
+                    ?.let { pref.value = it }
+            }
 
         setDynamicTitle()
+
+        // TODO replace the preference with something dismissible. This is meant only to improve
+        //  the discoverability of the system shortcut for the shortcuts dialog.
+        requirePreference<Preference>(R.string.pref_keyboard_shortcuts_key).apply {
+            isVisible = resources.configuration.keyboard == Configuration.KEYBOARD_QWERTY
+            setOnPreferenceClickListener {
+                requireActivity().requestShowKeyboardShortcuts()
+                true
+            }
+        }
     }
 
     private fun setDynamicTitle() {

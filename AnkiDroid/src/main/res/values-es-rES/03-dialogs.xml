@@ -55,13 +55,7 @@
     <string name="delete_cram_deck_message">¿Borrar el mazo filtrado %s y devolver todas las cartas a sus mazos originales?</string>
     <string name="no_tts_available_message">No hay idiomas de texto-a-voz disponibles</string>
     <string name="tts_no_tts">No hablar</string>
-    <string name="unused_strings">\n\nArchivos sin utilizar:\n</string>
-    <string name="reposition_card_dialog_title">Reposicionar nueva tarjeta</string>
     <string name="reposition_card_not_new_error">Sólo las tarjetas nuevas pueden ser reposicionadas</string>
-    <plurals name="reposition_card_dialog_acknowledge">
-        <item quantity="one">%d tarjeta reposicionada</item>
-        <item quantity="other">%d tarjetas reposicionadas</item>
-    </plurals>
     <string name="reset_card_dialog_title">Resetear el progreso de la tarjeta</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="one">%d tarjeta reiniciada</item>
@@ -70,7 +64,7 @@
     <string name="answering_error_title">Error en la base de datos</string>
     <string name="answering_error_message">Se ha producido un error al escribir en la colección. Esto podría estar relacionado con una base de datos dañada o con un espacio en disco insuficiente.\n\nSi esto ocurre con más frecuencia, intenta verificar la base de datos, reparar la colección o restaurar desde una copia de seguridad. Para ello, presiona \"Opciones\".\n\nDe todos modos, podría ser un error de AnkiDroid; por favor, informa del error para que podamos comprobarlo.</string>
     <string name="answering_error_report">Reportar error</string>
-    <string name="storage_full_message">No hay suficiente espacio de almacenamiento libre para abrir AnkiDroid. Libera algo de espacio para continuar. </string>
+    <string name="storage_full_message">There is not enough free storage space to open AnkiDroid. Free up some space to continue.</string>
     <string name="repair_deck_dialog">¿Realmente deseas intentar reparar la base de datos?\n\nAntes de iniciar el intento, se creará una copia en la subcarpeta \'%s\'.</string>
     <string name="intent_aedict_empty">La categoría \'por defecto\' está vacía</string>
     <string name="intent_aedict_category">Para añadir tarjetas AnkiDroid borra todas las categorías del Bloc de notas o agrega una llamada \'por defecto\'</string>
@@ -112,10 +106,7 @@
     <string name="check_media_message">Comprobando archivos multimedia&#8230;</string>
     <string name="check_media_acknowledge">Archivos multimedia comprobados</string>
     <string name="check_media_invalid">Archivos con codificación no válida: %d</string>
-    <string name="check_media_unused">Archivos en la carpeta de archivos multimedia pero no utilizados por ninguna tarjeta: %d</string>
-    <string name="check_media_nohave">Archivos utilizados en las tarjetas pero no en la carpeta de archivos multimedia: %d</string>
     <string name="check_media_no_unused_missing">No hay archivos no utilizados o perdidos.</string>
-    <string name="check_media_db_updated">Base de datos de archivos multimedia reconstruida</string>
     <string name="check_media_delete_unused">Eliminar no utilizados</string>
     <string name="delete_media_message">Eliminando multimedia&#8230;</string>
     <string name="delete_media_result_title">Resultado de la eliminación</string>
@@ -129,7 +120,6 @@
     <string name="tags_dialog_option_due_cards" comment="Name of cards that are already been reviewed in the past, and that should be reviewed again">Pendientes</string>
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Buscando tarjetas vacías&#8230;</string>
-    <string name="empty_cards_count">Tarjetas a eliminar: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">No se pudo obtener el permiso del micrófono.</string>
     <string name="multimedia_editor_failed">Error al abrir el Editor Multimedia</string>
@@ -222,10 +212,8 @@
     <string name="button_backup_later" comment="dismiss the \'Backup\' dialog for around 2 weeks">Más tarde</string>
     <string name="button_do_not_show_again" comment="permanently dismisses a dialog">No mostrar de nuevo</string>
     <string name="dismiss_backup_warning_title">Aviso de pérdida de datos</string>
-    <string name="dismiss_backup_warning_new_user">        Debido a cambios en la privacidad de Android, tus datos y copias de seguridad automatizadas se eliminarán de tu teléfono si la aplicación es desinstalada
-    </string>
-    <string name="dismiss_backup_warning_upgrade">        Debido a cambios en la privacidad de Android, tus datos y copias de seguridad automatizadas serán inaccesibles si la aplicación es desinstalada
-    </string>
+    <string name="dismiss_backup_warning_new_user">Due to Android privacy changes, your data and automated backups will be deleted from your phone if the app is uninstalled</string>
+    <string name="dismiss_backup_warning_upgrade">Due to Android privacy changes, your data and automated backups will be inaccessible if the app is uninstalled</string>
     <string name="deck_already_exists">El mazo ya existe.</string>
     <string name="empty_deck_name">El nombre del mazo no puede estar vacío</string>
     <string name="create_deck_numeric_hint">Si tienes problemas de ordenamiento de mazos (por ejemplo ‘10’ aparece antes de ‘2’), reemplaza ‘2’ con ‘02’</string>

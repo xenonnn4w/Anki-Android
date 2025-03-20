@@ -187,6 +187,7 @@
     <!-- Deckpicker Background -->
     <string name="background_image_title" maxLength="41">Fondo</string>
     <string name="choose_an_image" maxLength="41">Elige una imagen</string>
+    <string name="remove_wallpaper_image" maxLength="41">Remove background</string>
     <string name="remove_background_image">¿Quitar fondo?</string>
     <!-- Card Template Browser Appearance -->
     <string name="restore_default" maxLength="28">Restablecer Predefinidos</string>
@@ -194,7 +195,6 @@
     <!-- Whiteboard save image message in Reviewer -->
     <string name="white_board_image_save_failed">No se pudo guardar la imagen de pizarra. %s</string>
     <string name="white_board_image_saved">Imagen de pizarra guardada en %s</string>
-    <string name="title_whiteboard_pen_color" maxLength="41">Color del lápiz</string>
     <string name="title_whiteboard_editor" maxLength="28">Editor de pizarra</string>
     <string name="user_is_a_robot">Prueba automatizada detectada. Si eres un humano, ponte en contacto con el soporte de AnkiDroid</string>
     <!-- JS api -->
@@ -233,7 +233,7 @@
     <string name="note_editor_image_too_large">La imagen es demasiado grande, por favor inserta la imagen manualmente</string>
     <string name="note_editor_video_too_large">El archivo de vídeo es demasiado grande, por favor inserta el vídeo manualmente</string>
     <string name="note_editor_audio_too_large">El archivo de audio es demasiado grande, por favor inserta el audio manualmente</string>
-    <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">        Copia de seguridad Android en progreso. Inténtalo de nuevo</string>
+    <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">Android backup in progress. Please try again</string>
     <string name="create_shortcut_error_vivo" comment="iManager is an app on Vivo phones">Puede que necesite usar iManager para permitir que AnkiDroid añada accesos directos</string>
     <string name="create_shortcut_failed" comment="home screen == launcher">Tu pantalla de inicio no permite que AnkiDroid añada accesos directos</string>
     <string name="create_shortcut_error">Error al añadir acceso directo: %s</string>
@@ -249,6 +249,7 @@
     <!-- %% is required to display % symbol. Reference: https://stackoverflow.com/a/16834358 -->
     <string name="percentage">%s%%</string>
     <string name="download_deck">Descargar mazo</string>
+    <string name="open_in_browser" comment="Label of a button inviting to open ankiweb\'s shared deck page if automated download failed">Open in Browser</string>
     <string name="try_again">Inténtalo de nuevo</string>
     <string name="cancel_download">Cancelar descarga</string>
     <string name="cancel_download_question_title">¿Cancelar descarga?</string>
@@ -261,7 +262,7 @@
     <string name="search_using_deck_name">Buscar usando nombre de mazo</string>
     <string name="external_storage_unavailable">Descarga abortada, el almacenamiento externo no está disponible</string>
     <string name="home" maxLength="28">Inicio</string>
-    <!-- Reviewer actions 
+    <!-- Reviewer actions
     Each of these strings ends with a period, following the notation of Anki Desktop -->
     <string name="card_buried">Tarjeta enterrada</string>
     <plurals name="note_suspended">
@@ -302,22 +303,17 @@
     <string name="show_notes" comment="Label for toggle notes button in BrowserOptionsDialog">Notas</string>
     <string name="toggle_cards_notes">Cambiar tarjetas/notas</string>
     <string name="truncate_content_help">Limita la altura de cada fila del navegador de tal manera que solo muestra las primeras 3 líneas de contenido</string>
-    <string name="browser_options_dialog_heading">Browser options</string>
+    <string name="browser_options_dialog_heading">Opciones del explorador</string>
     <string name="audio_saved">Grabación guardada</string>
     <string name="deleting_selected_notes">Eliminando notas seleccionadas</string>
-    <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">        Toca una voz para escucharla
-    </string>
-    <string name="tts_voices_selected_voice_should_be_installed" comment="If a voice has been tapped, is installable but not installed, we want to inform the user that they should install it for the best experience There will also be an option to use it without downloading">La voz debe instalarse antes de usarla</string>
-    <string name="tts_voices_use_selected_voice_without_install" comment="A user has been informed that a voice should be installed before use. This is text on a snackbar button which allows them to use the voice without installing it">Utilizar de todos modos
-    </string>
+    <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">Tap a voice to listen</string>
+    <string name="tts_voices_selected_voice_should_be_installed" comment="If a voice has been tapped, is installable but not installed, we want to inform the user that they should install it for the best experience There will also be an option to use it without downloading">Voice should be installed before use</string>
+    <string name="tts_voices_use_selected_voice_without_install" comment="A user has been informed that a voice should be installed before use. This is text on a snackbar button which allows them to use the voice without installing it">Use anyway</string>
     <string name="tts_voices_playback_error_new" comment="an error occurred when playing a text to speech voice. The parameter is a technical error code such as \'ERROR_NOT_INSTALLED_YET\' or \'ERROR_NETWORK_TIMEOUT\'">Error de conversión de texto a voz (%s)</string>
     <!-- Chips should probably be in a separate file, due to the additional length req -->
-    <string name="tts_voices_chip_filter_to_internet" comment="     Filters a list of text to speech voices, to enable/disable voices which require the internet to     function.     This is on a chip control, so keep the text short, ideally one word">        Internet
-    </string>
-    <string name="tts_voices_chip_filter_to_installable_audio" comment="     Displays a list of Text to Speech voices which should be downloaded/installed before use     This is on a chip control, so keep the text short, ideally one word">        Instalar
-    </string>
-    <string name="tts_voices_failed_opening_tts_system_settings" comment="error message if opening the system text to speech settings fails">        Error al abrir la configuración de texto a voz
-    </string>
+    <string name="tts_voices_chip_filter_to_internet" comment="     Filters a list of text to speech voices, to enable/disable voices which require the internet to     function.     This is on a chip control, so keep the text short, ideally one word">Internet</string>
+    <string name="tts_voices_chip_filter_to_installable_audio" comment="     Displays a list of Text to Speech voices which should be downloaded/installed before use     This is on a chip control, so keep the text short, ideally one word">Install</string>
+    <string name="tts_voices_failed_opening_tts_system_settings" comment="error message if opening the system text to speech settings fails">Failed to open text to speech settings</string>
     <string name="shared_decks_login_required">Por favor, inicia sesión para descargar más mazos</string>
     <string name="deck_description_field_hint">Descripción</string>
     <string name="failed_to_copy">Error al copiar</string>
@@ -336,7 +332,6 @@
     <string name="orphan_note_message">Eliminar este tipo de tarjeta dejará algunas notas sin ninguna tarjeta.</string>
     <string name="voice_not_supported">Voice not supported. Try another or install a voice engine.</string>
     <!--Keyboard shortcuts dialog-->
-    <string name="show_keyboard_shortcuts_dialog" comment="Description of the shortcut that shows the keyboard shortcuts dialog">Mostrar diálogo de atajos de teclado</string>
     <string name="deck_picker_group" comment="Label for the group of shortcuts related to the deck picker">Selector de Mazos</string>
     <string name="delete_deck_without_confirmation" comment="Description of the shortcut that deletes the deck without asking for confirmation">Eliminar mazo sin confirmación</string>
     <string name="note_editor_group" comment="Label for the group of shortcuts related to the note editor">Editor de Notas</string>
@@ -349,7 +344,6 @@
     <string name="edit_styling" comment="Description of the shortcut that shows the styling side of the card template">Editar estilo</string>
     <string name="copy_the_template" comment="Description of the shortcut that copy the template as markdown">Copiar plantilla como markdown</string>
     <string name="edit_browser_appearance" comment="Description of the shortcut that edits the browser appearance of card template">Editar apariencia del navegador</string>
-    <string name="show_shortcuts_message">Presiona Alt+K para mostrar los atajos del teclado</string>
     <string name="missing_user_action_dialog_message" comment="%s is the user action number">La acción del usuario %s no está establecida en este tipo de notas. Por favor, configúrala</string>
     <string name="directory_inaccessible_info">Obtén más información sobre cómo restaurar el acceso aquí %s o ve a la configuración para actualizar la carpeta de colección.</string>
 </resources>

@@ -67,11 +67,15 @@ import com.ichi2.anki.browser.CardBrowserViewModel.SearchState.Initializing
 import com.ichi2.anki.browser.CardBrowserViewModel.SearchState.Searching
 import com.ichi2.anki.browser.CardOrNoteId
 import com.ichi2.anki.browser.ColumnHeading
+import com.ichi2.anki.browser.FindAndReplaceDialogFragment
 import com.ichi2.anki.browser.PreviewerIdsFile
+import com.ichi2.anki.browser.RepositionCardFragment
+import com.ichi2.anki.browser.RepositionCardFragment.Companion.REQUEST_REPOSITION_NEW_CARDS
 import com.ichi2.anki.browser.RepositionCardsRequest.ContainsNonNewCardsError
 import com.ichi2.anki.browser.RepositionCardsRequest.RepositionData
 import com.ichi2.anki.browser.SaveSearchResult
 import com.ichi2.anki.browser.SharedPreferencesLastDeckIdRepository
+import com.ichi2.anki.browser.registerFindReplaceHandler
 import com.ichi2.anki.browser.toCardBrowserLaunchOptions
 import com.ichi2.anki.dialogs.BrowserOptionsDialog
 import com.ichi2.anki.dialogs.CardBrowserMySearchesDialog
@@ -83,7 +87,6 @@ import com.ichi2.anki.dialogs.DeckSelectionDialog
 import com.ichi2.anki.dialogs.DeckSelectionDialog.Companion.newInstance
 import com.ichi2.anki.dialogs.DeckSelectionDialog.DeckSelectionListener
 import com.ichi2.anki.dialogs.DeckSelectionDialog.SelectableDeck
-import com.ichi2.anki.dialogs.IntegerDialog
 import com.ichi2.anki.dialogs.SimpleMessageDialog
 import com.ichi2.anki.dialogs.tags.TagsDialog
 import com.ichi2.anki.dialogs.tags.TagsDialogFactory
@@ -98,6 +101,7 @@ import com.ichi2.anki.model.CardsOrNotes.CARDS
 import com.ichi2.anki.model.CardsOrNotes.NOTES
 import com.ichi2.anki.model.SortType
 import com.ichi2.anki.noteeditor.NoteEditorLauncher
+import com.ichi2.anki.preferences.sharedPrefs
 import com.ichi2.anki.previewer.PreviewerFragment
 import com.ichi2.anki.scheduling.ForgetCardsDialog
 import com.ichi2.anki.scheduling.SetDueDateDialog
@@ -345,6 +349,8 @@ open class CardBrowser :
         launchCatchingTask {
             if (viewModel.isInMultiSelectMode) {
                 viewModel.toggleRowSelection(id)
+                viewModel.saveScrollingState(id)
+                viewModel.oldCardTopOffset = calculateTopOffset(viewModel.lastSelectedPosition)
             } else {
                 val cardId = viewModel.queryDataForCardEdit(id)
                 openNoteEditorForCard(cardId)
@@ -357,6 +363,8 @@ open class CardBrowser :
         if (viewModel.isInMultiSelectMode && viewModel.lastSelectedId != null) {
             viewModel.selectRowsBetween(viewModel.lastSelectedId!!, id)
         } else {
+            viewModel.saveScrollingState(id)
+            viewModel.oldCardTopOffset = calculateTopOffset(viewModel.lastSelectedPosition)
             viewModel.toggleRowSelection(id)
         }
     }
@@ -443,6 +451,26 @@ open class CardBrowser :
 
         setupFlows()
         registerOnForgetHandler { viewModel.queryAllSelectedCardIds() }
+        supportFragmentManager.setFragmentResultListener(REQUEST_REPOSITION_NEW_CARDS, this) { _, bundle ->
+            repositionCardsNoValidation(
+                position = bundle.getInt(RepositionCardFragment.ARG_POSITION),
+                step = bundle.getInt(RepositionCardFragment.ARG_STEP),
+                shuffle = bundle.getBoolean(RepositionCardFragment.ARG_RANDOM),
+                shift = bundle.getBoolean(RepositionCardFragment.ARG_SHIFT),
+            )
+        }
+
+        registerFindReplaceHandler { result ->
+            launchCatchingTask {
+                withProgress {
+                    val count =
+                        withProgress {
+                            viewModel.findAndReplace(result)
+                        }.await()
+                    showSnackbar(TR.browsingNotesUpdated(count))
+                }
+            }
+        }
     }
 
     override fun setupBackPressedCallbacks() {
@@ -509,6 +537,7 @@ open class CardBrowser :
                 // Due to the ripple on long press, we set padding
                 browserColumnHeadings.updatePaddingRelative(start = 48.dp)
                 multiSelectOnBackPressedCallback.isEnabled = true
+                autoScrollTo(viewModel.lastSelectedPosition, viewModel.oldCardTopOffset)
             } else {
                 Timber.d("end multiselect mode")
                 // update adapter to remove check boxes
@@ -517,6 +546,7 @@ open class CardBrowser :
                 actionBarTitle.visibility = View.GONE
                 browserColumnHeadings.updatePaddingRelative(start = 0.dp)
                 multiSelectOnBackPressedCallback.isEnabled = false
+                autoScrollTo(viewModel.lastSelectedPosition, viewModel.oldCardTopOffset)
             }
             // reload the actionbar using the multi-select mode actionbar
             invalidateOptionsMenu()
@@ -648,10 +678,6 @@ open class CardBrowser :
                     Timber.i("Ctrl+K: Toggle Mark")
                     toggleMark()
                     return true
-                } else if (event.isAltPressed) {
-                    Timber.i("Alt+K: Show keyboard shortcuts dialog")
-                    showKeyboardShortcutsDialog()
-                    return true
                 }
             }
             KeyEvent.KEYCODE_R -> {
@@ -674,6 +700,11 @@ open class CardBrowser :
                 }
             }
             KeyEvent.KEYCODE_F -> {
+                if (event.isCtrlPressed && event.isAltPressed) {
+                    Timber.i("CTRL+ALT+F - Find and replace")
+                    showFindAndReplaceDialog()
+                    return true
+                }
                 if (event.isCtrlPressed) {
                     Timber.i("Ctrl+F - Find notes")
                     searchItem?.expandActionView()
@@ -811,7 +842,7 @@ open class CardBrowser :
     @NeedsTest("I/O edits are saved")
     private fun openNoteEditorForCard(cardId: CardId) {
         currentCardId = cardId
-        val intent = NoteEditorLauncher.EditCard(currentCardId, Direction.DEFAULT).getIntent(this)
+        val intent = NoteEditorLauncher.EditCard(currentCardId, Direction.DEFAULT).toIntent(this)
         onEditCardActivityResult.launch(intent)
         // #6432 - FIXME - onCreateOptionsMenu crashes if receiving an activity result from edit card when in multiselect
         viewModel.endMultiSelectMode()
@@ -956,6 +987,11 @@ open class CardBrowser :
         actionBarMenu?.findItem(R.id.action_reschedule_cards)?.title =
             TR.actionsSetDueDate().toSentenceCase(this, R.string.sentence_set_due_date)
 
+        val isFindReplaceEnabled = sharedPrefs().getBoolean(getString(R.string.pref_browser_find_replace), false)
+        menu.findItem(R.id.action_find_replace)?.apply {
+            isVisible = isFindReplaceEnabled
+            title = TR.browsingFindAndReplace().toSentenceCase(this@CardBrowser, R.string.sentence_find_and_replace)
+        }
         previewItem = menu.findItem(R.id.action_preview)
         onSelectionChanged()
         updatePreviewMenuItem()
@@ -1224,6 +1260,9 @@ open class CardBrowser :
             R.id.action_create_filtered_deck -> {
                 showCreateFilteredDeckDialog()
             }
+            R.id.action_find_replace -> {
+                showFindAndReplaceDialog()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -1254,6 +1293,11 @@ open class CardBrowser :
      */
     private fun searchForMarkedNotes() {
         launchCatchingTask { viewModel.searchForMarkedNotes() }
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun showFindAndReplaceDialog() {
+        FindAndReplaceDialogFragment().show(supportFragmentManager, FindAndReplaceDialogFragment.TAG)
     }
 
     private fun changeDisplayOrder() {
@@ -1309,19 +1353,19 @@ open class CardBrowser :
                     return@launchCatchingTask
                 }
                 is RepositionData -> {
-                    // TODO: This dialog is missing:
-                    // Randomize order
-                    // Shift position of existing cards
+                    val top = repositionCardsResult.queueTop
+                    val bottom = repositionCardsResult.queueBottom
+                    if (top == null || bottom == null) {
+                        showSnackbar(R.string.something_wrong)
+                        return@launchCatchingTask
+                    }
                     val repositionDialog =
-                        IntegerDialog().apply {
-                            setArgs(
-                                title = this@CardBrowser.getString(R.string.reposition_card_dialog_title),
-                                prompt = TR.browsingStartPosition(),
-                                content = repositionCardsResult.toHumanReadableContent(),
-                                digits = 5,
-                            )
-                            setCallbackRunnable(::repositionCardsNoValidation)
-                        }
+                        RepositionCardFragment.newInstance(
+                            queueTop = top,
+                            queueBottom = bottom,
+                            random = repositionCardsResult.random,
+                            shift = repositionCardsResult.shift,
+                        )
                     showDialogFragment(repositionDialog)
                 }
             }
@@ -1368,18 +1412,26 @@ open class CardBrowser :
     }
 
     @VisibleForTesting
-    fun repositionCardsNoValidation(position: Int) =
-        launchCatchingTask {
-            val count = withProgress { viewModel.repositionSelectedRows(position) }
-            showSnackbar(
-                resources.getQuantityString(
-                    R.plurals.reposition_card_dialog_acknowledge,
-                    count,
-                    count,
-                ),
-                Snackbar.LENGTH_SHORT,
-            )
-        }
+    fun repositionCardsNoValidation(
+        position: Int,
+        step: Int,
+        shuffle: Boolean,
+        shift: Boolean,
+    ) = launchCatchingTask {
+        val count =
+            withProgress {
+                viewModel.repositionSelectedRows(
+                    position = position,
+                    step = step,
+                    shuffle = shuffle,
+                    shift = shift,
+                )
+            }
+        showSnackbar(
+            TR.browsingChangedNewPosition(count),
+            Snackbar.LENGTH_SHORT,
+        )
+    }
 
     private fun onPreview() {
         launchCatchingTask {
@@ -1863,7 +1915,21 @@ open class CardBrowser :
         fun createAddNoteIntent(
             context: Context,
             viewModel: CardBrowserViewModel,
-        ): Intent = NoteEditorLauncher.AddNoteFromCardBrowser(viewModel).getIntent(context)
+        ): Intent = NoteEditorLauncher.AddNoteFromCardBrowser(viewModel).toIntent(context)
+    }
+
+    private fun calculateTopOffset(cardPosition: Int): Int {
+        val layoutManager = cardsListView.layoutManager as LinearLayoutManager
+        val firstVisiblePosition = layoutManager.findFirstVisibleItemPosition()
+        val view = cardsListView.getChildAt(cardPosition - firstVisiblePosition)
+        return view?.top ?: 0
+    }
+
+    private fun autoScrollTo(
+        newPosition: Int,
+        offset: Int,
+    ) {
+        (cardsListView.layoutManager as LinearLayoutManager).scrollToPositionWithOffset(newPosition, offset)
     }
 }
 

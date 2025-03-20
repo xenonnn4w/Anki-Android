@@ -59,17 +59,7 @@
     <string name="delete_cram_deck_message">Delete filtered deck %s and send all cards back to their original decks?</string>
     <string name="no_tts_available_message">لا يتوفر دعم تحويل النص إلى كلام لأي لغة</string>
     <string name="tts_no_tts">لا تنطق</string>
-    <string name="unused_strings">\n\nملفات عير مستخدمة:\n</string>
-    <string name="reposition_card_dialog_title">تغيير موضع البطاقة الجديدة</string>
     <string name="reposition_card_not_new_error">يمكن تغيير موضع البطاقات الجديدة فقط</string>
-    <plurals name="reposition_card_dialog_acknowledge">
-        <item quantity="zero">تم تغيير موضع %d بطاقة</item>
-        <item quantity="one">تم تغيير موضع %d بطاقة</item>
-        <item quantity="two">تم تغيير موضع %d بطاقة</item>
-        <item quantity="few">تم تغيير موضع %d بطاقات</item>
-        <item quantity="many">تم تغيير موضع %d بطاقة</item>
-        <item quantity="other">تم تغيير موضع %d بطاقة</item>
-    </plurals>
     <string name="reset_card_dialog_title">تصفير تقدم البطاقة</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="zero">تم تصفير %d بطاقة</item>
@@ -82,7 +72,7 @@
     <string name="answering_error_title">خطأ في قاعدة البيانات</string>
     <string name="answering_error_message">فشلت الكتابة إلى المجموعة. قد تكون قاعدة البيانات تالفة أو قد لا تكون هناك مساحة كافية على القرص.\n\nإذا كان هذا يحدث غالبًا، جرب فحص قاعدة البيانات، أو إصلاح المجموعة، أو استرجاعها من نسخة احتياطية. انقر «خيارات» لفعل ذلك. \nأو قد يكون هذا عطلًا في أنكي درويد ربما؛ الرجاء الإبلاغ عن هذا لنتحقق منه.</string>
     <string name="answering_error_report">إبلاغ عن الخطأ</string>
-    <string name="storage_full_message">لا توجد مساحة تخزين كافية لفتح AnkiDroid. أفرج عن بعض المساحة للمتابعة. </string>
+    <string name="storage_full_message">There is not enough free storage space to open AnkiDroid. Free up some space to continue.</string>
     <string name="repair_deck_dialog">هل تريد حقًا إصلاح قاعدة البيانات؟\n\nقبل بدء هذه المحاولة، ستُنشَأ نسخة في المجلد الفرعي “%s”.</string>
     <string name="intent_aedict_empty">تصنيف “default” فارغ</string>
     <string name="intent_aedict_category">لإضافة بطاقات إلى أنكيدرويد، أزل كل تصنيفات المفكرة أو أضف تصنيفًا باسم “default”</string>
@@ -124,10 +114,7 @@
     <string name="check_media_message">يجري فحص الوسائط&#8230;</string>
     <string name="check_media_acknowledge">تم فحص الوسائط</string>
     <string name="check_media_invalid">ملفات بترميز غير صالح: %d</string>
-    <string name="check_media_unused">ملفات موجودة في مجلد الوسائط لكنها غير مستخدمة من قبل أي بطاقة: %d</string>
-    <string name="check_media_nohave">ملفات مستخدمة في البطاقات لكنها غير موجودة في مجلد الوسائط: %d</string>
     <string name="check_media_no_unused_missing">لم يُعثَر على ملفات غير مستخدمة أو مفقودة</string>
-    <string name="check_media_db_updated">أعيد بناء قاعدة بيانات الوسائط</string>
     <string name="check_media_delete_unused">حذف غير المستخدمة</string>
     <string name="delete_media_message">جار حذف الوسائط&#8230;</string>
     <string name="delete_media_result_title">نتيجة الحذف</string>
@@ -145,7 +132,6 @@
     <string name="tags_dialog_option_due_cards" comment="Name of cards that are already been reviewed in the past, and that should be reviewed again">مستحق</string>
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">يجري البحث عن بطاقات فارغة&#8230;</string>
-    <string name="empty_cards_count">بطاقات ستُحذَف: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">تعذر الحصول على إذن الميكروفون.</string>
     <string name="multimedia_editor_failed">تعذر فتح محرر الوسائط المتعددة</string>
@@ -242,10 +228,8 @@
     <string name="button_backup_later" comment="dismiss the \'Backup\' dialog for around 2 weeks">لاحقًا</string>
     <string name="button_do_not_show_again" comment="permanently dismisses a dialog">لا تُظهر مجدّدًا</string>
     <string name="dismiss_backup_warning_title">تحذير فقدان البيانات</string>
-    <string name="dismiss_backup_warning_new_user">        بسبب تغييرات خصوصية الأندرويد، سيتم حذف بياناتك والنسخ الاحتياطية الآلية من هاتفك إذا تم إلغاء تثبيت التطبيق
-    </string>
-    <string name="dismiss_backup_warning_upgrade">        بسبب تغييرات خصوصية الأندرويد، سيتم حذف بياناتك والنسخ الاحتياطية الآلية من هاتفك إذا تم إلغاء تثبيت التطبيق
-    </string>
+    <string name="dismiss_backup_warning_new_user">Due to Android privacy changes, your data and automated backups will be deleted from your phone if the app is uninstalled</string>
+    <string name="dismiss_backup_warning_upgrade">Due to Android privacy changes, your data and automated backups will be inaccessible if the app is uninstalled</string>
     <string name="deck_already_exists">هذه الرزمة موجودة بالفعل</string>
     <string name="empty_deck_name">Deck name cannot be empty</string>
     <string name="create_deck_numeric_hint">If you have deck ordering issues (e.g. ‘10’ appears before ‘2’), replace ‘2’ with ‘02’</string>

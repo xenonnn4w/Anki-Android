@@ -57,15 +57,7 @@
     <string name="delete_cram_deck_message">Delete filtered deck %s and send all cards back to their original decks?</string>
     <string name="no_tts_available_message">Žiaden TTS jazyk nie je k dispozícii</string>
     <string name="tts_no_tts">Nehovoriť</string>
-    <string name="unused_strings">\n\nNepoužívaných súborov:\n</string>
-    <string name="reposition_card_dialog_title">Premiestniť novú kartičku</string>
     <string name="reposition_card_not_new_error">Len pri nových kartách je možné zmeniť pozíciu (premiestniť)</string>
-    <plurals name="reposition_card_dialog_acknowledge">
-        <item quantity="one">%d premiestnená kartička</item>
-        <item quantity="few">%d premiestnené kartičky</item>
-        <item quantity="many">%d premiestnených kartičiek</item>
-        <item quantity="other">%d premiestnených kartičiek</item>
-    </plurals>
     <string name="reset_card_dialog_title">Vynulovať zaznamenaný priebeh v učení kartičky</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="one">%d resetovaná kartička</item>
@@ -76,7 +68,7 @@
     <string name="answering_error_title">Chyba databázy</string>
     <string name="answering_error_message">Zápis zbierky zlyhal. Databáza môže byť poškodená alebo na úložisku nie je dostatok miesta.\n\nAk sa to stáva častejšie, skontrolujte databázu, opravte zbierku alebo ju obnovte zo zálohy. Ak to chcete urobiť, stlačte  „možnosti” .\n\Môže ísť aj o chybu aplikácie; prosím oznámte túto chybu aby sme to mohli skontrolovať.</string>
     <string name="answering_error_report">Nahlásiť chybu</string>
-    <string name="storage_full_message">Nedostatok voľného miesta. Pre spustenie aplikácie AnkiDroid najprv uvoľnite miesto v pamäti.</string>
+    <string name="storage_full_message">There is not enough free storage space to open AnkiDroid. Free up some space to continue.</string>
     <string name="repair_deck_dialog">Naozaj chcete skúsiť opraviť databázu?\n\nPred začatím pokusu o opravenie bude vytvorená kópia v podpriečinku \"%s\".</string>
     <string name="intent_aedict_empty">Kategória \"predvolený\" je prázdna</string>
     <string name="intent_aedict_category">Ak chcete pridať kartičky do AnkiDroid, odstráňte všetky kategórie poznámkového bloku alebo pridajte jednu s názvom \"predvolený\"</string>
@@ -118,10 +110,7 @@
     <string name="check_media_message">Kontrola multimédií&#8230;</string>
     <string name="check_media_acknowledge">Multimédiá skontrolované</string>
     <string name="check_media_invalid">Súbory s neplatným kódovaním: %d</string>
-    <string name="check_media_unused">Súborý v multimediálnom priečinku nepoužívané žiadnymi kartičkami: %d</string>
-    <string name="check_media_nohave">Použité súbory na kartičkách, ktoré nie sú v priečinku multimédií: %d</string>
     <string name="check_media_no_unused_missing">Neboli nájdené žiadne nepoužívané alebo chýbajúce súbory</string>
-    <string name="check_media_db_updated">Databáza multimédií bola opravená</string>
     <string name="check_media_delete_unused">Vymazať nepoužívané</string>
     <string name="delete_media_message">Médiá sa vymazávajú&#8230;</string>
     <string name="delete_media_result_title">Výsledok vymazania</string>
@@ -137,7 +126,6 @@
     <string name="tags_dialog_option_due_cards" comment="Name of cards that are already been reviewed in the past, and that should be reviewed again">Na preskúšanie</string>
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">Hľadanie prázdnych kartičiek&#8230;</string>
-    <string name="empty_cards_count">Počet kartičiek, ktoré budú vymazané: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">Nepodarilo sa získať povolenie k mikrofónu.</string>
     <string name="multimedia_editor_failed">Nepodarilo sa otvoriť editor multimédií</string>
@@ -232,8 +220,8 @@
     <string name="button_backup_later" comment="dismiss the \'Backup\' dialog for around 2 weeks">Neskôr</string>
     <string name="button_do_not_show_again" comment="permanently dismisses a dialog">Nabudúce nezobrazovať</string>
     <string name="dismiss_backup_warning_title">Možná strata údajov!</string>
-    <string name="dismiss_backup_warning_new_user">Z dôvodu zmien ochrany súkromia budú vaše údaje a automatické zálohy odstránené z pamäti ak odinštalujete aplikáciu AnkiDroid.</string>
-    <string name="dismiss_backup_warning_upgrade">Z dôvodu zmien ochrany súkromia budú vaše údaje a automatické zálohy neprístupné ak odinštalujete aplikáciu AnkiDroid.</string>
+    <string name="dismiss_backup_warning_new_user">Due to Android privacy changes, your data and automated backups will be deleted from your phone if the app is uninstalled</string>
+    <string name="dismiss_backup_warning_upgrade">Due to Android privacy changes, your data and automated backups will be inaccessible if the app is uninstalled</string>
     <string name="deck_already_exists">Tento balíček už existuje</string>
     <string name="empty_deck_name">Deck name cannot be empty</string>
     <string name="create_deck_numeric_hint">Pri problémoch s poradím balíčkov (napr. „10\" v poradí pred „2\") zmeňte názov z „2\" na „02\".</string>

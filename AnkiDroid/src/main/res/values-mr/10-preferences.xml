@@ -97,6 +97,7 @@
     <string name="gestures_summ">उत्तर देणे आणि संपादन कार्ड यासारख्या क्रियांना जेश्चर नियुक्त करा.</string>
     <string name="gestures_corner_touch" maxLength="41">9-बिंदू स्पर्श</string>
     <string name="gestures_corner_touch_summary">स्क्रीन कोपर्यात स्पर्श जेश्चरला अनुमती द्या</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">पूर्ण स्क्रीन नेव्हिगेशन ड्रॉवर</string>
     <string name="gestures_fullscreen_nav_drawer_summary">स्क्रीनवर कुठूनही थेट स्वाइप करून नेव्हिगेशन ड्रॉवर उघडा</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">काहीही नाही</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">डावीकडे तळाशी स्पर्श करा</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">उजवीकडे तळाशी स्पर्श करा</string>
     <string name="gestures_shake" maxLength="41">शेक डिव्हाइस</string>
-    <string name="card_browser_enable_external_context_menu">‘%s’ मेनू</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">‘%s’ मेनू</string>
     <string name="card_browser_enable_external_context_menu_summary">जागतिक स्तरावर ‘%s’ संदर्भ मेनू सक्षम करते</string>
     <string name="double_scrolling_gap" maxLength="41">डबल स्क्रोलिंग</string>
     <string name="double_scrolling_gap_summ">EReader सह स्क्रोल अंतर दुप्पट करा</string>
@@ -259,9 +260,7 @@
     <string name="donate_description"><![CDATA[तुम्ही <a href=\"%1$s\">दान</a> करून AnkiDroid च्या विकासाला समर्थन देऊ शकता. कोणतीही रक्कम खूप कौतुकास्पद आहे.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">एक जेश्चर जोडा</string>
-    <string name="binding_replace_gesture">जेश्चर बदला</string>
     <string name="binding_add_key">की जोडा</string>
-    <string name="binding_replace_key">की बदला</string>
     <string name="key_picker_default_press_key">एक कळ दाबा</string>
     <string name="binding_add_axis">जॉयस्टिक/मोशन कंट्रोलर जोडा</string>
     <string name="axis_picker_move_joystick">जॉयस्टिक/मोशन कंट्रोलर हलवा</string>
@@ -296,7 +295,7 @@
     <string name="pref_cat_dev_options" maxLength="41">विकसक पर्याय</string>
     <string name="dev_options_enabled_pref" maxLength="41">विकसक पर्याय सक्षम करा</string>
     <string name="disable_dev_options">विकसक पर्याय अक्षम करा</string>
-    <string name="dev_options_warning">कृपया विकसक पर्याय सक्षम करण्यापूर्वी खात्री करा. हे पर्याय धोकादायक आहेत आणि ॲप खंडित करू शकतात किंवा तुमचे संग्रहण खराब करू शकतात.\n\nलक्षात ठेवा की हे पर्याय बहुतेक वापरकर्त्यांसाठी योग्य नाहीत आणि म्हणून भाषांतरित केलेले नाहीत, म्हणून ते इंग्रजीमध्ये आहेत.</string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

@@ -57,15 +57,7 @@
     <string name="delete_cram_deck_message">למחוק את החפיסה %s המסוננת ולשלוח את כל הקלפים בחזרה לחפיסות המקוריות שלהם?</string>
     <string name="no_tts_available_message">אין שום שפת לכתוב-אל-דיבור זמין</string>
     <string name="tts_no_tts">אל תדבר.‏</string>
-    <string name="unused_strings">\n\nקבצים שאינם בשימוש:\n</string>
-    <string name="reposition_card_dialog_title">שינוי מיקום כרטיס חדש</string>
     <string name="reposition_card_not_new_error">ניתן לשנות מיקום לכרטיסים חדשים בלבד</string>
-    <plurals name="reposition_card_dialog_acknowledge">
-        <item quantity="one">כרטיס %d הושם מחדש</item>
-        <item quantity="two">%d כרטיסים הושמו מחדש</item>
-        <item quantity="many">%d כרטיסים הושמו מחדש</item>
-        <item quantity="other">%d כרטיסים הושמו מחדש</item>
-    </plurals>
     <string name="reset_card_dialog_title">איפוס התקדמות הכרטיס</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="one">כרטיס אחד אופס</item>
@@ -76,14 +68,14 @@
     <string name="answering_error_title">שגיאת מסד נתונים</string>
     <string name="answering_error_message">כתיבה לאוסף נכשלה. מאגר המידע אולי שבור או שאין מספיק מקום בדיסק.\n\n אם זה קורה שוב ושוב, אפשר לבדוק את מאגר המידע, לתקן את האוסף או לשחזר אותו מגיבוי. לחץ \'אפשרויות\' עבור כך. \n כמו כן ייתכן שזוהי תקלה בAnkiDroid. נא לדווח את השגיאה כדי שנוכל לבדוק זאת.</string>
     <string name="answering_error_report">דיווח על שגיאה</string>
-    <string name="storage_full_message">אין מספיק שטח אחסון פנוי כדי לפתוח את AnkiDroid.  פנה קצת מקום כדי להמשיך.</string>
+    <string name="storage_full_message">There is not enough free storage space to open AnkiDroid. Free up some space to continue.</string>
     <string name="repair_deck_dialog">לתקן את המאגר?\n\n
 לפני תחילת ניסיון התיקון, יתבצע שמירת העתק בתקייה %s</string>
     <string name="intent_aedict_empty">הקטגוריה \'ברירת מחדל\' ריקה</string>
     <string name="intent_aedict_category">כדי להוסיף כרטיסים ל-AnkiDroid הסר את כל קטגוריות פנקס הרשימות או הוסף אחת בשם \"ברירת מחדל\"</string>
     <string name="custom_study_new_extend">הוספה/הורדה(“-3”) הגבלת כרטיסים חדשים להיום ב</string>
     <string name="custom_study_rev_extend">הוספה/הורדה(“-3”) הגבלת חזרות להיום ב</string>
-    <string name="custom_study_forgotten">חזרה על כרטיסים נשכחים בx ימים האחרונים </string>
+    <string name="custom_study_forgotten">חזרה על כרטיסים נשכחים בx ימים האחרונים</string>
     <string name="custom_study_ahead">עבור כמה ימים ברצונך לשנן מראש?</string>
     <string name="custom_study_preview">צפייה ראשונית בכרטיסים חדשים שנוספו בx ימים האחרונים:</string>
     <string name="storage_full_title">האיחסון מלא</string>
@@ -119,10 +111,7 @@
     <string name="check_media_message">קבצי המדיה בבדיקה&#8230;</string>
     <string name="check_media_acknowledge">קבצי המדיה נבדקו</string>
     <string name="check_media_invalid">קבצים בקידוד תקול: %d</string>
-    <string name="check_media_unused">קבצים שנמצאים בספריית המדיה אבל אינם בשימוש על ידי אף קלף: %d</string>
-    <string name="check_media_nohave">קבצים בשימוש קלפים שאינם בתיקיית המדיה: %d</string>
     <string name="check_media_no_unused_missing">לא נמצאו קבצים חסרים או שאינם בשימוש</string>
-    <string name="check_media_db_updated">מסד נתוני המדיה נבנה מחדש</string>
     <string name="check_media_delete_unused">מחיקת כאלו שאינם בשימוש</string>
     <string name="delete_media_message">המדיה נמחקת&#8230;</string>
     <string name="delete_media_result_title">תוצאת מחיקה</string>
@@ -138,9 +127,8 @@
     <string name="tags_dialog_option_due_cards" comment="Name of cards that are already been reviewed in the past, and that should be reviewed again">מיועד</string>
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">מתבצע איתור כרטיסים ריקים&#8230;</string>
-    <string name="empty_cards_count">כרטיסים למחיקה: %d</string>
     <!-- Multimedia - Edit Field Activity -->
-    <string name="multimedia_editor_audio_permission_refused">לא מצליח לקבל הרשאת מיקרופון </string>
+    <string name="multimedia_editor_audio_permission_refused">לא מצליח לקבל הרשאת מיקרופון</string>
     <string name="multimedia_editor_failed">נכשל בפתיחת עורך מדיה.</string>
     <!-- Multimedia - Audio View -->
     <string name="multimedia_editor_audio_permission_denied">הרשאת הקלטת שמע נדחתה</string>
@@ -233,8 +221,8 @@
     <string name="button_backup_later" comment="dismiss the \'Backup\' dialog for around 2 weeks">מאוחר יותר</string>
     <string name="button_do_not_show_again" comment="permanently dismisses a dialog">אל תציג שוב</string>
     <string name="dismiss_backup_warning_title">אזהרת אובדן נתונים</string>
-    <string name="dismiss_backup_warning_new_user">עקב שינויים בפרטיות של Android, הנתונים והגיבויים האוטומטיים שלך יימחקו מהטלפון שלך אם האפליקציה תוסר</string>
-    <string name="dismiss_backup_warning_upgrade">עקב שינויים בפרטיות של Android, הנתונים והגיבויים האוטומטיים שלך לא יהיו נגישים אם האפליקציה תוסר</string>
+    <string name="dismiss_backup_warning_new_user">Due to Android privacy changes, your data and automated backups will be deleted from your phone if the app is uninstalled</string>
+    <string name="dismiss_backup_warning_upgrade">Due to Android privacy changes, your data and automated backups will be inaccessible if the app is uninstalled</string>
     <string name="deck_already_exists">החפיסה כבר קיימת</string>
     <string name="empty_deck_name">שם החפיסה לא יכול להיות ריק</string>
     <string name="create_deck_numeric_hint">אם יש לך בעיות בסדר החפיסות (למשל, \'10\' מופיע לפני \'2\'), החלף את \'2\' ב-\'02\'</string>

@@ -55,13 +55,7 @@
     <string name="delete_cram_deck_message">فلٹر شدہ ڈیک %s کو حذف کریں اور تمام کارڈز کو ان کے اصل ڈیک پر واپس بھیجیں؟</string>
     <string name="no_tts_available_message">متن سے تقریر کی کوئی زبان دستیاب نہیں ہے۔</string>
     <string name="tts_no_tts">مت بولو</string>
-    <string name="unused_strings">\n\nغیر استعمال شدہ فائلیں:\n</string>
-    <string name="reposition_card_dialog_title">نئے کارڈ کی جگہ</string>
     <string name="reposition_card_not_new_error">صرف نئے کارڈز کی جگہ تبدیل کی جا سکتی ہے۔</string>
-    <plurals name="reposition_card_dialog_acknowledge">
-        <item quantity="one">%d کارڈ دوبارہ ترتیب دیا گیا۔</item>
-        <item quantity="other">%d کارڈز کی جگہ بدل دی گئی۔</item>
-    </plurals>
     <string name="reset_card_dialog_title">کارڈ کی پیشرفت کو دوبارہ ترتیب دیں۔</string>
     <plurals name="reset_cards_dialog_acknowledge">
         <item quantity="one">%d کارڈ ری سیٹ</item>
@@ -70,7 +64,7 @@
     <string name="answering_error_title">ڈیٹا بیس کی خرابی۔</string>
     <string name="answering_error_message">مجموعہ پر لکھنا ناکام ہو گیا۔ ڈیٹا بیس کرپٹ ہو سکتا ہے یا ڈسک پر کافی جگہ خالی نہیں ہو سکتی۔\n\nاگر ایسا زیادہ ہوتا ہے تو ڈیٹا بیس کو چیک کرنے، جمع کو ٹھیک کرنے یا اسے بیک اپ سے بحال کرنے کی کوشش کریں۔ اس کے لیے \"اختیارات\" کو ٹچ کریں۔\n\یا یہ AnkiDroid بگ بھی ہو سکتا ہے۔ براہ کرم غلطی کی اطلاع دیں تاکہ ہم اسے چیک کر سکیں۔</string>
     <string name="answering_error_report">غلطی کی اطلاع دیں۔</string>
-    <string name="storage_full_message">AnkiDroid کھولنے کے لیے کافی خالی جگہ نہیں ہے۔ جاری رکھنے کے لیے کچھ جگہ خالی کریں۔</string>
+    <string name="storage_full_message">There is not enough free storage space to open AnkiDroid. Free up some space to continue.</string>
     <string name="repair_deck_dialog">کیا آپ واقعی ڈیٹا بیس کو ٹھیک کرنے کی کوشش کرنا چاہتے ہیں؟\n\nکوشش شروع کرنے سے پہلے، ذیلی فولڈر \"%s\" میں ایک کاپی بنائی جائے گی۔</string>
     <string name="intent_aedict_empty">زمرہ \"ڈیفالٹ\" خالی ہے۔</string>
     <string name="intent_aedict_category">AnkiDroid میں کارڈز شامل کرنے کے لیے تمام نوٹ پیڈ کیٹیگریز کو ہٹا دیں یا \"ڈیفالٹ\" کے نام سے ایک شامل کریں۔</string>
@@ -112,10 +106,7 @@
     <string name="check_media_message">میڈیا کو چیک کیا جا رہا ہے&#8230;</string>
     <string name="check_media_acknowledge">میڈیا چیک کیا</string>
     <string name="check_media_invalid">غلط انکوڈنگ والی فائلیں: %d</string>
-    <string name="check_media_unused">فائلیں میڈیا فولڈر میں ہیں لیکن کسی بھی کارڈ کے ذریعے استعمال نہیں کی گئی: %d</string>
-    <string name="check_media_nohave">کارڈز پر استعمال ہونے والی فائلیں لیکن میڈیا فولڈر میں نہیں: %d</string>
     <string name="check_media_no_unused_missing">کوئی غیر استعمال شدہ یا گم شدہ فائلیں نہیں ملی</string>
-    <string name="check_media_db_updated">میڈیا ڈیٹا بیس کو دوبارہ بنایا گیا</string>
     <string name="check_media_delete_unused">غیر استعمال شدہ کو حذف کریں</string>
     <string name="delete_media_message">میڈیا کو حذف کیا جا رہا ہے&#8230;</string>
     <string name="delete_media_result_title">حذف کرنے کا نتیجہ</string>
@@ -129,7 +120,6 @@
     <string name="tags_dialog_option_due_cards" comment="Name of cards that are already been reviewed in the past, and that should be reviewed again">بقایا</string>
     <!-- Empty cards -->
     <string name="emtpy_cards_finding">خالی کارڈز تلاش کیے جا رہے ہیں&#8230;</string>
-    <string name="empty_cards_count">حذف کرنے کے لیے کارڈز: %d</string>
     <!-- Multimedia - Edit Field Activity -->
     <string name="multimedia_editor_audio_permission_refused">مائیکروفون کی اجازت حاصل نہیں کی جا سکی۔</string>
     <string name="multimedia_editor_failed">ملٹی میڈیا ایڈیٹر کھولنے میں ناکام</string>
@@ -222,10 +212,8 @@
     <string name="button_backup_later" comment="dismiss the \'Backup\' dialog for around 2 weeks">بعد میں</string>
     <string name="button_do_not_show_again" comment="permanently dismisses a dialog">دوبارہ نہ دکھائیں</string>
     <string name="dismiss_backup_warning_title">ڈیٹا ضائع ہونے کی وارننگ</string>
-    <string name="dismiss_backup_warning_new_user">       Android پرائیویسی کی تبدیلیوں کی وجہ سے، آپ کا ڈیٹا اور خودکار بیک اپ حذف ہو جائیں گے۔اگر ایپ ان انسٹال ہے تو آپ کے فون سے
-    </string>
-    <string name="dismiss_backup_warning_upgrade">        اینڈرائیڈ پرائیویسی تبدیلیوں کی وجہ سے، آپ کا ڈیٹا اور خودکار بیک اپ ہوں گے اگر ایپ ان انسٹال ہے تو ناقابل رسائی
-    </string>
+    <string name="dismiss_backup_warning_new_user">Due to Android privacy changes, your data and automated backups will be deleted from your phone if the app is uninstalled</string>
+    <string name="dismiss_backup_warning_upgrade">Due to Android privacy changes, your data and automated backups will be inaccessible if the app is uninstalled</string>
     <string name="deck_already_exists">ڈیک پہلے سے موجود ہے</string>
     <string name="empty_deck_name">ڈیک کا نام خالی نہیں ہو سکتا</string>
     <string name="create_deck_numeric_hint">اگر آپ کو ڈیک آرڈر کرنے کے مسائل ہیں (جیسے \'10\' \'2\' سے پہلے ظاہر ہوتا ہے)، \'2\' کو \'02\' سے بدل دیں</string>

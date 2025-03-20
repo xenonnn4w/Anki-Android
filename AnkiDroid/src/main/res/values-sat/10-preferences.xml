@@ -61,7 +61,7 @@
     <string name="pref_cat_sync" comment="title of the sync preferences category" maxLength="41">ᱟᱭᱩᱨ ᱢᱤᱫ</string>
     <string name="pref_cat_scheduling" maxLength="41">ᱡᱚᱡᱚᱱᱟ</string>
     <string name="pref_cat_whiteboard" maxLength="41">ᱯᱩᱸᱰᱯᱟᱴᱟ</string>
-    <string name="pref_cat_appearance" maxLength="41">ᱧᱮᱞᱚᱜ ᱠᱚ </string>
+    <string name="pref_cat_appearance" maxLength="41">ᱧᱮᱞᱚᱜ ᱠᱚ</string>
     <string name="pref_cat_themes" maxLength="41">ᱛᱷᱤᱢᱥ</string>
     <string name="pref_cat_gestures" maxLength="41">ᱪᱤᱱᱦᱟᱹ</string>
     <string name="pref_cat_controls" maxLength="41">ᱠᱳᱸᱴᱨᱳᱞ</string>
@@ -97,6 +97,7 @@
     <string name="gestures_summ">ᱛᱮᱞᱟ ᱮᱢ ᱟᱨ ᱠᱟᱰᱥ ᱥᱟᱯᱰᱟᱣ ᱞᱟᱹᱜᱤᱫ ᱜᱮᱥᱪᱚᱨ ᱠᱚ ᱴᱷᱤᱠ ᱢᱮ ᱾</string>
     <string name="gestures_corner_touch" maxLength="41">᱙ᱼᱤᱸᱪ ᱚᱛᱟ</string>
     <string name="gestures_corner_touch_summary">ᱥᱠᱨᱤᱱ ᱠᱩᱱᱟᱹ ᱠᱚᱨᱮ  ᱚᱛᱟ ᱜᱮᱥᱪᱚᱨᱠᱚ ᱮᱢ ᱪᱷᱚ</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">ᱯᱷᱩᱞᱥᱨᱤᱱ ᱱᱮᱵᱷᱤᱜᱮᱥᱚᱱ ᱰᱟᱨᱣᱮᱨ</string>
     <string name="gestures_fullscreen_nav_drawer_summary">ᱥᱠᱨᱤᱱ ᱨᱮᱭᱟᱜ ᱡᱟᱦᱟᱸᱥᱮᱫ ᱠᱷᱚᱱ ᱡᱚᱡᱚᱢ ᱯᱟᱦᱴᱟ ᱥᱣᱟᱭᱤᱯ ᱠᱟᱛᱮ ᱱᱟᱵᱷᱤᱜᱮᱥᱚᱱ ᱰᱨᱚᱣᱮᱨ ᱡᱷᱤᱡᱽ ᱯᱮ</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">ᱡᱟᱦᱟᱱ ᱵᱟᱝ</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">ᱞᱟᱛᱟᱨ ᱞᱮᱸᱜᱟ ᱯᱟᱦᱴᱟ ᱨᱮ ᱚᱛᱟᱭ ᱢᱮ</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">ᱞᱟᱛᱟᱨ ᱡᱟᱡᱚᱢ ᱛᱤ ᱯᱟᱦᱴᱟ ᱚᱛᱟᱭ ᱢᱮ</string>
     <string name="gestures_shake" maxLength="41">ᱥᱤᱠᱷᱱᱟᱹᱛ ᱚᱱᱚᱞ</string>
-    <string name="card_browser_enable_external_context_menu">‘%s’ ᱢᱚᱱᱩ</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">‘%s’ ᱢᱚᱱᱩ</string>
     <string name="card_browser_enable_external_context_menu_summary">ᱠᱚᱱᱴᱮᱠᱥᱴ ᱢᱮᱱᱩ ᱠᱡᱟᱜᱟᱛ ᱨᱮ ‘%s’ ᱦᱩᱭ ᱦᱚᱪᱚ</string>
     <string name="double_scrolling_gap" maxLength="41">ᱫᱚᱦᱲᱟ ᱥᱠᱨᱚᱞ</string>
     <string name="double_scrolling_gap_summ">ᱤᱼᱨᱤᱰᱚᱨ ᱮᱨ ᱥᱠᱨᱚᱞ ᱜᱮᱯ ᱫᱚᱦᱲᱟᱭ ᱢᱮ</string>
@@ -147,21 +148,21 @@
     <string name="notification_pref_title" maxLength="41">ᱚᱠᱟ ᱡᱷᱟᱚᱜ ᱤᱰᱞᱟᱹᱭ</string>
     <string name="never_notify">ᱛᱤᱥᱦᱚᱸ ᱵᱟᱝ ᱤᱛᱞᱟᱹᱭ</string>
     <string name="notify_when_pending">ᱢᱟᱲᱟᱝᱟ ᱠᱷᱚᱵᱚᱨ ᱥᱟᱨᱮᱡ ᱢᱮᱱᱟᱜᱼᱟ</string>
-    <string name="notification_minimum_cards_due"> %d ᱠᱦᱚᱱ ᱡᱟᱹᱥᱛᱤ ᱠᱟᱰᱥ ᱥᱟᱨᱮᱡ</string>
+    <string name="notification_minimum_cards_due">%d ᱠᱦᱚᱱ ᱡᱟᱹᱥᱛᱤ ᱠᱟᱰᱥ ᱥᱟᱨᱮᱡ</string>
     <string name="notification_minimum_cards_due_vibrate" maxLength="41">ᱛᱷᱟᱨᱼᱛᱷᱟᱨᱟᱣ</string>
     <string name="notification_minimum_cards_due_blink" maxLength="41">ᱫᱷᱩᱯᱼᱫᱷᱟᱯ ᱟᱨᱥᱟᱞ</string>
     <string name="select_locale_title">ᱟᱲᱟᱝ ᱵᱟᱪᱷᱟᱣ</string>
-    <string name="software_render" maxLength="41">ᱠᱟᱰ ᱦᱟᱰᱣᱮᱨ ᱥᱤᱡᱚᱱᱤᱭᱟᱹ ᱴᱷᱟᱠᱮᱫ ᱮᱢᱮ </string>
+    <string name="software_render" maxLength="41">ᱠᱟᱰ ᱦᱟᱰᱣᱮᱨ ᱥᱤᱡᱚᱱᱤᱭᱟᱹ ᱴᱷᱟᱠᱮᱫ ᱮᱢᱮ</string>
     <string name="software_render_summ">ᱦᱟᱰᱣᱮᱨ ᱵᱮᱱᱟᱣ ᱩᱥᱟᱹᱨᱟ ᱜᱮᱭᱟ ᱢᱮᱱᱠᱟᱷᱟᱱ ᱵᱤᱥᱮᱥ ᱞᱮᱠᱟᱛᱮ Android 8/8.1. ᱮᱴᱠᱮᱴᱚᱬᱮ ᱦᱩᱭᱫᱟᱲᱮᱟᱫ-ᱟ।ᱡᱩᱫᱤ ᱟᱢ ᱤᱸᱴᱚᱨᱯᱷᱮᱥ  ᱠᱟᱰ ᱨᱤᱵᱷᱭᱩ ᱟᱜ ᱵᱟᱢ ᱧᱮᱞᱧᱟᱢᱮᱫ-ᱟ, ᱮᱱᱠᱷᱟᱱ ᱥᱮᱴᱤᱝ ᱨᱮ ᱪᱮᱥᱴᱟᱭᱢᱮ</string>
     <string name="safe_display" maxLength="41">ᱡᱟᱹᱯᱛᱤ ᱚᱵᱚᱥᱛᱷᱟ ᱩᱫᱩᱜᱽ ᱢᱚᱰ</string>
-    <string name="safe_display_summ">ᱡᱷᱚᱛᱚ ᱮᱱᱤᱢᱮᱥᱚᱱ ᱵᱚᱱᱫᱽ ᱠᱟᱛᱮ ᱟᱨ ᱴᱷᱤᱠ ᱛᱚᱨᱤᱠᱟ ᱛᱮ ᱠᱟᱰ ᱤᱫᱤ ᱢᱮ ᱾ ᱤᱼᱠᱟᱲᱤ ᱰᱤᱵᱷᱟᱤᱥ ᱫᱚᱨᱠᱟᱨ ᱯᱟᱲᱟᱣ ᱜᱮᱭᱟ ᱾ </string>
+    <string name="safe_display_summ">ᱡᱷᱚᱛᱚ ᱮᱱᱤᱢᱮᱥᱚᱱ ᱵᱚᱱᱫᱽ ᱠᱟᱛᱮ ᱟᱨ ᱴᱷᱤᱠ ᱛᱚᱨᱤᱠᱟ ᱛᱮ ᱠᱟᱰ ᱤᱫᱤ ᱢᱮ ᱾ ᱤᱼᱠᱟᱲᱤ ᱰᱤᱵᱷᱟᱤᱥ ᱫᱚᱨᱠᱟᱨ ᱯᱟᱲᱟᱣ ᱜᱮᱭᱟ ᱾</string>
     <string name="disable_extended_text_ui" maxLength="41">ᱢᱤᱫᱴᱟᱹᱝ ᱡᱟᱭᱜᱟ ᱥᱟᱯᱰᱟᱣ ᱢᱚᱰ ᱵᱸᱫᱚ</string>
     <!--See: multimedia_editor_popup_cloze. We can\'t use format strings as this is auto-generated-->
     <string name="disable_extended_text_ui_summ">\'ᱠᱞᱚᱡ ᱢᱮᱴᱟᱣ\' ᱠᱚᱱᱴᱮᱠᱥᱴ ᱢᱮᱱᱩ ᱚᱛᱱᱚᱜ ᱧᱮᱸᱞ ᱢᱚᱰ ᱨᱮ ᱵᱟᱛᱟᱣ ᱢᱮ ᱾.</string>
     <string name="vertical_centering" maxLength="41">ᱛᱟᱞᱟ ᱥᱟᱡᱟᱣ</string>
     <string name="vertical_centering_summ">ᱠᱟᱰ ᱨᱮᱭᱟᱜ ᱡᱤᱱᱤᱥ ᱠᱚ ᱛᱟᱞᱟ ᱨᱮ ᱥᱤᱫᱷᱟ ᱛᱮ ᱟᱹᱜᱩᱭᱢᱮ</string>
     <string name="pref_double_tap_time_interval" maxLength="41">ᱵᱟᱨᱫᱷᱟᱣ ᱞᱭᱟᱯ ᱚᱠᱛᱚ ᱤᱱᱴᱟᱹᱨᱵᱷᱟᱞ (ᱢᱤᱞᱤᱥᱮᱠᱮᱰ)</string>
-    <string name="pref_double_tap_time_interval_summary">ᱡᱩᱫᱤ ᱱᱤᱛᱚᱜ ᱵᱟᱝ ᱦᱩᱭᱟᱹᱠᱟᱱᱟ ᱮᱱᱠᱷᱟᱱ ᱞᱟᱹᱱᱟᱹᱭ ᱵᱚᱴᱚᱱ ᱨᱮᱭᱟᱜ ᱫᱚᱥᱟᱨ ᱴᱭᱟᱯ ᱵᱟᱝ ᱛᱩᱸᱠᱷᱤᱜ-ᱟ । ᱱᱚᱣᱟ ᱦᱩᱯᱠᱟᱹ ᱰᱚᱵᱚᱞ ᱴᱭᱟᱯ ᱴᱷᱟᱠᱮᱫ ᱚᱪᱚᱭᱟ </string>
+    <string name="pref_double_tap_time_interval_summary">ᱡᱩᱫᱤ ᱱᱤᱛᱚᱜ ᱵᱟᱝ ᱦᱩᱭᱟᱹᱠᱟᱱᱟ ᱮᱱᱠᱷᱟᱱ ᱞᱟᱹᱱᱟᱹᱭ ᱵᱚᱴᱚᱱ ᱨᱮᱭᱟᱜ ᱫᱚᱥᱟᱨ ᱴᱭᱟᱯ ᱵᱟᱝ ᱛᱩᱸᱠᱷᱤᱜ-ᱟ । ᱱᱚᱣᱟ ᱦᱩᱯᱠᱟᱹ ᱰᱚᱵᱚᱞ ᱴᱭᱟᱯ ᱴᱷᱟᱠᱮᱫ ᱚᱪᱚᱭᱟ</string>
     <string name="pref_show_answer_long_press_time" maxLength="41">ᱟᱹᱰᱤ ᱫᱤᱱ ᱞᱟᱦᱟᱛᱮ ᱚᱞ ᱞᱟᱹᱠᱛᱤ ᱠᱟᱱᱟ</string>
     <string name="pref_show_answer_long_press_time_summary">Minimum pressing time before the show answer button registers a touch.</string>
     <string name="show_estimates" maxLength="41">ᱵᱟᱹᱴᱟᱹᱱ ᱥᱚᱢᱚᱭ ᱫᱮᱠᱷᱟᱣ</string>
@@ -177,7 +178,7 @@
     <string name="use_current" maxLength="41">ᱱᱟᱶᱟ ᱠᱟᱰ ᱠᱚ ᱞᱟᱹᱜᱤᱫ ᱰᱮᱠ</string>
     <string name="learn_cutoff" maxLength="41">ᱢᱟᱲᱟᱝ ᱥᱮᱫ ᱯᱟᱲᱦᱟᱣ ᱪᱮᱫᱚᱜ</string>
     <string name="time_limit" maxLength="41">ᱥᱚᱢᱚᱭ ᱵᱟᱠᱥᱚ ᱚᱠᱛᱚ ᱥᱤᱢᱟᱹ</string>
-    <string name="day_offset_with_description" maxLength="41">ᱜᱟᱯᱟ ᱫᱤᱱ ᱟᱜ ᱮᱛᱦᱚᱵ </string>
+    <string name="day_offset_with_description" maxLength="41">ᱜᱟᱯᱟ ᱫᱤᱱ ᱟᱜ ᱮᱛᱦᱚᱵ</string>
     <plurals name="day_offset_summ" comment="%d is going to be replaced with the number of hours past midnight. It can be replaced if something else suits better the translation">
         <item quantity="one">%d ᱚᱠᱛᱚ ᱥᱮᱛᱟᱜ</item>
         <item quantity="other">ᱧᱤᱫᱟᱹ ᱛᱟᱞᱟ ᱠᱷᱚᱱ %d ᱚᱠᱛᱚ</item>
@@ -260,9 +261,7 @@
     <string name="donate_description"><![CDATA[ᱟᱢ <a href=\"%1$s\">ᱫᱚᱦᱚᱭ ᱠᱟᱛᱮ</a> AnkiDroid ᱨᱮᱭᱟᱜ ᱩᱛᱷᱱᱟᱹᱣ ᱨᱮ ᱜᱚᱲᱚ ᱮᱢ ᱫᱟᱲᱮᱭᱟᱜᱼᱟ ᱾ ᱡᱟᱦᱟᱸᱱ ᱮᱢᱟᱱ ᱜᱮ ᱟᱹᱰᱤ ᱟᱞᱜᱟ ᱛᱮᱭ ᱢᱟᱱᱟᱣ ᱵᱟᱛᱟᱣᱜᱼᱟ ᱾]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">ᱤᱥᱟᱨᱟ ᱡᱚᱲᱟᱣ</string>
-    <string name="binding_replace_gesture">ᱪᱤᱱᱦᱟᱹ ᱵᱚᱫᱚᱞ ᱢᱮ</string>
     <string name="binding_add_key">Key ᱡᱚᱲᱟᱣ</string>
-    <string name="binding_replace_key">ᱪᱷᱟᱸᱪ ᱫᱚᱦᱚᱭ ᱢᱮ</string>
     <string name="key_picker_default_press_key">ᱢᱤᱫ key ᱚᱛᱟᱭ ᱢᱮ</string>
     <string name="binding_add_axis">ᱡᱚᱭᱥᱴᱤᱠ/ᱢᱳᱥᱚᱱ ᱠᱚᱱᱴᱨᱚᱞᱟᱨ ᱥᱮᱞᱮᱫ ᱢᱮ</string>
     <string name="axis_picker_move_joystick">ᱡᱚᱭᱥᱴᱤᱠ/ᱢᱳᱥᱚᱱ ᱠᱚᱱᱴᱨᱚᱞᱟᱨ ᱥᱮᱞᱮᱫ ᱢᱮ</string>
@@ -297,8 +296,7 @@
     <string name="pref_cat_dev_options" maxLength="41">ᱰᱮᱵᱽᱞᱚᱯᱟᱨ ᱵᱟᱪᱷᱟᱣ</string>
     <string name="dev_options_enabled_pref" maxLength="41">ᱰᱮᱵᱞᱚᱯᱟᱨ ᱵᱟᱪᱷᱟᱣ ᱠᱚ ᱮᱠᱴᱤᱵᱽ ᱢᱮ</string>
     <string name="disable_dev_options">ᱰᱮᱵᱽᱞᱚᱯᱚᱨ ᱚᱯᱥᱚᱱ ᱠᱚ ᱵᱚᱫᱚᱞ ᱢᱮ</string>
-    <string name="dev_options_warning">        Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

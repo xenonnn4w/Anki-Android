@@ -96,6 +96,7 @@
     <string name="gestures_summ">Tetapkan gerak isyarat kepada tindakan seperti jawab dan sunting kad.</string>
     <string name="gestures_corner_touch" maxLength="41">Sentuhan 9 titik</string>
     <string name="gestures_corner_touch_summary">Benarkan gerak isyarat sentuh pada penghujung skrin</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Laci navigasi skrin penuh</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Buka laci navigasi apabila dileretkan ke kanan dari mana-mana pada skrin</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">Tiada</string>
@@ -115,7 +116,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Sentuh bawah kiri</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Sentuh bawah kanan</string>
     <string name="gestures_shake" maxLength="41">Shake device</string>
-    <string name="card_browser_enable_external_context_menu">Menu ‘%s’</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">Menu ‘%s’</string>
     <string name="card_browser_enable_external_context_menu_summary">Dayakan menu konteks ‘%s’ secara global</string>
     <string name="double_scrolling_gap" maxLength="41">Tatal dua kali</string>
     <string name="double_scrolling_gap_summ">Jarak tatal ganda dua untuk e-pembaca</string>
@@ -259,9 +260,7 @@
     <string name="donate_description"><![CDATA[Anda boleh menyokong pembangunan AnkiDroid dengan <a href=\"%1$s\">menderma</a>. Apa-apa jumlah sangat dihargai.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Tambah gerak isyarat</string>
-    <string name="binding_replace_gesture">Ganti gerak isyarat</string>
     <string name="binding_add_key">Tambah kekunci</string>
-    <string name="binding_replace_key">Ganti kekunci</string>
     <string name="key_picker_default_press_key">Tekan kekunci</string>
     <string name="binding_add_axis">Add joystick/motion controller</string>
     <string name="axis_picker_move_joystick">Move a joystick/motion controller</string>
@@ -296,8 +295,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Pilihan pembangun</string>
     <string name="dev_options_enabled_pref" maxLength="41">Dayakan pilihan pembangun</string>
     <string name="disable_dev_options">Lumpuhkan pilihan pembangun</string>
-    <string name="dev_options_warning">        Sila pastikan dahulu sebelum dayakan pilihan pembangun. Pilihan ini berbahaya dan boleh merosakkan aplikasi atau koleksi anda.\n\nAmbil perhatian bahawa pilihan ini tidak sesuai untuk kebanyakan pengguna dan oleh itu tidak diterjemahkan, maka mereka dalam bahasa Inggeris.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

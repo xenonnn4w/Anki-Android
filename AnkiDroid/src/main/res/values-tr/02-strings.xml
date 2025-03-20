@@ -187,6 +187,7 @@
     <!-- Deckpicker Background -->
     <string name="background_image_title" maxLength="41">Arkaplan</string>
     <string name="choose_an_image" maxLength="41">Bir resim seç</string>
+    <string name="remove_wallpaper_image" maxLength="41">Remove background</string>
     <string name="remove_background_image">Arkaplan kaldırılsın mı?</string>
     <!-- Card Template Browser Appearance -->
     <string name="restore_default" maxLength="28">Varsayılana Dön</string>
@@ -194,7 +195,6 @@
     <!-- Whiteboard save image message in Reviewer -->
     <string name="white_board_image_save_failed">Yazı tahtası resmi kaydedilemedi. %s</string>
     <string name="white_board_image_saved">Yazı tahtası resmi bu adrese kaydedildi: %s</string>
-    <string name="title_whiteboard_pen_color" maxLength="41">Yazı tahtası kalem rengi</string>
     <string name="title_whiteboard_editor" maxLength="28">Yazı tahtası düzenleyici</string>
     <string name="user_is_a_robot">Otomatik test saptandı. Eğer insansanız, AnkiDroid desteğiyle iletişime geçin</string>
     <!-- JS api -->
@@ -233,7 +233,7 @@
     <string name="note_editor_image_too_large">Bu resim fazla büyük, lütfen resmi elle ekleyin</string>
     <string name="note_editor_video_too_large">Bu video dosyası fazla büyük, lütfen videoyu elle ekleyin</string>
     <string name="note_editor_audio_too_large">Bu ses dosyası fazla büyük, lütfen sesi elle ekleyin</string>
-    <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">        Android yedeklemesi gerçekleştiriliyor. Lütfen tekrar deneyin</string>
+    <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">Android backup in progress. Please try again</string>
     <string name="create_shortcut_error_vivo" comment="iManager is an app on Vivo phones">AnkiDroid\'in kısayol eklemesine izin vermek için iManager kullanmanız gerekebilir</string>
     <string name="create_shortcut_failed" comment="home screen == launcher">Ana ekranın, kısayol ekleyebilmesi için AnkiDroid\'e izin vermiyor</string>
     <string name="create_shortcut_error">Kısayolu eklerken hata: %s</string>
@@ -249,6 +249,7 @@
     <!-- %% is required to display % symbol. Reference: https://stackoverflow.com/a/16834358 -->
     <string name="percentage">%s%%</string>
     <string name="download_deck">Deste indir</string>
+    <string name="open_in_browser" comment="Label of a button inviting to open ankiweb\'s shared deck page if automated download failed">Open in Browser</string>
     <string name="try_again">Tekrar dene</string>
     <string name="cancel_download">İndirmeyi iptal et</string>
     <string name="cancel_download_question_title">İndirmeyi iptal et?</string>
@@ -261,7 +262,7 @@
     <string name="search_using_deck_name">Deste ismini kullanarak ara</string>
     <string name="external_storage_unavailable">İndirme iptal edildi, harici hafıza erişilebilir değil.</string>
     <string name="home" maxLength="28">Ana sayfa</string>
-    <!-- Reviewer actions 
+    <!-- Reviewer actions
     Each of these strings ends with a period, following the notation of Anki Desktop -->
     <string name="card_buried">Kart gizlendi.</string>
     <plurals name="note_suspended">
@@ -303,22 +304,16 @@
     <string name="toggle_cards_notes">Kartları/Notları Aç/Kapat</string>
     <string name="truncate_content_help">Tarayıcının her sırasının yüksekliğini içeriğin sadece ilk 3 satırını gösterecek şekilde kırp</string>
     <string name="browser_options_dialog_heading">Tarayıcı seçenekleri</string>
-    <string name="audio_saved">Alınan kayıtlar kaydedildi. </string>
+    <string name="audio_saved">Alınan kayıtlar kaydedildi.</string>
     <string name="deleting_selected_notes">Seçili notlar siliniyor</string>
-    <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">        Bir sesi dinlemek için dokunun
-    </string>
-    <string name="tts_voices_selected_voice_should_be_installed" comment="If a voice has been tapped, is installable but not installed, we want to inform the user that they should install it for the best experience There will also be an option to use it without downloading">Ses kullanmadan önce yüklenmelidir
-    </string>
-    <string name="tts_voices_use_selected_voice_without_install" comment="A user has been informed that a voice should be installed before use. This is text on a snackbar button which allows them to use the voice without installing it">Yine de kullan
-    </string>
+    <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">Tap a voice to listen</string>
+    <string name="tts_voices_selected_voice_should_be_installed" comment="If a voice has been tapped, is installable but not installed, we want to inform the user that they should install it for the best experience There will also be an option to use it without downloading">Voice should be installed before use</string>
+    <string name="tts_voices_use_selected_voice_without_install" comment="A user has been informed that a voice should be installed before use. This is text on a snackbar button which allows them to use the voice without installing it">Use anyway</string>
     <string name="tts_voices_playback_error_new" comment="an error occurred when playing a text to speech voice. The parameter is a technical error code such as \'ERROR_NOT_INSTALLED_YET\' or \'ERROR_NETWORK_TIMEOUT\'">Metin okuma hatası (%s)</string>
     <!-- Chips should probably be in a separate file, due to the additional length req -->
-    <string name="tts_voices_chip_filter_to_internet" comment="     Filters a list of text to speech voices, to enable/disable voices which require the internet to     function.     This is on a chip control, so keep the text short, ideally one word">        İnternet
-    </string>
-    <string name="tts_voices_chip_filter_to_installable_audio" comment="     Displays a list of Text to Speech voices which should be downloaded/installed before use     This is on a chip control, so keep the text short, ideally one word">        Yükle
-    </string>
-    <string name="tts_voices_failed_opening_tts_system_settings" comment="error message if opening the system text to speech settings fails">        Metin okuma ayarları açılamadı
-    </string>
+    <string name="tts_voices_chip_filter_to_internet" comment="     Filters a list of text to speech voices, to enable/disable voices which require the internet to     function.     This is on a chip control, so keep the text short, ideally one word">Internet</string>
+    <string name="tts_voices_chip_filter_to_installable_audio" comment="     Displays a list of Text to Speech voices which should be downloaded/installed before use     This is on a chip control, so keep the text short, ideally one word">Install</string>
+    <string name="tts_voices_failed_opening_tts_system_settings" comment="error message if opening the system text to speech settings fails">Failed to open text to speech settings</string>
     <string name="shared_decks_login_required">Daha fazla deste indirmek için lütfen giriş yapın</string>
     <string name="deck_description_field_hint">Açıklama</string>
     <string name="failed_to_copy">Kopyalanamadı</string>
@@ -337,7 +332,6 @@
     <string name="orphan_note_message">Bu kart türünü silmek bazı notları kartsız bırakacak.</string>
     <string name="voice_not_supported">Seslendirme desteklenmiyor. Başka bir seslendirme motoru deneyin ya da bir tane yükleyin.</string>
     <!--Keyboard shortcuts dialog-->
-    <string name="show_keyboard_shortcuts_dialog" comment="Description of the shortcut that shows the keyboard shortcuts dialog">Klavye kısayolları diyaloğunu göster</string>
     <string name="deck_picker_group" comment="Label for the group of shortcuts related to the deck picker">Deste Seçici</string>
     <string name="delete_deck_without_confirmation" comment="Description of the shortcut that deletes the deck without asking for confirmation">Desteyi onay sormadan sil</string>
     <string name="note_editor_group" comment="Label for the group of shortcuts related to the note editor">Not Düzenleyici</string>
@@ -350,7 +344,6 @@
     <string name="edit_styling" comment="Description of the shortcut that shows the styling side of the card template">Stili düzenle</string>
     <string name="copy_the_template" comment="Description of the shortcut that copy the template as markdown">Şablonu markdown olarak kopyala</string>
     <string name="edit_browser_appearance" comment="Description of the shortcut that edits the browser appearance of card template">Tarayıcı görünümünü düzenle</string>
-    <string name="show_shortcuts_message">Klavye kısayollarını göstermek için Alt+K\'ye basın</string>
     <string name="missing_user_action_dialog_message" comment="%s is the user action number">%s kullanıcı eylemi bu not türünde belirlenmemiş. Lütfen eylemi ayarlayın</string>
     <string name="directory_inaccessible_info">Erişimin nasıl yeniden sağlanıldığına dair daha fazlasını burda %s öğrenin ya da koleksiyon klasörünü değiştirmek için ayarlara gidin.</string>
 </resources>

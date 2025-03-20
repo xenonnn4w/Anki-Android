@@ -97,6 +97,7 @@
     <string name="gestures_summ">Koppla gester till handlingar, som t ex att svara på eller redigera kort.</string>
     <string name="gestures_corner_touch" maxLength="41">9-punkters pekning</string>
     <string name="gestures_corner_touch_summary">Tillåt tryckgester i skärmhörnen</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Fullskärm navigationsmeny</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Öppna navigationsmeny när du swipar höger var som helst på skärmen</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">Ingen</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Tryck längst ner till vänster</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Tryck längst ner till höger</string>
     <string name="gestures_shake" maxLength="41">Skaka enhet</string>
-    <string name="card_browser_enable_external_context_menu">‘%s’ Meny</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">‘%s’ Meny</string>
     <string name="card_browser_enable_external_context_menu_summary">Aktiverar sammanhangsmenyn ‘%s’ globalt</string>
     <string name="double_scrolling_gap" maxLength="41">Dubbelrullning</string>
     <string name="double_scrolling_gap_summ">Aktivera detta om du vill dubbla scroll gap med eReader</string>
@@ -260,9 +261,7 @@
     <string name="donate_description"><![CDATA[Du kan stödja AnkiDroids utveckling genom att <a href=\"%1$s\">donera</a>. Alla donationer uppskattas enormt!]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Lägg till gest</string>
-    <string name="binding_replace_gesture">Ersätt gest</string>
     <string name="binding_add_key">Lägg till knapp</string>
-    <string name="binding_replace_key">Ersätt knapp</string>
     <string name="key_picker_default_press_key">Tryck på en knapp</string>
     <string name="binding_add_axis">Lägg till joystick/rörelsekänslig handkontroll</string>
     <string name="axis_picker_move_joystick">Manövrera en joystick/rörelsekänslig handkontroll</string>
@@ -297,8 +296,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Utvecklaralternativ</string>
     <string name="dev_options_enabled_pref" maxLength="41">Aktivera utvecklaralternativ</string>
     <string name="disable_dev_options">Inaktivera utvecklaralternativ</string>
-    <string name="dev_options_warning">        Var säker innan du aktiverar utvecklaralternativ. Dessa alternativ är farliga och kan förstöra appen eller korrumpera din samling.\n\nObservera att dessa alternativ inte passar de flesta användare och därför inte översätts, och alltså är på engelska.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->

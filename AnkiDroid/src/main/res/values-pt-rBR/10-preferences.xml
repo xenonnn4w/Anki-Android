@@ -95,8 +95,9 @@
     </string-array>
     <string name="gestures" maxLength="41">Habilitar gestos</string>
     <string name="gestures_summ">Atribuir gestos a ações tais como responder e editar cards.</string>
-    <string name="gestures_corner_touch" maxLength="41">9 Ações de Toque </string>
+    <string name="gestures_corner_touch" maxLength="41">9 Ações de Toque</string>
     <string name="gestures_corner_touch_summary">Permitir gestos de toque nos cantos da tela</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Exibir teclas de atalho</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Painel de navegação em tela cheia</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Abrir painel de navegação ao ser deslizado de qualquer lugar da tela</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">Nenhuma</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Toque Baixo Esquerda</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Toque Baixo Direita</string>
     <string name="gestures_shake" maxLength="41">Agitar o dispositivo</string>
-    <string name="card_browser_enable_external_context_menu">‘%s’ Menu </string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">‘%s’ Menu</string>
     <string name="card_browser_enable_external_context_menu_summary">Habilita o menu de contexto globalmente ‘%s\'</string>
     <string name="double_scrolling_gap" maxLength="41">Rolagem dupla</string>
     <string name="double_scrolling_gap_summ">Duplicar a lacuna de rolagem com eReader</string>
@@ -224,8 +225,8 @@
     <string name="answer_buttons" maxLength="41">Botões de resposta</string>
     <string name="card" maxLength="41" comment="Generic term to refer to a card">Carta</string>
     <string name="note" maxLength="41">Nota</string>
-    <string name="navigation" maxLength="41">Navegação </string>
-    <string name="media" maxLength="41">Multimídia </string>
+    <string name="navigation" maxLength="41">Navegação</string>
+    <string name="media" maxLength="41">Multimídia</string>
     <string name="misc" maxLength="41">Diversos</string>
     <!-- studyoptions -->
     <string name="studyoptions_limit_select_tags">Selecione Tags</string>
@@ -260,9 +261,7 @@
     <string name="donate_description"><![CDATA[Você pode apoiar o desenvolvimento de AnkiDroid <a href=\"%1$s\">doando</a>. Qualquer quantia é profundamente apreciada.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Adicionar gesto</string>
-    <string name="binding_replace_gesture">Substituir gesto</string>
     <string name="binding_add_key">Adicionar tecla</string>
-    <string name="binding_replace_key">Substituir tecla</string>
     <string name="key_picker_default_press_key">Pressione uma tecla</string>
     <string name="binding_add_axis">Adicionar controle</string>
     <string name="axis_picker_move_joystick">Movimente o controle</string>
@@ -297,8 +296,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Opções do desenvolvedor</string>
     <string name="dev_options_enabled_pref" maxLength="41">Ativar opções do desenvolvedor</string>
     <string name="disable_dev_options">Desativar opções do desenvolvedor</string>
-    <string name="dev_options_warning">        Por favor, certifique-se antes de ativar as opções do desenvolvedor. Estas opções são perigosas e podem quebrar o aplicativo ou corromper sua coleção.\n\nNote que essas opções não são adequadas para a maioria dos usuários, portanto, não são traduzidas, elas permanecerão em inglês.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->
@@ -367,9 +365,9 @@
     <string name="ignore_display_cutout" maxLength="41">Ignorar recorte da tela</string>
     <string name="hide_answer_buttons" maxLength="41">Ocultar botões de resposta</string>
     <string name="hide_hard_and_easy" maxLength="41">Ocultar botões \"Difícil\" e \"Fácil\"</string>
-    <string name="reviewer_frame_style" maxLength="41">Frame style</string>
-    <string name="reviewer_frame_style_card" maxLength="41" comment="Style name of the \'Card\' card frame of the Reviewer">Card</string>
-    <string name="reviewer_frame_style_box" maxLength="41" comment="Style name of the \'Box\' card frame of the Reviewer">Box</string>
+    <string name="reviewer_frame_style" maxLength="41">Estilo de enquadramento</string>
+    <string name="reviewer_frame_style_card" maxLength="41" comment="Style name of the \'Card\' card frame of the Reviewer">Cartão</string>
+    <string name="reviewer_frame_style_box" maxLength="41" comment="Style name of the \'Box\' card frame of the Reviewer">Caixa</string>
     <!--Keyboard shortcuts dialog-->
     <string name="open_settings" comment="Description of the shortcut that opens the app settings">Abrir configurações</string>
 </resources>

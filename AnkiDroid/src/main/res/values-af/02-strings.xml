@@ -187,6 +187,7 @@
     <!-- Deckpicker Background -->
     <string name="background_image_title" maxLength="41">Agtergrond</string>
     <string name="choose_an_image" maxLength="41">Kies beeld</string>
+    <string name="remove_wallpaper_image" maxLength="41">Remove background</string>
     <string name="remove_background_image">Verwyder agtergrond?</string>
     <!-- Card Template Browser Appearance -->
     <string name="restore_default" maxLength="28">Herstel Standaard</string>
@@ -194,7 +195,6 @@
     <!-- Whiteboard save image message in Reviewer -->
     <string name="white_board_image_save_failed">Kon nie witbordbeeld stoor nie. %s</string>
     <string name="white_board_image_saved">Witbordbeeld gestoor na %s</string>
-    <string name="title_whiteboard_pen_color" maxLength="41">Witbordpenkleur</string>
     <string name="title_whiteboard_editor" maxLength="28">Witbordredakteur</string>
     <string name="user_is_a_robot">Geoutomatiseerde toets opgespoor. As jy \'n mens is, kontak AnkiDroid-ondersteuning.</string>
     <!-- JS api -->
@@ -233,7 +233,7 @@
     <string name="note_editor_image_too_large">Die beeld is te groot, voeg asseblief die beeld handmatig in</string>
     <string name="note_editor_video_too_large">Die videolêer is te groot, voeg asseblief die video handmatig in</string>
     <string name="note_editor_audio_too_large">Die klanklêer is te groot, voeg asseblief die klank handmatig in</string>
-    <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">        Android-rugsteun aan die gang. Probeer asseblief weer</string>
+    <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">Android backup in progress. Please try again</string>
     <string name="create_shortcut_error_vivo" comment="iManager is an app on Vivo phones">Jy sal dalk iManager moet gebruik om AnkiDroid toe te laat om kortpaaie by te voeg</string>
     <string name="create_shortcut_failed" comment="home screen == launcher">Jou tuisskerm laat nie toe dat AnkiDroid kortpaaie byvoeg nie</string>
     <string name="create_shortcut_error">Fout met byvoeging van kortpad: %s</string>
@@ -249,6 +249,7 @@
     <!-- %% is required to display % symbol. Reference: https://stackoverflow.com/a/16834358 -->
     <string name="percentage">%s%%</string>
     <string name="download_deck">Laai pak af</string>
+    <string name="open_in_browser" comment="Label of a button inviting to open ankiweb\'s shared deck page if automated download failed">Open in Browser</string>
     <string name="try_again">Probeer weer</string>
     <string name="cancel_download">Kanselleer aflaai</string>
     <string name="cancel_download_question_title">Kanselleer aflaai?</string>
@@ -261,7 +262,7 @@
     <string name="search_using_deck_name">Soek met paknaam</string>
     <string name="external_storage_unavailable">Aflaai gestaak, die eksterne berging is nie beskikbaar nie</string>
     <string name="home" maxLength="28">Tuis</string>
-    <!-- Reviewer actions 
+    <!-- Reviewer actions
     Each of these strings ends with a period, following the notation of Anki Desktop -->
     <string name="card_buried">Kaart begrawe.</string>
     <plurals name="note_suspended">
@@ -305,20 +306,14 @@
     <string name="browser_options_dialog_heading">Browser options</string>
     <string name="audio_saved">Opname gestoor</string>
     <string name="deleting_selected_notes">Besig om geselekteerde notas uit te vee</string>
-    <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">        Tik \'n stem om te luister
-    </string>
-    <string name="tts_voices_selected_voice_should_be_installed" comment="If a voice has been tapped, is installable but not installed, we want to inform the user that they should install it for the best experience There will also be an option to use it without downloading">Stem moet geïnstalleer word voor gebruik
-    </string>
-    <string name="tts_voices_use_selected_voice_without_install" comment="A user has been informed that a voice should be installed before use. This is text on a snackbar button which allows them to use the voice without installing it">Gebruik tog
-    </string>
+    <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">Tap a voice to listen</string>
+    <string name="tts_voices_selected_voice_should_be_installed" comment="If a voice has been tapped, is installable but not installed, we want to inform the user that they should install it for the best experience There will also be an option to use it without downloading">Voice should be installed before use</string>
+    <string name="tts_voices_use_selected_voice_without_install" comment="A user has been informed that a voice should be installed before use. This is text on a snackbar button which allows them to use the voice without installing it">Use anyway</string>
     <string name="tts_voices_playback_error_new" comment="an error occurred when playing a text to speech voice. The parameter is a technical error code such as \'ERROR_NOT_INSTALLED_YET\' or \'ERROR_NETWORK_TIMEOUT\'">Teks-na-spraak fout (%s)</string>
     <!-- Chips should probably be in a separate file, due to the additional length req -->
-    <string name="tts_voices_chip_filter_to_internet" comment="     Filters a list of text to speech voices, to enable/disable voices which require the internet to     function.     This is on a chip control, so keep the text short, ideally one word">        Internet
-    </string>
-    <string name="tts_voices_chip_filter_to_installable_audio" comment="     Displays a list of Text to Speech voices which should be downloaded/installed before use     This is on a chip control, so keep the text short, ideally one word">        Installeer
-    </string>
-    <string name="tts_voices_failed_opening_tts_system_settings" comment="error message if opening the system text to speech settings fails">        Kon nie teks-na-spraak-instellings oopmaak nie
-    </string>
+    <string name="tts_voices_chip_filter_to_internet" comment="     Filters a list of text to speech voices, to enable/disable voices which require the internet to     function.     This is on a chip control, so keep the text short, ideally one word">Internet</string>
+    <string name="tts_voices_chip_filter_to_installable_audio" comment="     Displays a list of Text to Speech voices which should be downloaded/installed before use     This is on a chip control, so keep the text short, ideally one word">Install</string>
+    <string name="tts_voices_failed_opening_tts_system_settings" comment="error message if opening the system text to speech settings fails">Failed to open text to speech settings</string>
     <string name="shared_decks_login_required">Meld asseblief aan om meer dekke af te laai</string>
     <string name="deck_description_field_hint">Beskrywing</string>
     <string name="failed_to_copy">Kon nie kopieer nie</string>
@@ -337,7 +332,6 @@
     <string name="orphan_note_message">Die verwydering van hierdie kaarttipe sal sommige notas sonder enige kaarte laat.</string>
     <string name="voice_not_supported">Stem word nie ondersteun nie. Probeer \'n ander of installeer \'n stem-enjin</string>
     <!--Keyboard shortcuts dialog-->
-    <string name="show_keyboard_shortcuts_dialog" comment="Description of the shortcut that shows the keyboard shortcuts dialog">Wys sleutelbordkortpaaie dialoog</string>
     <string name="deck_picker_group" comment="Label for the group of shortcuts related to the deck picker">Pak-Selektor</string>
     <string name="delete_deck_without_confirmation" comment="Description of the shortcut that deletes the deck without asking for confirmation">Verwyder dek sonder bevestiging</string>
     <string name="note_editor_group" comment="Label for the group of shortcuts related to the note editor">NotaRedakteur</string>
@@ -350,7 +344,6 @@
     <string name="edit_styling" comment="Description of the shortcut that shows the styling side of the card template">Wysig stilering</string>
     <string name="copy_the_template" comment="Description of the shortcut that copy the template as markdown">Kopieer sjabloon as markdown</string>
     <string name="edit_browser_appearance" comment="Description of the shortcut that edits the browser appearance of card template">Wysig kaartblaaier voorkoms</string>
-    <string name="show_shortcuts_message">Druk Alt+K om sleutelbordkortpaaie te wys</string>
     <string name="missing_user_action_dialog_message" comment="%s is the user action number">Gebruikerhandeling %s is nie in hierdie notatipe gestel nie. Stel dit asseblief op</string>
     <string name="directory_inaccessible_info">Lees meer oor hoe om toegang hier te herstel %s of gaan na instellings om versameling vouer op te dateer.</string>
 </resources>

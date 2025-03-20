@@ -54,11 +54,11 @@
     <string name="CardEditorCards">Картки: %1$s</string>
     <string name="edit_occlusions">Редагувати оклюзії</string>
     <string name="tag_name">Назва позначки</string>
-    <string name="add_new_filter_tags">Додати/фільтрувати позначки</string>
+    <string name="add_new_filter_tags">Додати/фільтрувати теги</string>
     <string name="add_tag" maxLength="28">Додати позначку</string>
     <string name="check_all_tags" maxLength="28">Обрати/прибрати усі позначки</string>
-    <string name="filter_tags" maxLength="28">Фільтр позначок</string>
-    <string name="no_tags">Ви ще не додали жодної позначки</string>
+    <string name="filter_tags" maxLength="28">Пошук тегів</string>
+    <string name="no_tags">Ви ще не додали жодного тегу</string>
     <string name="updated_version">Оновлено до версії %s</string>
     <!-- Reviewer.kt -->
     <string name="save_whiteboard" maxLength="28">Зберегти написане</string>
@@ -154,7 +154,7 @@
     <string name="export_send_no_handlers">Не знайдено додатків для обробки apkg. Збереження&#8230;</string>
     <string name="export_save_apkg_successful">Пакунок Anki успішно збережено</string>
     <string name="export_save_apkg_unsuccessful">Не вдалося зберегти пакунок Anki</string>
-    <string name="export_share_title">Надіслати пакет Anki використовуючи </string>
+    <string name="export_share_title">Надіслати пакет Anki використовуючи</string>
     <string name="export_email_subject">AnkiDroid експортує картки: %s</string>
     <string name="export_email_text"><![CDATA[        Привіт!
         <br/><br/>
@@ -195,6 +195,7 @@
     <!-- Deckpicker Background -->
     <string name="background_image_title" maxLength="41">Фон</string>
     <string name="choose_an_image" maxLength="41">Оберіть зображення</string>
+    <string name="remove_wallpaper_image" maxLength="41">Remove background</string>
     <string name="remove_background_image">Видалити задній фон?</string>
     <!-- Card Template Browser Appearance -->
     <string name="restore_default" maxLength="28">Відновити «Типове»</string>
@@ -202,7 +203,6 @@
     <!-- Whiteboard save image message in Reviewer -->
     <string name="white_board_image_save_failed">Не вдалося зберегти зображення дошки. %s</string>
     <string name="white_board_image_saved">Зображення дошки збережено до %s</string>
-    <string name="title_whiteboard_pen_color" maxLength="41">Колір пензля</string>
     <string name="title_whiteboard_editor" maxLength="28">Редактор дошки</string>
     <string name="user_is_a_robot">Виявлено автоматичний тест. Якщо Ви — людина, зверніться до підтримки AnkiDroid</string>
     <!-- JS api -->
@@ -241,7 +241,7 @@
     <string name="note_editor_image_too_large">Зображення завелике, будь ласка, вставте зображення вручну</string>
     <string name="note_editor_video_too_large">Відеофайл завеликий, будь ласка, вставте відео вручну</string>
     <string name="note_editor_audio_too_large">Аудіофайл завеликий, будь ласка, вставте аудіо вручну</string>
-    <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">        Виконується резервне копіювання. Будь ласка, спробуйте ще раз</string>
+    <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">Android backup in progress. Please try again</string>
     <string name="create_shortcut_error_vivo" comment="iManager is an app on Vivo phones">Використовуйте iManager, щоб дозволити AnkiDroid додавати ярлики</string>
     <string name="create_shortcut_failed" comment="home screen == launcher">Ваш головний екран не дозволяє AnkiDroid додати ярлики</string>
     <string name="create_shortcut_error">Помилка при створенні ярлика: %s</string>
@@ -257,6 +257,7 @@
     <!-- %% is required to display % symbol. Reference: https://stackoverflow.com/a/16834358 -->
     <string name="percentage">%s%%</string>
     <string name="download_deck">Завантажити колоду</string>
+    <string name="open_in_browser" comment="Label of a button inviting to open ankiweb\'s shared deck page if automated download failed">Open in Browser</string>
     <string name="try_again">Спробувати ще раз</string>
     <string name="cancel_download">Скасувати завантаження</string>
     <string name="cancel_download_question_title">Скасувати завантаження?</string>
@@ -269,7 +270,7 @@
     <string name="search_using_deck_name">Пошук за назвою колоди</string>
     <string name="external_storage_unavailable">Завантаження перервано, зовнішнє сховище недоступне</string>
     <string name="home" maxLength="28">Головна</string>
-    <!-- Reviewer actions 
+    <!-- Reviewer actions
     Each of these strings ends with a period, following the notation of Anki Desktop -->
     <string name="card_buried">Картку відкладено.</string>
     <plurals name="note_suspended">
@@ -311,23 +312,18 @@
     <string name="show_cards" comment="Label for toggle cards button in BrowserOptionsDialog">Картки</string>
     <string name="show_notes" comment="Label for toggle notes button in BrowserOptionsDialog">Записи</string>
     <string name="toggle_cards_notes">Перемкнути картки/записи</string>
-    <string name="truncate_content_help">Скоротіть висоту кожного рядка браузера, щоб показати лише перші 3 рядки вмісту</string>
-    <string name="browser_options_dialog_heading">Browser options</string>
+    <string name="truncate_content_help">Скоротити висоту кожного рядка переглядача, щоб було видно лише перші 3 рядки вмісту</string>
+    <string name="browser_options_dialog_heading">Параметри переглядача карток</string>
     <string name="audio_saved">Запис аудіо збережено</string>
     <string name="deleting_selected_notes">Видалення вибраних записів</string>
-    <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">        Натисніть на голос, щоб прослухати
-    </string>
-    <string name="tts_voices_selected_voice_should_be_installed" comment="If a voice has been tapped, is installable but not installed, we want to inform the user that they should install it for the best experience There will also be an option to use it without downloading">Перед використанням слід встановити голос</string>
-    <string name="tts_voices_use_selected_voice_without_install" comment="A user has been informed that a voice should be installed before use. This is text on a snackbar button which allows them to use the voice without installing it">Все одно використати
-    </string>
+    <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">Tap a voice to listen</string>
+    <string name="tts_voices_selected_voice_should_be_installed" comment="If a voice has been tapped, is installable but not installed, we want to inform the user that they should install it for the best experience There will also be an option to use it without downloading">Voice should be installed before use</string>
+    <string name="tts_voices_use_selected_voice_without_install" comment="A user has been informed that a voice should be installed before use. This is text on a snackbar button which allows them to use the voice without installing it">Use anyway</string>
     <string name="tts_voices_playback_error_new" comment="an error occurred when playing a text to speech voice. The parameter is a technical error code such as \'ERROR_NOT_INSTALLED_YET\' or \'ERROR_NETWORK_TIMEOUT\'">Помилка синтезу мовлення (%s)</string>
     <!-- Chips should probably be in a separate file, due to the additional length req -->
-    <string name="tts_voices_chip_filter_to_internet" comment="     Filters a list of text to speech voices, to enable/disable voices which require the internet to     function.     This is on a chip control, so keep the text short, ideally one word">        Інтернет
-    </string>
-    <string name="tts_voices_chip_filter_to_installable_audio" comment="     Displays a list of Text to Speech voices which should be downloaded/installed before use     This is on a chip control, so keep the text short, ideally one word">        Встановити
-    </string>
-    <string name="tts_voices_failed_opening_tts_system_settings" comment="error message if opening the system text to speech settings fails">        Не вдалося відкрити налаштування синтезу мовлення
-    </string>
+    <string name="tts_voices_chip_filter_to_internet" comment="     Filters a list of text to speech voices, to enable/disable voices which require the internet to     function.     This is on a chip control, so keep the text short, ideally one word">Internet</string>
+    <string name="tts_voices_chip_filter_to_installable_audio" comment="     Displays a list of Text to Speech voices which should be downloaded/installed before use     This is on a chip control, so keep the text short, ideally one word">Install</string>
+    <string name="tts_voices_failed_opening_tts_system_settings" comment="error message if opening the system text to speech settings fails">Failed to open text to speech settings</string>
     <string name="shared_decks_login_required">Ввійдіть, будь ласка, до акаунту, щоб завантажити більше колод</string>
     <string name="deck_description_field_hint">Опис</string>
     <string name="failed_to_copy">Не вдалося скопіювати</string>
@@ -348,7 +344,6 @@
     <string name="orphan_note_message">Якщо видалити цей тип картки, деякі записи залишаться без карток.</string>
     <string name="voice_not_supported">Голос не підтримується. Спробуйте інший або встановіть голосовий рушій.</string>
     <!--Keyboard shortcuts dialog-->
-    <string name="show_keyboard_shortcuts_dialog" comment="Description of the shortcut that shows the keyboard shortcuts dialog">Показати діалогове вікно комбінацій клавіш</string>
     <string name="deck_picker_group" comment="Label for the group of shortcuts related to the deck picker">Вибір колод</string>
     <string name="delete_deck_without_confirmation" comment="Description of the shortcut that deletes the deck without asking for confirmation">Видалити колоду без підтвердження</string>
     <string name="note_editor_group" comment="Label for the group of shortcuts related to the note editor">Редактор записів</string>
@@ -360,8 +355,7 @@
     <string name="edit_back_template" comment="Description of the shortcut that shows the answer side of the card template">Редагувати шаблон задньої сторони</string>
     <string name="edit_styling" comment="Description of the shortcut that shows the styling side of the card template">Редагувати стиль</string>
     <string name="copy_the_template" comment="Description of the shortcut that copy the template as markdown">Копіювати шаблон як розмітку</string>
-    <string name="edit_browser_appearance" comment="Description of the shortcut that edits the browser appearance of card template">Редагувати вигляд браузера</string>
-    <string name="show_shortcuts_message">Натисніть Alt+K, щоб показати комбінації клавіш</string>
+    <string name="edit_browser_appearance" comment="Description of the shortcut that edits the browser appearance of card template">Редагувати вигляд переглядача карток</string>
     <string name="missing_user_action_dialog_message" comment="%s is the user action number">Дію користувача %s не встановлено в цьому типі запису. Будь ласка, налаштуйте її</string>
     <string name="directory_inaccessible_info">Дізнайтесь більше про те, як відновити доступ тут – %s, або перейдіть в налаштування, щоб оновити теку колекцій.</string>
 </resources>

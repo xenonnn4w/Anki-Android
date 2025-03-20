@@ -26,6 +26,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import anki.collection.OpChanges
 import anki.collection.OpChangesWithCount
+import anki.config.ConfigKey
 import anki.search.BrowserColumns
 import anki.search.BrowserRow
 import com.ichi2.anki.AnkiDroidApp
@@ -36,6 +37,8 @@ import com.ichi2.anki.CrashReportService
 import com.ichi2.anki.DeckSpinnerSelection.Companion.ALL_DECKS_ID
 import com.ichi2.anki.Flag
 import com.ichi2.anki.PreviewerDestination
+import com.ichi2.anki.browser.FindAndReplaceDialogFragment.Companion.ALL_FIELDS_AS_FIELD
+import com.ichi2.anki.browser.FindAndReplaceDialogFragment.Companion.TAGS_AS_FIELD
 import com.ichi2.anki.browser.RepositionCardsRequest.RepositionData
 import com.ichi2.anki.export.ExportDialogFragment.ExportType
 import com.ichi2.anki.launchCatchingIO
@@ -46,6 +49,8 @@ import com.ichi2.anki.model.CardsOrNotes.NOTES
 import com.ichi2.anki.model.SortType
 import com.ichi2.anki.pages.CardInfoDestination
 import com.ichi2.anki.preferences.SharedPreferencesProvider
+import com.ichi2.anki.utils.ext.normalizeForSearch
+import com.ichi2.anki.utils.ext.setUserFlagForCards
 import com.ichi2.annotations.NeedsTest
 import com.ichi2.libanki.Card
 import com.ichi2.libanki.CardId
@@ -93,6 +98,7 @@ import kotlin.math.min
 @NeedsTest("columIndex1/2 config is not not updated on init")
 @NeedsTest("13442: selected deck is not changed, as this affects the reviewer")
 @NeedsTest("search is called after launch()")
+@NeedsTest("default search text updated on init")
 class CardBrowserViewModel(
     private val lastDeckIdRepository: LastDeckIdRepository,
     private val cacheDir: File,
@@ -101,6 +107,9 @@ class CardBrowserViewModel(
     private val manualInit: Boolean = false,
 ) : ViewModel(),
     SharedPreferencesProvider by preferences {
+    var lastSelectedPosition: Int = 0
+    var oldCardTopOffset: Int = 0
+
     // TODO: abstract so we can use a `Context` and `pref_display_filenames_in_browser_key`
     val showMediaFilenames = sharedPrefs().getBoolean("card_browser_show_media_filenames", false)
 
@@ -177,6 +186,10 @@ class CardBrowserViewModel(
         MutableStateFlow(sharedPrefs().getBoolean("isTruncated", false))
     val isTruncated get() = flowOfIsTruncated.value
 
+    var shouldIgnoreAccents: Boolean = false
+
+    var defaultBrowserSearch: String? = null
+
     private val _selectedRows: MutableSet<CardOrNoteId> = Collections.synchronizedSet(LinkedHashSet())
 
     // immutable accessor for _selectedRows
@@ -205,6 +218,12 @@ class CardBrowserViewModel(
 
     val lastDeckId: DeckId?
         get() = lastDeckIdRepository.lastDeckId
+
+    private suspend fun initDefaultSearch() =
+        withCol {
+            shouldIgnoreAccents = config.getBool(ConfigKey.Bool.IGNORE_ACCENTS_IN_SEARCH)
+            defaultBrowserSearch = config.getString(ConfigKey.String.DEFAULT_SEARCH_TEXT)
+        }
 
     suspend fun setDeckId(deckId: DeckId) {
         Timber.i("setting deck: %d", deckId)
@@ -325,6 +344,17 @@ class CardBrowserViewModel(
             }.launchIn(viewModelScope)
 
         viewModelScope.launch {
+            initDefaultSearch()
+            // Prioritize intent-based search
+            if (searchTerms.isEmpty()) {
+                val defaultSearchText = withCol { config.getString(ConfigKey.String.DEFAULT_SEARCH_TEXT) }
+
+                Timber.d("Default search term text: $defaultSearchText")
+                if (defaultSearchText.isNotEmpty()) {
+                    searchTerms = defaultSearchText
+                }
+            }
+
             val initialDeckId = if (selectAllDecks) ALL_DECKS_ID else getInitialDeck()
             // PERF: slightly inefficient if the source was lastDeckId
             setDeckId(initialDeckId)
@@ -451,6 +481,22 @@ class CardBrowserViewModel(
         }
         sharedPrefs().edit {
             putBoolean("isTruncated", value)
+        }
+    }
+
+    fun setIgnoreAccents(value: Boolean) {
+        Timber.d("Setting ignore accent in search to: $value")
+        viewModelScope.launch {
+            shouldIgnoreAccents = value
+            withCol { config.setBool(ConfigKey.Bool.IGNORE_ACCENTS_IN_SEARCH, value) }
+        }
+    }
+
+    fun setDefaultSearchText(text: String) {
+        Timber.d("Setting default search text to: $text")
+        viewModelScope.launch {
+            defaultBrowserSearch = text
+            withCol { config.setString(ConfigKey.String.DEFAULT_SEARCH_TEXT, text) }
         }
     }
 
@@ -684,6 +730,7 @@ class CardBrowserViewModel(
     /**
      * Obtains data to be displayed to the user then sent to [repositionSelectedRows]
      */
+    @NeedsTest("verify behavior for repositioning with 'Randomize order'")
     suspend fun prepareToRepositionCards(): RepositionCardsRequest {
         val selectedCardIds = queryAllSelectedCardIds()
         // Only new cards may be repositioned (If any non-new found show error dialog and return false)
@@ -694,17 +741,22 @@ class CardBrowserViewModel(
         // query obtained from Anki Desktop
         // https://github.com/ankitects/anki/blob/1fb1cbbf85c48a54c05cb4442b1b424a529cac60/qt/aqt/operations/scheduling.py#L117
         try {
-            val (min, max) =
-                withCol {
-                    db.query("select min(due), max(due) from cards where type=? and odid=0", CardType.New.code).use {
-                        it.moveToNext()
-                        return@withCol Pair(max(0, it.getInt(0)), it.getInt(1))
-                    }
-                }
-            return RepositionData(
-                min = min,
-                max = max,
-            )
+            return withCol {
+                val (min, max) =
+                    db
+                        .query("select min(due), max(due) from cards where type=? and odid=0", CardType.New.code)
+                        .use {
+                            it.moveToNext()
+                            Pair(max(0, it.getInt(0)), it.getInt(1))
+                        }
+                val defaults = sched.repositionDefaults()
+                RepositionData(
+                    min = min,
+                    max = max,
+                    random = defaults.random,
+                    shift = defaults.shift,
+                )
+            }
         } catch (e: Exception) {
             // TODO: Remove this once we've verified no production errors
             Timber.w(e, "getting min/max position")
@@ -720,11 +772,16 @@ class CardBrowserViewModel(
      * @see [com.ichi2.libanki.sched.Scheduler.sortCards]
      * @return the number of cards which were repositioned
      */
-    suspend fun repositionSelectedRows(position: Int): Int {
+    suspend fun repositionSelectedRows(
+        position: Int,
+        step: Int,
+        shuffle: Boolean,
+        shift: Boolean,
+    ): Int {
         val ids = queryAllSelectedCardIds()
         Timber.d("repositioning %d cards to %d", ids.size, position)
         return undoableOp {
-            sched.sortCards(cids = ids, position, step = 1, shuffle = false, shift = true)
+            sched.sortCards(cids = ids, position, step = step, shuffle = shuffle, shift = shift)
         }.count
     }
 
@@ -875,7 +932,7 @@ class CardBrowserViewModel(
 
     suspend fun updateSelectedCardsFlag(flag: Flag): List<CardId> {
         val idsToChange = queryAllSelectedCardIds()
-        withCol { setUserFlag(flag, cids = idsToChange) }
+        undoableOp { setUserFlagForCards(cids = idsToChange, flag = flag) }
         return idsToChange
     }
 
@@ -895,8 +952,16 @@ class CardBrowserViewModel(
             Timber.d("skipping duplicate search: forceRefresh is false")
             return
         }
-        searchTerms = searchQuery
-        launchSearchForCards()
+        searchTerms =
+            if (shouldIgnoreAccents) {
+                searchQuery.normalizeForSearch()
+            } else {
+                searchQuery
+            }
+
+        viewModelScope.launch {
+            launchSearchForCards()
+        }
     }
 
     /**
@@ -972,6 +1037,32 @@ class CardBrowserViewModel(
         )
     }
 
+    /**
+     * Replaces occurrences of search with the new value.
+     *
+     * @return the number of affected notes
+     * @see com.ichi2.libanki.Collection.findReplace
+     * @see com.ichi2.libanki.Tags.findAndReplace
+     */
+    fun findAndReplace(result: FindReplaceResult) =
+        viewModelScope.async {
+            // TODO pass the selection as the user saw it in the dialog to avoid running "find
+            //  and replace" on a different selection
+            val noteIds = if (result.onlyOnSelectedNotes) queryAllSelectedNoteIds() else emptyList()
+
+            if (result.field == TAGS_AS_FIELD) {
+                undoableOp {
+                    tags.findAndReplace(noteIds, result.search, result.replacement, result.regex, result.matchCase)
+                }.count
+            } else {
+                val field =
+                    if (result.field == ALL_FIELDS_AS_FIELD) null else result.field
+                undoableOp {
+                    findReplace(noteIds, result.search, result.replacement, result.regex, field, result.matchCase)
+                }.count
+            }
+        }
+
     companion object {
         fun factory(
             lastDeckIdRepository: LastDeckIdRepository,
@@ -1029,6 +1120,12 @@ class CardBrowserViewModel(
         data class Error(
             val error: String,
         ) : SearchState
+    }
+
+    fun saveScrollingState(id: CardOrNoteId) {
+        cards.indexOf(id).takeIf { it >= 0 }?.let { position ->
+            lastSelectedPosition = position
+        }
     }
 }
 
@@ -1092,6 +1189,8 @@ sealed class RepositionCardsRequest {
     class RepositionData(
         val min: Int?,
         val max: Int?,
+        val random: Boolean = false,
+        val shift: Boolean = false,
     ) : RepositionCardsRequest() {
         val queueTop: Int?
         val queueBottom: Int?

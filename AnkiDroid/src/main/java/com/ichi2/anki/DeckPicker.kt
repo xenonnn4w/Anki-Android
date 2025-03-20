@@ -694,7 +694,7 @@ open class DeckPicker :
 
             try {
                 // Intent is nullable because `clip.getItemAt(0).intent` always returns null
-                ImportUtils.FileImporter().handleContentProviderFile(this, uri)
+                ImportUtils.FileImporter().handleContentProviderFile(this, uri, Intent().setData(uri))
                 onResume()
             } catch (e: Exception) {
                 Timber.w(e)
@@ -1603,8 +1603,8 @@ open class DeckPicker :
         dismissAllDialogFragments()
     }
 
-    fun addNote() {
-        val intent = NoteEditorLauncher.AddNote().getIntent(this)
+    fun addNote(did: DeckId? = null) {
+        val intent = NoteEditorLauncher.AddNote(did).toIntent(this)
         startActivity(intent)
     }
 
@@ -1923,6 +1923,17 @@ open class DeckPicker :
         }
     }
 
+    override fun tagMissing(missingMediaNotes: List<Long>?) {
+        if (missingMediaNotes == null) return
+
+        Timber.d("DeckPicker:: Adding missing media tag")
+        launchCatchingTask {
+            withCol {
+                tags.bulkAdd(missingMediaNotes, TR.mediaCheckMissingMediaTag())
+            }
+        }
+    }
+
     open fun handleDbError() {
         Timber.i("Displaying Database Error")
         showDatabaseErrorDialog(DatabaseErrorDialogType.DIALOG_LOAD_FAILED)
@@ -2126,7 +2137,7 @@ open class DeckPicker :
     ) {
         fun showEmptyDeckSnackbar() =
             showSnackbar(R.string.empty_deck) {
-                setAction(R.string.menu_add) { addNote() }
+                setAction(R.string.menu_add) { addNote(did) }
             }
 
         /** Check if we need to update the fragment or update the deck list */

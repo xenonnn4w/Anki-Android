@@ -45,35 +45,35 @@
 -->
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Navigation drawer strings -->
-    <string name="drawer_open">ᱰᱨᱚᱣᱟᱹᱨ ᱠᱷᱩᱞᱟᱹᱭ ᱢᱮ </string>
-    <string name="drawer_close">ᱰᱨᱚᱣᱟᱹᱨ ᱵᱚᱸᱫᱚᱭ ᱢᱮ </string>
-    <string name="CardEditorCardDeck">ᱠᱟᱰ ᱰᱮᱠᱺ </string>
-    <string name="CardEditorNoteDeck">ᱰᱮᱠᱺ </string>
-    <string name="CardEditorModel">ᱯᱨᱚᱠᱟᱨᱺ </string>
-    <string name="CardEditorTags">ᱴᱮᱜᱥᱺ%1$s </string>
-    <string name="CardEditorCards">ᱠᱟᱰᱺ%1$s </string>
+    <string name="drawer_open">ᱰᱨᱚᱣᱟᱹᱨ ᱠᱷᱩᱞᱟᱹᱭ ᱢᱮ</string>
+    <string name="drawer_close">ᱰᱨᱚᱣᱟᱹᱨ ᱵᱚᱸᱫᱚᱭ ᱢᱮ</string>
+    <string name="CardEditorCardDeck">ᱠᱟᱰ ᱰᱮᱠᱺ</string>
+    <string name="CardEditorNoteDeck">ᱰᱮᱠᱺ</string>
+    <string name="CardEditorModel">ᱯᱨᱚᱠᱟᱨᱺ</string>
+    <string name="CardEditorTags">ᱴᱮᱜᱥᱺ%1$s</string>
+    <string name="CardEditorCards">ᱠᱟᱰᱺ%1$s</string>
     <string name="edit_occlusions">ᱚᱠᱥᱩᱞᱤᱥᱚᱱ ᱥᱟᱯᱲᱟᱣ ᱢᱮ</string>
-    <string name="tag_name">ᱴᱮᱜ ᱧᱩᱛᱩᱢ </string>
-    <string name="add_new_filter_tags">ᱥᱮᱞᱮᱫ/ᱴᱮᱜ ᱯᱷᱤᱞᱴᱚᱨ </string>
-    <string name="add_tag" maxLength="28">ᱴᱮᱜ ᱥᱮᱞᱮᱫ ᱢᱮ </string>
-    <string name="check_all_tags" maxLength="28">ᱪᱮᱠ ᱢᱮ/ᱡᱷᱚᱛᱟ ᱴᱮᱜ uncheck ᱢᱮ </string>
-    <string name="filter_tags" maxLength="28">ᱴᱮᱜ ᱯᱷᱤᱞᱴᱚᱨ ᱢᱮ </string>
-    <string name="no_tags">ᱟᱢ ᱴᱮᱜ ᱵᱟᱝ ᱥᱮᱞᱮᱫ ᱠᱟᱜᱼᱟᱢ </string>
-    <string name="updated_version">%s ᱵᱷᱟᱹᱨᱥᱚᱱ ᱛᱮ ᱟᱹᱯᱰᱮᱴ ᱮᱱᱟ  </string>
+    <string name="tag_name">ᱴᱮᱜ ᱧᱩᱛᱩᱢ</string>
+    <string name="add_new_filter_tags">ᱥᱮᱞᱮᱫ/ᱴᱮᱜ ᱯᱷᱤᱞᱴᱚᱨ</string>
+    <string name="add_tag" maxLength="28">ᱴᱮᱜ ᱥᱮᱞᱮᱫ ᱢᱮ</string>
+    <string name="check_all_tags" maxLength="28">ᱪᱮᱠ ᱢᱮ/ᱡᱷᱚᱛᱟ ᱴᱮᱜ uncheck ᱢᱮ</string>
+    <string name="filter_tags" maxLength="28">ᱴᱮᱜ ᱯᱷᱤᱞᱴᱚᱨ ᱢᱮ</string>
+    <string name="no_tags">ᱟᱢ ᱴᱮᱜ ᱵᱟᱝ ᱥᱮᱞᱮᱫ ᱠᱟᱜᱼᱟᱢ</string>
+    <string name="updated_version">%s ᱵᱷᱟᱹᱨᱥᱚᱱ ᱛᱮ ᱟᱹᱯᱰᱮᱴ ᱮᱱᱟ</string>
     <!-- Reviewer.kt -->
-    <string name="save_whiteboard" maxLength="28">ᱯᱩᱸᱰ ᱵᱚᱰ ᱥᱟᱱᱪᱟᱣ ᱢᱮ </string>
+    <string name="save_whiteboard" maxLength="28">ᱯᱩᱸᱰ ᱵᱚᱰ ᱥᱟᱱᱪᱟᱣ ᱢᱮ</string>
     <string name="enable_stylus" maxLength="28">ᱥᱴᱟᱭᱞᱩᱥ ᱚᱞᱚᱜ ᱮᱱᱮᱡ ᱢᱮ</string>
     <string name="disable_stylus">ᱥᱴᱟᱭᱞᱩᱥ ᱚᱞᱚᱜ ᱵᱚᱫᱚᱞ ᱢᱮ</string>
-    <string name="enable_whiteboard" maxLength="28">ᱥᱤᱠᱮᱴ ᱞᱟᱜᱩᱭ ᱢᱮ </string>
-    <string name="disable_whiteboard">ᱥᱤᱠᱮᱴ ᱵᱚᱱᱫ ᱢᱮ </string>
-    <string name="show_whiteboard">ᱥᱤᱠᱮᱴ ᱫᱮᱠᱷᱟᱣ ᱢᱮ </string>
-    <string name="hide_whiteboard" maxLength="28">ᱥᱤᱠᱮᱴ ᱩᱠᱩᱭ ᱢᱮ </string>
-    <string name="clear_whiteboard" maxLength="28">ᱥᱤᱠᱮᱴ ᱤᱬᱤᱡ ᱢᱮ </string>
-    <string name="replay_audio" maxLength="28">Audio replay ᱢᱮ </string>
-    <string name="leech_suspend_notification">ᱠᱟᱰ ᱫᱚ leech ᱟᱨ ᱵᱚᱸᱫ ᱛᱮ ᱢᱟᱨᱠ ᱮᱱᱟ </string>
-    <string name="leech_notification">ᱠᱟᱰ ᱫᱚ leech ᱛᱮ ᱢᱟᱨᱠ ᱮᱱᱟ </string>
-    <string name="webview_crash_unknown">ᱵᱟᱝᱵᱟᱰᱟᱭᱟᱜ ᱵᱷᱩᱞ </string>
-    <string name="webview_crash_unknwon_detailed">ᱱᱚᱶᱟ ᱫᱚ WebView ᱨᱮ ᱵᱷᱤᱛᱨᱤ ᱵᱷᱩᱞ ᱠᱷᱟᱛᱤᱨ ᱛᱮ </string>
+    <string name="enable_whiteboard" maxLength="28">ᱥᱤᱠᱮᱴ ᱞᱟᱜᱩᱭ ᱢᱮ</string>
+    <string name="disable_whiteboard">ᱥᱤᱠᱮᱴ ᱵᱚᱱᱫ ᱢᱮ</string>
+    <string name="show_whiteboard">ᱥᱤᱠᱮᱴ ᱫᱮᱠᱷᱟᱣ ᱢᱮ</string>
+    <string name="hide_whiteboard" maxLength="28">ᱥᱤᱠᱮᱴ ᱩᱠᱩᱭ ᱢᱮ</string>
+    <string name="clear_whiteboard" maxLength="28">ᱥᱤᱠᱮᱴ ᱤᱬᱤᱡ ᱢᱮ</string>
+    <string name="replay_audio" maxLength="28">Audio replay ᱢᱮ</string>
+    <string name="leech_suspend_notification">ᱠᱟᱰ ᱫᱚ leech ᱟᱨ ᱵᱚᱸᱫ ᱛᱮ ᱢᱟᱨᱠ ᱮᱱᱟ</string>
+    <string name="leech_notification">ᱠᱟᱰ ᱫᱚ leech ᱛᱮ ᱢᱟᱨᱠ ᱮᱱᱟ</string>
+    <string name="webview_crash_unknown">ᱵᱟᱝᱵᱟᱰᱟᱭᱟᱜ ᱵᱷᱩᱞ</string>
+    <string name="webview_crash_unknwon_detailed">ᱱᱚᱶᱟ ᱫᱚ WebView ᱨᱮ ᱤᱱᱴᱚᱨᱱᱟᱞ ᱵᱷᱩᱞ ᱠᱷᱟᱛᱤᱨ ᱛᱮ</string>
     <string name="webview_crash_oom">Out of Memory</string>
     <string name="webview_crash_oom_details">ᱥᱤᱥᱴᱚᱢ ᱫᱚ Webview ᱵᱚᱸᱫ ᱠᱮᱜᱼᱟᱭ ᱾ ᱱᱚᱶᱟ ᱫᱚ ᱡᱟᱹᱥᱛᱤ ᱢᱟᱨᱟᱝ ᱯᱷᱚᱱᱴᱥ ᱟᱨ ᱢᱤᱰᱭᱟ  ᱠᱷᱟᱹᱛᱤᱨ ᱟᱣᱩᱴ ᱚᱯᱷ ᱢᱮᱢᱚᱨᱤ ᱫᱮᱠᱷᱟᱣ ᱮᱫ ᱟᱭ ᱾</string>
     <string name="webview_crash_nonfatal">WebView ᱨᱮᱱᱰᱚᱨᱚᱨ ᱠᱨᱟᱥ ᱮᱱᱟ ᱾ ᱠᱟᱨᱚᱬ:%s</string>
@@ -95,7 +95,7 @@
     <string name="note_editor_no_cards_created">ᱚᱠᱟ ᱠᱟᱰ ᱦᱚᱸ ᱵᱟᱭ ᱛᱮᱟᱛ ᱟᱠᱟᱱᱟ ᱾ ᱫᱚᱭᱟᱡᱟᱜᱮ ᱟᱨᱦᱚᱸ ᱡᱟᱭᱜᱟ ᱯᱩᱨᱚᱬ ᱢᱮ</string>
     <string name="note_editor_no_cards_created_all_fields">ᱱᱚᱶᱟ ᱠᱷᱟᱴᱚ ᱵᱤᱪᱟᱹᱨ ᱯᱨᱚᱠᱟᱨ ᱠᱟᱰ ᱵᱟᱭ ᱛᱮᱭᱟᱨᱮᱟᱭ ᱾ \n ᱫᱚᱭᱠᱟᱛᱮ ᱱᱟᱶᱟ ᱠᱷᱟᱴᱚ ᱵᱤᱪᱟᱹᱨ ᱯᱨᱚᱠᱟᱨ ᱨᱮᱭᱟᱜ ᱵᱟᱪᱷᱟᱣ ᱢᱮ, ᱟᱨ ᱵᱟᱝᱠᱷᱟᱱ \'ᱠᱟᱨᱰᱥ\' ᱨᱮ ᱚᱛᱟ ᱡᱟ ᱟᱨ field substitute ᱥᱮᱞᱮᱫ ᱢᱮ</string>
     <string name="note_editor_insert_cloze_no_cloze_note_type">ᱠᱞᱚᱡ ᱢᱮᱴᱟᱹᱣ ᱫᱚ ᱠᱞᱚᱡ ᱱᱚᱴ ᱯᱨᱚᱠᱟᱨ ᱴᱷᱮᱱ ᱮ ᱠᱟᱹᱢᱤ ᱟ</string>
-    <string name="saving_facts">ᱠᱷᱟᱴᱚ ᱵᱤᱪᱟᱹᱨ ᱥᱚᱱᱪᱟᱣ ᱢᱮ </string>
+    <string name="saving_facts">ᱠᱷᱟᱴᱚ ᱵᱤᱪᱟᱹᱨ ᱥᱚᱱᱪᱟᱣ ᱢᱮ</string>
     <string name="saving_model">ᱠᱷᱟᱴᱚ ᱵᱤᱪᱟᱹᱨ ᱯᱨᱚᱠᱟᱨ ᱥᱟᱱᱪᱟᱣ ᱢᱮ</string>
     <string name="save" maxLength="28">ᱥᱟᱝᱪᱚᱣ</string>
     <string name="close">ᱵᱚᱫᱽ</string>
@@ -121,7 +121,7 @@
     <string name="card_editor_reschedule_card" comment="Action to reschedule a card" maxLength="28">ᱨᱤᱥᱮᱰᱭᱩᱞ ᱢᱮ</string>
     <string name="card_editor_preview_card" comment="Button offering to preview some card(s)" maxLength="28">ᱞᱟᱦᱟᱛᱮᱭᱟᱜ ᱧᱮᱞ</string>
     <string name="copy_as_markdown" comment="Copies text to the clipboard as Markdown" maxLength="28">ᱪᱮᱫ ᱞᱮᱠᱟᱱ ᱱᱳᱴ ᱠᱚ ᱧᱟᱢ ᱟᱠᱟᱱᱟ</string>
-    <string name="preview_progress_bar_text" comment="What card we are on out of how many in card previewer progress bar"> %2$d ᱨᱮᱱᱟᱜ %1$d</string>
+    <string name="preview_progress_bar_text" comment="What card we are on out of how many in card previewer progress bar">%2$d ᱨᱮᱱᱟᱜ %1$d</string>
     <string name="rename" comment="Confirm that the renaming action should be processed." maxLength="28">ᱫᱚᱦᱲᱟ ᱧᱩᱛᱩᱢ</string>
     <string name="checks_action" maxLength="28">ᱪᱟᱠᱷᱟ</string>
     <string name="check_db" maxLength="28">ᱰᱟᱴᱟᱵᱮᱥ ᱪᱮᱠ ᱢᱮ</string>
@@ -159,13 +159,13 @@
         ]]></string>
     <string name="export_choice_share">ᱦᱟᱹᱴᱤᱧ</string>
     <string name="export_choice_save_to">ᱞᱟᱹᱜᱤᱫ ᱫᱚᱦᱚᱭ ᱢᱮ</string>
-    <string name="export_saving_exported_collection"> ᱮᱠᱥᱯᱳᱨᱴ ᱟᱠᱟᱱ ᱯᱷᱤᱞᱤ ᱥᱟᱦᱟᱣ ᱠᱟᱱᱟ&#8230;</string>
+    <string name="export_saving_exported_collection">ᱮᱠᱥᱯᱳᱨᱴ ᱟᱠᱟᱱ ᱯᱷᱤᱞᱤ ᱥᱟᱦᱟᱣ ᱠᱟᱱᱟ&#8230;</string>
     <string name="study_options" comment="Name for a preference category in Filtered deck (aka Cram deck, aka Custom study) options" maxLength="28">ᱚᱯᱥᱚᱱᱠᱚ</string>
     <string name="menu__deck_options" maxLength="28">ᱰᱮᱠ ᱚᱯᱥᱚᱱᱠᱚ</string>
     <string name="menu__study_options" comment="Menu item that opens options for a Filtered deck (aka Cram deck, aka Custom study)">ᱯᱟᱲᱦᱟᱣ ᱚᱯᱥᱚᱱ ᱠᱚ</string>
     <string name="select_tts" maxLength="28">TTS ᱯᱟᱹᱨᱥᱤ ᱥᱮᱴ ᱢᱮ</string>
     <string name="custom_study" maxLength="28">ᱱᱤᱡᱮᱛᱮ ᱯᱟᱲᱦᱟᱣ</string>
-    <string name="dyn_deck_desc">ᱱᱚᱶᱟ ᱫᱚ ᱱᱚᱨᱢᱟᱞ ᱥᱮᱰᱭᱩᱞ ᱠᱷᱣᱱ ᱮᱴᱟᱜ ᱨᱮ ᱯᱟᱲᱦᱟᱣ ᱞᱟᱹᱜᱤᱫ ᱥᱯᱮᱥᱟᱞ ᱰᱮᱠ ᱠᱟᱱᱟ ᱾ ᱠᱟᱰ ᱠᱚ ᱨᱤᱵᱷᱤᱣ ᱯᱚᱨᱮ ᱟᱡ ᱛᱮᱜᱮ ᱢᱩᱞ ᱰᱮᱢᱠ ᱥᱮᱱ ᱥᱮᱱᱚᱜᱼᱟ ᱾ ᱰᱮᱠ ᱞᱤᱥᱴ ᱠᱷᱚᱱ ᱰᱮᱠᱜᱮᱫ ᱜᱤᱰᱤ ᱞᱮᱠᱷᱱᱟ ᱫᱚ ᱡᱷᱚᱛᱚ ᱠᱟᱲ ᱢᱩᱞ ᱰᱮᱠ ᱥᱮᱱ ᱥᱮᱱᱚᱜᱼᱟ  </string>
+    <string name="dyn_deck_desc">ᱱᱚᱶᱟ ᱫᱚ ᱱᱚᱨᱢᱟᱞ ᱥᱮᱰᱭᱩᱞ ᱠᱷᱣᱱ ᱮᱴᱟᱜ ᱨᱮ ᱯᱟᱲᱦᱟᱣ ᱞᱟᱹᱜᱤᱫ ᱥᱯᱮᱥᱟᱞ ᱰᱮᱠ ᱠᱟᱱᱟ ᱾ ᱠᱟᱰ ᱠᱚ ᱨᱤᱵᱷᱤᱣ ᱯᱚᱨᱮ ᱟᱡ ᱛᱮᱜᱮ ᱢᱩᱞ ᱰᱮᱢᱠ ᱥᱮᱱ ᱥᱮᱱᱚᱜᱼᱟ ᱾ ᱰᱮᱠ ᱞᱤᱥᱴ ᱠᱷᱚᱱ ᱰᱮᱠᱜᱮᱫ ᱜᱤᱰᱤ ᱞᱮᱠᱷᱱᱟ ᱫᱚ ᱡᱷᱚᱛᱚ ᱠᱟᱲ ᱢᱩᱞ ᱰᱮᱠ ᱥᱮᱱ ᱥᱮᱱᱚᱜᱼᱟ</string>
     <string name="steps_error">ᱥᱴᱮᱯᱥ ᱫᱚ ᱥᱩᱱᱭᱚ ᱱᱩᱚᱢᱵᱚᱨ ᱠᱷᱚᱱ ᱰᱷᱮᱨ ᱜᱮ ᱛᱟᱦᱮᱱ ᱢᱟ</string>
     <string name="steps_min_error">ᱠᱚᱢ ᱥᱮ ᱠᱚᱢ ᱢᱤᱫᱴᱟᱝ ᱥᱴᱮᱯ ᱫᱚᱨᱠᱟᱨ</string>
     <string name="tag_editor_add_feedback">“%1$s” ᱥᱞᱮᱫ ᱞᱟᱹᱜᱤᱫ ᱛᱮ “%2$s” ᱚᱛᱟᱭᱯᱮ</string>
@@ -187,20 +187,20 @@
     <!-- Deckpicker Background -->
     <string name="background_image_title" maxLength="41">ᱵᱮᱠᱜᱟᱨᱩᱸᱰ</string>
     <string name="choose_an_image" maxLength="41">ᱪᱤᱛᱟᱨ ᱵᱟᱪᱷᱟᱣ ᱢᱮ</string>
+    <string name="remove_wallpaper_image" maxLength="41">Remove background</string>
     <string name="remove_background_image">ᱚᱛ ᱦᱟᱥᱟ ᱪᱟᱵᱟ ᱢᱮ?</string>
     <!-- Card Template Browser Appearance -->
     <string name="restore_default" maxLength="28">ᱢᱩᱞ ᱯᱷᱮᱰᱟᱛ ᱨᱮ ᱫᱚᱦᱰᱟ ᱡᱚᱜᱟᱣ</string>
     <string name="reviewer_tts_cloze_spoken_replacement">ᱮᱠᱷᱮᱵᱟᱜ</string>
     <!-- Whiteboard save image message in Reviewer -->
-    <string name="white_board_image_save_failed">ᱯᱩᱸᱰ ᱵᱚᱰ ᱪᱤᱛᱟᱹᱨ ᱥᱟᱱᱪᱟᱣ ᱵᱷᱩᱞ ᱾. %s </string>
+    <string name="white_board_image_save_failed">ᱯᱩᱸᱰ ᱵᱚᱰ ᱪᱤᱛᱟᱹᱨ ᱥᱟᱱᱪᱟᱣ ᱵᱷᱩᱞ ᱾. %s</string>
     <string name="white_board_image_saved">ᱯᱩᱸᱰ ᱵᱚᱰ ᱪᱤᱛᱟᱹᱨ %s ᱛᱮ ᱥᱟᱱᱪᱟᱣ</string>
-    <string name="title_whiteboard_pen_color" maxLength="41">ᱯᱩᱸᱰ ᱵᱚᱰ ᱪᱤᱛᱟᱹᱨ ᱠᱚᱞᱚᱢ ᱨᱚᱰ</string>
     <string name="title_whiteboard_editor" maxLength="28">ᱯᱩᱸᱰᱵᱚᱰ ᱮᱰᱤᱴᱚᱨ</string>
     <string name="user_is_a_robot">ᱟᱹᱴᱚᱢᱮᱴᱮᱰ ᱴᱮᱥᱴ ᱯᱟᱱᱛᱮ ᱚᱲᱚᱠ ᱾ ᱡᱩᱫᱤ ᱟᱢ ᱦᱚᱲ ᱠᱟᱱᱟᱢ AnkiDroid ᱥᱚᱢᱯᱚᱨᱠ ᱠᱚᱢ</string>
     <!-- JS api -->
     <string name="api_version_developer_contact">ᱱᱚᱶᱟ ᱠᱟᱰ ᱫᱚ ᱵᱟᱝ ᱥᱟᱯᱯᱚᱨᱴ AnkiDroid ᱯᱷᱤᱪᱚᱨ ᱠᱚ ᱵᱮᱵᱷᱟᱨ ᱮᱫ ᱟᱭ ᱾ %1$s ᱰᱮᱵᱷᱞᱚᱯᱟᱹᱨ ᱥᱚᱢᱯᱚᱨᱠ ᱠᱚᱢ, ᱟᱨ ᱵᱟᱝ ᱣᱤᱠᱤ ᱧᱮᱞ ᱢᱮ ᱾ %2$s</string>
     <string name="invalid_json_data">ᱠᱟᱰ ᱵᱷᱩᱞ ᱰᱟᱴᱟ ᱮᱢᱠᱮᱫ ᱟ ᱾ %s</string>
-    <string name="valid_js_api_version"> ‌‌ᱵᱷᱩᱯ AnkiDroid JS API ᱵᱷᱟᱹᱨᱥᱚᱱ ᱾%s ᱰᱮᱵᱷᱞᱚᱯᱟᱹᱨ ᱥᱚᱢᱯᱚᱨᱠ ᱠᱚᱢ, ᱟᱨ ᱵᱟᱝ ᱣᱤᱠᱤ ᱧᱮᱞ ᱢᱮ ᱾</string>
+    <string name="valid_js_api_version">ᱵᱷᱩᱯ AnkiDroid JS API ᱵᱷᱟᱹᱨᱥᱚᱱ ᱾%s ᱰᱮᱵᱷᱞᱚᱯᱟᱹᱨ ᱥᱚᱢᱯᱚᱨᱠ ᱠᱚᱢ, ᱟᱨ ᱵᱟᱝ ᱣᱤᱠᱤ ᱧᱮᱞ ᱢᱮ ᱾</string>
     <string name="update_js_api_version">AnkiDroid JS API ᱟᱹᱯᱰᱮᱴ ᱢᱮᱱᱟᱜᱼᱟ ᱾ %s ᱰᱮᱵᱷᱞᱚᱯᱟᱹᱨ ᱥᱚᱢᱯᱚᱨᱠ ᱠᱚᱢ, ᱟᱨ ᱵᱟᱝ ᱣᱤᱠᱤ ᱧᱮᱞ ᱢᱮ ᱾</string>
     <string name="reviewer_invalid_api_version_visit_documentation">ᱫᱮᱠᱷᱟᱣ</string>
     <string name="anki_js_error_code">(ᱵᱷᱩᱞ ᱠᱳᱰ: %d)</string>
@@ -233,7 +233,7 @@
     <string name="note_editor_image_too_large">ᱪᱤᱛᱟᱹᱨ ᱫᱚ ᱟᱹᱰᱤ ᱢᱟᱨᱟᱝ ᱠᱟᱱᱟ, ᱫᱟᱭᱟ ᱠᱟᱛᱮ ᱪᱤᱛᱟᱹᱨ ᱥᱮᱞᱮᱫ ᱢᱮ</string>
     <string name="note_editor_video_too_large">ᱵᱷᱤᱰᱤᱭᱳ ᱯᱷᱤᱞᱤᱢ ᱫᱚ ᱟᱹᱰᱤ ᱢᱟᱨᱟᱝ ᱠᱟᱱᱟ, ᱫᱟᱭᱟᱠᱟᱛᱮ ᱵᱷᱤᱰᱤᱭᱳ ᱥᱮᱞᱮᱫᱽ ᱢᱮ</string>
     <string name="note_editor_audio_too_large">ᱚᱰᱤᱭᱚ ᱯᱷᱤᱞ ᱫᱚ ᱟᱹᱰᱤ ᱢᱟᱨᱟᱝ ᱠᱟᱱᱟ, ᱫᱟᱭᱟ ᱠᱟᱛᱮ ᱚᱰᱤᱭᱚ ᱥᱮᱞᱮᱫ ᱢᱮ</string>
-    <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">       ᱮᱱᱰᱨᱚᱭᱮᱰ ᱵᱮᱠᱟᱯ ᱪᱟᱞᱟᱜ ᱠᱟᱱᱟ, ᱫᱟᱭᱟ ᱠᱟᱛᱮᱡᱽ ᱟᱨᱦᱚᱸ ᱨᱤᱠᱟᱹᱭ ᱢᱮ</string>
+    <string name="ankidroid_cannot_open_after_backup_try_again" comment="After an Android backup is restored, AnkiDroid opens and shows this message.         Opening AnkiDroid again will work correctly">Android backup in progress. Please try again</string>
     <string name="create_shortcut_error_vivo" comment="iManager is an app on Vivo phones">AnkiDroid ᱥᱚᱴᱠᱚᱴ ᱥᱮᱞᱮᱫ ᱪᱷᱚ ᱞᱟᱹᱜᱤᱫ ᱟᱢ iManager ᱵᱮᱵᱷᱟᱨ ᱫᱟᱲᱮᱭᱟᱜᱼᱟᱢ</string>
     <string name="create_shortcut_failed" comment="home screen == launcher">ᱟᱢᱟᱜ ᱚᱲᱟᱜ ᱥᱠᱨᱤᱱ AnkiDroid ᱥᱚᱴᱠᱚᱴ ᱵᱟᱝ ᱥᱮᱞᱮᱫ ᱪᱷᱚᱭᱟᱭ</string>
     <string name="create_shortcut_error">ᱥᱚᱴᱠᱚᱴ ᱥᱮᱞᱮᱫ ᱵᱷᱩᱞ: %s</string>
@@ -249,6 +249,7 @@
     <!-- %% is required to display % symbol. Reference: https://stackoverflow.com/a/16834358 -->
     <string name="percentage">%s%%</string>
     <string name="download_deck">ᱰᱮᱠ ᱰᱟᱩᱱᱞᱳᱰ ᱢᱮ</string>
+    <string name="open_in_browser" comment="Label of a button inviting to open ankiweb\'s shared deck page if automated download failed">Open in Browser</string>
     <string name="try_again">ᱟᱨᱢᱤᱫ ᱫᱷᱟᱣ ᱪᱮᱥᱴᱟᱭ ᱢᱮ</string>
     <string name="cancel_download">ᱰᱟᱩᱱᱞᱳᱰ ᱵᱟᱹᱛᱤᱞ ᱢᱮ</string>
     <string name="cancel_download_question_title">ᱰᱟᱩᱱᱞᱳᱰ ᱵᱟᱹᱛᱤᱞᱟᱢ ?</string>
@@ -261,7 +262,7 @@
     <string name="search_using_deck_name">ᱰᱮᱠ ᱧᱩᱛᱩᱢ ᱵᱮᱵᱷᱟᱨ ᱠᱟᱛᱮ ᱥᱮᱸᱫᱽᱨᱟᱭ ᱢᱮ</string>
     <string name="external_storage_unavailable">ᱰᱟᱩᱱᱞᱚᱰ ᱵᱚᱫᱚᱞ ᱟᱠᱟᱱᱟ, ᱵᱟᱦᱨᱮ ᱥᱴᱳᱨᱮᱡᱽ ᱵᱟᱭ ᱦᱟᱹᱴᱤᱧ ᱟᱠᱟᱱᱟ</string>
     <string name="home" maxLength="28">ᱚᱲᱟᱜ</string>
-    <!-- Reviewer actions 
+    <!-- Reviewer actions
     Each of these strings ends with a period, following the notation of Anki Desktop -->
     <string name="card_buried">ᱠᱟᱨᱰ ᱫᱚ ᱛᱷᱟᱯᱚᱱ ᱟᱠᱟᱱᱟ᱾</string>
     <plurals name="note_suspended">
@@ -305,20 +306,14 @@
     <string name="browser_options_dialog_heading">Browser options</string>
     <string name="audio_saved">ᱨᱮᱠᱳᱨᱰ ᱟᱠᱟᱱᱟ</string>
     <string name="deleting_selected_notes">ᱵᱟᱪᱷᱟᱣ ᱟᱠᱟᱱ ᱱᱳᱴᱥ ᱵᱚᱫᱚᱞ</string>
-    <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">        ᱥᱮᱞᱮᱫᱚᱜ ᱞᱟᱹᱜᱤᱫ ᱢᱤᱫ ᱨᱚᱲ ᱴᱟᱯ ᱢᱮ
-    </string>
-    <string name="tts_voices_selected_voice_should_be_installed" comment="If a voice has been tapped, is installable but not installed, we want to inform the user that they should install it for the best experience There will also be an option to use it without downloading">ᱵᱮᱵᱷᱟᱨ ᱠᱷᱚᱱ ᱢᱟᱲᱟᱝ ᱛᱮ ᱨᱚᱲ ᱥᱮᱞᱮᱫ ᱦᱩᱭᱩᱜ ᱢᱟ
-    </string>
-    <string name="tts_voices_use_selected_voice_without_install" comment="A user has been informed that a voice should be installed before use. This is text on a snackbar button which allows them to use the voice without installing it">ᱮᱱᱦᱚᱸ ᱵᱮᱵᱷᱟᱨ ᱢᱮ
-    </string>
+    <string name="tts_voices_default_text" comment="The default text to speak when selecting     Text to speech voices">Tap a voice to listen</string>
+    <string name="tts_voices_selected_voice_should_be_installed" comment="If a voice has been tapped, is installable but not installed, we want to inform the user that they should install it for the best experience There will also be an option to use it without downloading">Voice should be installed before use</string>
+    <string name="tts_voices_use_selected_voice_without_install" comment="A user has been informed that a voice should be installed before use. This is text on a snackbar button which allows them to use the voice without installing it">Use anyway</string>
     <string name="tts_voices_playback_error_new" comment="an error occurred when playing a text to speech voice. The parameter is a technical error code such as \'ERROR_NOT_INSTALLED_YET\' or \'ERROR_NETWORK_TIMEOUT\'">ᱚᱞ ᱠᱷᱚᱱ ᱨᱚᱲ ᱪᱮᱛᱟᱱ ᱨᱮ ᱯᱩᱥᱴᱟᱹ (%s)</string>
     <!-- Chips should probably be in a separate file, due to the additional length req -->
-    <string name="tts_voices_chip_filter_to_internet" comment="     Filters a list of text to speech voices, to enable/disable voices which require the internet to     function.     This is on a chip control, so keep the text short, ideally one word">        ᱤᱱᱴᱟᱨᱱᱮᱴ
-    </string>
-    <string name="tts_voices_chip_filter_to_installable_audio" comment="     Displays a list of Text to Speech voices which should be downloaded/installed before use     This is on a chip control, so keep the text short, ideally one word">        ᱤᱱᱥᱴᱚᱞ ᱢᱮ
-    </string>
-    <string name="tts_voices_failed_opening_tts_system_settings" comment="error message if opening the system text to speech settings fails">        ᱚᱞ ᱪᱤᱠᱤ ᱛᱮ ᱨᱚᱲ ᱥᱮᱴᱤᱸᱜᱽᱥ ᱨᱮ ᱩᱫᱩᱜ ᱦᱚᱪᱚ ᱵᱟᱹᱱᱩᱜ ᱟ
-    </string>
+    <string name="tts_voices_chip_filter_to_internet" comment="     Filters a list of text to speech voices, to enable/disable voices which require the internet to     function.     This is on a chip control, so keep the text short, ideally one word">Internet</string>
+    <string name="tts_voices_chip_filter_to_installable_audio" comment="     Displays a list of Text to Speech voices which should be downloaded/installed before use     This is on a chip control, so keep the text short, ideally one word">Install</string>
+    <string name="tts_voices_failed_opening_tts_system_settings" comment="error message if opening the system text to speech settings fails">Failed to open text to speech settings</string>
     <string name="shared_decks_login_required">ᱮᱴᱟᱜ ᱰᱮᱠ ᱠᱚ ᱰᱟᱩᱱᱞᱚᱰ ᱞᱟᱹᱜᱤᱫ ᱞᱚᱜᱤᱱ ᱢᱮ</string>
     <string name="deck_description_field_hint">ᱞᱟᱹᱱᱟᱹᱤ</string>
     <string name="failed_to_copy">ᱠᱚᱯᱤ ᱵᱟᱭ ᱫᱟᱲᱮᱭᱟᱜ ᱠᱟᱱᱟ</string>
@@ -337,7 +332,6 @@
     <string name="orphan_note_message">ᱱᱚᱶᱟ ᱠᱟᱨᱰ ᱨᱮᱱᱟᱜ ᱛᱟᱹᱞᱠᱟᱹ ᱵᱚᱫᱚᱞ ᱞᱮᱠᱷᱟᱱ ᱠᱟᱨᱰ ᱵᱟᱹᱱᱩᱜ ᱟᱠᱟᱱ ᱟᱭᱢᱟ ᱱᱳᱴᱥ ᱠᱚ ᱵᱚᱫᱚᱞᱚᱜ-ᱟ᱾</string>
     <string name="voice_not_supported">ᱨᱚᱲ ᱵᱟᱭ ᱥᱚᱦᱚᱫ ᱟᱠᱟᱱᱟ ᱮᱴᱟᱜ ᱢᱤᱫᱴᱟᱹᱝ ᱥᱮ ᱟᱲᱟᱝ ᱮᱱᱮᱡ ᱥᱮᱞᱮᱫᱽ ᱢᱮ ᱾</string>
     <!--Keyboard shortcuts dialog-->
-    <string name="show_keyboard_shortcuts_dialog" comment="Description of the shortcut that shows the keyboard shortcuts dialog">ᱠᱤᱯᱤᱴᱚᱰ ᱥᱟᱠᱚᱨᱰ ᱠᱚᱰ ᱰᱟᱭᱞᱳᱜᱽ ᱵᱚᱫᱚᱞ</string>
     <string name="deck_picker_group" comment="Label for the group of shortcuts related to the deck picker">ᱰᱮᱠ ᱯᱤᱠᱥᱚᱨ</string>
     <string name="delete_deck_without_confirmation" comment="Description of the shortcut that deletes the deck without asking for confirmation">ᱥᱟᱹᱠᱷᱭᱟᱹᱛ ᱵᱟᱹᱱᱩᱜ ᱠᱷᱟᱱ ᱰᱮᱠ ᱵᱚᱫᱚᱞ ᱢᱮ</string>
     <string name="note_editor_group" comment="Label for the group of shortcuts related to the note editor">ᱱᱳᱴᱥ ᱮᱰᱤᱴᱚᱨ</string>
@@ -350,7 +344,6 @@
     <string name="edit_styling" comment="Description of the shortcut that shows the styling side of the card template">ᱥᱟᱯᱲᱟᱣ ᱥᱟᱠᱟᱢ</string>
     <string name="copy_the_template" comment="Description of the shortcut that copy the template as markdown">ᱢᱟᱨᱠᱰᱟᱩᱱ ᱞᱮᱠᱟᱛᱮ ᱠᱳᱯᱤ ᱢᱮᱴᱟᱤᱞ</string>
     <string name="edit_browser_appearance" comment="Description of the shortcut that edits the browser appearance of card template">ᱵᱽᱨᱟᱩᱡᱚᱨ ᱨᱮᱱᱟᱜ ᱧᱮᱞ ᱥᱟᱯᱲᱟᱣ</string>
-    <string name="show_shortcuts_message">ᱠᱤᱵᱚᱨᱰ ᱥᱠᱚᱨᱴᱚᱠ ᱠᱚ ᱧᱮᱞ ᱞᱟᱹᱜᱤᱫ Alt+K ᱚᱞ ᱢᱮ</string>
     <string name="missing_user_action_dialog_message" comment="%s is the user action number">ᱱᱚᱶᱟ ᱱᱳᱴᱤᱯ ᱨᱮ ᱵᱮᱵᱷᱟᱨᱤᱭᱟᱹ ᱠᱟᱹᱢᱤ %s ᱫᱚ ᱵᱟᱝ ᱥᱮᱴᱮᱨ ᱟᱠᱟᱱᱟ. ᱱᱚᱶᱟ ᱞᱤᱱ ᱢᱮ</string>
     <string name="directory_inaccessible_info">%s ᱨᱮ ᱥᱮᱴᱮᱨᱚᱜ ᱨᱮᱱᱟᱜ ᱵᱟᱹᱲᱛᱤ ᱵᱟᱰᱟᱭ ᱞᱟᱹᱜᱤᱫ ᱥᱮᱴᱮᱨᱚᱜ ᱨᱮ ᱥᱮᱴᱮᱨᱚᱜ ᱢᱮ ᱟᱨ ᱥᱮᱞᱮᱫ ᱯᱟᱹᱴᱷᱩᱣᱟᱹ ᱠᱚᱢᱯᱩᱴᱚᱨ ᱨᱮ ᱵᱚᱫᱚᱞ ᱢᱮ</string>
 </resources>

@@ -97,6 +97,7 @@
     <string name="gestures_summ">Assigna gestos a atziones che a sas rispostas e a sas modìficas de sas cartas.</string>
     <string name="gestures_corner_touch" maxLength="41">Tocu a 9 puntos</string>
     <string name="gestures_corner_touch_summary">Permiti sos gestos tàtiles in sos àngulos de s\'ischermu</string>
+    <string name="show_keyboard_shortcuts" maxLength="41">Show keyboard shortcuts</string>
     <string name="gestures_full_screen_nav_drawer" maxLength="41">Pannellu de navigatzione a ischermu intreu</string>
     <string name="gestures_fullscreen_nav_drawer_summary">Aberi su pannellu de navigatzione cando trìsinas cara a dereta dae cale si siat puntu de s\'ischermu</string>
     <string name="gestures_none" maxLength="41" comment="No gestures">Perunu</string>
@@ -116,7 +117,7 @@
     <string name="gestures_corner_tap_bottom_left" maxLength="41">Toca in bassu a manca</string>
     <string name="gestures_corner_tap_bottom_right" maxLength="41">Toca in bassu a dereta</string>
     <string name="gestures_shake" maxLength="41">Iscutzina su dispositivu</string>
-    <string name="card_browser_enable_external_context_menu">Menù ‘%s’</string>
+    <string name="card_browser_enable_external_context_menu" maxLength="41">Menù ‘%s’</string>
     <string name="card_browser_enable_external_context_menu_summary">Abilitat su menù de cuntestu ‘%s’ globalmente</string>
     <string name="double_scrolling_gap" maxLength="41">Iscurrimentu dòpiu</string>
     <string name="double_scrolling_gap_summ">Addopiat sa distàntzia de iscurrimentu cun eReader</string>
@@ -260,13 +261,11 @@
     <string name="donate_description"><![CDATA[Podes suportare s\'isvilupu de AnkiDroid <a href=\"%1$s\">cun una donatzione</a>. Cale si siat tantu est apretziadu meda.]]></string>
     <!-- Controls -->
     <string name="binding_add_gesture">Annanghe unu gestu</string>
-    <string name="binding_replace_gesture">Sostitui su gestu</string>
     <string name="binding_add_key">Annanghe una tecla</string>
-    <string name="binding_replace_key">Sostitui sa tecla</string>
     <string name="key_picker_default_press_key">Incarca una tecla</string>
     <string name="binding_add_axis">Annanghe unu joystick/controllore de movimentu</string>
     <string name="axis_picker_move_joystick">Move unu joystick/controllore de movimentu</string>
-    <string name="user_actions" maxLength="41">Atziones utente </string>
+    <string name="user_actions" maxLength="41">Atziones utente</string>
     <string name="user_actions_summary" maxLength="41">Esecuta JavaScript dae s\'ischermada de ripetitzione</string>
     <string name="user_action_1" maxLength="28">Atzione utente 1</string>
     <string name="user_action_2" maxLength="28">Atzione utente 2</string>
@@ -297,8 +296,7 @@
     <string name="pref_cat_dev_options" maxLength="41">Optziones de isvilupu</string>
     <string name="dev_options_enabled_pref" maxLength="41">Abìlita sas optziones de isvilupu</string>
     <string name="disable_dev_options">Disabìlita sas optziones de isvilupu</string>
-    <string name="dev_options_warning">        Assegura·ti de s\'intentu tuo in antis de abilitare sas optziones de isvilupu. Custas optziones sunt perigulosas e diant pòdere segare s\'aplicatzione o corrùmpere sa colletzione tua.\n\nTene in contu chi custas optziones non sunt adatas pro sa parte manna de sos utentes e pro custa resone non sunt traduidas, duncas sunt in inglesu.
-    </string>
+    <string name="dev_options_warning">Please be sure before enabling developer options. These options are dangerous and could break the app or corrupt your collection.\n\nNote that these options are not suited for most users and therefore are not translated, so they are in English.</string>
     <!-- #######################################################################################
          #################################### Backup options ###################################
          ####################################################################################### -->
