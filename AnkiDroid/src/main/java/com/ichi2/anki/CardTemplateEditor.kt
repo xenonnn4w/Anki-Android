@@ -63,6 +63,7 @@ import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.ichi2.anki.CollectionManager.TR
 import com.ichi2.anki.CollectionManager.withCol
+import com.ichi2.anki.CrashReportData.Companion.toCrashReportData
 import com.ichi2.anki.android.input.ShortcutGroup
 import com.ichi2.anki.android.input.shortcut
 import com.ichi2.anki.common.annotations.NeedsTest
@@ -141,11 +142,20 @@ open class CardTemplateEditor :
     internal val mainBinding: CardTemplateEditorMainBinding
         get() = binding.templateEditor
 
-    var tempNoteType: CardTemplateNotetype? = null
-        private set
+    /**
+     * The temporary notetype being edited. This is now owned by the ViewModel.
+     * This property provides convenient access for legacy code paths that still
+     * reference tempNoteType directly.
+     */
+    val tempNoteType: CardTemplateNotetype?
+        get() = viewModel.tempNotetype
+
     private var fieldNames: List<String>? = null
     private var noteTypeId: NoteTypeId = 0
     private var noteId: NoteId = 0
+
+    /** Tracks whether the UI has been initialized after notetype is loaded */
+    private var isUiInitialized = false
 
     /**
      * Stores the cursor position for each editor window (front, style, back) within each card template.
@@ -207,7 +217,8 @@ open class CardTemplateEditor :
             startingOrdId = savedInstanceState.getInt(EDITOR_START_ORD_ID)
             tabToCursorPositions = savedInstanceState.getSerializableCompat<HashMap<Int, HashMap<Int, Int>>>(TAB_TO_CURSOR_POSITION_KEY)!!
             tabToViewId = savedInstanceState.getSerializableCompat<HashMap<Int, Int?>>(TAB_TO_VIEW_ID)!!
-            tempNoteType = CardTemplateNotetype.fromBundle(savedInstanceState)
+            // Restore tempNotetype to ViewModel from bundle
+            viewModel.restoreFromBundle(savedInstanceState)
         }
 
         fragmented = binding.fragmentContainer?.isVisible == true
@@ -250,26 +261,35 @@ open class CardTemplateEditor :
                     when (state) {
                         is CardTemplateEditorState.Loading -> Unit
                         is CardTemplateEditorState.Loaded -> {
+                            // Initialize UI when tempNotetype becomes available
+                            if (!isUiInitialized) {
+                                initializeEditorUi(state.tempNotetype)
+                            }
                             if (state.message != null) {
-                                val messageText =
-                                    when (state.message) {
-                                        CardTemplateEditorState.UserMessage.CantDeleteLastTemplate ->
-                                            getString(R.string.card_template_editor_cant_delete)
-                                        CardTemplateEditorState.UserMessage.CantAddTemplateToDynamic ->
-                                            getString(R.string.multimedia_editor_something_wrong)
-                                        CardTemplateEditorState.UserMessage.SaveSuccess ->
-                                            getString(R.string.dialog_ok)
-                                        CardTemplateEditorState.UserMessage.DeletionWouldOrphanNote ->
-                                            getString(R.string.orphan_note_message)
+                                when (state.message) {
+                                    CardTemplateEditorState.UserMessage.CantDeleteLastTemplate ->
+                                        showSnackbar(getString(R.string.card_template_editor_cant_delete))
+                                    CardTemplateEditorState.UserMessage.CantAddTemplateToDynamic ->
+                                        showSnackbar(getString(R.string.multimedia_editor_something_wrong))
+                                    CardTemplateEditorState.UserMessage.SaveSuccess -> {
+                                        // Model saved successfully - finish activity
+                                        viewModel.clearMessage()
+                                        finish()
+                                        return@collect
                                     }
-                                showSnackbar(messageText)
+                                    CardTemplateEditorState.UserMessage.DeletionWouldOrphanNote ->
+                                        showSnackbar(getString(R.string.orphan_note_message))
+                                }
                                 viewModel.clearMessage()
                             }
                         }
                         is CardTemplateEditorState.Error -> {
+                            val exception = state.exception.source
                             showSnackbar(
-                                state.exception.source.localizedMessage ?: getString(R.string.something_wrong),
+                                exception.localizedMessage ?: getString(R.string.something_wrong),
                             )
+                            // Re-enable save button on error
+                            findViewById<View>(R.id.action_confirm)?.isEnabled = true
                         }
                         is CardTemplateEditorState.Finished -> {
                             finish()
@@ -278,6 +298,45 @@ open class CardTemplateEditor :
                 }
             }
         }
+    }
+
+    /**
+     * Initializes the editor UI after the notetype has been loaded.
+     * This sets up the ViewPager, tabs, and action bar.
+     */
+    private fun initializeEditorUi(tempNotetype: CardTemplateNotetype) {
+        isUiInitialized = true
+        fieldNames = tempNotetype.notetype.fieldsNames
+
+        // Set up the ViewPager with the sections adapter
+        mainBinding.cardTemplateEditorPager.adapter = TemplatePagerAdapter(this@CardTemplateEditor)
+
+        // Keep more fragments in memory to reduce menu flickering during tab switches (issue #18555)
+        mainBinding.cardTemplateEditorPager.offscreenPageLimit = 7
+
+        TabLayoutMediator(
+            topBinding.slidingTabs,
+            mainBinding.cardTemplateEditorPager,
+        ) { tab: TabLayout.Tab, position: Int ->
+            tab.text = tempNotetype.getTemplate(position).name
+        }.apply { attach() }
+
+        // Set activity title
+        supportActionBar?.let {
+            it.setTitle(R.string.title_activity_template_editor)
+            it.subtitle = tempNotetype.notetype.name
+        }
+
+        Timber.i("CardTemplateEditor:: Card template editor successfully started for note type id %d", noteTypeId)
+
+        // Set the tab to the current template if an ord id was provided
+        Timber.d("Setting starting tab to %d", startingOrdId)
+        if (startingOrdId != -1) {
+            mainBinding.cardTemplateEditorPager.setCurrentItem(startingOrdId, animationDisabled())
+        }
+
+        // Load the previewer fragment if in fragmented mode
+        loadTemplatePreviewerFragmentIfFragmented()
     }
 
     /**
@@ -347,53 +406,16 @@ open class CardTemplateEditor :
     }
 
     /**
-     * Callback used to finish initializing the activity after the collection has been correctly loaded
+     * Callback used to finish initializing the activity after the collection has been correctly loaded.
+     * Triggers async loading of the notetype via ViewModel, UI setup happens in setupStateCollection()
+     * when the notetype becomes available.
      * @param col Collection which has been loaded
      */
     override fun onCollectionLoaded(col: Collection) {
         super.onCollectionLoaded(col)
-        // without this call the editor doesn't see the latest changes to notetypes, see #16630
-        @NeedsTest("Add test to check that renaming notetypes in ManageNotetypes is seen in CardTemplateEditor(#16630)")
-        col.notetypes.clearCache()
-        // The first time the activity loads it has a model id but no edits yet, so no edited model
-        // take the passed model id load it up for editing
-        if (tempNoteType == null) {
-            tempNoteType = CardTemplateNotetype(col.notetypes.get(noteTypeId)!!.deepClone())
-            // Timber.d("onCollectionLoaded() model is %s", mTempModel.getModel().toString(2));
-            // Also load into ViewModel for future migration
-            viewModel.loadNotetype(noteTypeId)
-        }
-        fieldNames = tempNoteType!!.notetype.fieldsNames
-        // Set up the ViewPager with the sections adapter.
-        mainBinding.cardTemplateEditorPager.adapter = TemplatePagerAdapter(this@CardTemplateEditor)
-
-        // Keep more fragments in memory to reduce menu flickering during tab switches (issue #18555).
-        // When switching between non-adjacent tabs, ViewPager2's default behavior destroys fragments,
-        // causing their MenuProviders to fire and create visual flicker.
-        // Capped at 7 (keeping up to 15 fragments total) to balance flicker reduction with memory usage,
-        // as templates can contain large content (JS bundles, CSS frameworks, etc.).
-        mainBinding.cardTemplateEditorPager.offscreenPageLimit = 7
-
-        TabLayoutMediator(
-            topBinding.slidingTabs,
-            mainBinding.cardTemplateEditorPager,
-        ) { tab: TabLayout.Tab, position: Int ->
-            tab.text = tempNoteType!!.getTemplate(position).name
-        }.apply { attach() }
-
-        // Set activity title
-        supportActionBar?.let {
-            it.setTitle(R.string.title_activity_template_editor)
-            it.subtitle = tempNoteType!!.notetype.name
-        }
-        // Close collection opening dialog if needed
-        Timber.i("CardTemplateEditor:: Card template editor successfully started for note type id %d", noteTypeId)
-
-        // Set the tab to the current template if an ord id was provided
-        Timber.d("Setting starting tab to %d", startingOrdId)
-        if (startingOrdId != -1) {
-            mainBinding.cardTemplateEditorPager.setCurrentItem(startingOrdId, animationDisabled())
-        }
+        // ViewModel handles async loading, UI setup happens in setupStateCollection()
+        // when tempNotetype becomes available in state
+        viewModel.loadNotetype(noteTypeId)
     }
 
     fun noteTypeHasChanged(): Boolean {
@@ -406,7 +428,6 @@ open class CardTemplateEditor :
             Timber.i("TemplateEditor:: OK button pressed to confirm discard changes")
             // Clear the edited note type from any cache files, and clear it from this objects memory to discard changes
             CardTemplateNotetype.clearTempNoteTypeFiles()
-            tempNoteType = null
             finish()
         }
 
@@ -698,14 +719,6 @@ open class CardTemplateEditor :
                         refreshFragmentRunnable?.let { refreshFragmentHandler.removeCallbacks(it) }
 
                         val content = binding.editText.text.toString()
-                        // Update via ViewModel (in-memory only, for migration)
-                        val editorViewType =
-                            when (currentEditorViewId) {
-                                R.id.styling_edit -> EditorViewType.STYLING
-                                R.id.back_edit -> EditorViewType.BACK
-                                else -> EditorViewType.FRONT
-                            }
-                        viewModel.updateTemplateContent(cardIndex, editorViewType, content)
 
                         when (currentEditorViewId) {
                             R.id.styling_edit -> tempModel.css = content
@@ -989,37 +1002,23 @@ open class CardTemplateEditor :
         }
 
         @NeedsTest("Ensure save button is enabled in case of exception")
-        fun saveNoteType(): Boolean {
+        fun saveNoteType() {
             if (noteTypeHasChanged()) {
                 val confirmButton = templateEditor.findViewById<View>(R.id.action_confirm)
                 if (confirmButton != null) {
                     if (!confirmButton.isEnabled) {
                         Timber.d("CardTemplateEditor::discarding extra click after button disabled")
-                        return true
+                        return
                     }
                     confirmButton.isEnabled = false
                 }
-                launchCatchingTask(resources.getString(R.string.card_template_editor_save_error)) {
-                    try {
-                        requireActivity().withProgress(resources.getString(R.string.saving_model)) {
-                            templateEditor.tempNoteType!!.saveToDatabase()
-                        }
-                        onModelSaved()
-                    } catch (e: Exception) {
-                        Timber.e(e, "CardTemplateEditor:: saveNoteType() failed")
-
-                        confirmButton?.post {
-                            confirmButton.isEnabled = true
-                        }
-
-                        throw e
-                    }
-                }
+                // Use ViewModel's atomic save operation
+                // Activity's state collection handles SaveSuccess message to finish
+                viewModel.saveNotetype()
             } else {
                 Timber.d("CardTemplateEditor:: note type has not changed, exiting")
                 templateEditor.finish()
             }
-            return true
         }
 
         /**
@@ -1121,10 +1120,12 @@ open class CardTemplateEditor :
                 R.id.action_confirm -> {
                     Timber.i("CardTemplateEditor:: Save note type button pressed")
                     saveNoteType()
+                    return true
                 }
                 R.id.action_card_browser_appearance -> {
                     Timber.i("CardTemplateEditor::Card Browser Template button pressed")
                     openBrowserAppearance()
+                    return true
                 }
                 R.id.action_restore_to_default -> {
                     Timber.i("CardTemplateEditor:: Restore to default button pressed")
@@ -1210,7 +1211,6 @@ open class CardTemplateEditor :
             if (button != null) {
                 button.isEnabled = true
             }
-            templateEditor.tempNoteType = null
             templateEditor.finish()
         }
 
@@ -1320,17 +1320,6 @@ open class CardTemplateEditor :
                     return@registerForActivityResult
                 }
                 onCardBrowserAppearanceResult(result.data)
-            }
-        private var onRequestPreviewResult =
-            registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-                if (result.resultCode != RESULT_OK) {
-                    return@registerForActivityResult
-                }
-                CardTemplateNotetype.clearTempNoteTypeFiles()
-                // Make sure the fragments reinitialize, otherwise there is staleness on return
-                (templateEditor.mainBinding.cardTemplateEditorPager.adapter as TemplatePagerAdapter).ordinalShift()
-                templateEditor.mainBinding.cardTemplateEditorPager.adapter!!
-                    .notifyDataSetChanged()
             }
 
         private fun onCardBrowserAppearanceResult(data: Intent?) {

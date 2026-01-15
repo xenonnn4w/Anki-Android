@@ -16,6 +16,7 @@
 
 package com.ichi2.anki
 
+import android.os.Bundle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ichi2.anki.CollectionManager.withCol
@@ -33,9 +34,36 @@ class CardTemplateEditorViewModel : ViewModel() {
     val state: StateFlow<CardTemplateEditorState> = _state.asStateFlow()
 
     /**
+     * The current tempNotetype, or null if not yet loaded.
+     * This is a convenience property that directly accesses the state.
+     */
+    val tempNotetype: CardTemplateNotetype?
+        get() = (_state.value as? CardTemplateEditorState.Loaded)?.tempNotetype
+
+    /**
+     * Restores the tempNotetype from a saved instance state bundle.
+     * Returns true if restoration was successful, false if the notetype needs to be loaded from DB.
+     */
+    fun restoreFromBundle(bundle: Bundle): Boolean {
+        val restored = CardTemplateNotetype.fromBundle(bundle)
+        if (restored != null) {
+            Timber.d("Restored notetype from bundle: ${restored.notetype.name}")
+            _state.value = CardTemplateEditorState.Loaded(tempNotetype = restored)
+            return true
+        }
+        Timber.d("Could not restore notetype from bundle, will load from database")
+        return false
+    }
+
+    /**
      * Loads the notetype from the collection and transitions to Loaded state.
+     * Does nothing if tempNotetype is already set (i.e., already in Loaded state).
      */
     fun loadNotetype(noteTypeId: NoteTypeId) {
+        if (_state.value is CardTemplateEditorState.Loaded) {
+            Timber.d("Notetype already loaded, skipping")
+            return
+        }
         Timber.d("Loading notetype with id: $noteTypeId")
         viewModelScope.launch {
             try {
@@ -82,33 +110,6 @@ class CardTemplateEditorViewModel : ViewModel() {
     }
 
     /**
-     * Updates template content for the given ordinal and view type.
-     */
-    fun updateTemplateContent(
-        ord: CardOrdinal,
-        viewType: EditorViewType,
-        content: String,
-    ) {
-        val loadedState = _state.value as? CardTemplateEditorState.Loaded ?: return
-        val tempNotetype = loadedState.tempNotetype
-        // During ViewPager tab transitions, TextWatcher may fire with a stale ordinal
-        // (e.g. when switching from a note type with 3 templates to one with 2).
-        // The legacy code path handles the actual update, so we can safely skip here.
-        if (ord < 0 || ord >= tempNotetype.templateCount) {
-            Timber.w("updateTemplateContent: ord=$ord out of bounds (count=${tempNotetype.templateCount})")
-            return
-        }
-        val template = tempNotetype.getTemplate(ord)
-        when (viewType) {
-            EditorViewType.STYLING -> tempNotetype.css = content
-            EditorViewType.BACK -> template.afmt = content
-            EditorViewType.FRONT -> template.qfmt = content
-        }
-        tempNotetype.updateTemplate(ord, template)
-        Timber.d("Template content updated for ord=$ord, viewType=$viewType")
-    }
-
-    /**
      * Attempts to add a new template to the notetype.
      * Returns false if the notetype is cloze (cannot add templates).
      */
@@ -139,6 +140,35 @@ class CardTemplateEditorViewModel : ViewModel() {
         Timber.d("Removing template at ord=$ord")
         tempNotetype.removeTemplate(ord)
         return true
+    }
+
+    /**
+     * Saves the notetype to the database.
+     * Uses CardTemplateNotetype.saveToDatabase() which handles template add/delete operations
+     * followed by content updates atomically via undoableOp.
+     */
+    fun saveNotetype() {
+        val loadedState =
+            _state.value as? CardTemplateEditorState.Loaded ?: run {
+                Timber.w("saveNotetype called but not in Loaded state")
+                return
+            }
+        val tempNotetype = loadedState.tempNotetype
+        Timber.d("Saving notetype: ${tempNotetype.notetype.name}")
+        // Keep the loaded state but set isSaving flag via message (we use SaveSuccess after completion)
+        viewModelScope.launch {
+            try {
+                tempNotetype.saveToDatabase()
+                Timber.d("Notetype saved successfully")
+                updateLoadedState { it.copy(message = CardTemplateEditorState.UserMessage.SaveSuccess) }
+            } catch (e: Exception) {
+                Timber.e(e, "Failed to save notetype")
+                _state.value =
+                    CardTemplateEditorState.Error(
+                        CardTemplateEditorState.ReportableException(e),
+                    )
+            }
+        }
     }
 
     /**

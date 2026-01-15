@@ -18,12 +18,10 @@ package com.ichi2.anki
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.ichi2.testutils.JvmTest
-import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
-import kotlin.test.assertNull
 
 @RunWith(AndroidJUnit4::class)
 class CardTemplateEditorViewModelTest : JvmTest() {
@@ -63,13 +61,5 @@ class CardTemplateEditorViewModelTest : JvmTest() {
     fun `removeTemplate returns false when not in Loaded state`() {
         val viewModel = createViewModel()
         assertFalse(viewModel.removeTemplate(0))
-    }
-
-    @Test
-    fun `updateTemplateContent does nothing when not in Loaded state`() {
-        val viewModel = createViewModel()
-        // Should not crash
-        viewModel.updateTemplateContent(0, EditorViewType.FRONT, "test content")
-        assertTrue(viewModel.state.value is CardTemplateEditorState.Loading)
     }
 }
