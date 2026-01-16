@@ -21,7 +21,6 @@ import android.os.Bundle
 import android.os.Parcel
 import android.os.Parcelable
 import androidx.core.os.bundleOf
-import com.ichi2.anki.CollectionManager.withCol
 import com.ichi2.anki.common.annotations.NeedsTest
 import com.ichi2.anki.libanki.CardTemplate
 import com.ichi2.anki.libanki.NoteTypeId
@@ -109,33 +108,26 @@ class CardTemplateNotetype(
     }
 
     /**
-     * Handles everything for a note type change at once - template add / deletes as well as content updates
+     * Saves the notetype to the database atomically using updateDict().
+     *
+     * All template additions and deletions are applied to the in-memory notetype
+     * (the edited copy we've been working with), then saved in a single atomic operation.
+     * This avoids the previous issue where addTemplate() would immediately persist changes,
+     * causing data corruption if the final save failed (see Issue #19956).
      */
     suspend fun saveNoteType(
         notetype: NotetypeJson,
-        templateChanges: ArrayList<TemplateChange>,
+        @Suppress("UNUSED_PARAMETER") templateChanges: ArrayList<TemplateChange>,
     ) {
-        Timber.d("saveNoteType")
-        val oldNoteType = withCol { notetypes.get(notetype.id) }
+        Timber.d("saveNoteType() - atomic save via updateDict()")
 
-        val newTemplates = notetype.templates
-        for (change in templateChanges) {
-            val oldTemplates = oldNoteType!!.templates
-            when (change.type) {
-                ChangeType.ADD -> {
-                    Timber.d("saveNoteType() adding template %s", change.ordinal)
-                    withCol { notetypes.addTemplate(oldNoteType, newTemplates[change.ordinal]) }
-                }
-                ChangeType.DELETE -> {
-                    Timber.d("saveNoteType() deleting template currently at ordinal %s", change.ordinal)
-                    withCol { notetypes.removeTemplate(oldNoteType, oldTemplates[change.ordinal]) }
-                }
-            }
-        }
+        // The notetype already contains all template changes (adds/deletes/content edits)
+        // because we've been editing it in-memory. We just need to save it atomically.
+        //
+        // Previously, this method would call addTemplate()/removeTemplate() for each change,
+        // which caused immediate persistence and atomicity issues. Now we skip those calls
+        // and let updateDict() handle everything in one atomic operation.
 
-        // required for Rust: the modified time can't go backwards, and we updated the note type by adding fields
-        // This could be done better
-        notetype.mod = oldNoteType!!.mod
         undoableOp {
             notetypes.updateDict(notetype)
         }

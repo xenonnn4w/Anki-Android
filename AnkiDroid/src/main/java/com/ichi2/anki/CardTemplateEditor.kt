@@ -78,18 +78,15 @@ import com.ichi2.anki.dialogs.DeckSelectionDialog.DeckSelectionListener
 import com.ichi2.anki.dialogs.DiscardChangesDialog
 import com.ichi2.anki.dialogs.InsertFieldDialog
 import com.ichi2.anki.libanki.CardOrdinal
-import com.ichi2.anki.libanki.CardTemplates
 import com.ichi2.anki.libanki.Collection
 import com.ichi2.anki.libanki.Note
 import com.ichi2.anki.libanki.NoteId
 import com.ichi2.anki.libanki.NoteTypeId
 import com.ichi2.anki.libanki.NotetypeJson
-import com.ichi2.anki.libanki.Notetypes
 import com.ichi2.anki.libanki.Notetypes.Companion.NOT_FOUND_NOTE_TYPE
 import com.ichi2.anki.libanki.exception.ConfirmModSchemaException
 import com.ichi2.anki.libanki.getStockNotetype
 import com.ichi2.anki.libanki.getStockNotetypeKinds
-import com.ichi2.anki.libanki.utils.append
 import com.ichi2.anki.model.SelectableDeck
 import com.ichi2.anki.notetype.RenameCardTemplateDialog
 import com.ichi2.anki.notetype.RepositionCardTemplateDialog
@@ -113,11 +110,9 @@ import com.ichi2.utils.show
 import dev.androidbroadcast.vbpd.viewBinding
 import kotlinx.coroutines.launch
 import net.ankiweb.rsdroid.Translations
-import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
 import timber.log.Timber
-import java.util.regex.Pattern
 import kotlin.math.max
 import kotlin.math.min
 import kotlin.time.Duration.Companion.seconds
@@ -279,6 +274,29 @@ open class CardTemplateEditor :
                                     }
                                     CardTemplateEditorState.UserMessage.DeletionWouldOrphanNote ->
                                         showSnackbar(getString(R.string.orphan_note_message))
+                                    CardTemplateEditorState.UserMessage.TemplateAdded -> {
+                                        // Template was added, refresh UI and go to the new template
+                                        val adapter = mainBinding.cardTemplateEditorPager.adapter
+                                        (adapter as? TemplatePagerAdapter)?.ordinalShift()
+                                        adapter?.notifyDataSetChanged()
+                                        val newPosition = (tempNoteType?.templateCount ?: 1) - 1
+                                        mainBinding.cardTemplateEditorPager.setCurrentItem(newPosition, animationDisabled())
+                                        loadTemplatePreviewerFragmentIfFragmented()
+                                    }
+                                    CardTemplateEditorState.UserMessage.TemplateDeleted -> {
+                                        // Template was deleted, refresh UI
+                                        val adapter = mainBinding.cardTemplateEditorPager.adapter
+                                        (adapter as? TemplatePagerAdapter)?.ordinalShift()
+                                        adapter?.notifyDataSetChanged()
+                                        val newPosition = (tempNoteType?.templateCount ?: 1) - 1
+                                        mainBinding.cardTemplateEditorPager.setCurrentItem(newPosition, animationDisabled())
+                                        loadTemplatePreviewerFragmentIfFragmented()
+                                    }
+                                    CardTemplateEditorState.UserMessage.TemplateRenamed -> {
+                                        // Template was renamed, refresh tabs and previewer
+                                        mainBinding.cardTemplateEditorPager.adapter?.notifyDataSetChanged()
+                                        loadTemplatePreviewerFragmentIfFragmented()
+                                    }
                                 }
                                 viewModel.clearMessage()
                             }
@@ -852,15 +870,8 @@ open class CardTemplateEditor :
                 requireContext(),
                 prefill = template.name,
             ) { newName ->
-                template.name = newName
-                Timber.i("updated card template name")
-                Timber.d("updated name of template %d to '%s'", ordinal, newName)
-
-                // update the tab
-                templateEditor.mainBinding.cardTemplateEditorPager.adapter!!
-                    .notifyDataSetChanged()
-                // Update the tab name in previewer
-                templateEditor.loadTemplatePreviewerFragmentIfFragmented()
+                viewModel.renameTemplate(ordinal, newName)
+                Timber.i("updated card template name via ViewModel")
             }
         }
 
@@ -959,7 +970,7 @@ open class CardTemplateEditor :
                     } else {
                         0
                     }
-                confirmDeleteCards(template, tempModel.notetype, numAffectedCards)
+                confirmDeleteCards(template, numAffectedCards)
             }
         }
 
@@ -998,7 +1009,7 @@ open class CardTemplateEditor :
                 } else {
                     0
                 }
-            confirmAddCards(templateEditor.tempNoteType!!.notetype, numAffectedCards)
+            confirmAddCards(numAffectedCards)
         }
 
         @NeedsTest("Ensure save button is enabled in case of exception")
@@ -1341,12 +1352,10 @@ open class CardTemplateEditor :
          * Confirm if the user wants to delete all the cards associated with current template
          *
          * @param tmpl template to remove
-         * @param notetype note type to remove template from, modified in place by reference
          * @param numAffectedCards number of cards which will be affected
          */
         private fun confirmDeleteCards(
             tmpl: BackendCardTemplate,
-            notetype: NotetypeJson,
             numAffectedCards: Int,
         ) {
             val d = ConfirmationDialog()
@@ -1361,7 +1370,10 @@ open class CardTemplateEditor :
                 )
             d.setArgs(msg)
 
-            val deleteCard = Runnable { deleteTemplate(tmpl, notetype) }
+            val deleteCard =
+                Runnable {
+                    viewModel.deleteTemplate(tmpl.ord)
+                }
             val confirm = Runnable { executeWithSyncCheck(deleteCard) }
             d.setConfirm(confirm)
             templateEditor.showDialogFragment(d)
@@ -1369,13 +1381,9 @@ open class CardTemplateEditor :
 
         /**
          * Confirm if the user wants to add new card template
-         * @param notetype note type to add new template and modified in place by reference
          * @param numAffectedCards number of cards which will be affected
          */
-        private fun confirmAddCards(
-            notetype: NotetypeJson,
-            numAffectedCards: Int,
-        ) {
+        private fun confirmAddCards(numAffectedCards: Int) {
             val d = ConfirmationDialog()
             val msg =
                 String.format(
@@ -1387,7 +1395,11 @@ open class CardTemplateEditor :
                 )
             d.setArgs(msg)
 
-            val addCard = Runnable { addNewTemplate(notetype) }
+            val sourceOrd = templateEditor.mainBinding.cardTemplateEditorPager.currentItem
+            val addCard =
+                Runnable {
+                    viewModel.addNewTemplate(sourceOrd)
+                }
             val confirm = Runnable { executeWithSyncCheck(addCard) }
             d.setConfirm(confirm)
             templateEditor.showDialogFragment(d)
@@ -1424,104 +1436,6 @@ open class CardTemplateEditor :
                 d.setConfirm(confirm)
                 d.setCancel(cancel)
                 templateEditor.showDialogFragment(d)
-            }
-        }
-
-        /**
-         * @param tmpl template to remove
-         * @param notetype note type to remove from, updated in place by reference
-         */
-        private fun deleteTemplate(
-            tmpl: BackendCardTemplate,
-            notetype: NotetypeJson,
-        ) {
-            val oldTemplates = notetype.templates
-            val newTemplates = CardTemplates(JSONArray())
-            for (possibleMatch in oldTemplates) {
-                if (possibleMatch.ord != tmpl.ord) {
-                    newTemplates.append(possibleMatch)
-                } else {
-                    Timber.d("deleteTemplate() found match - removing template with ord %s", possibleMatch.ord)
-                    templateEditor.tempNoteType!!.removeTemplate(possibleMatch.ord)
-                }
-            }
-            notetype.templates = newTemplates
-            Notetypes._updateTemplOrds(notetype)
-            // Make sure the fragments reinitialize, otherwise the reused ordinal causes staleness
-            (templateEditor.mainBinding.cardTemplateEditorPager.adapter as TemplatePagerAdapter).ordinalShift()
-            templateEditor.mainBinding.cardTemplateEditorPager.adapter!!
-                .notifyDataSetChanged()
-            templateEditor.mainBinding.cardTemplateEditorPager.setCurrentItem(
-                newTemplates.length() - 1,
-                templateEditor.animationDisabled(),
-            )
-        }
-
-        /**
-         * Add new template to a given note type
-         * @param noteType note type to add new template to
-         */
-        private fun addNewTemplate(noteType: NotetypeJson) {
-            // Build new template
-            val oldCardIndex = requireArguments().getInt(CARD_INDEX)
-            val templates = noteType.templates
-            val oldTemplate = templates[oldCardIndex]
-            val newTemplate = Notetypes.newTemplate(newCardName(templates))
-            // Set up question & answer formats
-            newTemplate.qfmt = oldTemplate.qfmt
-            newTemplate.afmt = oldTemplate.afmt
-            // Reverse the front and back if only one template
-            if (templates.length() == 1) {
-                flipQA(newTemplate)
-            }
-            val lastExistingOrd = templates.last().ord
-            Timber.d("addNewTemplate() lastExistingOrd was %s", lastExistingOrd)
-            newTemplate.setOrd(lastExistingOrd + 1)
-            templates.append(newTemplate)
-            templateEditor.tempNoteType!!.addNewTemplate(newTemplate)
-            templateEditor.mainBinding.cardTemplateEditorPager.adapter!!
-                .notifyDataSetChanged()
-            templateEditor.mainBinding.cardTemplateEditorPager.setCurrentItem(
-                templates.length() - 1,
-                templateEditor.animationDisabled(),
-            )
-        }
-
-        /**
-         * Flip the question and answer side of the template
-         * @param template template to flip
-         */
-        @KotlinCleanup("Use Kotlin's Regex methods")
-        private fun flipQA(template: BackendCardTemplate) {
-            val qfmt = template.qfmt
-            val afmt = template.afmt
-            val m = Pattern.compile("(?s)(.+)<hr id=answer>(.+)").matcher(afmt)
-            template.qfmt =
-                if (!m.find()) {
-                    afmt.replace("{{FrontSide}}", "")
-                } else {
-                    m.group(2)!!.trim()
-                }
-            template.afmt = "{{FrontSide}}\n\n<hr id=answer>\n\n$qfmt"
-        }
-
-        /**
-         * Get name for new template
-         * @param templates array of templates which is being added to
-         * @return name for new template
-         */
-        private fun newCardName(templates: CardTemplates): String {
-            // Start by trying to set the name to "Card n" where n is the new num of templates
-            var n = templates.length() + 1
-            // If the starting point for name already exists, iteratively increase n until we find a unique name
-            while (true) {
-                // Get new name
-                val name = TR.cardTemplatesCard(n)
-                // Cycle through all templates checking if new name exists
-                if (templates.all { name != it.name }) {
-                    return name
-                }
-                n += 1
             }
         }
 

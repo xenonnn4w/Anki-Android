@@ -62,6 +62,9 @@ sealed class CardTemplateEditorState {
         CantAddTemplateToDynamic,
         SaveSuccess,
         DeletionWouldOrphanNote,
+        TemplateAdded,
+        TemplateDeleted,
+        TemplateRenamed,
     }
 
     /**

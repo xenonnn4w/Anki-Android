@@ -21,13 +21,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ichi2.anki.CollectionManager.withCol
 import com.ichi2.anki.libanki.CardOrdinal
+import com.ichi2.anki.libanki.CardTemplate
+import com.ichi2.anki.libanki.CardTemplates
 import com.ichi2.anki.libanki.NoteTypeId
+import com.ichi2.anki.libanki.Notetypes
+import com.ichi2.anki.libanki.utils.append
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import org.json.JSONArray
 import timber.log.Timber
+import java.util.regex.Pattern
 
 class CardTemplateEditorViewModel : ViewModel() {
     private val _state = MutableStateFlow<CardTemplateEditorState>(CardTemplateEditorState.Loading)
@@ -110,36 +116,143 @@ class CardTemplateEditorViewModel : ViewModel() {
     }
 
     /**
-     * Attempts to add a new template to the notetype.
-     * Returns false if the notetype is cloze (cannot add templates).
+     * Adds a new template based on an existing template.
+     * Copies the question/answer format from the source template.
+     *
+     * @param sourceTemplateOrd ordinal of the template to copy from
+     * @return ordinal of the newly added template, -1 if failed
      */
-    fun addTemplate(): Boolean {
-        val loadedState = _state.value as? CardTemplateEditorState.Loaded ?: return false
+    fun addNewTemplate(sourceTemplateOrd: CardOrdinal): Int {
+        val loadedState = _state.value as? CardTemplateEditorState.Loaded ?: return -1
         val tempNotetype = loadedState.tempNotetype
-        if (tempNotetype.notetype.isCloze) {
+        val notetype = tempNotetype.notetype
+
+        if (notetype.isCloze) {
             Timber.w("Cannot add template to cloze notetype")
             updateLoadedState { it.copy(message = CardTemplateEditorState.UserMessage.CantAddTemplateToDynamic) }
-            return false
+            return -1
         }
-        Timber.d("Adding new template")
-        return true
+
+        val templates = notetype.templates
+
+        if (sourceTemplateOrd < 0 || sourceTemplateOrd >= templates.length()) {
+            Timber.w("Invalid source template ordinal: $sourceTemplateOrd")
+            return -1
+        }
+
+        val sourceTemplate = templates[sourceTemplateOrd]
+        val newTemplate = Notetypes.newTemplate(generateNewCardName(templates))
+
+        // Copy question & answer formats from source
+        newTemplate.qfmt = sourceTemplate.qfmt
+        newTemplate.afmt = sourceTemplate.afmt
+
+        // Flip Q/A if this is the first additional template
+        if (templates.length() == 1) {
+            flipQA(newTemplate)
+        }
+
+        val lastExistingOrd = templates.last().ord
+        newTemplate.setOrd(lastExistingOrd + 1)
+        templates.append(newTemplate)
+        tempNotetype.addNewTemplate(newTemplate)
+
+        Timber.d("Added new template at ord=${newTemplate.ord}")
+        updateLoadedState { it.copy(message = CardTemplateEditorState.UserMessage.TemplateAdded) }
+
+        return templates.length() - 1
     }
 
     /**
-     * Attempts to remove the template at the given ordinal.
-     * Returns false if this is the last template.
+     * Deletes a template from the notetype.
+     *
+     * @param templateOrd ordinal of the template to delete
+     * @return true if deletion was successful
      */
-    fun removeTemplate(ord: CardOrdinal): Boolean {
+    fun deleteTemplate(templateOrd: CardOrdinal): Boolean {
         val loadedState = _state.value as? CardTemplateEditorState.Loaded ?: return false
         val tempNotetype = loadedState.tempNotetype
+        val notetype = tempNotetype.notetype
+
         if (tempNotetype.templateCount < 2) {
             Timber.w("Cannot delete last template")
             updateLoadedState { it.copy(message = CardTemplateEditorState.UserMessage.CantDeleteLastTemplate) }
             return false
         }
-        Timber.d("Removing template at ord=$ord")
-        tempNotetype.removeTemplate(ord)
+
+        val oldTemplates = notetype.templates
+        val newTemplates = CardTemplates(JSONArray())
+
+        for (template in oldTemplates) {
+            if (template.ord != templateOrd) {
+                newTemplates.append(template)
+            } else {
+                Timber.d("deleteTemplate() removing template with ord $templateOrd")
+                tempNotetype.removeTemplate(template.ord)
+            }
+        }
+
+        notetype.templates = newTemplates
+        Notetypes._updateTemplOrds(notetype)
+
+        Timber.d("Template deleted at ord=$templateOrd")
+        updateLoadedState { it.copy(message = CardTemplateEditorState.UserMessage.TemplateDeleted) }
+
         return true
+    }
+
+    /**
+     * Renames a template.
+     *
+     * @param templateOrd ordinal of the template to rename
+     * @param newName the new name for the template
+     * @return true if rename was successful
+     */
+    fun renameTemplate(
+        templateOrd: CardOrdinal,
+        newName: String,
+    ): Boolean {
+        val loadedState = _state.value as? CardTemplateEditorState.Loaded ?: return false
+        val tempNotetype = loadedState.tempNotetype
+        val template = tempNotetype.getTemplate(templateOrd)
+
+        template.name = newName
+        Timber.d("Renamed template $templateOrd to '$newName'")
+        updateLoadedState { it.copy(message = CardTemplateEditorState.UserMessage.TemplateRenamed) }
+
+        return true
+    }
+
+    /**
+     * Generates a unique name for a new card template.
+     */
+    private fun generateNewCardName(templates: CardTemplates): String {
+        var n = templates.length() + 1
+        while (true) {
+            val name = CollectionManager.TR.cardTemplatesCard(n)
+            if (templates.all { name != it.name }) {
+                return name
+            }
+            n += 1
+        }
+    }
+
+    /**
+     * Flips the question and answer sides of a template.
+     * Used when adding a second template to create a reversed card.
+     */
+    private fun flipQA(template: CardTemplate) {
+        val qfmt = template.qfmt
+        val afmt = template.afmt
+        val pattern = Pattern.compile("(?s)(.+)<hr id=answer>(.+)")
+        val matcher = pattern.matcher(afmt)
+        template.qfmt =
+            if (!matcher.find()) {
+                afmt.replace("{{FrontSide}}", "")
+            } else {
+                matcher.group(2)!!.trim()
+            }
+        template.afmt = "{{FrontSide}}\n\n<hr id=answer>\n\n$qfmt"
     }
 
     /**
@@ -155,7 +268,6 @@ class CardTemplateEditorViewModel : ViewModel() {
             }
         val tempNotetype = loadedState.tempNotetype
         Timber.d("Saving notetype: ${tempNotetype.notetype.name}")
-        // Keep the loaded state but set isSaving flag via message (we use SaveSuccess after completion)
         viewModelScope.launch {
             try {
                 tempNotetype.saveToDatabase()
